@@ -1,0 +1,21 @@
+{
+  "name": "swagger_ge",
+  "version": "1.0.0",
+  "description": "This project is used to create an application to graphically create swagger documents.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0",
+    "karma": "^0.13.9"
+  }
+}

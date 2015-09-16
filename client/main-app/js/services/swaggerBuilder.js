@@ -1,0 +1,4 @@
+swaggerGE.factory("swaggerBuilder", [function(){
+
+
+}]);

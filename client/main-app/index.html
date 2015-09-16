@@ -1,0 +1,117 @@
+<html lang="en-us" >
+    <head>
+        <title>Swagger Graphical Editor</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+        
+        <!-- load bootstrap and fontawesome via CDN -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+        
+        <!-- load import scripts -->
+        <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
+        <script src="//code.angularjs.org/1.4.3/angular-route.min.js"></script>
+        <script src="//code.angularjs.org/1.4.3/angular-resource.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers/swagInfoController.js"></script>
+        <script src="js/services/baseInfoService.js"></script>
+        <script src="js/directives/swaggerInfoItem.js"></script>
+        <script src="js/controllers/swaggerPathController.js"></script>
+        <script src="js/services/pathService.js"></script>
+    </head>
+    
+    <body ng-app="SwaggerGraphicalEditor" >
+        
+        <header>
+			<nav class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/">Swagger Graphical Editor</a>
+                    </div>
+
+                    <!--<ul class="nav navbar-nav navbar-right">
+                        <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
+                    </ul>-->
+                </div>
+			</nav> 
+		</header>
+        
+        <div class="container" ng-controller="BaseSwaggerInfo">
+            
+            <a ng-click="toggleInfo()"><h3>info</h3></a>
+            
+            <div class="container" ng-hide="showInfo == false">
+            
+                <info-item enabled-info="editorEnabled" swagger-base="basicInfo.info" item="title" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+                <info-item enabled-info="editorEnabled" swagger-base="basicInfo.info" item="description" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+                <info-item enabled-info="editorEnabled" swagger-base="basicInfo.info" item="termsOfService" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+                <a ng-click="toggleContact()"><h3>contact</h3></a>
+
+                <div class="container" ng-hide="showContact == false">
+
+                    <info-item enabled-info="editorEnabled" swagger-base="basicInfo.info.contact" item="name" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+                    <info-item  enabled-info="editorEnabled" swagger-base="basicInfo.info.contact" item="url" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+                    <info-item enabled-info="editorEnabled" swagger-base="basicInfo.info.contact" item="email" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+                </div>
+            
+                <a ng-click="showLicense = !showLicense"><h3>license</h3></a>
+
+                <div class="container" ng-hide="showLicense == false">
+
+                    <info-item enabled-info="editorEnabled" swagger-base="basicInfo.info.license" item="name" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+                    <info-item  enabled-info="editorEnabled" swagger-base="basicInfo.info.license" item="url" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+                </div>
+                
+                <info-item  enabled-info="editorEnabled" swagger-base="basicInfo.info" item="version" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+                
+            </div>
+            
+            <info-item  enabled-info="editorEnabled" swagger-base="basicInfo" item="host" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+            
+            <info-item  enabled-info="editorEnabled" swagger-base="basicInfo" item="basePath" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+            
+            <info-item  enabled-info="editorEnabled" swagger-base="basicInfo" item="schemes" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+            <info-item  enabled-info="editorEnabled" swagger-base="basicInfo" item="consumes" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+            
+            <info-item  enabled-info="editorEnabled" swagger-base="basicInfo" item="produces" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+
+            {{ basicInfo }}
+        </div>
+        
+        <div class="container" ng-controller="swaggerPaths">
+            <h2>Paths</h2> 
+            
+            
+            
+            
+            
+            <input type="button" ng-click="addPath()" value="addPath" class="btn btn-primary">
+            
+            <input path-creator type="button" value="add path">
+            
+            <div class="container" id="addPath">
+                
+            </div>
+            
+            <div ng-repeat="path in paths">
+                <input type="text" ng-model="path.newName"> 
+                <input type="button" ng-click="updatePathName(path.currentName, path)" value="change" class="btn btn-primary"> 
+                <input type="button" ng-click="deletePath(paths, $index)" value="delete" class="btn btn-primary">
+                {{$index}}
+                {{path}} 
+            </div>
+            
+        </div>
+        
+    
+    </body>
+</html>
