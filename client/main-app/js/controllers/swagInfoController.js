@@ -5,6 +5,8 @@ swaggerGE.controller("BaseSwaggerInfo", ['$scope', '$log', 'swaggerBaseInfo', fu
     $scope.showContact = false;
     $scope.showLicense = false;
     
+    $scope.editorEnabled = "";
+    
     $scope.toggleInfo = function(){
         $scope.showInfo = !$scope.showInfo;
     };
@@ -13,12 +15,23 @@ swaggerGE.controller("BaseSwaggerInfo", ['$scope', '$log', 'swaggerBaseInfo', fu
         $scope.showContact = !$scope.showContact;   
     };
     
+    //used to test the base info singleton
+    $scope.service = swaggerBase.getSwaggerInfo();
+    
     //get the basic info.
     $scope.basicInfo = swaggerBase.newBaseInfo();
     
-    $scope.editorEnabled = "";
+    //watch for changes in the basic info and update the service
+    $scope.$watch('basicInfo',function(){
+        //swaggerBase.baseInfo = $scope.basicInfo;
+        swaggerBase.setSwaggerInfo($scope.basicInfo);
+        //console.log(swaggerBase.getSwaggerInfo());
+        //$scope.service = swaggerBase.getSwaggerInfo();
+    }, true); // allow for a deep search of the object
     
-    $scope.testTitle = "title";
+    
+    
+    //$scope.testTitle = "title";
     
     $scope.disableEditors= function(){
         $scope.editorEnabled = "";
@@ -29,47 +42,4 @@ swaggerGE.controller("BaseSwaggerInfo", ['$scope', '$log', 'swaggerBaseInfo', fu
         //console.log($scope.editorEnabled);
     };
     
-    
-    //The basic information for a swagger definition
-    var swaggerSkeleton = function(swaggerInfo){
-       return { 
-           swagger: "",
-            info: {
-                title: "",
-                description: "",
-                termsOfService: "",
-                contact: {
-                    name: "",
-                    url: "",
-                    email: "",
-                },
-                license: {
-                    name: "",
-                    url: ""
-                },
-                version: "",
-            },
-           host: "",
-           basePath: "",
-           schemes: "",
-           consumes: "",
-           produces: "",
-           paths: {},
-           definitions: {},
-           parameters: {},
-           responses: {},
-           securityDefinitions: {},
-           security: {},
-           tags: {},
-           externalDocs: {},
-        }
-    }
-    
-    var basicInfo1 = swaggerBase.newBaseInfo();
-    var basicInfo2 = swaggerBase.newBaseInfo();
-    
-    basicInfo2.info.title = "suck it!";
-    
-    console.log(basicInfo1);
-    console.log(basicInfo2);
 }]);

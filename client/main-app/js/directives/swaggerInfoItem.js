@@ -12,8 +12,8 @@ swaggerGE.directive("infoItem", [function(){
         },
         link: 
             function(scope, element, attrs ){ 
-                console.log(element);
-                console.log(attrs);
+                //console.log(element);
+                //console.log(attrs);
                 
                 //element.bind('click',)
             }   

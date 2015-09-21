@@ -7,16 +7,22 @@
         <!-- load bootstrap and fontawesome via CDN -->
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
         
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        
         <!-- load import scripts -->
         <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
         <script src="//code.angularjs.org/1.4.3/angular-route.min.js"></script>
         <script src="//code.angularjs.org/1.4.3/angular-resource.min.js"></script>
+        <script src="//code.angularjs.org/1.4.6/angular-animate.min.js"></script>
         <script src="js/app.js"></script>
         <script src="js/controllers/swagInfoController.js"></script>
         <script src="js/services/baseInfoService.js"></script>
         <script src="js/directives/swaggerInfoItem.js"></script>
         <script src="js/controllers/swaggerPathController.js"></script>
         <script src="js/services/pathService.js"></script>
+        <script src="js/controllers/swaggerResponseController.js"></script>
+        <script src="js/services/swaggerCompilerService.js"></script>
     </head>
     
     <body ng-app="SwaggerGraphicalEditor" >
@@ -36,6 +42,8 @@
 		</header>
         
         <div class="container" ng-controller="BaseSwaggerInfo">
+            
+            
             
             <a ng-click="toggleInfo()"><h3>info</h3></a>
             
@@ -92,22 +100,55 @@
             
             
             
-            
+            {{ swagger  }}
             
             <input type="button" ng-click="addPath()" value="addPath" class="btn btn-primary">
             
-            <input path-creator type="button" value="add path">
+            <!--input path-creator type="button" value="add path">
             
             <div class="container" id="addPath">
                 
-            </div>
+            </div-->
             
             <div ng-repeat="path in paths">
+                <div ng-if="path.isUnique === false" class="alert alert-danger" role="alert">Error: Enter a unique path</div>
                 <input type="text" ng-model="path.newName"> 
                 <input type="button" ng-click="updatePathName(path.currentName, path)" value="change" class="btn btn-primary"> 
                 <input type="button" ng-click="deletePath(paths, $index)" value="delete" class="btn btn-primary">
-                {{$index}}
-                {{path}} 
+                
+                <div class="container">
+                    <span class="container">
+                        <div class=" btn-group" role="group" aria-label="...">
+                            <button ng-class="{ 'active' :path.selectedVerb == 'post'}" type="button" class="btn btn-default" ng-click="selectVerb(path, 'post')">Post</button>
+                            <button ng-class="{ 'active' :path.selectedVerb == 'put'}" type="button" class="btn btn-default" ng-click="selectVerb(path, 'put')">Put</button>
+                            <button ng-class="{ 'active' :path.selectedVerb == 'get'}"type="button" class="btn btn-default" ng-click="selectVerb(path, 'get')">Get</button>
+                            <button ng-class="{ 'active' :path.selectedVerb == 'delete'}" type="button" class="btn btn-default" ng-click="selectVerb(path, 'delete')">Delete</button>
+                            <button type="button" class="btn btn-default" ng-click="deleteVerb(path)">remove current verb</button>
+                            <button type="button" class="btn btn-default" ng-click="path.isCollapsed = !path.isCollapsed">toggle</button>
+                        </div>
+                        <div class="container" ng-if="path.selectedVerb">
+                            <div collapse="path.isCollapsed">
+                                <h3>{{ path.selectedVerb }}</h3>
+                                <div class="container" ng-model="path.pathDefinition[path.currentName][path.selectedVerb]">
+                                    <info-item  enabled-info="editorEnabled" swagger-base="path.pathDefinition[path.currentName][path.selectedVerb]" item="tags" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+                                    <info-item  enabled-info="editorEnabled" swagger-base="path.pathDefinition[path.currentName][path.selectedVerb]" item="summary" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+                                    <info-item  enabled-info="editorEnabled" swagger-base="path.pathDefinition[path.currentName][path.selectedVerb]" item="description" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+                                    <info-item  enabled-info="editorEnabled" swagger-base="path.pathDefinition[path.currentName][path.selectedVerb]" item="operationId" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+                                    <info-item  enabled-info="editorEnabled" swagger-base="path.pathDefinition[path.currentName][path.selectedVerb]" item="produces" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+                                    <info-item  enabled-info="editorEnabled" swagger-base="path.pathDefinition[path.currentName][path.selectedVerb]" item="consumes" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+                                    <info-item  enabled-info="editorEnabled" swagger-base="path.pathDefinition[path.currentName][path.selectedVerb]" item="schemes" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+                                    <info-item  enabled-info="editorEnabled" swagger-base="path.pathDefinition[path.currentName][path.selectedVerb]" item="deprecated" disable-edit="disableEditors()" enable-edit="enableEditor(property)"></info-item>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                        
+                    {{$index}}
+                    {{path}} 
+                </div>
+    
+                
+                
             </div>
             
         </div>
