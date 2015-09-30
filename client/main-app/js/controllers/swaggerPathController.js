@@ -11,6 +11,8 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     
     $scope.swagger = swaggerCompiler.getSwaggerFile();
     
+    $scope.showPaths = true;
+    
     //used to test the
     $scope.ps = swaggerPaths.getPaths();
     
@@ -34,6 +36,10 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
         $scope.editorEnabled = property;
         //console.log($scope.editorEnabled);
     };
+    
+    $scope.togglePaths = function(){
+        $scope.showPaths = !$scope.showPaths;
+    }
     
     /*
         Used to update the path name in the path definition since the path name is the key
