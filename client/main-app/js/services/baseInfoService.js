@@ -1,9 +1,12 @@
-swaggerGE.service("swaggerBaseInfo", ["swaggerCompiler",function(swaggerCompiler){
+swaggerGE.service("swaggerBaseService", ["swaggerCompiler",function(swaggerCompiler){
 
     var self = this;
     var swaggerInfo = {};
     
     return{
+        /*
+            TODO: Have the passed object be copied to swaggerInfo instead of being assigned by reference.
+        */
         setSwaggerInfo: function(newInfo){
             swaggerInfo = newInfo;
             swaggerCompiler.updateInfo(swaggerInfo);
@@ -36,7 +39,7 @@ swaggerGE.service("swaggerBaseInfo", ["swaggerCompiler",function(swaggerCompiler
                     },
                    host: "",
                    basePath: "",
-                   schemes: "",
+                   schemes: [],
                    consumes: "",
                    produces: ""
             }

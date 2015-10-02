@@ -38,7 +38,11 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     };
     
     $scope.togglePaths = function(){
-        $scope.showPaths = !$scope.showPaths;
+        //make sure there are paths to show
+        if($scope.paths.length > 0)
+            $scope.showPaths = !$scope.showPaths;
+        
+        console.log($scope.showPaths);
     }
     
     /*
