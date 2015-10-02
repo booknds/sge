@@ -4,6 +4,8 @@ swaggerGE.controller("BaseSwaggerInfo", ['$scope', '$log', 'swaggerBaseInfo', fu
     $scope.showInfo = false;
     $scope.showContact = false;
     $scope.showLicense = false;
+    $scope.preventUpdate = true;
+    $scope.toastMessage = "";
     
     $scope.editorEnabled = "";
     
@@ -29,7 +31,30 @@ swaggerGE.controller("BaseSwaggerInfo", ['$scope', '$log', 'swaggerBaseInfo', fu
         //$scope.service = swaggerBase.getSwaggerInfo();
     }, true); // allow for a deep search of the object
     
+    //watch for baseinfo version and title
+    $scope.$watch('basicInfo.info.title', function(){
+        $scope.checkMinRequirements();
+        console.log($scope.basicInfo.info.title)
+    }, false);
+    $scope.$watch('basicInfo.info.version', function(){
+        $scope.checkMinRequirements();
+    }, false);
     
+    $scope.checkMinRequirements = function(){
+        if(!$scope.basicInfo.info.title && !$scope.basicInfo.info.version){
+            $scope.preventUpdate = true;
+            $scope.toastMessage = "Please fill out Title and Version";
+        }else if(!$scope.basicInfo.info.title){
+            $scope.preventUpdate = true;
+            $scope.toastMessage = "Please fill out Title";
+        }else if(!$scope.basicInfo.info.version){
+            $scope.preventUpdate = true;
+            $scope.toastMessage = "Please fill out Version";
+        }else{
+            $scope.preventUpdate = false;
+            $scope.toastMessage = "";
+        }
+    }
     
     //$scope.testTitle = "title";
     
