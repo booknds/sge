@@ -14,3 +14,14 @@ swaggerGE.directive("pathCreator", ['$compile', function($compile) {
         }
     }
 }]);
+
+swaggerGE.directive("pathModal", ["$interval", function($interval) {
+    return {
+        restrict: "A",
+        link: function(scope, elem, attrs) {
+            //On click
+            $('.modal-trigger').leanModal();
+            
+        }
+    }
+}]);

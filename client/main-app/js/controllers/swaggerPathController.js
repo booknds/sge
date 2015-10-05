@@ -13,8 +13,21 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     
     $scope.showPaths = true;
     
+    $scope.newPathName = "";
+    
+    $scope.preventPath = true;
+    
     //used to test the
     $scope.ps = swaggerPaths.getPaths();
+    
+    //watch when
+    $scope.$watch("newPathName", function(){
+        //only check if unique if it is not blank
+        if($scope.newPathName)
+              $scope.preventPath = isUnique($scope.newPathName) ? false : true; 
+        else
+            $scope.preventPath = true;
+    });
     
     $scope.$watchCollection("paths", function() {
        // swaggerPaths.setPaths($scope.paths);
@@ -26,35 +39,24 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
        // $scope.swagger = swaggerCompiler.getSwaggerFile();
     });
     
-    $scope.editorEnabled = "";
-    
-    $scope.disableEditors= function(){
-        $scope.editorEnabled = "";
-    };
-    
-    $scope.enableEditor= function(property){
-        $scope.editorEnabled = property;
-        //console.log($scope.editorEnabled);
-    };
-    
     $scope.togglePaths = function(){
         //make sure there are paths to show
         if($scope.paths.length > 0)
             $scope.showPaths = !$scope.showPaths;
         
-        console.log($scope.showPaths);
+        //console.log($scope.showPaths);
     }
     
     /*
         Used to update the path name in the path definition since the path name is the key
         of the path object
     */
-    $scope.updatePathName = function (oldPropertyName, pathObject){
+    $scope.updatePathName = function (oldPathName, pathObject){
         
-        if(pathObject.pathDefinition.hasOwnProperty(oldPropertyName) && pathObject.newName){
+        if(pathObject.pathDefinition.hasOwnProperty(oldPathName) && pathObject.newName){
            
-            pathObject.pathDefinition[pathObject.newName] = pathObject.pathDefinition[oldPropertyName];
-            delete pathObject.pathDefinition[oldPropertyName];
+            pathObject.pathDefinition[pathObject.newName] = pathObject.pathDefinition[oldPathName];
+            delete pathObject.pathDefinition[oldPathName];
            
             pathObject.currentName= pathObject.newName;
            //pathObject.newName = "";
@@ -70,8 +72,27 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
         Add a new path object to the array containing all the paths
     */
     $scope.addPath = function(){
-        $scope.paths.push(new swaggerPaths.newPath());
-        updateUniquePaths();
+        
+        //if(isUnique($scope.newPathName)){  
+            $scope.paths.push(new swaggerPaths.newPath());
+            
+            latestPathLocation = $scope.paths.length - 1;
+        
+            $scope.paths[latestPathLocation].newName = $scope.newPathName;
+            
+            $scope.updatePathName($scope.paths[latestPathLocation].currentName, $scope.paths[latestPathLocation])
+        
+            //reset path creation variables
+            $scope.newPathName = "";
+            $scope.preventPath = true;
+        //}else{
+            
+        //}
+        
+        
+        
+        
+        
        // console.log($scope.paths);
     };
     
@@ -117,22 +138,38 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
         
         TODO: OPTIMIZE TO A BETTER SEARCH ALGORITHM
     */
-    var updateUniquePaths = function(path, index) {
+    var updateUniquePaths = function() {
         console.log("UPDATE UNIQUE");
         for(var i=0; i < $scope.paths.length; i++){
             var currentPathName = $scope.paths[i].currentName;
-
+            //console.log("\tcurrent path[" + i + "]: " + currentPathName);
+            
             var isUnique = true;
 
             for(var j=0; j < $scope.paths.length; j++){
-                if($scope.paths[i].currentName === $scope.paths[j].currentName && i != j)
-                    unique = false;
+                
+                //console.log("\t\tcurrent path[" + i + "]" + "[" + j + "]: " + $scope.paths[j].currentName);
+                
+                if($scope.paths[i].currentName === $scope.paths[j].currentName && i != j){
+                    isUnique = false;
+                    //console.log("UNIQUE FALSE");
+                }
+                
             }
             
             $scope.paths[i].isUnique = isUnique;
 
         }
 
+    }
+    
+    var isUnique = function(newPathName){
+        for(var i=0; i < $scope.paths.length; i++){
+            if(newPathName === $scope.paths[i].currentName)
+                return false;
+        }
+        
+        return true;
     }
     
 }]);

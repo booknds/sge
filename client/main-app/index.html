@@ -215,7 +215,7 @@
                                                         </div>
                                                         <div class="input-field col s4">
                                                             <input id="contactemail" type="email" class="validate" ng-model="basicInfo.info.contact.email"></input>
-                                                            <label for="contact_textarea-description" wrong-data="enter valid email">Email</label>
+                                                            <label for="contact_textarea-description" data-error="enter valid email">Email</label>
                                                         </div>
                                                     </div>
                                                     <span class="card-title">License</span>
@@ -255,8 +255,6 @@
                 {{service}}
             </div>
 
-
-
             <div class="container" ng-controller="swaggerPaths">
                 <div class="row">
                     <div class="col s12">
@@ -274,13 +272,51 @@
                                                 </a>
                                             </div>
                                             <div class="col s6 m2 l2 valign right-align">
-                                                <a class="btn-floating btn-large waves-effect waves-light green accent-4" ng-click="addPath()">
+                                                <button class="btn-floating btn-large waves-effect waves-light green accent-4 modal-trigger" path-modal data-target="path-creation-modal" >
                                                     <i class="material-icons">add</i>
-                                                </a>
+                                                </button>
+                                                
+                                                <!-- Path Modal Structure -->
+                                                <div id="path-creation-modal" class="modal blue-grey darken-1">
+                                                    <form>
+                                                        <div class="modal-content">
+                                                            <div class="row">
+                                                                <div class="left-align col s12">
+                                                                    <h4>New Path</h4>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="row">
+                                                                <div class="col s12">
+                                                                    <div class="input-field col s12">
+                                                                        <div class="conatiner" ng-show="preventPath">
+                                                                    <span class="red-text">Enter a unique Path Name</span>
+                                                                </div>
+                                                                        <input id="path-name" type="text" class="validate" ng-model="newPathName">
+                                                                        <label for="path-name">Path Name</label>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+                                                        </div>
+                                                        <div class="modal-footer blue-grey darken-1">
+                                                           
+                                                                    <!--button href="#!" class=" modal-action modal-close waves-effect waves-green btn">
+                                                                      Cancel
+                                                            </button-->
+                                                            <div class="left-align">
+                                                                <button type="submit" ng-hide="preventPath" class="modal-action modal-close waves-effect waves-green btn" ng-click="addPath()">
+                                                                  Add Path
+                                                                </button>
+                                                                
+                                                            </div>
+                                                                
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                         <div ng-show="showPaths" ng-repeat="path in paths">
-                                            <div class="row valign-wrapper">
+                                            <!--div class="row valign-wrapper">
                                                 <div class="col s1 valign">
                                                     <span>{{ path.currentName }}</span>
                                                 </div>
@@ -289,35 +325,84 @@
                                                         <i class="large material-icons">delete</i> 
                                                     </a>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="input-field col s12">
+                                            </div-->
+                                            <div class="row valign-wrapper">
+                                                <div class="input-field valign col s8">
                                                     <input id="path-name" type="text" class="validate" ng-model="path.newName">
-                                                      <label for="path-name">Path Name</label>
+                                                      <!--label for="path-name">Path Name</label-->
                                                 </div>
                                                 
-                                                
+                                                        <div class="valign col s2">
+                                                            <button class="btn waves-effect waves-light" type="button" ng-click="updatePathName(path.currentName, path)" name="action">
+                                                                Update
+                                                                <!--i class="material-icons right">send</i-->
+                                                            </button>
+                                                        </div>
+                                                        <div class="valign col s2">
+                                                            <button class="btn-flat waves-effect waves-light" type="submit" name="action" ng-click="deletePath(paths, $index)">
+                                                                <i class="material-icons">delete</i>
+                                                            </button>
+                                                        </div>
+                                                    
                                             </div>
                                             <div class="row">
                                                 <div class="col s12">
-                                                    <ul class="tabs">
+                                                    <!--<ul class="tabs">
                                                         <li class="tab col s3">
                                                             <a href="#test1">Post</a>
                                                         </li>
                                                         <li class="tab col s3"><a class="active" href="#test2">Get</a></li>
                                                         <li class="tab col s3"><a href="#test3">Put</a></li>
                                                         <li class="tab col s3"><a href="#test4">Delete</a></li>
-                                                  </ul>
+                                                  </ul>-->
+                                                    <ul class="collapsible black" data-collapsible="accordion">
+                                                        <li>
+                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>Post</div>
+                                                          <div class="collapsible-body"></div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <ul class="collapsible black" data-collapsible="accordion">
+                                                        <li>
+                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>Get</div>
+                                                          <div class="collapsible-body"></div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    
+                                                    <ul class="collapsible black" data-collapsible="accordion">
+                                                        <li>
+                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>Post</div>
+                                                          <div class="collapsible-body"></div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    
+                                                    <ul class="collapsible black" data-collapsible="accordion">
+                                                        <li>
+                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>Delete</div>
+                                                          <div class="collapsible-body"></div>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                             {{path}}
                                         </div>
+                                {{paths}}
                                     
                             </div>
                         </div>
                     </div>
                 </div>
-                
             </div>
 
             <div class="container">
