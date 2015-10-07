@@ -67,8 +67,9 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
 
             updateUniquePaths();
         }else{
-               
+            $scope.toastUser(); 
         }
+        
         
 
     };
@@ -78,7 +79,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     */
     $scope.addPath = function(){
         
-        //if(isUnique($scope.newPathName)){  
+        if(isUnique($scope.newPathName)){  
             $scope.paths.push(new swaggerPaths.newPath());
             
             latestPathLocation = $scope.paths.length - 1;
@@ -90,16 +91,23 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
             //reset path creation variables
             $scope.newPathName = "";
             $scope.preventPath = true;
-        //}else{
+        }else{
+           //TODO: MAKE A TOAST CALL A SEPARATE FUNCTION
+            //Materialize.toast('Not a unique name!', 2000); 
+            $scope.toastUser(); 
+        }
             
-        //}
-            Materialize.toast('I am a toast!', 4000);
-        
         
         
         
        // console.log($scope.paths);
     };
+    
+    $scope.toastUser = function(toastMessage, timeToShow){
+        
+        Materialize.toast(toastMessage||'Not a unique name!', timeToShow || 3000);
+        
+    }
     
     /*
         deletes a specified path from the list of paths
