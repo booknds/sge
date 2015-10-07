@@ -53,17 +53,22 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     */
     $scope.updatePathName = function (oldPathName, pathObject){
         
-        if(pathObject.pathDefinition.hasOwnProperty(oldPathName) && pathObject.newName){
-           
-            pathObject.pathDefinition[pathObject.newName] = pathObject.pathDefinition[oldPathName];
-            delete pathObject.pathDefinition[oldPathName];
-           
-            pathObject.currentName= pathObject.newName;
-           //pathObject.newName = "";
+        if(isUnique(pathObject.newName)){
+        
+            if(pathObject.pathDefinition.hasOwnProperty(oldPathName) && pathObject.newName){
+
+                pathObject.pathDefinition[pathObject.newName] = pathObject.pathDefinition[oldPathName];
+                delete pathObject.pathDefinition[oldPathName];
+
+                pathObject.currentName= pathObject.newName;
+               //pathObject.newName = "";
+            }
+
+
+            updateUniquePaths();
+        }else{
+               
         }
-        
-        
-        updateUniquePaths();
         
 
     };
@@ -88,7 +93,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
         //}else{
             
         //}
-        
+            Materialize.toast('I am a toast!', 4000);
         
         
         
