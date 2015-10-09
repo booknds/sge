@@ -15,7 +15,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     
     $scope.newPathName = "";
     
-    $scope.preventPath = true;
+    $scope.preventPathCreation = true;
     
     //used to test the
     $scope.ps = swaggerPaths.getPaths();
@@ -24,20 +24,20 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     $scope.$watch("newPathName", function(){
         //only check if unique if it is not blank
         if($scope.newPathName)
-              $scope.preventPath = isUnique($scope.newPathName) ? false : true; 
+            $scope.preventPathCreation = isUnique($scope.newPathName) ? false : true; 
         else
-            $scope.preventPath = true;
+            $scope.preventPathCreation = true;
     });
     
-    $scope.$watchCollection("paths", function() {
+  //  $scope.$watchCollection("paths", function() {
        // swaggerPaths.setPaths($scope.paths);
        /* console.log('CCONTROLLER PASSING PATHS');
         console.log($scope.paths);
         console.log('------------------------------------');*/
-        console.log(swaggerPaths.getPaths());
-        $scope.ps = swaggerPaths.getPaths();
+   //     console.log(swaggerPaths.getPaths());
+   //     $scope.ps = swaggerPaths.getPaths();
        // $scope.swagger = swaggerCompiler.getSwaggerFile();
-    });
+   // }); 
     
     $scope.togglePaths = function(){
         //make sure there are paths to show
@@ -65,9 +65,10 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
             }
 
 
-            updateUniquePaths();
+            //updateUniquePaths();
         }else{
-            $scope.toastUser(); 
+            $scope.toastUser();
+            pathObject.newName = pathObject.currentName;
         }
         
         
@@ -79,34 +80,32 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     */
     $scope.addPath = function(){
         
-        if(isUnique($scope.newPathName)){  
+        if(isUnique($scope.newPathName)){ 
+            //add a new path
             $scope.paths.push(new swaggerPaths.newPath());
             
+            //set the name of the path object
             latestPathLocation = $scope.paths.length - 1;
-        
             $scope.paths[latestPathLocation].newName = $scope.newPathName;
-            
             $scope.updatePathName($scope.paths[latestPathLocation].currentName, $scope.paths[latestPathLocation])
         
             //reset path creation variables
             $scope.newPathName = "";
-            $scope.preventPath = true;
+            $scope.preventPathCreation = true;
+            //console.log(
         }else{
            //TODO: MAKE A TOAST CALL A SEPARATE FUNCTION
             //Materialize.toast('Not a unique name!', 2000); 
             $scope.toastUser(); 
         }
-            
-        
-        
-        
-       // console.log($scope.paths);
+
     };
     
+    /*
+        toast user with a default toast message if one is not provided
+    */
     $scope.toastUser = function(toastMessage, timeToShow){
-        
-        Materialize.toast(toastMessage||'Not a unique name!', timeToShow || 3000);
-        
+        Materialize.toast(toastMessage||'Not a unique name!', timeToShow || 3000);   
     }
     
     /*
@@ -114,10 +113,11 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     */
     $scope.deletePath = function(paths, index){
         paths.splice(index, 1);
-        updateUniquePaths();
+        //updateUniquePaths();
     };
     
     /*
+        For a given path
         edit the selected http-verb & add the verb to the pathDefinition if it hasn't been already
     */
     $scope.selectVerb = function(path, verbType){
@@ -130,6 +130,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     };
     
     /*
+        for a given path
         remove the selected verb from the list
     */
     $scope.deleteVerb = function(path){
@@ -141,41 +142,10 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     };
     
     
+
     /*
-        Compile all of the paths into the json swagger representation
+        Private function to check if a given name is already defined as a path
     */
-    
-    /*
-        check if path name exists
-        called after changes have been made to a path
-        
-        TODO: OPTIMIZE TO A BETTER SEARCH ALGORITHM
-    */
-    var updateUniquePaths = function() {
-        console.log("UPDATE UNIQUE");
-        for(var i=0; i < $scope.paths.length; i++){
-            var currentPathName = $scope.paths[i].currentName;
-            //console.log("\tcurrent path[" + i + "]: " + currentPathName);
-            
-            var isUnique = true;
-
-            for(var j=0; j < $scope.paths.length; j++){
-                
-                //console.log("\t\tcurrent path[" + i + "]" + "[" + j + "]: " + $scope.paths[j].currentName);
-                
-                if($scope.paths[i].currentName === $scope.paths[j].currentName && i != j){
-                    isUnique = false;
-                    //console.log("UNIQUE FALSE");
-                }
-                
-            }
-            
-            $scope.paths[i].isUnique = isUnique;
-
-        }
-
-    }
-    
     var isUnique = function(newPathName){
         for(var i=0; i < $scope.paths.length; i++){
             if(newPathName === $scope.paths[i].currentName)
