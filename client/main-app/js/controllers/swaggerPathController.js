@@ -12,10 +12,11 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     $scope.swagger = swaggerCompiler.getSwaggerFile();
     
     $scope.showPaths = true;
+    $scope.preventPathCreation = true;
     
     $scope.newPathName = "";
     
-    $scope.preventPathCreation = true;
+    //var operationsToUpdate = [];
     
     //used to test the
     $scope.ps = swaggerPaths.getPaths();
@@ -37,7 +38,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
    //     console.log(swaggerPaths.getPaths());
    //     $scope.ps = swaggerPaths.getPaths();
        // $scope.swagger = swaggerCompiler.getSwaggerFile();
-   // }); 
+   // });
     
     $scope.togglePaths = function(){
         //make sure there are paths to show
@@ -155,4 +156,40 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
         return true;
     }
     
+    /*
+        Delete the passed Operation if it exists. Add the passed Operation if it does not exist.
+    */
+    $scope.pushToUpdateOperation = function(operation){
+           
+    }
+    
+    /*
+        Delete the passed Operation if it exists. Add the passed Operation if it does not exist.
+    */
+    $scope.updateOperations = function(path, operations){
+           //if
+    }
+    
+    $scope.showOperations= function(){
+        if(path.currentPathOperationsOperations.post || 
+           path.currentPathOperationsOperations.get || 
+           path.currentPathOperationsOperations.put || 
+           path.currentPathOperationsOperations.delete)
+            return true;
+        else
+            return false;
+            
+            
+    }
+    
+    $scope.initCollapse = function(){
+        $('.collapsible').collapsible({
+              accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            });  
+    };
+    
+    $scope.getCheckboxId = function(path, operation) {
+        console.log('get checkob id');
+        return path.currentName + "-" + operation;
+    };
 }]);

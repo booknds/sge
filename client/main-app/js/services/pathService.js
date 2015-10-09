@@ -5,12 +5,16 @@ swaggerGE.service("swaggerPaths", ['swaggerCompiler', function(swaggerCompiler){
     var paths = [];
     
     /* create an object with that holds the basic info of a swagger document*/
-    this.newPath= function(){
+    this.newPath= function(pathName){
         return {
-            currentName:"pathName",
+            currentName:  "pathName",
             newName:"",
-            selectedVerb:"",
-            isUnique:true,
+            currentPathOperations : { 
+                post:true, 
+                get:true, 
+                put:false,
+                delete:false
+            },
             isCollapsed:false,
             pathDefinition: {
                 pathName: {
@@ -45,6 +49,8 @@ swaggerGE.service("swaggerPaths", ['swaggerCompiler', function(swaggerCompiler){
         //swaggerCompiler.updatePaths(defArray);
         console.log('------------------------------------');
     }
+    
+    
     this.newHttpVerb= function(){
        return {
            tags: "",
@@ -65,7 +71,6 @@ swaggerGE.service("swaggerPaths", ['swaggerCompiler', function(swaggerCompiler){
            deprecated: false,
            security: {
            }
-
         }
     }
     this.newResponse= function(){

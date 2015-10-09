@@ -284,13 +284,47 @@
                                                                 <h4>Create New Path</h4>
                                                             </div>
                                                             <div class="input-field col s12 ">
-                                                                    <input id="path-name" type="text" ng-model="newPathName">
-                                                                    <label for="path-name">Path Name</label>
+                                                                <input id="path-name" type="text" ng-model="newPathName">
+                                                                <label for="path-name">Path Name</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="left-align" style="padding-left:15px;">Operations </div>
+                                                            <div class="col s12 l6">
+                                                                <div class="row">
+                                                                    
+                                                                    <div class="col s3">
+                                                                        <p>
+                                                                          <input type="checkbox" id="post" ng-click="updateVerbOperation('post')"/>
+                                                                          <label for="post">POST</label>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col s3">
+                                                                        <p>
+                                                                          <input type="checkbox" id="get" ng-click="updateVerbOperation('get')"/>
+                                                                          <label for="get">GET</label>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col s3">
+                                                                        <p>
+                                                                          <input type="checkbox" id="put" ng-click="updateVerbOperation('put')"/>
+                                                                          <label for="put">PUT</label>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col s3">
+                                                                        <p>
+                                                                          <input type="checkbox" id="delete" ng-click="updateVerbOperation('delete')"/>
+                                                                          <label for="delete">DELETE</label>
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
-                                                        </div>                                                            
+                                                            </div>
+                                                        
+                                                        </div>
+                                                        
                                                     </div>
 
-                                                    <div class="modal-footer blue-grey darken-1 ">
+                                                    <div class="modal-fixed-footer blue-grey darken-1 ">
                                                         <button type="submit" ng-hide="preventPathCreation" class=" modal-close modal-action  waves-effect waves-green btn" ng-click="addPath()">
                                                             Add Path
                                                         </button>
@@ -322,45 +356,80 @@
                                                 </div>
                                                     
                                             </div>
-                                            <div class="row">
+                                            <div class="row" ng-show="(path.currentPathOperations.post || path.currentPathOperations.get || path.currentPathOperations.put || path.currentPathOperations.delete)">
+                                                <div class="left-align" style="padding-left:15px;">Operations </div>
+                                                <div class="col s12 l6">
+                                                    <div class="row" >
+                                                        <div class="col s3" ng-hide="path.currentPathOperations.post">
+                                                            <p>
+                                                              <input type="checkbox" id="path.currentName + post" ng-click="updateVerbOperation('post')"/>
+                                                              <label for="path.currentName + post">POST</label>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col s3" ng-hide="path.currentPathOperations.get">
+                                                            <p>
+                                                              <input type="checkbox" id="get" ng-click="updateVerbOperation('get')"/>
+                                                              <label for="get">GET</label>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col s3" ng-hide="path.currentPathOperations.put">
+                                                            <p>
+                                                              <input type="checkbox" id="put" ng-click="updateVerbOperation('put')"/>
+                                                              <label for="put">PUT</label>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col s3" ng-hide="path.currentPathOperations.delete">
+                                                            <!--p>
+                                                              <input type="checkbox" id="" ng-click="updateVerbOperation('delete')"/>
+                                                              <label for="">DELETE</label>
+                                                            </p-->
+                                                            <unique-checkbox operation="DELETE" path-object="path" unique-id="getCheckboxId(pathObj, oprtn)"></unique-checkbox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row" ng-show="path.currentPathOperations.post">
                                                 <div class="col s12">
-                                                    <ul class="collapsible black" data-collapsible="accordion">
+                                                    <ul class="collapsible black" ng-init="initCollapse()" data-collapsible="accordion">
                                                         <li>
-                                                            <div class="collapsible-header black"><i class="material-icons">filter_drama</i>Post</div>
+                                                            <div class="collapsible-header black"> {{ "POST " + path.currentName}}</div>
                                                             <div class="collapsible-body">
-                                                                
+                                                                <p>SO MUCH POOP!</p>
                                                             </div>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row" ng-show="path.currentPathOperations.get">
                                                 <div class="col s12">
                                                     <ul class="collapsible black" data-collapsible="accordion">
                                                         <li>
-                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>Get</div>
+                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>{{ "GET " + path.currentName}}</div>
+                                                          <div class="collapsible-body">
+                                                            Lsfjsdljfhsafkjslkfjas
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-show="path.currentPathOperations.put">
+                                                <div class="col s12">
+                                                    
+                                                    <ul class="collapsible black" data-collapsible="accordion">
+                                                        <li>
+                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>{{ "PUT " + path.currentName}}</div>
                                                           <div class="collapsible-body"></div>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row" ng-show="path.currentPathOperations.delete">
                                                 <div class="col s12">
                                                     
                                                     <ul class="collapsible black" data-collapsible="accordion">
                                                         <li>
-                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>Post</div>
-                                                          <div class="collapsible-body"></div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col s12">
-                                                    
-                                                    <ul class="collapsible black" data-collapsible="accordion">
-                                                        <li>
-                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>Delete</div>
+                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>{{ "DELETE " + path.currentName}}</div>
                                                           <div class="collapsible-body"></div>
                                                         </li>
                                                     </ul>
