@@ -1,5 +1,5 @@
 #DOCKER-VERSION 1.8.0
-FROM hkmconsultingllc/tomcat7
+FROM hkmconsultingllc/apache-tomcat-7
 
 
 # INSTALL TAR
