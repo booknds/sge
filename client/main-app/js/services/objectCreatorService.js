@@ -1,0 +1,8 @@
+swaggerGE.service('creator', [function(){
+    
+    
+    
+    
+    
+    
+}]);

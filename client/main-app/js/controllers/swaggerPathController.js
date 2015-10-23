@@ -3,9 +3,16 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     /*
         Default
     */
-    var Path = swaggerPaths.newPath();
+    var Path = new swaggerPaths.Path();
     
     var Verb = swaggerPaths.newHttpVerb();
+    
+    function InitialOperations(){
+        this.post = false;
+        this.get = false;
+        this.put = false;
+        this.delete = false;
+    }
     
     $scope.paths=[];
     
@@ -15,6 +22,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     $scope.preventPathCreation = true;
     
     $scope.newPathName = "";
+    $scope.initialPathOperations = new InitialOperations();
     
     //var operationsToUpdate = [];
     
@@ -83,16 +91,22 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
         
         if(isUnique($scope.newPathName)){ 
             //add a new path
-            $scope.paths.push(new swaggerPaths.newPath());
+            $scope.paths.push(new swaggerPaths.Path());
             
             //set the name of the path object
             latestPathLocation = $scope.paths.length - 1;
             $scope.paths[latestPathLocation].newName = $scope.newPathName;
             $scope.updatePathName($scope.paths[latestPathLocation].currentName, $scope.paths[latestPathLocation])
-        
+            
+            $scope.paths[latestPathLocation].currentPathOperations = $scope.initialPathOperations;
+            
             //reset path creation variables
             $scope.newPathName = "";
             $scope.preventPathCreation = true;
+            
+            $scope.initialPathOperations = new InitialOperations();
+            //for(op in $scope.initialPathOperations)
+                //$scope.initialPathOperations[op] = false;
             //console.log(
         }else{
            //TODO: MAKE A TOAST CALL A SEPARATE FUNCTION
@@ -120,7 +134,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     /*
         For a given path
         edit the selected http-verb & add the verb to the pathDefinition if it hasn't been already
-    */
+    
     $scope.selectVerb = function(path, verbType){
         
         console.log(path);
@@ -133,7 +147,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     /*
         for a given path
         remove the selected verb from the list
-    */
+    
     $scope.deleteVerb = function(path){
         
         delete path.pathDefinition[path.currentName][path.selectedVerb];
@@ -142,7 +156,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
         
     };
     
-    
+    */
 
     /*
         Private function to check if a given name is already defined as a path
@@ -164,10 +178,14 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
     }
     
     /*
-        Delete the passed Operation if it exists. Add the passed Operation if it does not exist.
+        This method is used when creating a new path object to update 
+            the true/false value of the initial operations selection.
     */
-    $scope.updateOperations = function(path, operations){
-           //if
+    $scope.updateInitialOperation = function(operation){
+        
+        $scope.initialPathOperations[operation] = !$scope.initialPathOperations[operation];
+        console.log($scope.initialPathOperations[operation]);
+        
     }
     
     $scope.showOperations= function(){

@@ -5,13 +5,13 @@ swaggerGE.service("swaggerPaths", ['swaggerCompiler', function(swaggerCompiler){
     var paths = [];
     
     /* create an object with that holds the basic info of a swagger document*/
-    this.newPath= function(pathName){
+    this.Path= function(pathName){
         return {
             currentName:  "pathName",
             newName:"",
             currentPathOperations : { 
-                post:true, 
-                get:true, 
+                post:false, 
+                get:false, 
                 put:false,
                 delete:false
             },
