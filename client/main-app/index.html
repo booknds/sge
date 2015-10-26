@@ -256,6 +256,27 @@
             </div>
 
             <div class="container" ng-controller="swaggerPaths">
+                
+                <div id="delete-modal" class="modal blue-grey darken-1 delete-modal" >
+                    <div class="modal-content">
+                        <h3>
+                            Confirm
+                        </h3>
+                        <p>
+                            Are you sure you want to delete this?
+                        </p>
+                    </div>
+
+                    <div class="modal-footer blue-grey darken-1 ">
+                        <button class=" modal-close modal-action waves-effect waves-green btn" ng-click="">
+                            Yes, Delete.
+                        </button>
+                        <button class=" modal-close modal-action waves-effect waves-green btn">
+                            No way!
+                        </button>
+                    </div>
+                </div>
+                
                 <div class="row">
                     <div class="col s12">
                         <div class="card blue-grey darken-1">
@@ -272,12 +293,13 @@
                                                 </a>
                                             </div>
                                             <div class="col s6 m2 l2 valign right-align">
-                                                <button class="btn-floating btn-large waves-effect waves-light green accent-4 modal-trigger" path-modal data-target="path-creation-modal" >
+                                                <button class="btn-floating btn-large waves-effect waves-light green accent-4 modal-trigger" path-modal data-target="path-creation-modal">
                                                     <i class="material-icons">add</i>
                                                 </button>
                                                 
-                                                <!-- Path Modal Structure -->
-                                                <div id="path-creation-modal" class="modal blue-grey darken-1">
+                                                <!-- Path Creation Modal Structure -->
+                                                
+                                                <div id="path-creation-modal" class="modal blue-grey darken-1" >
                                                     <div class="modal-content">
                                                         <div class="row">
                                                             <div class="left-align col s12">
@@ -292,7 +314,6 @@
                                                             <div class="left-align" style="padding-left:15px;">Operations </div>
                                                             <div class="col s12 l6">
                                                                 <div class="row">
-                                                                    
                                                                     <div class="col s3">
                                                                         <p>
                                                                           <input type="checkbox" id="post" ng-click="updateInitialOperation('post')"/>
@@ -356,34 +377,39 @@
                                                 </div>
                                                     
                                             </div>
-                                            <div class="row" ng-show="(path.currentPathOperations.post || path.currentPathOperations.get || path.currentPathOperations.put || path.currentPathOperations.delete)">
+                                            <div class="row" >
                                                 <div class="left-align" style="padding-left:15px;">Operations </div>
                                                 <div class="col s12 l6">
                                                     <div class="row" >
-                                                        <div class="col s3" ng-hide="path.currentPathOperations.post">
-                                                            <p>
+                                                        <div class="col s3">
+                                                            <!--p>
                                                               <input type="checkbox" id="path.currentName + post" ng-click="updateVerbOperation('post')"/>
                                                               <label for="path.currentName + post">POST</label>
-                                                            </p>
+                                                            </p-->
+                                                            <unique-checkbox operation="POST" path-object="path" toggle-op="togglePathOperation(path, 'post')" unique-id="getCheckboxId(pathObj, oprtn)"></unique-checkbox>
+
                                                         </div>
-                                                        <div class="col s3" ng-hide="path.currentPathOperations.get">
-                                                            <p>
+                                                        <div class="col s3" >
+                                                            <!--p>
                                                               <input type="checkbox" id="get" ng-click="updateVerbOperation('get')"/>
                                                               <label for="get">GET</label>
-                                                            </p>
+                                                            </p-->
+                                                            <unique-checkbox operation="GET" path-object="path" toggle-op="togglePathOperation(path, 'get')" unique-id="getCheckboxId(pathObj, oprtn)"></unique-checkbox>
+
                                                         </div>
-                                                        <div class="col s3" ng-hide="path.currentPathOperations.put">
-                                                            <p>
+                                                        <div class="col s3" >
+                                                            <!--p>
                                                               <input type="checkbox" id="put" ng-click="updateVerbOperation('put')"/>
                                                               <label for="put">PUT</label>
-                                                            </p>
+                                                            </p-->
+                                                            <unique-checkbox operation="PUT" path-object="path" toggle-op="togglePathOperation(path, 'put')" unique-id="getCheckboxId(pathObj, oprtn)"></unique-checkbox>
                                                         </div>
-                                                        <div class="col s3" ng-hide="path.currentPathOperations.delete">
+                                                        <div class="col s3" >
                                                             <!--p>
                                                               <input type="checkbox" id="" ng-click="updateVerbOperation('delete')"/>
                                                               <label for="">DELETE</label>
                                                             </p-->
-                                                            <unique-checkbox operation="DELETE" path-object="path" unique-id="getCheckboxId(pathObj, oprtn)"></unique-checkbox>
+                                                            <unique-checkbox operation="DELETE" path-object="path" toggle-op="togglePathOperation(path, 'delete')" unique-id="getCheckboxId(pathObj, oprtn)"></unique-checkbox>
                                                         </div>
                                                     </div>
                                                 </div>

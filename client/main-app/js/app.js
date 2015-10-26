@@ -26,13 +26,16 @@ swaggerGE.directive("pathModal", ["$interval", function($interval) {
     }
 }]);
 
+
+//swaggerGE.directive("initializeOperations")
+
 swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
     return {
         restrict: "E",
         templateUrl: 'templates/checkboxTemplate.html',
         replace: true,
         scope: {
-            updateVerb: '&',
+            toggleOp: '&',
             uniqueId: '&',
             pathObject: '=',
             operation: '@'
@@ -51,6 +54,17 @@ swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
             label.attr('for', scope.$id);
             
             console.log(scope);
+            
+            thisOperation = scope.operation.toLowerCase();
+             console.log(thisOperation);
+            console.log(scope.pathObject.currentPathOperations);
+            console.log(scope.pathObject.currentPathOperations[thisOperation]);
+            //check if this operation was chosen and add the checkmark if it has been.
+            if(scope.pathObject.currentPathOperations[thisOperation]){
+                console.log('success');
+                input.attr('checked', 'checked');
+            }
+            console.log('------------');
         }
     }
 }]);
