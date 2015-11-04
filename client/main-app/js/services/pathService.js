@@ -1,8 +1,10 @@
-swaggerGE.service("swaggerPaths", ['swaggerCompiler', function(swaggerCompiler){
+swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCompiler){
     
     var self = this;
     
     var paths = [];
+    
+    var pathsObj = {};
     
     /* create an object with that holds the basic info of a swagger document*/
     this.Path= function(pathName){
@@ -94,5 +96,37 @@ swaggerGE.service("swaggerPaths", ['swaggerCompiler', function(swaggerCompiler){
             items: {}
         }
     }
+    
+    /*
+        Tries to create and validate a new parameter object.
+    */
+    this.addNewParam = function(pathName, paramName){
+        if(validateParam()){
+            pathObj[pathName][paramName] = new Object();
+        }else{
+            throw "Invalid Parameter Name, must be unique."
+        }
+    }
+    
+    /*
+        Checks to see if the given param name is valid for the given path.
+    */
+    var validateParam = function(pathName, paramName){
+        console.log("Validate Param");
+        
+        if(pathsObj[pathName][paramName]){
+            return false;
+        }else{
+            console.log(pathsObj[pathName][paramName]);
+            return true;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     
 }]);

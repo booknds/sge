@@ -1,4 +1,4 @@
-swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swaggerCompiler', '$window', function($scope, $log, swaggerPaths, swaggerCompiler, $window){
+swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', 'swaggerCompiler', '$window', function($scope, $log, swaggerPaths, swaggerCompiler, $window){
     
     /*
         Default
@@ -130,8 +130,11 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
             
             //create the initial path verb operation specified
             for(operation in $scope.initialPathOperations){
-
-                if(currentOp){
+                 
+                if($scope.initialPathOperations[operation] === true){
+                  /* console.log("CURRENT OP");
+                    console.log(operation);
+                console.log($scope.initialPathOperations);*/
                     var currentPath = $scope.paths[latestPathLocation];
                     currentPath.pathDefinition[newPath][operation] = new VerbOperation();
                 }
@@ -265,8 +268,10 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
                 delete path.pathDefinition[pathName][operation];
                 
             }else{
+                angular
                 console.log('DONT DELETE');
                 path.currentPathOperations[operation] = !path.currentPathOperations[operation];
+                
             }
             
         }
@@ -289,4 +294,12 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPaths', 'swagger
         
         return path.currentName + "-" + operation;
     };
+    
+    //Param methods
+    $scope.addParam = function(path, paramName){
+        swaggerPaths.addNewParam(path.currentName, paramName);
+        path.newParam = "";
+    }
+    
+    
 }]);

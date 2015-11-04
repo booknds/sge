@@ -19,10 +19,10 @@
 <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
 
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-          
+  <!-- Compiled and minified JavaScript --> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>         
        
+        <!--script src="js/materialize.min.js"></script>
         
         <!-- load import scripts -->
         <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
@@ -415,53 +415,108 @@
                                                 </div>
 
                                             </div>
-                                            <div class="row" ng-show="path.currentPathOperations.post">
-                                                <div class="col s12">
-                                                    <ul class="collapsible black" ng-init="initCollapse()" data-collapsible="accordion">
+                                            <div class="row" >
+                                                <div class="col s12" ng-show="path.currentPathOperations.post">
+                                                    <ul class="collapsible blue-grey darken-2" ng-init="initCollapse()" data-collapsible="accordion">
                                                         <li>
-                                                            <div class="collapsible-header black"> {{ "POST " + path.currentName}}</div>
+                                                            <div class="collapsible-header blue-grey darken-2"> {{ "POST " + path.currentName}}</div>
                                                             <div class="collapsible-body">
                                                                 <p>SO MUCH POOP!</p>
                                                             </div>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </div>
-                                            <div class="row" ng-show="path.currentPathOperations.get">
-                                                <div class="col s12">
-                                                    <ul class="collapsible black" data-collapsible="accordion">
-                                                        <li>
-                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>{{ "GET " + path.currentName}}</div>
-                                                          <div class="collapsible-body">
-                                                            Lsfjsdljfhsafkjslkfjas
+
+                                            
+                                            <div class="col s10" ng-show="path.currentPathOperations.get">
+                                                <ul class="collapsible blue-grey darken-2" data-collapsible="accordion">
+                                                    <li>
+                                                      <div class="collapsible-header blue-grey darken-2"><i class="material-icons">filter_drama</i>{{ "GET " + path.currentName}}</div>
+                                                        <div class="collapsible-body ">
+                                                            <div class="section">
+                                                                <div class="input-field col s12">
+                                                                    <input id="get-summary" ng-model="test1" maxlength="150" type="text"/>
+                                                                    <label for="get-summary">Summary</label>
+                                                                </div>
+                                                                <div class="input-field col s12">
+                                                                    <textarea id="get-description" ng-model="test2" class="materialize-textarea"></textarea>
+                                                                    <label for="get-description">Description</label>
+                                                                </div>
                                                             </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                            <div class="section">
+                                                                <h5>Parameter</h5>
+                                                                <!--table class="bordered responsive-table">
+                                                                    <thead>
+                                                                      <tr>
+                                                                          <th data-field="id">Name</th>
+                                                                          <th data-field="name">Item Name</th>
+                                                                          <th data-field="price">Item Price</th>
+                                                                      </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                      <tr>
+                                                                        <td>Alvin</td>
+                                                                        <td>Eclair</td>
+                                                                        <td>$0.87</td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                        <td>Alan</td>
+                                                                        <td>Jellybean</td>
+                                                                        <td>$3.76</td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                        <td>Jonathan</td>
+                                                                        <td>Lollipop</td>
+                                                                        <td>$7.00</td>
+                                                                      </tr>
+                                                                    </tbody>
+                                                                </table-->
+                                                                <div class="row  valign-wrapper">
+                                                                    <div class="input-field col s6 valign">
+                                                                        <input id="get-NewParam" ng-model="newParam" type="text"/>
+                                                                        <label for="get-NewParam">Parameter Name</label>
+                                                                    </div>
+                                                                    <div class="col s6 valign">
+                                                                        <button ng-click="addParam(path, newParam)" class="waves-effect waves-light btn">
+                                                                            <i class="material-icons">done</i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <div class="row" ng-show="path.currentPathOperations.put">
-                                                <div class="col s12">
-                                                    
-                                                    <ul class="collapsible black" data-collapsible="accordion">
-                                                        <li>
-                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>{{ "PUT " + path.currentName}}</div>
-                                                          <div class="collapsible-body"></div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                            <div class="col s2">
+                                                <button class="btn-flat waves-effect waves-light" type="submit" name="action" ng-click="togglePathOperation(path, 'get')">
+                                                    <i class="material-icons">delete</i>
+                                                </button>
                                             </div>
-                                            <div class="row" ng-show="path.currentPathOperations.delete">
-                                                <div class="col s12">
-                                                    
-                                                    <ul class="collapsible black" data-collapsible="accordion">
-                                                        <li>
-                                                          <div class="collapsible-header black"><i class="material-icons">filter_drama</i>{{ "DELETE " + path.currentName}}</div>
-                                                          <div class="collapsible-body"></div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                            
+                                            
+                                            <div class="col s12" ng-show="path.currentPathOperations.put">
+
+                                                <ul class="collapsible blue-grey darken-2" data-collapsible="accordion">
+                                                    <li>
+                                                      <div class="collapsible-header blue-grey darken-2"><i class="material-icons">filter_drama</i>{{ "PUT " + path.currentName}}</div>
+                                                      <div class="collapsible-body"></div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                          
+                                            
+                                            <div class="col s12" ng-show="path.currentPathOperations.delete">
+
+                                                <ul class="collapsible blue-grey darken-2" data-collapsible="accordion">
+                                                    <li>
+                                                      <div class="collapsible-header blue-grey darken-2"><i class="material-icons">filter_drama</i>{{ "DELETE " + path.currentName}}</div>
+                                                      <div class="collapsible-body"></div>
+                                                    </li>
+                                                </ul>
+                                                
                                             </div>
                                             {{path}}
+                                            </div>
                                         </div>
                                 {{paths}}
                                     
