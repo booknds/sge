@@ -38,6 +38,12 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     $scope.paths=[];
     
     $scope.swagger = swaggerCompiler.getSwaggerFile();
+    $scope.spaths = swaggerPaths.getPaths();
+    
+    $scope.$watch("paths", function(){
+        $scope.spaths = swaggerPaths.getPaths();
+        console.log($scope.spaths)
+    })
     
     $scope.showPaths = true;
     $scope.preventPathCreation = true;    
@@ -52,6 +58,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     
     $scope.deleteConfirmed = false;
     
+    $scope.showTable = true;
     
     //watch when
     $scope.$watch("newPathName", function(){
@@ -120,6 +127,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         if(isUnique(newPath)){ 
             //add a new path
             $scope.paths.push(new swaggerPaths.Path());
+            swaggerPaths.addPath(newPath);
             
             //set the name of the path object
             latestPathLocation = $scope.paths.length - 1;
@@ -137,6 +145,8 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
                 console.log($scope.initialPathOperations);*/
                     var currentPath = $scope.paths[latestPathLocation];
                     currentPath.pathDefinition[newPath][operation] = new VerbOperation();
+                    //adds operation to the singleton
+                    swaggerPaths.addOperation(newPath, operation);
                 }
                 
             }
@@ -248,22 +258,14 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         if(path.currentPathOperations[operation]){
             
             path.pathDefinition[pathName][operation] = new VerbOperation();
+            swaggerPaths.addOperation(pathName, operation);
         }
         //if removing an operation
         else{
-            //check if the user really wants to delete the operation
-            //angular.element(angular.document)
-            
-           /* deleteModal()
-                .then(function(){
-                    if($scope.deleteConfirmed){
-                        delete path.pathDefinition[pathName][operation];
-                        $scope.deleteConfirmed = false;
-                    }
-                });
-            */
             
             if($window.confirm('Are you sure you want to delete?')){
+                
+                swaggerPaths.deleteOperation(pathName, operation);
                 
                 delete path.pathDefinition[pathName][operation];
                 

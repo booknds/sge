@@ -1,10 +1,11 @@
+"use strict";
 swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCompiler){
     
     var self = this;
     
-    var paths = [];
+    //var paths = [];
     
-    var pathsObj = {};
+    var paths = {};
     
     /* create an object with that holds the basic info of a swagger document*/
     this.Path= function(pathName){
@@ -17,7 +18,8 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
                 put:false,
                 delete:false
             },
-            isCollapsed:false,
+            newParam: "",
+            //isCollapsed:false,
             pathDefinition: {
                 pathName: {
 
@@ -25,9 +27,15 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
             }
         }
     }
+    
+    this.NewPath = function(pathName){
+        paths[pathName] = new Object();
+    }
+    
     this.getPaths= function(){
         return paths;
     }
+    
     this.setPaths= function(newPaths){
       paths = newPaths; 
         console.log('updatePaths from paths service');
@@ -50,6 +58,10 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
         console.info(defArray);
         //swaggerCompiler.updatePaths(defArray);
         console.log('------------------------------------');
+    }
+    
+    this.addPath = function(pathName){
+        paths[pathName] = new Object();
     }
     
     
@@ -97,15 +109,48 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
         }
     }
     
+    
+/************** OPERATION FUNCTIONS *******************/
+    
+    /* TODO make a separate Operations class */
+    this.addOperation = function(path, operation){
+        //console.log(paths[path]);
+        
+        paths[path][operation] = new Object();
+        
+        paths[path][operation].responses = [];
+        
+    }
+    
+    /*
+        Deletes an operation from a given service.
+    */
+    this.deleteOperation = function(path, operation){
+
+        delete paths[path][operation];
+   
+    }
+    
+/************** PARAMETER FUNCTIONS *******************/
+    
     /*
         Tries to create and validate a new parameter object.
     */
     this.addNewParam = function(pathName, paramName){
-        if(validateParam()){
-            pathObj[pathName][paramName] = new Object();
+        if(validateParam(pathName, paramName)){
+            paths[pathName].parameters[paramName] = new Object();
         }else{
             throw "Invalid Parameter Name, must be unique."
         }
+    }
+    
+    /*
+        This 
+    */
+    this.getParamList = function(pathName){
+        
+        return paths[pathName][parameters];
+        
     }
     
     /*
@@ -114,19 +159,21 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
     var validateParam = function(pathName, paramName){
         console.log("Validate Param");
         
-        if(pathsObj[pathName][paramName]){
+        var path = paths[pathName];
+        
+        //check to see if the [parameters] object exists. If not then add the object
+        if(!paths[pathName].hasOwnProperty("parameters")){
+            paths[pathName].parameters = [];
+        }
+        
+        for(var i = i)
+        if(paths[pathName].parameters.hasOwnProperty(paramName)){
             return false;
         }else{
-            console.log(pathsObj[pathName][paramName]);
+            console.log(paths[pathName][paramName]);
             return true;
         }
     }
-    
-    
-    
-    
-    
-    
     
     
 }]);
