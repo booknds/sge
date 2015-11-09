@@ -1,5 +1,6 @@
 swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', 'swaggerCompiler', '$window', function($scope, $log, swaggerPaths, swaggerCompiler, $window){
     
+     "use strict";
     /*
         Default
     */
@@ -126,18 +127,21 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         
         if(isUnique(newPath)){ 
             //add a new path
+            
+            console.log("VALID NEW PATH");
+            
             $scope.paths.push(new swaggerPaths.Path());
             swaggerPaths.addPath(newPath);
             
             //set the name of the path object
-            latestPathLocation = $scope.paths.length - 1;
+            var latestPathLocation = $scope.paths.length - 1;
             $scope.paths[latestPathLocation].newName = newPath;
             $scope.updatePathName($scope.paths[latestPathLocation].currentName, $scope.paths[latestPathLocation])
             
             $scope.paths[latestPathLocation].currentPathOperations = $scope.initialPathOperations;
             
             //create the initial path verb operation specified
-            for(operation in $scope.initialPathOperations){
+            for(var operation in $scope.initialPathOperations){
                  
                 if($scope.initialPathOperations[operation] === true){
                   /* console.log("CURRENT OP");
@@ -182,37 +186,10 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         deletes a specified path from the list of paths
     */
     $scope.deletePath = function(paths, index){
+        swaggerPaths.removePath($scope.paths[index].currentName);
         paths.splice(index, 1);
-        //updateUniquePaths();
     };
     
-    /*
-        For a given path
-        edit the selected http-verb & add the verb to the pathDefinition if it hasn't been already
-    
-    $scope.selectVerb = function(path, verbType){
-        
-        console.log(path);
-        if(!path.pathDefinition[path.currentName][verbType])
-            path.pathDefinition[path.currentName][verbType] = new swaggerPaths.newHttpVerb();
-        
-        path.selectedVerb = verbType;
-    };
-    
-    /*
-        for a given path
-        remove the selected verb from the list
-    
-    $scope.deleteVerb = function(path){
-        
-        delete path.pathDefinition[path.currentName][path.selectedVerb];
-        
-        path.selectedVerb="";
-        
-    };
-    
-    */
-
     /*
         Private function to check if a given name is already defined as a path
     */
@@ -250,7 +227,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     $scope.togglePathOperation = function(path, operation){
         path.currentPathOperations[operation] = !path.currentPathOperations[operation];
         
-        console.log("PATH OP");
+        //console.log("PATH OP");
         
         var pathName = path.currentName;
         
@@ -299,7 +276,18 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     
     //Param methods
     $scope.addParam = function(path, paramName){
-        swaggerPaths.addNewParam(path.currentName, paramName);
+        
+        var pathName = path.currentName;
+        
+        try{
+            swaggerPaths.addNewParam(pathName, paramName);
+        }catch(e){
+            console.log(e);
+            $scope.toastUser("Not a unique parameter/query combo.");
+        }
+        
+        path.parameters = swaggerPaths.getParamList(pathName);
+        
         path.newParam = "";
     }
     
