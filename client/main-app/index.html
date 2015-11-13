@@ -74,7 +74,7 @@
                 </div>
             </nav>
             <!--side nav-->
-            <ul id="nav-mobile" class="side-nav fixed hide-on-small-only green lighten-4" style="width:240px;">
+            <!--ul id="nav-mobile" class="side-nav fixed hide-on-small-only green lighten-4" style="width:240px;">
                 <li class="search" style="position: absolute; left: 0; right: 0; top: 120px; margin-top: 1px; padding: 1px 0 0 0; z-index: 2;">
                     <div class="search-wrapper card" style="margin: 0 12px; -webkit-transition: margin .25s ease; -moz-transition: margin .25s ease; -o-transition: margin .25s ease; -ms-transition: margin .25s ease; transition: margin .25s ease;">
                         <input id="search" style="    display: block; font-size: 16px; font-weight: 300; width: 100%; height: 45px; padding: 0 45px 0 15px; border: 0;">
@@ -101,7 +101,7 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul-->
         </header>
 
         <main>
@@ -417,8 +417,8 @@
 
                                             </div>
                                             <div class="row" >
-                                                <div class="col s11" ng-show="path.currentPathOperations.post">
-                                                    <ul class="collapsible blue-grey darken-2" ng-init="initCollapse()" data-collapsible="accordion">
+                                                <div class="col s11" ng-show="path.currentPathOperations.post" >
+                                                    <ul class="collapsible blue-grey darken-2" init-collapse data-collapsible="accordion">
                                                         <li>
                                                             <div class="collapsible-header blue-grey darken-2"> {{ "POST " + path.currentName}}</div>
                                                             <div class="collapsible-body">
@@ -445,7 +445,7 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            <tr ng-repeat="param in path.parameters">
+                                                                            <tr ng-repeat="param in path.pathDefinition[path.currentName]['post'].parameters">
                                                                                 <td>{{param.name}}</td>
                                                                                 <td>{{param.in}}</td>
                                                                                 <td>{{param.description}}</td>
@@ -454,12 +454,23 @@
                                                                         </tbody>
                                                                     </table>
                                                                     <div class="row  valign-wrapper">
-                                                                        <div class="input-field col s6 valign">
-                                                                            <input id="get-NewParam" ng-model="newParam" type="text"/>
-                                                                            <label for="get-NewParam">Parameter Name</label>
+                                                                        <div class="input-field col s4 valign">
+                                                                            <input id="post-NewParam" ng-model="newParam" type="text"/>
+                                                                            <label for="post-NewParam">Parameter Name</label>
                                                                         </div>
-                                                                        <div class="col s6 valign">
-                                                                            <button ng-click="addParam(path, newParam)" class="waves-effect waves-light btn">
+                                                                        <div class="input-field col s4 valign" >
+                                                                            <select class="browser-default" ng-model="selected" ng-change="setParamIn(selected)">
+                                                                                <option value="" disabled selected>Choose your Parameter Type</option>
+                                                                                <option value="path">Path</option>
+                                                                                <option value="query">Query</option>
+                                                                                <option value="header">Header</option>
+                                                                                <option value="body">Body</option>
+                                                                                <option value="form">Form</option>
+                                                                            </select>
+                                                                            <!--label>In</label-->
+                                                                        </div>
+                                                                        <div class="col s4 valign">
+                                                                            <button ng-click="addParam(path, 'post', newParam, paramIn)" class="waves-effect waves-light btn">
                                                                                 <i class="material-icons">done</i>
                                                                             </button>
                                                                         </div>
@@ -477,7 +488,7 @@
 
                                             
                                             <div class="col s11" ng-show="path.currentPathOperations.get">
-                                                <ul class="collapsible blue-grey darken-2" data-collapsible="accordion">
+                                                <ul class="collapsible blue-grey darken-2" init-collapse data-collapsible="accordion">
                                                     <li>
                                                       <div class="collapsible-header blue-grey darken-2"><i class="material-icons">filter_drama</i>{{ "GET " + path.currentName}}</div>
                                                         <div class="collapsible-body ">
@@ -504,7 +515,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr ng-repeat="param in path.parameters">
+                                                                        <tr ng-repeat="param in path.post.parameters">
                                                                             <td>{{param.name}}</td>
                                                                             <td>{{param.in}}</td>
                                                                             <td>{{param.description}}</td>
@@ -537,7 +548,7 @@
                                             
                                             <div class="col s11" ng-show="path.currentPathOperations.put">
 
-                                                <ul class="collapsible blue-grey darken-2" data-collapsible="accordion">
+                                                <ul class="collapsible blue-grey darken-2" init-collapse data-collapsible="accordion">
                                                     <li>
                                                       <div class="collapsible-header blue-grey darken-2"><i class="material-icons">filter_drama</i>{{ "PUT " + path.currentName}}</div>
                                                       <div class="collapsible-body"></div>
@@ -553,7 +564,7 @@
                                             
                                             <div class="col s11" ng-show="path.currentPathOperations.delete">
 
-                                                <ul class="collapsible blue-grey darken-2" data-collapsible="accordion">
+                                                <ul class="collapsible blue-grey darken-2" init-collapse data-collapsible="accordion">
                                                     <li>
                                                       <div class="collapsible-header blue-grey darken-2"><i class="material-icons">filter_drama</i>{{ "DELETE " + path.currentName}}</div>
                                                       <div class="collapsible-body"></div>
@@ -573,6 +584,63 @@
                                     
                             </div>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- MODAL FOR PARAM SPECIFICATION -->
+                <div id="path-creation-modal" class="modal blue-grey darken-1" >
+                    <div class="modal-content">
+                        <div class="row">
+                            <div class="left-align col s12">
+                                <h4>Create New Path</h4>
+                            </div>
+                            <div class="input-field col s12 ">
+                                <input id="path-name" type="text" ng-model="newPathName">
+                                <label for="path-name">Path Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="left-align" style="padding-left:15px;">Operations </div>
+                            <div class="col s12 l6">
+                                <div class="row">
+                                    <div class="col s3">
+                                        <p>
+                                          <input type="checkbox" id="post" ng-click="updateInitialOperation('post')"/>
+                                          <label for="post">POST</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s3">
+                                        <p>
+                                          <input type="checkbox" id="get" ng-click="updateInitialOperation('get')"/>
+                                          <label for="get">GET</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s3">
+                                        <p>
+                                          <input type="checkbox" id="put" ng-click="updateInitialOperation('put')"/>
+                                          <label for="put">PUT</label>
+                                        </p>
+                                    </div>
+                                    <div class="col s3">
+                                        <p>
+                                          <input type="checkbox" id="delete" ng-click="updateInitialOperation('delete')"/>
+                                          <label for="delete">DELETE</label>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer blue-grey darken-1 ">
+                        <button type="submit" ng-hide="preventPathCreation" class=" modal-close modal-action  waves-effect waves-green btn" ng-click="addPath()">
+                            Add Path
+                        </button>
+                        <h5 ng-if="preventPathCreation" class="red-text" style="padding-right:5px;">
+                            Enter a unique Path Name
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -598,7 +666,7 @@
                 </div>
             </div>
 
-                
+             
         </main>  
         <footer class="page-footer green">
                     <div class="container green">

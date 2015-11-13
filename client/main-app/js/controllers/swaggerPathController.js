@@ -61,6 +61,9 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     
     $scope.showTable = true;
     
+    $scope.newParam = "";
+    $scope.paramIn ="";
+    
     //watch when
     $scope.$watch("newPathName", function(){
         //only check if unique if it is not blank
@@ -166,6 +169,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
             angular.element(document.getElementById('put')).removeAttr('checked');
             angular.element(document.getElementById('delete')).removeAttr('checked');
             
+             
        
         }else{
            //TODO: MAKE A TOAST CALL A SEPARATE FUNCTION
@@ -265,7 +269,9 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     $scope.initCollapse = function(){
         $('.collapsible').collapsible({
               accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });  
+            }); 
+        
+        //$('select').material_select();
     };
     
     $scope.getCheckboxId = function(path, operation) {
@@ -275,20 +281,25 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     };
     
     //Param methods
-    $scope.addParam = function(path, paramName){
+    $scope.addParam = function(path, operation, paramName, paramInLocation){
         
         var pathName = path.currentName;
         
         try{
-            swaggerPaths.addNewParam(pathName, paramName);
+            swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
+            
         }catch(e){
             console.log(e);
             $scope.toastUser("Not a unique parameter/query combo.");
         }
+
+        path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
+        $scope.newParam = "";
+    }
+    
+    $scope.setParamIn = function(inLocation){
+        $scope.paramIn = inLocation;
         
-        path.parameters = swaggerPaths.getParamList(pathName);
-        
-        path.newParam = "";
     }
     
     

@@ -26,6 +26,40 @@ swaggerGE.directive("pathModal", ["$interval", function($interval) {
     }
 }]);
 
+swaggerGE.directive("initDropdown", ["$interval", function($interval) {
+    return {
+        restrict: "A",
+        link: function(scope, element, attrs) {
+           // console.log(scope);
+           //console.log("ATTEMPTING!!!!!!!!!!!!!!!!!!!!!");
+            //$('select').material_select();
+            if(element.is("select")){
+                //console.log("IS SELECT");
+                element.material_select();
+            }
+            
+        }
+    }
+}]);
+
+
+swaggerGE.directive("initCollapse", ["$interval", function($interval) {
+    return {
+        restrict: "A",
+        link: function(scope, element, attrs) {
+           // console.log(scope);
+           //console.log("ATTEMPTING!!!!!!!!!!!!!!!!!!!!!");
+            //$('select').material_select();
+            if(element.hasClass('collapsible')){
+                //console.log("IS SELECT");
+                element.collapsible({
+                  accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                }); 
+            }
+            
+        }
+    }
+}]);
 
 //swaggerGE.directive("initializeOperations")
 
@@ -56,7 +90,7 @@ swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
             console.log(scope);
             
             thisOperation = scope.operation.toLowerCase();
-             console.log(thisOperation);
+            console.log(thisOperation);
             console.log(scope.pathObject.currentPathOperations);
             console.log(scope.pathObject.currentPathOperations[thisOperation]);
             //check if this operation was chosen and add the checkmark if it has been.

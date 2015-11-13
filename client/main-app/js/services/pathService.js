@@ -36,11 +36,11 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
     
     this.removePath = function(pathName){
         delete paths[pathName];
-    }
+    };
     
     this.getPaths= function(){
         return paths;
-    }
+    };
     
     this.setPaths= function(newPaths){
       paths = newPaths; 
@@ -64,11 +64,11 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
         console.info(defArray);
         //swaggerCompiler.updatePaths(defArray);
         console.log('------------------------------------');
-    }
+    };
     
     this.addPath = function(pathName){
         paths[pathName] = new Object();
-    }
+    };
     
     
     this.newHttpVerb= function(){
@@ -92,7 +92,7 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
            security: {
            }
         }
-    }
+    };
     this.newResponse= function(){
         return {
             description: "",
@@ -100,7 +100,7 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
             headers: {},
 
         }
-    }
+    };
 
     /*
        used to create single header objects that will 
@@ -113,10 +113,54 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
             format: "",
             items: {}
         }
-    }
+    };
     
     
 /************** OPERATION FUNCTIONS *******************/
+    
+    var Operation = function(){
+        this.tags = null;
+        this.summary = null;
+        this.descripiton = null;
+        this.externalDocs = new Object();
+        this.operationId = null;
+        this.consumes = null;
+        this.produces = null;
+        this.parameters = new Parameters();
+        this.responses = new Object();
+        this.schemes = null;
+        this.deprecated = false;
+        this.security = new Object();
+    };
+    
+    Operation.prototype = {
+        
+        addParameter: function(paramName, paramIn){
+            //if the parameter does not exist for this operation add it.
+            if(!this.parameters.hasParameter){
+                this.parameters.addParameter(paramName, paramIn);
+            }
+        },
+        
+        getJSON: function(){
+            var operationJSON = {};
+            
+            for(var property in this){
+                console.log(property);
+                if(this[property]){
+                    //if(property === "parameters");
+                    operationJSON[property] = this[property];
+                    
+                }
+            };
+            
+            return operationJSON;
+            
+        }
+        
+        
+        
+    };
     
     /* TODO make a separate Operations class */
     this.addOperation = function(path, operation){
@@ -125,12 +169,15 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
         console.log("PATH SERVICE: adding operation");
         console.log(path);
         console.log(paths[path]);
+        console.log(operation)
+        paths[path][operation] = new Operation();
+        
         console.log(paths[path][operation]);
         
         
-        paths[path][operation] = new Object();
+        //paths[path][operation] = new Operation();
         
-        paths[path][operation].responses = [];
+        //paths[path][operation].responses = [];
         
     }
     
@@ -314,14 +361,20 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
     /*
         Tries to create and validate a new parameter object.
     */
-    this.addNewParam = function(pathName, paramName, paramIn){
-        if(debug)
+    this.addNewParam = function(pathName, operation, paramName, paramIn){
+        if(debug){
             console.log("PATH SERVICE: Attempting to add a new Parameter");
+            console.log(pathName);
+            console.log(operation);
+            console.log(paramName);
+        }
         
         var pIn = paramIn || "query";
         
-        if(validateParam(pathName, paramName, pIn)){
-            paths[pathName].parameters.addParameter(paramName, pIn);
+        var path = paths[pathName][operation];
+        
+        if(validateParam(pathName, operation, paramName, pIn)){
+            path.parameters.addParameter(paramName, pIn);
         }else{
             throw "Invalid Parameter Name, must be unique."
         }
@@ -330,35 +383,30 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
     /*
         This 
     */
-    this.getParamList = function(pathName){
+    this.getParamList = function(pathName, operation){
         
+        var currentPath = paths[pathName][operation];
+        console.log("LJFLAFJALKFJALF");
         console.log(pathName);
         
-        console.log(paths[pathName].parameters.getParameterList());
+        console.log(currentPath);
         
-        return paths[pathName].parameters.getParameterList();
+        console.log(currentPath.parameters);
+        
+        return currentPath.parameters.getParameterList();
         
     }
     
     /*
         Checks to see if the given param name is valid for the given path.
     */
-    var validateParam = function(pathName, paramName, paramIn){
+    var validateParam = function(pathName, operation, paramName, paramIn){
         if(debug)
             console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn);
         
-        var path = paths[pathName];
+        var path = paths[pathName][operation];
         
-        //check to see if the [parameters] object exists. If not then add the object
-        if(!path.hasOwnProperty("parameters")){
-            if(debug)
-                console.log("\t adding Parameters object, returning true!");
-            
-            path.parameters = new Parameters();
-            
-            return true;
-            
-        }else if(path.parameters.hasParameter(paramName, paramIn)){
+        if(path.parameters.hasParameter(paramName, paramIn)){
             if(debug)
                 console.log("\t Same Parameter found, returning false!");
         
