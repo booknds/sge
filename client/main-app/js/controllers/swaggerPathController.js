@@ -38,14 +38,16 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
      
     $scope.paths=[];
     
+    $scope.swaggerPaths = swaggerPaths;
+    
     $scope.swagger = swaggerCompiler.getSwaggerFile();
     $scope.spaths = swaggerPaths.getPaths();
     
-    $scope.$watch("paths", function(){
+   /* $scope.$watch("paths", function(){
         $scope.spaths = swaggerPaths.getPaths();
         console.log($scope.spaths)
     })
-    
+*/    
     $scope.showPaths = true;
     $scope.preventPathCreation = true;    
     
@@ -61,7 +63,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     
     $scope.showTable = true;
     
-    $scope.newParam = "";
+    $scope.dumb = "";
     $scope.paramIn ="";
     
     //watch when
@@ -72,6 +74,10 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         else
             $scope.preventPathCreation = true;
     });
+    
+    $scope.$watch("dumb", function(newVal, oldVal){
+        $log.log(newVal + ", " + oldVal);
+    })
     
   //  $scope.$watchCollection("paths", function() {
        // swaggerPaths.setPaths($scope.paths);
@@ -260,19 +266,19 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         }
     }
     
-    function deleteModal(){
+    /*function deleteModal(){
         
         $('.delete-modal').leanModal();
         $('#delete-modal').openModal();
-    }
+    }*/
     
-    $scope.initCollapse = function(){
+    /*$scope.initCollapse = function(){
         $('.collapsible').collapsible({
               accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
             }); 
         
         //$('select').material_select();
-    };
+    };*/
     
     $scope.getCheckboxId = function(path, operation) {
         console.log('get checkob id');
@@ -294,7 +300,12 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         }
 
         path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
-        $scope.newParam = "";
+        
+        path.newParam = "";
+        
+        //$scope.currentParam = swaggerPaths.chosenParameter;//swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
+        //console.log($scope.currentParam);
+        
     }
     
     $scope.setParamIn = function(inLocation){
@@ -302,5 +313,21 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         
     }
     
+    //$scope.currentParameterPath = swaggerPaths.chosenParameter;
+    $scope.currentParam = {};
+    
+    $scope.$watch("currentParam.name", function(newVal, oldVal){
+        
+        console.log(newVal);
+    });
+    
+    $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
+        $scope.currentParam = newVal;
+        //$scope.currentParam.name = newVal.name;
+        console.log(newVal);
+        console.log($scope.currentParam);
+    });
+    
+    //$scope.poop = "POOP!"
     
 }]);

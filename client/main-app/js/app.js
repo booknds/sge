@@ -42,7 +42,6 @@ swaggerGE.directive("initDropdown", ["$interval", function($interval) {
     }
 }]);
 
-
 swaggerGE.directive("initCollapse", ["$interval", function($interval) {
     return {
         restrict: "A",
@@ -61,7 +60,20 @@ swaggerGE.directive("initCollapse", ["$interval", function($interval) {
     }
 }]);
 
-//swaggerGE.directive("initializeOperations")
+
+swaggerGE.directive("selectValue", function(){
+    return {
+        link: function(scope, element, attrs){
+            console.log(scope);
+            
+            var paramIn = scope.currentParam.inLoc;
+            
+            console.log(element.children();/*.forEach(function(child, index, elementList){
+                console.log(child);
+            })*/
+        }
+    }
+});
 
 swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
     return {

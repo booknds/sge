@@ -9,6 +9,8 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
     
     var paths = {};
     
+    self.chosenParameter = {};
+    
     /* create an object with that holds the basic info of a swagger document*/
     this.Path= function(pathName){
         return {
@@ -272,6 +274,17 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
             console.log(paramListClean);
             
             return paramListClean;
+        },
+        
+        getParameter:function(name, inLoc){
+            var param;
+            this.parameterList.forEach(function(parameter, index, paramList){
+                if(parameter.name === name && parameter.in === inLoc){
+                    param = parameter;
+                }
+            });
+            
+            return param;
         }
     }
     
@@ -375,6 +388,12 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
         
         if(validateParam(pathName, operation, paramName, pIn)){
             path.parameters.addParameter(paramName, pIn);
+            self.chosenParameter = {
+                path:pathName,
+                operation:operation,
+                paramName:paramName,
+                inLoc:pIn
+            }
         }else{
             throw "Invalid Parameter Name, must be unique."
         }
@@ -386,23 +405,28 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
     this.getParamList = function(pathName, operation){
         
         var currentPath = paths[pathName][operation];
-        console.log("LJFLAFJALKFJALF");
-        console.log(pathName);
+        //console.log("LJFLAFJALKFJALF");
+        //console.log(pathName);
         
-        console.log(currentPath);
+        //console.log(currentPath);
         
-        console.log(currentPath.parameters);
+        //console.log(currentPath.parameters);
         
         return currentPath.parameters.getParameterList();
         
     }
+    
+    this.getParam = function(pathName, operation, paramName, paramIn){
+        var paramObject = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
+        return paramObject
+    };
     
     /*
         Checks to see if the given param name is valid for the given path.
     */
     var validateParam = function(pathName, operation, paramName, paramIn){
         if(debug)
-            console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn);
+            console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
         
         var path = paths[pathName][operation];
         

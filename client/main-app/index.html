@@ -37,7 +37,7 @@
         <script src="js/services/pathService.js"></script>
         <script src="js/controllers/swaggerResponseController.js"></script>
         <script src="js/services/swaggerCompilerService.js"></script>
-        
+        <script src="js/controllers/ParameterController.js"></script>
         
         <style>
             #view-source {
@@ -255,7 +255,7 @@
                 {{service}}
             </div>
 
-            <div class="container" ng-controller="swaggerPaths">
+            <div class="container" ng-controller="swaggerPaths as pathController">
                 
                 <div id="delete-modal" class="modal blue-grey darken-1 delete-modal" >
                     <div class="modal-content">
@@ -455,7 +455,7 @@
                                                                     </table>
                                                                     <div class="row  valign-wrapper">
                                                                         <div class="input-field col s4 valign">
-                                                                            <input id="post-NewParam" ng-model="newParam" type="text"/>
+                                                                            <input id="post-NewParam" ng-model="path.newParam" type="text"/>
                                                                             <label for="post-NewParam">Parameter Name</label>
                                                                         </div>
                                                                         <div class="input-field col s4 valign" >
@@ -470,7 +470,7 @@
                                                                             <!--label>In</label-->
                                                                         </div>
                                                                         <div class="col s4 valign">
-                                                                            <button ng-click="addParam(path, 'post', newParam, paramIn)" class="waves-effect waves-light btn">
+                                                                            <button ng-click="addParam(path, 'post', path.newParam, paramIn)" class="waves-effect waves-light btn">
                                                                                 <i class="material-icons">done</i>
                                                                             </button>
                                                                         </div>
@@ -503,38 +503,49 @@
                                                                 </div>
                                                             </div>
                                                             <div class="section">
-                                                                <h5>Parameter</h5>
-                                                                <table class="bordered responsive-table" ng-show="showTable">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th data-field="name">Name</th>
-                                                                            <th data-field="in">Located In</th>
-                                                                            <th data-field="description">Description</th>
-                                                                            <th data-field="required">Required</th>
-                                                                            <th data-field="Schema">Schema</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr ng-repeat="param in path.post.parameters">
-                                                                            <td>{{param.name}}</td>
-                                                                            <td>{{param.in}}</td>
-                                                                            <td>{{param.description}}</td>
-                                                                            <td>{{param.required}}</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <div class="row  valign-wrapper">
-                                                                    <div class="input-field col s6 valign">
-                                                                        <input id="get-NewParam" ng-model="path.newParam" type="text"/>
-                                                                        <label for="get-NewParam">Parameter Name</label>
-                                                                    </div>
-                                                                    <div class="col s6 valign">
-                                                                        <button ng-click="addParam(path, path.newParam)" class="waves-effect waves-light btn">
-                                                                            <i class="material-icons">done</i>
-                                                                        </button>
+                                                                    <h5>Parameter</h5>
+                                                                    <table class="bordered responsive-table" ng-show="showTable">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th data-field="name">Name</th>
+                                                                                <th data-field="in">Located In</th>
+                                                                                <th data-field="description">Description</th>
+                                                                                <th data-field="required">Required</th>
+                                                                                <th data-field="Schema">Schema</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr ng-repeat="param in path.pathDefinition[path.currentName]['get'].parameters">
+                                                                                <td>{{param.name}}</td>
+                                                                                <td>{{param.in}}</td>
+                                                                                <td>{{param.description}}</td>
+                                                                                <td>{{param.required}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <div class="row  valign-wrapper">
+                                                                        <div class="input-field col s4 valign">
+                                                                            <input id="get-NewParam" ng-model="path.newParam" type="text"/>
+                                                                            <label for="get-NewParam">Parameter Name</label>
+                                                                        </div>
+                                                                        <div class="input-field col s4 valign" >
+                                                                            <select class="browser-default" ng-model="selected" ng-change="setParamIn(selected)">
+                                                                                <option value="" disabled selected>Choose your Parameter Type</option>
+                                                                                <option value="path">Path</option>
+                                                                                <option value="query">Query</option>
+                                                                                <option value="header">Header</option>
+                                                                                <option value="body">Body</option>
+                                                                                <option value="form">Form</option>
+                                                                            </select>
+                                                                            <!--label>In</label-->
+                                                                        </div>
+                                                                        <div class="col s4 valign">
+                                                                            <button ng-click="addParam(path, 'get', path.newParam, paramIn)" class="waves-effect waves-light btn modal-trigger" path-modal data-target="param-creation-modal">
+                                                                                <i class="material-icons">done</i>
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -588,45 +599,41 @@
                 </div>
                 
                 <!-- MODAL FOR PARAM SPECIFICATION -->
-                <div id="path-creation-modal" class="modal blue-grey darken-1" >
+                <div id="param-creation-modal" class="modal blue-grey darken-1">
                     <div class="modal-content">
                         <div class="row">
                             <div class="left-align col s12">
-                                <h4>Create New Path</h4>
+                                <h4>Parameter Options</h4>
                             </div>
-                            <div class="input-field col s12 ">
-                                <input id="path-name" type="text" ng-model="newPathName">
-                                <label for="path-name">Path Name</label>
+                        </div>
+                        <div class="row  valign-wrapper">
+                            <div class="input-field col s4 valign">
+                                <input id="newParamUtil" placeholder=" " ng-model="currentParam.paramName" type="text"/>
+                                <label for="newParamUtil">Parameter Name</label>
+                            </div>
+                            <div class="input-field col s4 valign" >
+                                <select class="browser-default" select-value ng-model="selected" ng-change="null)">
+                                    <option value="" disabled selected>Choose your Parameter Type</option>
+                                    <option value="path" id="path">Path</option>
+                                    <option value="query" id="query">Query</option>
+                                    <option value="header" id="header">Header</option>
+                                    <option value="body" id="body">Body</option>
+                                    <option value="form" id="form">Form</option>
+                                </select>
+                                <!--label>In</label-->
+                            </div>
+                            <div class="col s4 valign">
+                                <p>
+                                  <input type="checkbox" id="required" ng-click="null"/>
+                                  <label for="required">required</label>
+                                </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="left-align" style="padding-left:15px;">Operations </div>
                             <div class="col s12 l6">
                                 <div class="row">
-                                    <div class="col s3">
-                                        <p>
-                                          <input type="checkbox" id="post" ng-click="updateInitialOperation('post')"/>
-                                          <label for="post">POST</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s3">
-                                        <p>
-                                          <input type="checkbox" id="get" ng-click="updateInitialOperation('get')"/>
-                                          <label for="get">GET</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s3">
-                                        <p>
-                                          <input type="checkbox" id="put" ng-click="updateInitialOperation('put')"/>
-                                          <label for="put">PUT</label>
-                                        </p>
-                                    </div>
-                                    <div class="col s3">
-                                        <p>
-                                          <input type="checkbox" id="delete" ng-click="updateInitialOperation('delete')"/>
-                                          <label for="delete">DELETE</label>
-                                        </p>
-                                    </div>
+                                    POOP
                                 </div>
                             </div>
 
@@ -635,7 +642,7 @@
                     </div>
 
                     <div class="modal-footer blue-grey darken-1 ">
-                        <button type="submit" ng-hide="preventPathCreation" class=" modal-close modal-action  waves-effect waves-green btn" ng-click="addPath()">
+                        <button type="submit" ng-hide="preventPathCreation" class=" modal-close modal-action  waves-effect waves-green btn" ng-click="null">
                             Add Path
                         </button>
                         <h5 ng-if="preventPathCreation" class="red-text" style="padding-right:5px;">
