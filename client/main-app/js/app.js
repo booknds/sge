@@ -1,4 +1,4 @@
-var swaggerGE = angular.module("SwaggerGraphicalEditor", []);
+var swaggerGE = angular.module("SwaggerGraphicalEditor", ['ui.materialize']);
 
 swaggerGE.directive("pathCreator", ['$compile', function($compile) {
     return {
@@ -18,9 +18,32 @@ swaggerGE.directive("pathCreator", ['$compile', function($compile) {
 swaggerGE.directive("pathModal", ["$interval", function($interval) {
     return {
         restrict: "A",
+        compile:null,
         link: function(scope, elem, attrs) {
             //On click
-            $('.modal-trigger').leanModal();
+            if(scope.triggerModal){
+                $('.modal-trigger').leanModal();
+                scope.triggerModal = false;
+            }
+            //console.log('triggerModal');
+            //$('.modal-trigger').leanModal();
+            
+        }
+    }
+}]);
+
+swaggerGE.directive("paramModal", ["$interval", function($interval) {
+    return {
+        restrict: "A",
+        link: function(scope, elem, attrs) {
+            //On click
+            //if(scope.triggerModal){
+            console.log('paramModal');
+                $('.param-modal-trigger').leanModal();
+            //    scope.triggerModal = false;
+            //}
+            //console.log('triggerModal');
+            //$('.modal-trigger').leanModal();
             
         }
     }
@@ -60,17 +83,41 @@ swaggerGE.directive("initCollapse", ["$interval", function($interval) {
     }
 }]);
 
-
+/**
+ *  Mark updated 
+*/
 swaggerGE.directive("selectValue", function(){
     return {
         link: function(scope, element, attrs){
-            console.log(scope);
             
-            var paramIn = scope.currentParam.inLoc;
-            
-            console.log(element.children();/*.forEach(function(child, index, elementList){
-                console.log(child);
-            })*/
+           scope.$watch('updateParamModal', function(update){
+               if(update){
+                   var paramIn = scope.currentParam.inLoc;
+                   
+                   for(var i = 1; i < 6; i++){
+                        //console.log(element.children()[i]);
+                        //console.log(element.children()[i].value);
+                        if(paramIn === element.children()[i].value){
+                           
+                            var child = angular.element(element.children()[i]);
+                            child.attr('selected', '');
+                        }
+                    }
+                   
+                   scope.updateParamModal = false;
+               }
+           })
+             
+        }
+    }
+});
+
+swaggerGE.directive("resetValue", function(){
+    return {
+        link: function(scope, element, attrs){
+            scope.$watch('', function(update){
+                
+            });
         }
     }
 });

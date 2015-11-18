@@ -302,6 +302,8 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
         
         path.newParam = "";
+        $scope.updateParamModal = true;
+        $scope.triggerModal = true;
         
         //$scope.currentParam = swaggerPaths.chosenParameter;//swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
         //console.log($scope.currentParam);
@@ -316,18 +318,29 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     //$scope.currentParameterPath = swaggerPaths.chosenParameter;
     $scope.currentParam = {};
     
-    $scope.$watch("currentParam.name", function(newVal, oldVal){
+    /*$scope.$watch("currentParam.name", function(newVal, oldVal){
         
-        console.log(newVal);
-    });
+       // console.log(newVal);
+    });*/
+    
+    $scope.updateParamModal = false;
     
     $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
         $scope.currentParam = newVal;
+        
+        //$scope.updateParamModal = true;
+        
         //$scope.currentParam.name = newVal.name;
-        console.log(newVal);
-        console.log($scope.currentParam);
+       // console.log(newVal);
+        //console.log($scope.currentParam);
     });
     
+    $scope.showParamModal = function(){
+        $scope.updateParamModal = true;
+    }
+    
+   // $('.modal-trigger').leanModal();
     //$scope.poop = "POOP!"
+    $scope.triggerModal = true;
     
 }]);
