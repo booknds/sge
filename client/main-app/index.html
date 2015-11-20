@@ -456,28 +456,30 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                            <div class="row  valign-wrapper">
-                                                                <div class="input-field col s4 valign">
-                                                                    <input id="post-NewParam" ng-model="path.newParam" type="text"/>
-                                                                    <label for="post-NewParam">Parameter Name</label>
+                                                            <form ng-submit="addParam(path, 'post', path.newParam, paramIn)">
+                                                                <div class="row  valign-wrapper">
+                                                                    <div class="input-field col s4 valign">
+                                                                        <input id="post-NewParam" ng-model="path.newParam" type="text"/>
+                                                                        <label for="post-NewParam">Parameter Name</label>
+                                                                    </div>
+                                                                    <div class="input-field col s4 valign" >
+                                                                        <select class="browser-default" ng-model="selected" ng-change="setParamIn(selected)">
+                                                                            <option value="" disabled selected>Choose your Parameter Type</option>
+                                                                            <option value="path">Path</option>
+                                                                            <option value="query">Query</option>
+                                                                            <option value="header">Header</option>
+                                                                            <option value="body">Body</option>
+                                                                            <option value="form">Form</option>
+                                                                        </select>
+                                                                        <!--label>In</label-->
+                                                                    </div>
+                                                                    <div class="col s4 valign">
+                                                                        <button type="submit" class="waves-effect waves-light btn" ng-attr-modal="{path.newParam}">
+                                                                            <i class="material-icons">done</i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="input-field col s4 valign" >
-                                                                    <select class="browser-default" ng-model="selected" ng-change="setParamIn(selected)">
-                                                                        <option value="" disabled selected>Choose your Parameter Type</option>
-                                                                        <option value="path">Path</option>
-                                                                        <option value="query">Query</option>
-                                                                        <option value="header">Header</option>
-                                                                        <option value="body">Body</option>
-                                                                        <option value="form">Form</option>
-                                                                    </select>
-                                                                    <!--label>In</label-->
-                                                                </div>
-                                                                <div class="col s4 valign">
-                                                                    <button ng-click="addParam(path, 'post', path.newParam, paramIn)" class="waves-effect waves-light btn">
-                                                                        <i class="material-icons">done</i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -529,7 +531,7 @@
                                                                         <td>{{param.required}}</td>
                                                                         <td>{{param.schema}}</td>
                                                                         <td>
-                                                                            <a class="" href="#param-modal" modal ng-click="addParam(path, 'get', path.newParam, paramIn)">
+                                                                            <a class="" href="#param-modal" modal ng-click="initParamData(path.currentName, 'get', param.name, param.in)">
                                                                                 <i class="material-icons">settings</i>
                                                                             </a>
                                                                         </td>
@@ -537,28 +539,30 @@
                                                                 
                                                                 </tbody>
                                                             </table>
-                                                            <div class="row  valign-wrapper">
-                                                                <div class="input-field col s4 valign">
-                                                                    <input id="get-NewParam" ng-model="path.newParam" type="text" required="" aria-required="true"/>
-                                                                    <label for="get-NewParam">Parameter Name</label>
+                                                            <form ng-submit="addParam(path, 'get', path.newParam, paramIn)">
+                                                                <div class="row  valign-wrapper">
+                                                                    <div class="input-field col s4 valign">
+                                                                        <input id="get-NewParam" ng-model="path.newParam" type="text" required="" aria-required="true"/>
+                                                                        <label for="get-NewParam">Parameter Name</label>
+                                                                    </div>
+                                                                    <div class="input-field col s4 valign" >
+                                                                        <select class="browser-default" ng-model="selected" style="background-color: #455a64;" ng-change="setParamIn(selected)">
+                                                                            <option  value="" disabled selected>Choose your Parameter Type</option>
+                                                                            <option value="path">Path</option>
+                                                                            <option value="query">Query</option>
+                                                                            <option value="header">Header</option>
+                                                                            <option value="body">Body</option>
+                                                                            <option value="form">Form</option>
+                                                                        </select>
+                                                                        <!--label>In</label-->
+                                                                    </div>
+                                                                    <div class="col s4 valign">
+                                                                        <button  class="waves-effect waves-light btn" ng-class="{ 'disabled': !path.newParam }">
+                                                                            <i class="material-icons">add</i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="input-field col s4 valign" >
-                                                                    <select class="browser-default" ng-model="selected" style="background-color: #455a64;" ng-change="setParamIn(selected)">
-                                                                        <option  value="" disabled selected>Choose your Parameter Type</option>
-                                                                        <option value="path">Path</option>
-                                                                        <option value="query">Query</option>
-                                                                        <option value="header">Header</option>
-                                                                        <option value="body">Body</option>
-                                                                        <option value="form">Form</option>
-                                                                    </select>
-                                                                    <!--label>In</label-->
-                                                                </div>
-                                                                <div class="col s4 valign">
-                                                                    <a class="waves-effect waves-light btn" href="#param-modal" modal ng-click="addParam(path, 'get', path.newParam, paramIn)">
-                                                                        <i class="material-icons">add</i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+                                                            </form>
                                                         </div>
                                                 </div>
                                             </li>

@@ -49,7 +49,7 @@ swaggerGE.directive("paramModal", ["$interval", function($interval) {
     }
 }]);
 
-swaggerGE.directive("initDropdown", ["$interval", function($interval) {
+swaggerGE.directive("addParam", ["$interval", function($interval) {
     return {
         restrict: "A",
         link: function(scope, element, attrs) {

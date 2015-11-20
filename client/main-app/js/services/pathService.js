@@ -277,13 +277,22 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
         },
         
         getParameter:function(name, inLoc){
+            
+            console.log("---\nGETPARAM");
+            console.log(name + ", " + inLoc);
             var param;
             this.parameterList.forEach(function(parameter, index, paramList){
-                if(parameter.name === name && parameter.in === inLoc){
+                console.log('-');
+                console.log(parameter);
+                console.log(parameter.name + ", " + name + ", " + parameter.inLocation + ", " + inLoc);
+                if(parameter.name === name && parameter.inLocation === inLoc){
                     param = parameter;
+                    console.log("hit!");
                 }
             });
             
+            console.log(param);
+            console.log("---");
             return param;
         }
     }
@@ -417,7 +426,11 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
     }
     
     this.getParam = function(pathName, operation, paramName, paramIn){
+        console.log("------------------\nGETTING PARAM NAME");
+        console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
         var paramObject = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
+        console.log(paramObject);
+        console.log("------------------");
         return paramObject
     };
     

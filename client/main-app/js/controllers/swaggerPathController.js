@@ -289,6 +289,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     //Param methods
     $scope.addParam = function(path, operation, paramName, paramInLocation){
         
+       // console.log("ADD PARAM!");
         var pathName = path.currentName;
         
         try{
@@ -302,13 +303,26 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
         
         path.newParam = "";
-        $scope.updateParamModal = true;
-        $scope.triggerModal = true;
+        //$scope.updateParamModal = true;
+        //$scope.triggerModal = true;
         
         //$scope.currentParam = swaggerPaths.chosenParameter;//swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
         //console.log($scope.currentParam);
         
     }
+    
+    $scope.updateParam = function(path, operation, paramName, paramInLocation){
+       //pathName, operation, paramName, paramIn 
+    }
+    
+    $scope.initParamData = function(pathName, operation, paramName, paramInLocation){
+        /*console.log("INIT PRAM DATA");
+        console.log($scope.currentParam);
+        $scope.currentParam = swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
+        console.log($scope.currentParam);
+        console.log(swaggerPaths.chosenParameter);*/
+        swaggerPaths.chosenParameter = {path: pathName, operation: operation, paramName: paramName, inLoc: paramInLocation};
+    };
     
     $scope.setParamIn = function(inLocation){
         $scope.paramIn = inLocation;
@@ -335,12 +349,12 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         //console.log($scope.currentParam);
     });
     
-    $scope.showParamModal = function(){
-        $scope.updateParamModal = true;
-    }
+    //$scope.showParamModal = function(){
+    //    $scope.updateParamModal = true;
+    //}
     
    // $('.modal-trigger').leanModal();
     //$scope.poop = "POOP!"
-    $scope.triggerModal = true;
+    //$scope.triggerModal = true;
     
 }]);
