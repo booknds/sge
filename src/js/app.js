@@ -112,27 +112,48 @@ swaggerGE.directive("selectValue", function(){
     }
 });
 
-swaggerGE.directive("resetValue", function(){
+swaggerGE.directive("closePathModal", function(){
     return {
         link: function(scope, element, attrs){
-            scope.$watch('', function(update){
 
+            scope.$watch('closePathModal', function(update){
+              if(scope.closePathModal === true){
+                $('#path-creation-modal').closeModal();
+                scope.closePathModal = false;
+              }
             });
+
+
         }
     }
 });
 
+swaggerGE.directive("colorize", function(){
+    return {
+        link: function(scope, element, attrs){
+
+            operation = element.text();
+
+            console.log("operation: " + operation);
+
+            switch(operation){
+              
+            }
+
+        }
+    }
+});
 
 swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
     return {
         restrict: "AE",
-        templateUrl: 'js/templates/checkboxTemplate.html',
+        //templateUrl: 'js/templates/checkboxTemplate.html',
         replace: true,
         scope: {
-            toggleOp: '&',
-            uniqueId: '&',
-            pathObject: '=',
-            operation: '@'
+            //toggleOp: '&',
+            //uniqueId: '&',
+            //pathObject: '=',
+            //operation: '='
         },
         link: function(scope, elem, attrs) {
 
@@ -147,18 +168,18 @@ swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
             label.removeAttr('for');
             label.attr('for', scope.$id);
 
-            //console.log(scope);
+            //console.log(scope.operation);
 
-            thisOperation = scope.operation.toLowerCase();
+            //thisOperation = scope.operation.toLowerCase();
             //console.log(thisOperation);
             //console.log(scope.pathObject.currentPathOperations);
             //console.log(scope.pathObject.currentPathOperations[thisOperation]);
             //check if this operation was chosen and add the checkmark if it has been.
 
-            if(scope.pathObject.currentPathOperations[thisOperation]){
+            //if(scope.pathObject.currentPathOperations[thisOperation]){
               //  console.log('success');
-                input.attr('checked', 'checked');
-            }
+            //    input.attr('checked', 'checked');
+            //}
             //console.log('------------');
         }
     }

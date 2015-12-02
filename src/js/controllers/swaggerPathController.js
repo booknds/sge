@@ -8,88 +8,46 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
     var Verb = swaggerPaths.newHttpVerb();
 
-    //create an object for the initial operations
-    //  used when creating new paths
-    function InitialOperations(){
-        this.post = false;
-        this.get = false;
-        this.put = false;
-        this.delete = false;
-    }
-
-    /*
-        VerbOperation Object
-    */
-    function VerbOperation(){
-        this.tags = null;
-        this.summary = null;
-        this.description = null;
-        this.externalDocs = new Object(); //should be an ExternalDocs Object
-        this.operationId = null;
-        this.consumes = null;
-        this.produces = null;
-        this.parameters = new Object(); //should be a Parameter Object
-        this.responses = new Object(); //should be a Responses object
-        this.schemes = null;
-        this.depreciated = null;
-        this.security = new Object(); //should be a Security Object
-
-    }
-
     $scope.paths=[];
 
     $scope.swaggerPaths = swaggerPaths;
 
+    //used to test the services
+    $scope.ps = swaggerPaths.getPaths();
     $scope.swagger = swaggerCompiler.getSwaggerFile();
     $scope.spaths = swaggerPaths.getPaths();
 
-   /* $scope.$watch("paths", function(){
-        $scope.spaths = swaggerPaths.getPaths();
-        console.log($scope.spaths)
-    })
-*/
     $scope.showPaths = true;
-    $scope.preventPathCreation = true;
+    $scope.prevent = {
+      pathCreation: true,
+      paramConfig: true,
+    }
 
     $scope.newPathName = "";
-    $scope.initialPathOperations = new InitialOperations();
-
-    //var operationsToUpdate = [];
-
-    //used to test the
-    $scope.ps = swaggerPaths.getPaths();
-
-    //$scope.deleteConfirmed = false;
+    $scope.initialPathOperations = {
+      post: false,
+      get: false,
+      put: false,
+      delete: false,
+    }
 
     $scope.showTable = true;
 
-    //$scope.dumb = "";
     $scope.paramIn ="";
+
+    $scope.currentParam = {};
+    $scope.tempParam = {};
+
+    $scope.closePathModal = false;
 
     //watch when
     $scope.$watch("newPathName", function(){
         //only check if unique if it is not blank
         if($scope.newPathName)
-            $scope.preventPathCreation = isUnique($scope.newPathName) ? false : true;
+            $scope.prevent.pathCreation = isUnique($scope.newPathName) ? false : true;
         else
-            $scope.preventPathCreation = true;
+            $scope.prevent.pathCreation = true;
     });
-
-    $scope.$watch("dumb", function(newVal, oldVal){
-        $log.log(newVal + ", " + oldVal);
-    })
-
-  //  $scope.$watchCollection("paths", function() {
-       // swaggerPaths.setPaths($scope.paths);
-       /* console.log('CCONTROLLER PASSING PATHS');
-        console.log($scope.paths);
-        console.log('------------------------------------');*/
-   //     console.log(swaggerPaths.getPaths());
-   //     $scope.ps = swaggerPaths.getPaths();
-       // $scope.swagger = swaggerCompiler.getSwaggerFile();
-   // });
-
-    //$scope.watch("paths.")
 
     $scope.togglePaths = function(){
         //make sure there are paths to show
@@ -157,7 +115,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
                     console.log(operation);
                 console.log($scope.initialPathOperations);*/
                     var currentPath = $scope.paths[latestPathLocation];
-                    currentPath.pathDefinition[newPath][operation] = new VerbOperation();
+                    currentPath.pathDefinition[newPath][operation] = swaggerPaths.newOperation();
                     //adds operation to the singleton
                     swaggerPaths.addOperation(newPath, operation);
                 }
@@ -166,14 +124,22 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
             //reset path creation variables
             $scope.newPathName = "";
-            $scope.preventPathCreation = true;
+            $scope.prevent.pathCreation = true;
+
 
             //in path creation modal reset checkmarks and if they were checked off previously remove them.
-            $scope.initialPathOperations = new InitialOperations();
-            angular.element(document.getElementById('post')).removeAttr('checked');
-            angular.element(document.getElementById('get')).removeAttr('checked');
-            angular.element(document.getElementById('put')).removeAttr('checked');
-            angular.element(document.getElementById('delete')).removeAttr('checked');
+            $scope.initialPathOperations = {
+              post: false,
+              get: false,
+              put: false,
+              delete: false,
+            }
+
+            $scope.closePathModal = true;
+            //angular.element(document.getElementById('post')).removeAttr('checked');
+            //angular.element(document.getElementById('get')).removeAttr('checked');
+            //angular.element(document.getElementById('put')).removeAttr('checked');
+            //angular.element(document.getElementById('delete')).removeAttr('checked');
 
 
 
@@ -244,7 +210,8 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         //if adding a new operation
         if(path.currentPathOperations[operation]){
 
-            path.pathDefinition[pathName][operation] = new VerbOperation();
+            path.pathDefinition[pathName][operation] = swaggerPaths.newOperation();
+            //path.pathDefinition[pathName][operation] = swaggerPaths.getParameterList
             swaggerPaths.addOperation(pathName, operation);
         }
         //if removing an operation
@@ -266,26 +233,6 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         }
     }
 
-    /*function deleteModal(){
-
-        $('.delete-modal').leanModal();
-        $('#delete-modal').openModal();
-    }*/
-
-    /*$scope.initCollapse = function(){
-        $('.collapsible').collapsible({
-              accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });
-
-        //$('select').material_select();
-    };*/
-
-    $scope.getCheckboxId = function(path, operation) {
-        console.log('get checkob id');
-
-        return path.currentName + "-" + operation;
-    };
-
     //Param methods
     $scope.addParam = function(path, operation, paramName, paramInLocation){
 
@@ -302,12 +249,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
         path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
 
-        path.newParam = "";
-        //$scope.updateParamModal = true;
-        //$scope.triggerModal = true;
-
-        //$scope.currentParam = swaggerPaths.chosenParameter;//swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
-        //console.log($scope.currentParam);
+        path.newParam[operation] = "";
 
     }
 
@@ -315,17 +257,12 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
        //pathName, operation, paramName, paramIn
     }
 
+    $scope.updateParam = function(param){
+
+    }
+
     $scope.initParamData = function(pathName, operation, paramName, paramInLocation){
-        /*console.log("INIT PRAM DATA");
-        console.log($scope.currentParam);
-        $scope.currentParam = swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
-        console.log($scope.currentParam);
-        console.log(swaggerPaths.chosenParameter);*/
-        //swaggerPaths.chosenParameter = {path: pathName, operation: operation, paramName: paramName, inLoc: paramInLocation};
-        swaggerPaths.chosenParameter = swaggerPaths
-          .getParam(pathName, operation, paramName, paramInLocation);
-
-
+      swaggerPaths.chosenParameter = swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
 
     };
 
@@ -338,32 +275,21 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
       $scope.currentParam.inLocation = inLocation;
     }
 
-    //$scope.currentParameterPath = swaggerPaths.chosenParameter;
-    $scope.currentParam = {};
-    $scope.tempParam = {};
-
-    /*$scope.$watch("currentParam.name", function(newVal, oldVal){
-
-       // console.log(newVal);
-    });*/
-
-    //$scope.updateParamModal = false;
-
-    $scope.updateParam = function(param){
-
-    }
-
     $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
+
+
         $scope.currentParam = newVal;
+
+        //console.log(newVal);
+        //console.log($scope.currentParam);
+
 
         $scope.tempParam = clone($scope.currentParam);
 
-        console.log($scope.tempParam);
-        //$scope.Modal = true;
+        $scope.tempParam.schema = JSON.stringify($scope.tempParam.schema);
 
-        //$scope.currentParam.name = newVal.name;
-       // console.log(newVal);
-        //console.log($scope.currentParam);
+        console.log($scope.tempParam);
+
     });
 
     $scope.paramRequired = function(){
@@ -378,20 +304,10 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
         $scope.currentParam.required = true;
       }
 
-      //$scope.currentParam.dummy = true;
-      //$scope.currentParam.name = "ROAR";
-
       console.log("updateing param required");
       console.log($scope.currentParam);
     }
 
-    //$scope.showParamModal = function(){
-    //    $scope.updateParamModal = true;
-    //}
-
-   // $('.modal-trigger').leanModal();
-    //$scope.poop = "POOP!"
-    //$scope.triggerModal = true;
 
     function clone(obj) {
       // Handle the 3 simple types, and null or undefined

@@ -22,7 +22,12 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
                 put:false,
                 delete:false
             },
-            newParam: "",
+            newParam: {
+                post: "",
+                get: "",
+                put: "",
+                delete: "",
+            },
             //isCollapsed:false,
             pathDefinition: {
                 pathName: {
@@ -163,6 +168,10 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
 
     };
+
+    this.newOperation = function(){
+      return new Operation();
+    }
 
     /* TODO make a separate Operations class */
     this.addOperation = function(path, operation){
