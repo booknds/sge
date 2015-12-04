@@ -130,18 +130,59 @@ swaggerGE.directive("closePathModal", function(){
 
 swaggerGE.directive("colorize", function(){
     return {
-        link: function(scope, element, attrs){
+      scope: {
 
-            operation = element.text();
+      },
+      link: function(scope, element, attrs){
+
+          /*
+          ng-class="{'blue': '{{operation}}' == 'get',
+            'orange': '{{operation}}' === 'put',
+            'green': '{{operation}}' === 'post',
+            'red': '{{operation}}' === 'delete', }"
+            */
+          //  operation = element.text();
+
+//            if()
 
             console.log("operation: " + operation);
 
             switch(operation){
-              
+
             }
 
         }
     }
+});
+
+/*swaggerGE.directive("modalFocus", function(){
+    return {
+      scope: {
+
+      },
+      link: function(scope, element, attrs){
+
+          //attrs.focus
+
+        }
+    }
+});*/
+swaggerGE.directive("deepWatch", function(){
+    return {
+      scope: {
+        param: '='
+      },
+      link: function(scope, element, attrs){
+
+          scope.$watch('param', function(newValue, oldValue) {
+            if (newValue){
+            //  console.log("I see a data change!");
+            //  scope. = angular.copy($scope.data);
+            }
+
+        },true);
+    }
+  }
 });
 
 swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {

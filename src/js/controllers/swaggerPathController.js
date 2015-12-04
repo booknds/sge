@@ -1,4 +1,4 @@
-swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', 'swaggerCompiler', '$window', function($scope, $log, swaggerPaths, swaggerCompiler, $window){
+swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPathsService', 'swaggerCompiler', '$window', function($scope, $log, $timeout, swaggerPaths, swaggerCompiler, $window){
 
      "use strict";
     /*
@@ -20,7 +20,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     $scope.showPaths = true;
     $scope.prevent = {
       pathCreation: true,
-      paramConfig: true,
+      paramConfig: false,
     }
 
     $scope.newPathName = "";
@@ -241,7 +241,8 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
         try{
             swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
-
+            //$scope.parametersList = swaggerPaths.getParamList;
+            $scope.updateParamList(pathName, operation);
         }catch(e){
             console.log(e);
             $scope.toastUser("Not a unique parameter/query combo.");
@@ -251,18 +252,33 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
         path.newParam[operation] = "";
 
+
+
     }
 
-    $scope.updateParam = function(path, operation, paramName, paramInLocation){
-       //pathName, operation, paramName, paramIn
-    }
 
-    $scope.updateParam = function(param){
+    $scope.updateParameter = function(){
+      try{
+        console.log("updateParam");
+        swaggerPaths.updateParameter($scope.tempParam);
+        console.log("poop")
+        console.log($scope.tempParam.originalValues.path);
+        $scope.updateParamList($scope.tempParam.originalValues.path, $scope.tempParam.originalValues.operation);
 
+      }catch(e){
+          console.log(e);
+          $scope.toastUser("Parameter name/query combo' already exists");
+      }
     }
 
     $scope.initParamData = function(pathName, operation, paramName, paramInLocation){
-      swaggerPaths.chosenParameter = swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
+      $scope.tempParam = clone(swaggerPaths.getParam(pathName, operation, paramName, paramInLocation));
+      $scope.tempParam.originalValues = {
+        path: pathName,
+        operation: operation,
+        name: paramName,
+        inLocation: paramInLocation,
+      };
 
     };
 
@@ -272,10 +288,12 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     }
 
     $scope.setParamInModal = function(inLocation){
-      $scope.currentParam.inLocation = inLocation;
+      if(inLocation === 'path'){
+        $scope.tempParam.required = true;
+      }
     }
 
-    $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
+  /*  $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
 
 
         $scope.currentParam = newVal;
@@ -290,7 +308,15 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
         console.log($scope.tempParam);
 
-    });
+    });*/
+
+    $scope.parametersList = null;
+
+    $scope.updateParamList = function(pathName, operation){
+      $scope.parametersList = angular.copy(swaggerPaths.getParamList(pathName,operation));
+    }
+
+    //$scope.$watch("")
 
     $scope.paramRequired = function(){
 
@@ -359,5 +385,6 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
       throw new Error("Unable to copy obj! Its type isn't supported.");
     }
+
 
 }]);

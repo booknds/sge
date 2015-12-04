@@ -307,11 +307,17 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
     }
 
     var Parameter = function(name, inLocation){
-        this.name = name || "",
+        this.name = name || "";
         this.inLocation = inLocation || "";
         this.description = null;
         this.required = (this.inLocation === "path") ? true : false;
         this.schema = new Object();
+        this.type = "";
+        this.format ="";
+        this.allowEmptyValue = false;
+        this.items= new Object();
+        this.collectionFormat = "";
+
     }
 
     Parameter.prototype = {
@@ -417,7 +423,7 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
                 inLoc:pIn
             }
         }else{
-            throw "Invalid Parameter Name, must be unique."
+            throw "Invalid Parameter Name-in combination, must be unique."
         }
     }
 
@@ -467,6 +473,44 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
             return true;
         }
+    }
+
+    this.updateParameter = function(tempParameter){
+
+      console.log(tempParameter);
+
+      var originalData = tempParameter.originalValues;
+
+      //validate new param
+      //check to see if the name - inLocation pair of the parameter was changed
+      if(originalData.name !== tempParameter.name || originalData.inLocation !== tempParameter.inLocation){
+
+        console.log("name is not the same or inLocation not the same");
+        console.log("\tname: " + originalData.name + ", " + tempParameter.name);
+        console.log("\tinLocation: " + originalData.inLocation + ", " + tempParameter.inLocation);
+        //if they have been changed check if the new combo is legitamit
+        if(!validateParam(originalData.path, originalData.operation, tempParameter.name, tempParameter.inLocation)){
+          throw "Invalid Parameter Name-in combination, must be unique."
+        }
+      }
+
+        console.log("name and inLocation are the same");
+
+        var originalParam = paths[originalData.path][originalData.operation].parameters.getParameter(originalData.name, originalData.inLocation);
+        //var newParameter = new Parameter();
+
+        for(var key in tempParameter){
+          if(tempParameter.hasOwnProperty(key) && key !== 'originalValues' && key !== "schema"){
+            originalParam[key] = tempParameter[key];
+          }
+          if(key === "schema"){
+            if(tempParameter[key] instanceof Object)
+              originalParam[key] = tempParameter[key];
+            else
+              originalParam[key] = JSON.parse(tempParameter[key]);
+          }
+        }
+
     }
 
 

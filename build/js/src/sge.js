@@ -130,18 +130,59 @@ swaggerGE.directive("closePathModal", function(){
 
 swaggerGE.directive("colorize", function(){
     return {
-        link: function(scope, element, attrs){
+      scope: {
 
-            operation = element.text();
+      },
+      link: function(scope, element, attrs){
+
+          /*
+          ng-class="{'blue': '{{operation}}' == 'get',
+            'orange': '{{operation}}' === 'put',
+            'green': '{{operation}}' === 'post',
+            'red': '{{operation}}' === 'delete', }"
+            */
+          //  operation = element.text();
+
+//            if()
 
             console.log("operation: " + operation);
 
             switch(operation){
-              
+
             }
 
         }
     }
+});
+
+/*swaggerGE.directive("modalFocus", function(){
+    return {
+      scope: {
+
+      },
+      link: function(scope, element, attrs){
+
+          //attrs.focus
+
+        }
+    }
+});*/
+swaggerGE.directive("deepWatch", function(){
+    return {
+      scope: {
+        param: '='
+      },
+      link: function(scope, element, attrs){
+
+          scope.$watch('param', function(newValue, oldValue) {
+            if (newValue){
+            //  console.log("I see a data change!");
+            //  scope. = angular.copy($scope.data);
+            }
+
+        },true);
+    }
+  }
 });
 
 swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
@@ -264,7 +305,7 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
     
     
 }]);
-swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', 'swaggerCompiler', '$window', function($scope, $log, swaggerPaths, swaggerCompiler, $window){
+swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPathsService', 'swaggerCompiler', '$window', function($scope, $log, $timeout, swaggerPaths, swaggerCompiler, $window){
 
      "use strict";
     /*
@@ -286,7 +327,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     $scope.showPaths = true;
     $scope.prevent = {
       pathCreation: true,
-      paramConfig: true,
+      paramConfig: false,
     }
 
     $scope.newPathName = "";
@@ -507,7 +548,8 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
         try{
             swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
-
+            //$scope.parametersList = swaggerPaths.getParamList;
+            $scope.updateParamList(pathName, operation);
         }catch(e){
             console.log(e);
             $scope.toastUser("Not a unique parameter/query combo.");
@@ -517,18 +559,33 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
         path.newParam[operation] = "";
 
+
+
     }
 
-    $scope.updateParam = function(path, operation, paramName, paramInLocation){
-       //pathName, operation, paramName, paramIn
-    }
 
-    $scope.updateParam = function(param){
+    $scope.updateParameter = function(){
+      try{
+        console.log("updateParam");
+        swaggerPaths.updateParameter($scope.tempParam);
+        console.log("poop")
+        console.log($scope.tempParam.originalValues.path);
+        $scope.updateParamList($scope.tempParam.originalValues.path, $scope.tempParam.originalValues.operation);
 
+      }catch(e){
+          console.log(e);
+          $scope.toastUser("Parameter name/query combo' already exists");
+      }
     }
 
     $scope.initParamData = function(pathName, operation, paramName, paramInLocation){
-      swaggerPaths.chosenParameter = swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
+      $scope.tempParam = clone(swaggerPaths.getParam(pathName, operation, paramName, paramInLocation));
+      $scope.tempParam.originalValues = {
+        path: pathName,
+        operation: operation,
+        name: paramName,
+        inLocation: paramInLocation,
+      };
 
     };
 
@@ -538,10 +595,12 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
     }
 
     $scope.setParamInModal = function(inLocation){
-      $scope.currentParam.inLocation = inLocation;
+      if(inLocation === 'path'){
+        $scope.tempParam.required = true;
+      }
     }
 
-    $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
+  /*  $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
 
 
         $scope.currentParam = newVal;
@@ -556,7 +615,15 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
         console.log($scope.tempParam);
 
-    });
+    });*/
+
+    $scope.parametersList = null;
+
+    $scope.updateParamList = function(pathName, operation){
+      $scope.parametersList = angular.copy(swaggerPaths.getParamList(pathName,operation));
+    }
+
+    //$scope.$watch("")
 
     $scope.paramRequired = function(){
 
@@ -625,6 +692,7 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', 'swaggerPathsService', '
 
       throw new Error("Unable to copy obj! Its type isn't supported.");
     }
+
 
 }]);
 
@@ -1135,11 +1203,17 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
     }
 
     var Parameter = function(name, inLocation){
-        this.name = name || "",
+        this.name = name || "";
         this.inLocation = inLocation || "";
         this.description = null;
         this.required = (this.inLocation === "path") ? true : false;
         this.schema = new Object();
+        this.type = "";
+        this.format ="";
+        this.allowEmptyValue = false;
+        this.items= new Object();
+        this.collectionFormat = "";
+
     }
 
     Parameter.prototype = {
@@ -1245,7 +1319,7 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
                 inLoc:pIn
             }
         }else{
-            throw "Invalid Parameter Name, must be unique."
+            throw "Invalid Parameter Name-in combination, must be unique."
         }
     }
 
@@ -1295,6 +1369,44 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
             return true;
         }
+    }
+
+    this.updateParameter = function(tempParameter){
+
+      console.log(tempParameter);
+
+      var originalData = tempParameter.originalValues;
+
+      //validate new param
+      //check to see if the name - inLocation pair of the parameter was changed
+      if(originalData.name !== tempParameter.name || originalData.inLocation !== tempParameter.inLocation){
+
+        console.log("name is not the same or inLocation not the same");
+        console.log("\tname: " + originalData.name + ", " + tempParameter.name);
+        console.log("\tinLocation: " + originalData.inLocation + ", " + tempParameter.inLocation);
+        //if they have been changed check if the new combo is legitamit
+        if(!validateParam(originalData.path, originalData.operation, tempParameter.name, tempParameter.inLocation)){
+          throw "Invalid Parameter Name-in combination, must be unique."
+        }
+      }
+
+        console.log("name and inLocation are the same");
+
+        var originalParam = paths[originalData.path][originalData.operation].parameters.getParameter(originalData.name, originalData.inLocation);
+        //var newParameter = new Parameter();
+
+        for(var key in tempParameter){
+          if(tempParameter.hasOwnProperty(key) && key !== 'originalValues' && key !== "schema"){
+            originalParam[key] = tempParameter[key];
+          }
+          if(key === "schema"){
+            if(tempParameter[key] instanceof Object)
+              originalParam[key] = tempParameter[key];
+            else
+              originalParam[key] = JSON.parse(tempParameter[key]);
+          }
+        }
+
     }
 
 
