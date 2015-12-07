@@ -1,4 +1,5 @@
-swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPathsService', 'swaggerCompiler', '$window', function($scope, $log, $timeout, swaggerPaths, swaggerCompiler, $window){
+swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPathsService', 'swaggerCompiler', '$window',
+  function($scope, $log, $timeout, swaggerPaths, swaggerCompiler, $window){
 
      "use strict";
     /*
@@ -179,6 +180,8 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPath
     }
 
 
+/**---------  START Operation methods ---------**/
+
     /*
         This method is used when creating a new path object to update
             the true/false value of the initial operations selection.
@@ -232,9 +235,12 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPath
 
         }
     }
+/**---------  END Operation methods ---------**/
 
-    //Param methods
-    $scope.addParam = function(path, operation, paramName, paramInLocation){
+/******************************************************************************/
+
+/**---------  START Param methods ---------**/
+/**    $scope.addParam = function(path, operation, paramName, paramInLocation){
 
        // console.log("ADD PARAM!");
         var pathName = path.currentName;
@@ -294,26 +300,23 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPath
     }
 
   /*  $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
-
-
         $scope.currentParam = newVal;
-
         //console.log(newVal);
         //console.log($scope.currentParam);
-
-
         $scope.tempParam = clone($scope.currentParam);
-
         $scope.tempParam.schema = JSON.stringify($scope.tempParam.schema);
-
         console.log($scope.tempParam);
-
     });*/
-
-    $scope.parametersList = null;
+/**
+    $scope.parametersList = {
+      post:null,
+      get:null,
+      put:null,
+      delete:null,
+    };
 
     $scope.updateParamList = function(pathName, operation){
-      $scope.parametersList = angular.copy(swaggerPaths.getParamList(pathName,operation));
+      $scope.parametersList[operation] = angular.copy(swaggerPaths.getParamList(pathName,operation));
     }
 
     //$scope.$watch("")
@@ -334,6 +337,13 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPath
       console.log($scope.currentParam);
     }
 
+/**---------  END Param methods ---------**/
+
+/******************************************************************************/
+
+/**---------  START Response methods ---------**/
+
+/**---------  END Response methods ---------**/
 
     function clone(obj) {
       // Handle the 3 simple types, and null or undefined

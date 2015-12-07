@@ -9,7 +9,7 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
     var paths = {};
 
-    self.chosenParameter = {};
+    //self.chosenParameter = {};
 
     /* create an object with that holds the basic info of a swagger document*/
     this.Path= function(pathName){
@@ -395,9 +395,9 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
     }
 
-    this.newParam = function(name, id){
+    /*this.newParam = function(name, id){
       return new newParameter(name, id);
-    }
+    }*/
 
     /*
         Tries to create and validate a new parameter object.
@@ -416,12 +416,7 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
         if(validateParam(pathName, operation, paramName, pIn)){
             path.parameters.addParameter(paramName, pIn);
-            self.chosenParameter = {
-                path:pathName,
-                operation:operation,
-                paramName:paramName,
-                inLoc:pIn
-            }
+            
         }else{
             throw "Invalid Parameter Name-in combination, must be unique."
         }
@@ -513,5 +508,10 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
     }
 
+    this.chosenParameter= null;
+
+    this.updateChosenParameter = function(newChosen){
+      chosenParameter = newChosen;
+    };
 
 }]);

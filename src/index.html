@@ -360,7 +360,7 @@
                                   <label id="label" for="label">Description</label>
                                 </div>
                               </div>
-                              <div class="section">
+                              <div class="section" ng-controller="parameterController as paramControl">
                                 <h5>Parameter</h5>
                                 <div></div>
                                 <table class=" section bordered responsive-table">
@@ -375,7 +375,7 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr ng-repeat="param in parametersList | orderBy:'name'">
+                                    <tr ng-repeat="param in paramControl.parametersList[operation] | orderBy:'name'">
                                       <div >
                                         <td>{{param.name}}</td>
                                         <td>{{param.in}}</td>
@@ -383,22 +383,23 @@
                                         <td>{{param.required}}</td>
                                         <td class="shrink">{{param.schema}}</td>
                                         <td>
-                                          <a class="disabled" href="#param-modal" modal ng-click="initParamData(path.currentName, operation, param.name, param.in)">
+                                          <a class="disabled" href="#param-modal" modal ng-click="paramControl.initParamData(path.currentName, operation, param.name, param.in)">
                                           <i class="material-icons">settings</i>
                                           </a>
                                         </td>
                                       </div>
+                                      {{paramControl.parametersList}}
                                     </tr>
                                   </tbody>
                                 </table>
-                                <form ng-submit="addParam(path, operation, path.newParam[operation], paramIn)">
+                                <form ng-submit="paramControl.addParam(path, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)">
                                   <div class="valign-wrapper">
                                     <div unique-checkbox class="input-field col s4 valign">
-                                      <input id="input" ng-model="path.newParam[operation]" type="text" required="" aria-required="true"/>
+                                      <input id="input" ng-model="paramControl.newParamData[operation].name" type="text" required="" aria-required="true"/>
                                       <label id="label" for="label">Parameter Name</label>
                                     </div>
                                     <div class="input-field col s4 valign" >
-                                      <select class="browser-default" ng-model="selected" style="background-color: #455a64;" ng-change="setParamIn(selected)">
+                                      <select class="browser-default" ng-model="paramControl.newParamData[operation].inLocation" style="background-color: #455a64;">
                                         <option  value="" disabled selected>Choose your Parameter Location</option>
                                         <option value="path">Path</option>
                                         <option value="query">Query</option>
@@ -408,13 +409,183 @@
                                       </select>
                                     </div>
                                     <div class="col s4 valign">
-                                      <button  class="waves-effect waves-light btn" ng-class="{ 'disabled': !path.newParam }">
+                                      <button  class="waves-effect waves-light btn" ng-class="{ 'disabled': !paramControl.newParamData[operation].name }">
                                       <i class="material-icons">add</i>
                                       </button>
                                     </div>
                                   </div>
                                 </form>
                               </div>
+
+                              <div class="section" ng-controller="responseController as responseControl">
+                                <h5>Response</h5>
+                                <div></div>
+                                <table class=" section bordered responsive-table">
+                                  <thead>
+                                    <tr>
+                                      <th data-field="code">Code</th>
+                                      <th data-field="description">Description</th>
+                                      <th data-field="Schema">Schema</th>
+                                      <th data-field="Edit">Edit</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr ng-repeat="response in responseControl.responseList[operation] | orderBy:'code'">
+                                      <div >
+                                        <td>{{response.code}}</td>
+                                        <td class="shrink">{{response.description}}</td>
+                                        <td class="shrink">{{response.schema}}</td>
+                                        <td>
+                                          <a class="disabled" href="#response-modal" modal ng-click="initResponseData(path.currentName, operation, responseControl.newResponseData[operation].httpCode)">
+                                          <i class="material-icons">settings</i>
+                                          </a>
+                                        </td>
+                                      </div>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <form ng-submit="responseControl.addResponse(path, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)">
+                                  <div class="valign-wrapper">
+                                    <div unique-checkbox class="input-field col s4 valign">
+                                      <input id="input" ng-model="responseControl.newResponseData[operation].httpCode" type="text" required="" aria-required="true"/>
+                                      <label id="label" for="label">Response Code</label>
+                                    </div>
+                                    <div unique-checkbox class="input-field col s4 valign">
+                                      <input id="input" ng-model="responseControl.newResponseData[operation].description" type="text" required="" aria-required="true"/>
+                                      <label id="label" for="label">Response Description</label>
+                                    </div>
+                                    <div class="col s4 valign">
+                                      <button  class="waves-effect waves-light btn"
+                                        ng-class="{ 'disabled': !responseControl.newResponseData[operation].httpCode}">
+                                      <i class="material-icons">add</i>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              <!-- MODAL for RESPONSE UPDATE
+                              <div id="response-modal" class="modal blue-grey darken-1 modal-fixed-footer">
+                                <form ng-submit="updateParameter()">
+                                  <div class="modal-content white-text">
+                                    {{tempParam}}
+                                    <div class="row">
+                                      <div class="left-align col s12">
+                                        <h4>Parameter Options</h4>
+                                      </div>
+                                    </div>
+                                    <div class="row valign-wrapper">
+                                      <div class="input-field col s3 valign">
+                                        <input id="newParamUtil" ng-model="tempParam.name" type="text" required="" aria-required="true"/>
+                                        <label for="newParamUtil">Parameter Name</label>
+                                      </div>
+                                      <div class="input-field col s3 valign" >
+                                        <select class="browser-default" style="background-color: #455a64;" select-value ng-model="tempParam.inLocation" ng-change="setParamInModal(tempParam.inLocation)" >
+                                          <option value="" disabled selected>Parameter Location</option>
+                                          <option value="path" id="path">Path</option>
+                                          <option value="query" id="query">Query</option>
+                                          <option value="header" id="header">Header</option>
+                                          <option value="body" id="body">Body</option>
+                                          <option value="formData" id="formData">Form Data</option>
+                                        </select>
+                                      </div>
+                                      <div class="col s3 valign" ng-if="tempParam.inLocation !== 'path'">
+                                        <p >
+                                          <input type="checkbox" ng-model="tempParam.required" id="required" />
+                                          <label for="required">required</label>
+                                        </p>
+                                      </div>
+                                      <div class=" col s3 valign" >
+                                        <p>
+                                          <input type="checkbox" ng-model="tempParam.allowEmptyValue" id="allowEmptyValue" />
+                                          <label for="allowEmptyValue">Allow Empty Value</label>
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div ng-if="tempParam.inLocation !== 'body'" class="row">
+                                      <div class="input-field col s12">
+                                        <textarea id="param-description" ng-model="tempParam.description" class="materialize-textarea"></textarea>
+                                        <label for="param-description">Description</label>
+                                      </div>
+                                      <div class="input-field col s4 valign" >
+                                        <select class="browser-default" style="background-color: #455a64;" select-value ng-model="tempParam.type" >
+                                          <option value="" disabled selected>Parameter Type</option>
+                                          <option value="string" id="string">string</option>
+                                          <option value="number" id="number">number</option>
+                                          <option value="integer" id="integer">integer</option>
+                                          <option value="boolean" id="boolean">boolean</option>
+                                          <option value="array" id="array">array</option>
+                                          <option value="file" id="file">file</option>
+                                        </select>
+                                      </div>
+                                      <div class="input-field col s4 valign" >
+                                        <select class="browser-default" style="background-color: #455a64;" select-value ng-model="tempParam.format" >
+                                          <option value="" disabled selected>Parameter Format</option>
+                                          <option value="int32" id="format-int32">int32</option>
+                                          <option value="int64" id="format-int64">int64</option>
+                                          <option value="float" id="format-float">float</option>
+                                          <option value="double" id="format-double">double</option>
+                                          <option value="string" id="format-string">string</option>
+                                          <option value="byte" id="format-byte">byte</option>
+                                          <option value="binary" id="format-binary">binary</option>
+                                          <option value="boolean" id="format-boolean">boolean</option>
+                                          <option value="date" id="format-date">date</option>
+                                          <option value="date-time" id="format-date-time">date-time</option>
+                                          <option value="password" id="format-password">password</option>
+                                        </select>
+                                      </div>
+                                      <div class="input-field col s4 valign" >
+                                        <select class="browser-default" style="background-color: #455a64;" select-value ng-model="tempParam.collectionFormat">
+                                          <option value="" disabled selected>Collection Format</option>
+                                          <option value="csv" id="csv">csv</option>
+                                          <option value="ssv" id="ssv">ssv</option>
+                                          <option value="tsv" id="tsv">tsv</option>
+                                          <option value="pipes" id="pipes">pipes</option>
+                                          <option ng-if="tempParam.inLocation === 'query' || tempParam.inLocation === 'formData'"
+                                                  value="multi" id="multi">multi</option>
+                                        </select>
+                                      </div>
+
+                                      <div class="input-field col s12 valign" >
+                                        <div ng-if="tempParam.type === 'array'">
+                                          <textarea id="param-items" ng-model="tempParam.items" class="materialize-textarea" required="" aria-required="true"></textarea>
+                                          <label for="param-items">Items</label>
+                                        </div>
+                                      </div>
+
+                                      <div  class="input-field col s12 l6">
+                                        <textarea id="param-extra" ng-model="tempParam.extra" class="materialize-textarea"></textarea>
+                                        <label for="param-extra">Extra values</label>
+                                      </div>
+                                    </div>
+                                    <div  ng-if="tempParam.inLocation === 'body'" class="row">
+                                      <div class="input-field col s12 l6">
+                                        <textarea id="param-description" ng-model="tempParam.description" class="materialize-textarea"></textarea>
+                                        <label for="param-description">Description</label>
+                                      </div>
+                                      <div class="input-field col s12 l6">
+                                        <textarea id="param-schema" ng-model="tempParam.schema" class="materialize-textarea"></textarea>
+                                        <label for="param-schema">Schema</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer blue-grey darken-1 ">
+                                    <button type="submit" ng-show="prevent.paramConfig"
+                                      class=" waves-effect waves-green btn disabled">
+                                    Add Path
+                                    </button>
+                                    <button type="submit" ng-hide="prevent.paramConfig"
+                                      class=" waves-effect waves-green btn modal-action modal-close">
+                                    Add Path
+                                    </button>
+                                    <div class="container">
+                                      <button class=" waves-effect waves-green btn modal-action modal-close">
+                                      Cancel
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div -->
+
                             </div>
                           </li>
                         </ul>
@@ -434,8 +605,8 @@
           </div>
         </div>
         <!-- MODAL FOR PARAM SPECIFICATION -->
-        <div id="param-modal" class="modal blue-grey darken-1 modal-fixed-footer">
-          <form ng-submit="updateParameter()">
+        <div id="param-modal" class="modal blue-grey darken-1 modal-fixed-footer" ng-controller="ParameterModalController as paramModalControl">
+          <form ng-submit="paramModalControl.updateParameter()">
             <div class="modal-content white-text">
               {{tempParam}}
               <div class="row">
@@ -445,11 +616,11 @@
               </div>
               <div class="row valign-wrapper">
                 <div class="input-field col s3 valign">
-                  <input id="newParamUtil" ng-model="tempParam.name" type="text" required="" aria-required="true"/>
+                  <input id="newParamUtil" ng-model="paramModalControl.tempParam.name" type="text" required="" aria-required="true"/>
                   <label for="newParamUtil">Parameter Name</label>
                 </div>
                 <div class="input-field col s3 valign" >
-                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="tempParam.inLocation" ng-change="setParamInModal(tempParam.inLocation)" >
+                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="paramModalControl.tempParam.inLocation"  >
                     <option value="" disabled selected>Parameter Location</option>
                     <option value="path" id="path">Path</option>
                     <option value="query" id="query">Query</option>
@@ -459,26 +630,26 @@
                   </select>
                   <!--label>In</label-->
                 </div>
-                <div class="col s3 valign" ng-if="tempParam.inLocation !== 'path'">
+                <div class="col s3 valign" ng-if="paramModalControl.tempParam.inLocation !== 'path'">
                   <p >
-                    <input type="checkbox" ng-model="tempParam.required" id="required" />
+                    <input type="checkbox" ng-model="paramModalControl.tempParam.required" id="required" />
                     <label for="required">required</label>
                   </p>
                 </div>
                 <div class=" col s3 valign" >
                   <p>
-                    <input type="checkbox" ng-model="tempParam.allowEmptyValue" id="allowEmptyValue" />
+                    <input type="checkbox" ng-model="paramModalControl.tempParam.allowEmptyValue" id="allowEmptyValue" />
                     <label for="allowEmptyValue">Allow Empty Value</label>
                   </p>
                 </div>
               </div>
-              <div ng-if="tempParam.inLocation !== 'body'" class="row">
+              <div ng-if="paramModalControl.tempParam.inLocation !== 'body'" class="row">
                 <div class="input-field col s12">
-                  <textarea id="param-description" ng-model="tempParam.description" class="materialize-textarea"></textarea>
+                  <textarea id="param-description" ng-model="paramModalControl.tempParam.description" class="materialize-textarea"></textarea>
                   <label for="param-description">Description</label>
                 </div>
                 <div class="input-field col s4 valign" >
-                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="tempParam.type" >
+                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="paramModalControl.tempParam.type" >
                     <option value="" disabled selected>Parameter Type</option>
                     <option value="string" id="string">string</option>
                     <option value="number" id="number">number</option>
@@ -489,7 +660,7 @@
                   </select>
                 </div>
                 <div class="input-field col s4 valign" >
-                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="tempParam.format" >
+                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="paramModalControl.tempParam.format" >
                     <option value="" disabled selected>Parameter Format</option>
                     <option value="int32" id="format-int32">int32</option>
                     <option value="int64" id="format-int64">int64</option>
@@ -505,36 +676,36 @@
                   </select>
                 </div>
                 <div class="input-field col s4 valign" >
-                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="tempParam.collectionFormat">
+                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="paramModalControl.tempParam.collectionFormat">
                     <option value="" disabled selected>Collection Format</option>
                     <option value="csv" id="csv">csv</option>
                     <option value="ssv" id="ssv">ssv</option>
                     <option value="tsv" id="tsv">tsv</option>
                     <option value="pipes" id="pipes">pipes</option>
-                    <option ng-if="tempParam.inLocation === 'query' || tempParam.inLocation === 'formData'"
+                    <option ng-if="paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData'"
                             value="multi" id="multi">multi</option>
                   </select>
                 </div>
 
                 <div class="input-field col s12 valign" >
-                  <div ng-if="tempParam.type === 'array'">
-                    <textarea id="param-items" ng-model="tempParam.items" class="materialize-textarea" required="" aria-required="true"></textarea>
+                  <div ng-if="paramModalControl.tempParam.type === 'array'">
+                    <textarea id="param-items" ng-model="paramModalControl.tempParam.items" class="materialize-textarea" required="" aria-required="true"></textarea>
                     <label for="param-items">Items</label>
                   </div>
                 </div>
 
                 <div  class="input-field col s12 l6">
-                  <textarea id="param-extra" ng-model="tempParam.extra" class="materialize-textarea"></textarea>
+                  <textarea id="param-extra" ng-model="paramModalControl.tempParam.extra" class="materialize-textarea"></textarea>
                   <label for="param-extra">Extra values</label>
                 </div>
               </div>
-              <div  ng-if="tempParam.inLocation === 'body'" class="row">
+              <div  ng-if="paramModalControl.tempParam.inLocation === 'body'" class="row">
                 <div class="input-field col s12 l6">
-                  <textarea id="param-description" ng-model="tempParam.description" class="materialize-textarea"></textarea>
+                  <textarea id="param-description" ng-model="paramModalControl.tempParam.description" class="materialize-textarea"></textarea>
                   <label for="param-description">Description</label>
                 </div>
                 <div class="input-field col s12 l6">
-                  <textarea id="param-schema" ng-model="tempParam.schema" class="materialize-textarea"></textarea>
+                  <textarea id="param-schema" ng-model="paramModalControl.tempParam.schema" class="materialize-textarea"></textarea>
                   <label for="param-schema">Schema</label>
                 </div>
               </div>

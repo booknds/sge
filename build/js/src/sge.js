@@ -226,21 +226,312 @@ swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
     }
 }]);
 
-swaggerGE.controller("paramController", ['$scope', '$log', 'swaggerPathsService', function(scope, log, swaggerPaths){
-    "use strict";
-    
-    scope.currentParameterPath = swaggerPaths.chosenParameter;
-    
-    scope.currentParam;
-    
-    $scope.$watch("currentParam", function(oldVal, newVal){
-        
+"use strict";
+swaggerGE.controller("parameterController", ['$scope', '$log', 'swaggerPathsService', function($scope, log, swaggerPaths){
+
+    //scope.currentParameterPath = swaggerPaths.chosenParameter;
+
+    //scope.currentParam;
+    var paramControl = this;
+
+    paramControl.currentParam = {};
+
+    paramControl.parametersList = {
+      post:null,
+      get:null,
+      put:null,
+      delete:null,
+    };
+
+    paramControl.newParamData = {
+      post:{
+        name:null,
+        inLocation:null,
+      },
+      get:{
+        name:null,
+        inLocation:null,
+      },
+      put:{
+        name:null,
+        inLocation:null,
+      },
+      delete:{
+        name:null,
+        inLocation:null,
+      },
+    }
+
+  /*  $scope.$watch("currentParam", function(oldVal, newVal){
+
         log.log(oldVal + ", " + newVal);
-    });
-    
-    
-    
+    });*/
+
+    $scope.$watch(function(){return swaggerPaths.updateList}, function(newVal){
+
+      if(newVal.update && newVal){
+        console.log("watchhit")
+        console.log(newVal);
+        paramControl.updateParamList(newVal.path, newVal.operation);
+        swaggerPaths.updateList = {};
+      }
+
+    })
+
+    //Param methods
+    this.addParam = function(path, operation, paramName, paramInLocation){
+
+       // console.log("ADD PARAM!");
+        var pathName = path.currentName;
+
+
+
+        try{
+            swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
+            //$scope.parametersList = swaggerPaths.getParamList;
+            paramControl.updateParamList(pathName, operation);
+        }catch(e){
+            console.log(e);
+            //paramControl.toastUser("Not a unique parameter/query combo.");
+            Materialize.toast("Parameter name/query combo' already exists", 3000);
+        }
+
+        //path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
+
+        path.newParam[operation] = "";
+
+
+
+    }
+
+    paramControl.initParamData = function(pathName, operation, paramName, paramInLocation){
+      var tempParam = angular.copy(swaggerPaths.getParam(pathName, operation, paramName, paramInLocation));
+      tempParam.originalValues = {
+        path: pathName,
+        operation: operation,
+        name: paramName,
+        inLocation: paramInLocation,
+      };
+
+      swaggerPaths.chosenParameter = tempParam;
+
+    };
+
+
+    /*paramControl.setParamIn = function(inLocation){
+        paramControl.paramIn = inLocation;
+
+    }*/
+
+    /*paramControl.setParamInModal = function(inLocation){
+      if(inLocation === 'path'){
+        paramControl.tempParam.required = true;
+      }
+    }*/
+
+
+    paramControl.updateParamList = function(pathName, operation){
+      paramControl.parametersList[operation] = angular.copy(swaggerPaths.getParamList(pathName,operation));
+    }
+
+    //$scope.$watch("")
+
+  /*  paramControl.paramRequired = function(){
+
+      console.log(paramControl.currentParam);
+
+      if(paramControl.currentParam.required){
+        console.log("required true");
+        paramControl.currentParam.required = false;
+      }else{
+        console.log("required false");
+        paramControl.currentParam.required = true;
+      }
+
+      console.log("updateing param required");
+      console.log(paramControl.currentParam);
+    }*/
+
+
+    function clone(obj) {
+      // Handle the 3 simple types, and null or undefined
+      if (null == obj || "object" != typeof obj){
+        console.log("null or not string");
+        return obj;
+      }
+
+      // Handle Date
+      if (obj instanceof Date) {
+        console.log("Copying Date");
+
+          var copy = new Date();
+          copy.setTime(obj.getTime());
+          return copy;
+      }
+
+      // Handle Array
+      if (obj instanceof Array) {
+        console.log("Copying Array");
+          var copy = [];
+          for (var i = 0, len = obj.length; i < len; i++) {
+              copy[i] = clone(obj[i]);
+          }
+          return copy;
+      }
+
+      // Handle Parameter
+      /*if(obj instanceof swaggerPaths.Parameter) {
+        console.log("Copying Parameter");
+        var copy = new Parameter();
+        for (var attr in obj){
+          if(obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+        }
+
+        return copy;
+      }*/
+
+      // Handle Object
+      if (obj instanceof Object) {
+        console.log("Copying Object");
+
+          var copy = {};
+          for (var attr in obj) {
+              if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+          }
+          return copy;
+      }
+
+      throw new Error("Unable to copy obj! Its type isn't supported.");
+    }
+
+
+
+
 }]);
+
+swaggerGE.controller("ParameterModalController", ["$scope", "swaggerPathsService",
+  function($scope, swaggerPaths){
+
+    var paramModal = this;
+
+    paramModal.tempParam = {};
+
+    $scope.$watch(function(){return swaggerPaths.chosenParameter}, function(newVal){
+          //$scope.currentParam = newVal;
+          //console.log(newVal);
+          //console.log($scope.currentParam);
+          //paramModal.tempParam = clone($scope.currentParam);
+          if(newVal){
+            var currentParam = newVal;
+            paramModal.tempParam = angular.copy(currentParam);
+            paramModal.tempParam.schema = JSON.stringify(paramModal.tempParam.schema);
+            console.log("TEMP PARAM");
+            console.log(paramModal.tempParam);
+          }
+
+
+      });
+
+      paramModal.updateParameter = function(){
+        try{
+          console.log("updateParam");
+          swaggerPaths.updateParameter(paramModal.tempParam);
+          //console.log("poop")
+          console.log(paramModal.tempParam.originalValues.path);
+          //paramControl.updateParamList(paramControl.tempParam.originalValues.path, paramControl.tempParam.originalValues.operation);
+
+          swaggerPaths.updateList = {
+            update:true,
+            path: paramModal.tempParam.originalValues.path,
+            operation: paramModal.tempParam.originalValues.operation,
+          }
+        }catch(e){
+            console.log(e);
+            //paramControl.toastUser("Parameter name/query combo' already exists");
+            Materialize.toast("Parameter name/query combo' already exists", 3000);
+        }
+      }
+
+  }]);
+
+swaggerGE.controller("responseController",["$scope", "swaggerPathsService", "ResponseService",
+ function($scope, swaggerPaths, responseService){
+  "use strict";
+
+  var responseControl = this;
+
+  responseControl.prevent = {
+    responseUpdate: false
+  }
+
+  responseControl.tempResponse = null;
+  responseControl.currentResponse = null;
+
+  responseControl.responseList = {
+    post:new Array(),
+    get:new Array(),
+    put:new Array(),
+    delete:new Array(),
+  }
+
+  responseControl.newResponseData = {
+    post:{
+      httpCode:null,
+      description:null,
+    },
+    get:{
+      httpCode:null,
+      description:null,
+    },
+    put:{
+      httpCode:null,
+      description:null,
+    },
+    delete:{
+      httpCode:null,
+      description:null,
+    },
+  }
+
+  responseControl.initResponseData = function(pathName, operation, httpCode){
+    console.log("initResponseData");
+  }
+
+  responseControl.addResponse = function(path, operation, httpCode, description){
+    console.log("addResponse");
+    console.log(httpCode);
+    console.log(description);
+    console.log(responseControl.newResponseData);
+    //if(hasResponse(path, operation, httpCode))
+    if(hasResponse(operation, httpCode))
+      throw "This reposne code already exists"
+    else
+      responseControl.responseList[operation].push(responseService.newResponse(httpCode, description));
+
+    console.log(responseControl.responseList[operation]);
+
+  }
+
+  function hasResponse(operation, httpCode){
+    console.log("Checking response list")
+    var exists = false;
+    responseControl.responseList[operation].forEach(function(response, index, responseList){
+      console.log(response);
+      console.log(httpCode);
+      console.log("---");
+      if(response.code === httpCode){
+        console.log("hit");
+        exists = true;
+        //return;
+      }
+    });
+
+    return exists;
+  }
+
+
+}]);
+
 swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseService', function($scope, $log, swaggerBaseService){
     
     //display functionality
@@ -305,7 +596,8 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
     
     
 }]);
-swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPathsService', 'swaggerCompiler', '$window', function($scope, $log, $timeout, swaggerPaths, swaggerCompiler, $window){
+swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPathsService', 'swaggerCompiler', '$window',
+  function($scope, $log, $timeout, swaggerPaths, swaggerCompiler, $window){
 
      "use strict";
     /*
@@ -486,6 +778,8 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPath
     }
 
 
+/**---------  START Operation methods ---------**/
+
     /*
         This method is used when creating a new path object to update
             the true/false value of the initial operations selection.
@@ -539,9 +833,12 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPath
 
         }
     }
+/**---------  END Operation methods ---------**/
 
-    //Param methods
-    $scope.addParam = function(path, operation, paramName, paramInLocation){
+/******************************************************************************/
+
+/**---------  START Param methods ---------**/
+/**    $scope.addParam = function(path, operation, paramName, paramInLocation){
 
        // console.log("ADD PARAM!");
         var pathName = path.currentName;
@@ -601,26 +898,23 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPath
     }
 
   /*  $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
-
-
         $scope.currentParam = newVal;
-
         //console.log(newVal);
         //console.log($scope.currentParam);
-
-
         $scope.tempParam = clone($scope.currentParam);
-
         $scope.tempParam.schema = JSON.stringify($scope.tempParam.schema);
-
         console.log($scope.tempParam);
-
     });*/
-
-    $scope.parametersList = null;
+/**
+    $scope.parametersList = {
+      post:null,
+      get:null,
+      put:null,
+      delete:null,
+    };
 
     $scope.updateParamList = function(pathName, operation){
-      $scope.parametersList = angular.copy(swaggerPaths.getParamList(pathName,operation));
+      $scope.parametersList[operation] = angular.copy(swaggerPaths.getParamList(pathName,operation));
     }
 
     //$scope.$watch("")
@@ -641,6 +935,13 @@ swaggerGE.controller("swaggerPaths", ['$scope', '$log', '$timeout', 'swaggerPath
       console.log($scope.currentParam);
     }
 
+/**---------  END Param methods ---------**/
+
+/******************************************************************************/
+
+/**---------  START Response methods ---------**/
+
+/**---------  END Response methods ---------**/
 
     function clone(obj) {
       // Handle the 3 simple types, and null or undefined
@@ -725,12 +1026,121 @@ swaggerGE.factory('OperationModel', [function(){
     
 }])
 swaggerGE.factory("ParameterService", [function(){
+  var Parameters = function(){
+      this.parameterList = new Array();
+  }
+
+  Parameters.prototype = {
+      /*
+          This function add a new Parameter Object to the ParameterList
+              By the Swagger definitions, "name" and "in" properties are
+              required when making any parameter.
+      */
+      addParameter: function(paramName, paramIn){
+          if(debug)
+              console.log("PARAMETERS - Adding Param: " + paramName + ", " + paramIn);
+
+          this.parameterList.push(new Parameter(paramName, paramIn));
+
+          if(debug){
+              console.log("PARAMETERS - Addws Param, paramList:  ");
+              console.log(this.parameterList);
+              console.log("-----------------------------------------------------")
+          }
+      },
+
+      /*
+          By the Swagger definition, each parameter is uniquely identified by
+              The combination of the Parameter's "name" and "in" properties.
+      */
+      removeParameter: function(paramName, paramIn){
+          if(debug)
+              console.log("PARAMETER - Removing Param: " + paramName + ", " + paramIn);
+
+          this.parameterList.forEach(function(parameter, index, paramList){
+              if(parameter.name === paramName && parameter.inLocation === paramIn){
+                  console.log("Removing: ");
+                  console.log(paramList[index]);
+                  console.log(parameter)
+                  paramList.splice(index, 1);
+                  return;
+              }
+          })
+
+      },
+
+      /*
+          This function checks to see if the passed Parameter already Exists.
+      */
+      hasParameter: function(paramName, paramIn){
+          if(debug)
+              console.log("PARAMETER: Validating Param: " + paramName + ", " + paramIn);
+
+          var found = 0;
+
+          this.parameterList.forEach(function(parameter, pos, paramList){
+              if(parameter.name === paramName && parameter.inLocation === paramIn){
+
+                  found = 1;
+
+                  return;
+              }
+          })
+
+          if(found)
+              return true;
+          else
+              return false;
+      },
+
+      /*
+
+      */
+      getParameterList: function(){
+          var paramListClean = new Array();
+          this.parameterList.forEach(function(parameter, index, paramList){
+              console.log(parameter.getJSON());
+             paramListClean.push(parameter.getJSON());
+          });
+
+          console.log(paramListClean);
+
+          return paramListClean;
+      },
+
+      getParameter:function(name, inLoc){
+
+          console.log("---\nGETPARAM");
+          console.log(name + ", " + inLoc);
+          var param;
+          this.parameterList.forEach(function(parameter, index, paramList){
+              console.log('-');
+              console.log(parameter);
+              console.log(parameter.name + ", " + name + ", " + parameter.inLocation + ", " + inLoc);
+              if(parameter.name === name && parameter.inLocation === inLoc){
+                  param = parameter;
+                  console.log("hit!");
+              }
+          });
+
+          console.log(param);
+          console.log("---");
+          return param;
+      }
+  }
+
   var Parameter = function(name, inLocation){
-      this.name = name || "",
+      this.name = name || "";
       this.inLocation = inLocation || "";
       this.description = null;
       this.required = (this.inLocation === "path") ? true : false;
       this.schema = new Object();
+      this.type = "";
+      this.format ="";
+      this.allowEmptyValue = false;
+      this.items= new Object();
+      this.collectionFormat = "";
+
   }
 
   Parameter.prototype = {
@@ -808,20 +1218,139 @@ swaggerGE.factory("ParameterService", [function(){
 
   }
 
+  /*this.newParam = function(name, id){
+    return new newParameter(name, id);
+  }*/
+
+  /*
+      Tries to create and validate a new parameter object.
+  */
+  this.addNewParam = function(pathName, operation, paramName, paramIn){
+      if(debug){
+          console.log("PATH SERVICE: Attempting to add a new Parameter");
+          console.log(pathName);
+          console.log(operation);
+          console.log(paramName);
+      }
+
+      var pIn = paramIn || "query";
+
+      var path = paths[pathName][operation];
+
+      if(validateParam(pathName, operation, paramName, pIn)){
+          path.parameters.addParameter(paramName, pIn);
+          self.chosenParameter = {
+              path:pathName,
+              operation:operation,
+              paramName:paramName,
+              inLoc:pIn
+          }
+      }else{
+          throw "Invalid Parameter Name-in combination, must be unique."
+      }
+  }
+
+  /*
+      This
+  */
+  this.getParamList = function(pathName, operation){
+
+      var currentPath = paths[pathName][operation];
+      //console.log("LJFLAFJALKFJALF");
+      //console.log(pathName);
+
+      //console.log(currentPath);
+
+      //console.log(currentPath.parameters);
+
+      return currentPath.parameters.getParameterList();
+
+  }
+
+  this.getParam = function(pathName, operation, paramName, paramIn){
+      console.log("------------------\nGETTING PARAM NAME");
+      console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
+      var paramObject = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
+      console.log(paramObject);
+      console.log("------------------");
+      return paramObject
+  };
+
+  /*
+      Checks to see if the given param name is valid for the given path.
+  */
+  var validateParam = function(pathName, operation, paramName, paramIn){
+      if(debug)
+          console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
+
+      var path = paths[pathName][operation];
+
+      if(path.parameters.hasParameter(paramName, paramIn)){
+          if(debug)
+              console.log("\t Same Parameter found, returning false!");
+
+          return false;
+      }else{
+          if(debug)
+              console.log("\t Parameter NOT found, returning true!");
+
+          return true;
+      }
+  }
+
+  this.updateParameter = function(tempParameter){
+
+    console.log(tempParameter);
+
+    var originalData = tempParameter.originalValues;
+
+    //validate new param
+    //check to see if the name - inLocation pair of the parameter was changed
+    if(originalData.name !== tempParameter.name || originalData.inLocation !== tempParameter.inLocation){
+
+      console.log("name is not the same or inLocation not the same");
+      console.log("\tname: " + originalData.name + ", " + tempParameter.name);
+      console.log("\tinLocation: " + originalData.inLocation + ", " + tempParameter.inLocation);
+      //if they have been changed check if the new combo is legitamit
+      if(!validateParam(originalData.path, originalData.operation, tempParameter.name, tempParameter.inLocation)){
+        throw "Invalid Parameter Name-in combination, must be unique."
+      }
+    }
+
+      console.log("name and inLocation are the same");
+
+      var originalParam = paths[originalData.path][originalData.operation].parameters.getParameter(originalData.name, originalData.inLocation);
+      //var newParameter = new Parameter();
+
+      for(var key in tempParameter){
+        if(tempParameter.hasOwnProperty(key) && key !== 'originalValues' && key !== "schema"){
+          originalParam[key] = tempParameter[key];
+        }
+        if(key === "schema"){
+          if(tempParameter[key] instanceof Object)
+            originalParam[key] = tempParameter[key];
+          else
+            originalParam[key] = JSON.parse(tempParameter[key]);
+        }
+      }
+
+  }
+
+
 }])
 
-swaggerGE.service("ResponseService",["$scope", function($scope){
-    
+swaggerGE.factory("ResponseService",[function(){
+
     function Response(){
         this.description = null;
         this.headers = {};
-        
-        
+
+
     }
-    
+
     function Header(name){
         this[name] = new HeaderObject();
-        
+
         this.HeaderObject = function(){
             return {
                 description:"",
@@ -829,21 +1358,134 @@ swaggerGE.service("ResponseService",["$scope", function($scope){
                 format:"",
                 items: new Object(), //should be an 'items' object
                 collectionFormat:"",
-                
-                
+
+
             }
         }
-        
+
     }
-    
+
     function Headers(){
-        
+
         this.addHeader = function(headerName){
             return new Header(headerName);
         }
     }
-    
+
+    /**
+      Responses Object
+    */
+    function Responses(){
+
+      this.responseList = new Array();
+
+    }
+
+    /**
+      Responses function
+    */
+    Responses.prototype = {
+      /**
+
+      */
+      addResponse: function(httpCode, description){
+        this.responseList.push(new Response(httpCode, desctiption));
+      },
+
+      /**
+      */
+      removeResponse: function(httpCode){
+
+        this.responseList.forEach(function(resp, index, responseList){
+          if(resp.hasOwnProperty(httpCode)){
+            this.responseList.splice(index, 1);
+            return;
+          }
+        });
+
+      },
+
+      /**
+      */
+      getResponse: function(httpCode){
+        var response = null;
+
+        this.responseList.forEach(function(resp, index, responseList){
+          if(resp.hasOwnProperty(httpCode)){
+            response = resp;
+            return;
+          }
+        });
+
+        return angular.copy(response);
+
+      },
+
+      /**
+        Check to see if a response exists in the list
+      */
+      responseExists: function(httpCode){
+        var exists = false;
+
+        this.responseList.forEach(function(response, index, responseList){
+          if(response.hasOwnProperty(httpCode)){
+            exists = true;
+            return;
+          }
+        });
+
+        return exists;
+      },
+
+    };
+
+    /**
+      Response Object
+    */
+    function Response(httpCode, descrip){
+
+      /*
+      this[httpCode] = {
+        description: descrip,
+        schema: new Object(),
+        headers: new Object(),
+        examples: new Object()
+      };*/
+      this.code = httpCode
+      this.description = descrip,
+      this.schema = new Object(),
+      this.headers = new Object(),
+      this.examples = new Object()
+    }
+
+    /**
+      Response Functions
+    */
+    Response.prototype = {};
+
+    return {
+      newResponse: function(httpCode, description){
+        var response = null;
+        var temp = null
+
+        if(!httpCode)
+          throw "To create a response code please pass a http code status"
+        else if(!description)
+          throw "A description is required to create a response"
+        else
+          return new Response(httpCode, description);
+
+          //response = temp[httpCode];
+
+          //return response;
+
+      },
+      hasResponse: function(pathName, operation, httpCode){
+        
+      }
+    }
 }]);
+
 swaggerGE.service("swaggerBaseService", ["swaggerCompiler",function(swaggerCompiler){
 
     var self = this;
@@ -905,7 +1547,7 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
     var paths = {};
 
-    self.chosenParameter = {};
+    //self.chosenParameter = {};
 
     /* create an object with that holds the basic info of a swagger document*/
     this.Path= function(pathName){
@@ -1291,9 +1933,9 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
     }
 
-    this.newParam = function(name, id){
+    /*this.newParam = function(name, id){
       return new newParameter(name, id);
-    }
+    }*/
 
     /*
         Tries to create and validate a new parameter object.
@@ -1312,12 +1954,7 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
         if(validateParam(pathName, operation, paramName, pIn)){
             path.parameters.addParameter(paramName, pIn);
-            self.chosenParameter = {
-                path:pathName,
-                operation:operation,
-                paramName:paramName,
-                inLoc:pIn
-            }
+            
         }else{
             throw "Invalid Parameter Name-in combination, must be unique."
         }
@@ -1409,6 +2046,11 @@ swaggerGE.service("swaggerPathsService", ['swaggerCompiler', function(swaggerCom
 
     }
 
+    this.chosenParameter= null;
+
+    this.updateChosenParameter = function(newChosen){
+      chosenParameter = newChosen;
+    };
 
 }]);
 
