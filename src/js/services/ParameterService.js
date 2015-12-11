@@ -1,4 +1,7 @@
 swaggerGE.factory("ParameterService", [function(){
+
+  var debug = true;
+
   var Parameters = function(){
       this.parameterList = new Array();
   }
@@ -195,9 +198,22 @@ swaggerGE.factory("ParameterService", [function(){
     return new newParameter(name, id);
   }*/
 
+  function newParameters(){
+    return new Parameters();
+  }
+
+  function newParameter(name, inLocation){
+    return new Parameter(name, inLocation);
+  }
+
+  return {
+    newParameters:newParameters,
+    newParameter:newParameter
+  }
+
   /*
       Tries to create and validate a new parameter object.
-  */
+
   this.addNewParam = function(pathName, operation, paramName, paramIn){
       if(debug){
           console.log("PATH SERVICE: Attempting to add a new Parameter");
@@ -223,9 +239,7 @@ swaggerGE.factory("ParameterService", [function(){
       }
   }
 
-  /*
-      This
-  */
+
   this.getParamList = function(pathName, operation){
 
       var currentPath = paths[pathName][operation];
@@ -249,9 +263,7 @@ swaggerGE.factory("ParameterService", [function(){
       return paramObject
   };
 
-  /*
-      Checks to see if the given param name is valid for the given path.
-  */
+
   var validateParam = function(pathName, operation, paramName, paramIn){
       if(debug)
           console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
@@ -308,6 +320,6 @@ swaggerGE.factory("ParameterService", [function(){
       }
 
   }
-
+*/
 
 }])

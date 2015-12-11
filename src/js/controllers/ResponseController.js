@@ -1,4 +1,4 @@
-swaggerGE.controller("responseController",["$scope", "swaggerPathsService", "ResponseService",
+swaggerGE.controller("responseController",["$scope", "PathService", "ResponseService",
  function($scope, swaggerPaths, responseService){
   "use strict";
 

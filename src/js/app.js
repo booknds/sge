@@ -114,17 +114,18 @@ swaggerGE.directive("selectValue", function(){
 
 swaggerGE.directive("closePathModal", function(){
     return {
-        link: function(scope, element, attrs){
+      link: function(scope, element, attrs){
+        //console.log(scope);
+        scope.$watch('closePathModal', function(update){
+          //console.log("CLOSE PATH MODAL");
+          if(scope.closePathModal === true){
+            $('#path-creation-modal').closeModal();
+            scope.closePathModal = false;
+          }
+        });
 
-            scope.$watch('closePathModal', function(update){
-              if(scope.closePathModal === true){
-                $('#path-creation-modal').closeModal();
-                scope.closePathModal = false;
-              }
-            });
 
-
-        }
+      }
     }
 });
 

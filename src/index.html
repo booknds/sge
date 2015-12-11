@@ -230,7 +230,8 @@
         {{basicInfo}}
         {{service}}
       </div>
-      <div class="container" ng-controller="swaggerPaths as pathController">
+      <div class="container" ng-controller="PathController as pathCtl">
+        {{thisObject}}
         <div class="row">
           <div class="col s12">
             <div class="card blue-grey darken-1">
@@ -250,25 +251,26 @@
                     </a>
                     <!-- Path Creation Modal Structure -->
                     <!--div id="path-creation-modal" class="modal blue-grey darken-1" -->
-                    <div id="path-creation-modal" class="modal blue-grey darken-1 modal-fixed-footer" >
-                      <form name="addPathForm" ng-submit="addPath()" >
+                    <div id="path-creation-modal" ng-controller="PathModalController as pathModal" class="modal blue-grey darken-1 modal-fixed-footer" >
+                      <form name="addPathForm" ng-submit="pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" >
                         <div class="modal-content">
                           <div class="row">
                             <div class="left-align col s12">
                               <h4>Create New Path</h4>
                             </div>
                             <div class="input-field col s12 ">
-                              <input id="path-name" type="text" ng-model="newPathName" required="" aria-required="true">
+                              <input id="path-name" type="text" ng-model="pathModal.newPath.name" required="" aria-required="true">
                               <label for="path-name">Path Name</label>
                             </div>
                           </div>
                           <div class="row">
                             <div class="left-align" style="padding-left:15px;">Operations </div>
+                            <!--label> Operations <label-->
                             <div class="col s12 l6">
                               <div class="row">
-                                <div ng-repeat="(operation, value) in initialPathOperations" class="col s3" >
+                                <div ng-repeat="(operation, value) in pathModal.newPath.operations" class="col s3" >
                                   <p unique-checkbox>
-                                    <input type="checkbox" id="input" ng-model="initialPathOperations[operation]"/>
+                                    <input type="checkbox" id="input" ng-model="pathModal.newPath.operations[operation]"/>
                                     <label id="label" for="label">{{operation | uppercase}}</label>
                                   </p>
                                 </div>
@@ -278,47 +280,44 @@
                         </div>
                         <div class="modal-footer blue-grey darken-1 ">
                           <div>
-                            <!--button type="submit" ng-show="preventPathCreation"
+                            <!--button type="submit" ng-show="!pathModal.newPath.name"
                               class=" waves-effect waves-green btn disabled">
                               Add Path
                               </button>
-                              <button type="submit" ng-hide="preventPathCreation"
-                              class=" waves-effect waves-green btn modal-action modal-close">
+                              <button type="submit" close-path-modal ng-hide="!pathModal.newPath.name"
+                              class=" waves-effect waves-green btn">
                               Add Path
-                              </button-->
-                            <button type="submit" close-path-modal ng-class="{'disabled': prevent.pathCreation}"
+                            </button-->
+                            <button type="submit" close-path-modal ng-class="{'disabled': !pathModal.newPath.name}"
                               class=" waves-effect waves-green btn">
                             Add Path
-                            </button>
+                          </button>
                           </div>
                           <div class="container">
                             <button class=" waves-effect waves-green btn modal-action modal-close">
                             Cancel
                             </button>
                           </div>
-                          <!--h5 ng-if="preventPathCreation" class="red-text" style="padding-right:5px;">
-                            Enter a unique Path Name
-                            </h5-->
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
-                {{spaths}}
-                <div ng-show="showPaths" ng-repeat="path in paths">
+                {{pathCtl.paths}}
+                <div ng-hide="pathCtl.prevent.showPaths" ng-repeat="(pathName, pathValue) in pathCtl.paths">
                   <div class="row valign-wrapper">
                     <div class="input-field valign col s8">
-                      <input id="path-name" type="text" ng-model="path.newName">
+                      <input id="path-name" ng-attr-placeholder="{{pathName}}" type="text" ng-model="pathCtl[pathName].newName">
                       <!--label for="path-name">Path Name</label-->
                     </div>
                     <div class="valign col s2">
-                      <button class="btn waves-effect waves-light" type="button" ng-click="updatePathName(path.currentName, path)" name="action">
+                      <button class="btn waves-effect waves-light" type="button" ng-click="pathCtl.updatePathName(pathName, pathCtl[pathName].newName)" name="action">
                         Update
                         <!--i class="material-icons right">send</i-->
                       </button>
                     </div>
                     <div class="valign col s2">
-                      <button class="btn-flat waves-effect waves-light" type="submit" name="action" ng-click="deletePath(paths, $index)">
+                      <button class="btn-flat waves-effect waves-light" type="submit" name="action" ng-click="pathCtl.deletePath(pathName)">
                       <i class="material-icons">delete</i>
                       </button>
                     </div>
@@ -327,12 +326,12 @@
                     <div class="left-align" style="padding-left:15px;">Operations </div>
                     <div class="col s12 l6">
                       <div class="row" >
-                        <div class="col s3" ng-repeat="(operation, value) in path.currentPathOperations" ng-hide="path.currentPathOperations[operation]">
+                        <div class="col s3" ng-repeat="(operation, value) in pathCtl.paths[pathName]" ng-hide="pathCtl.paths[pathName][operation]">
                           <a ng-class="{'blue': '{{operation}}' == 'get',
                             'orange': '{{operation}}' === 'put',
                             'green': '{{operation}}' === 'post',
                             'red': '{{operation}}' === 'delete', }"
-                            class="waves-effect waves-light btn" ng-click="togglePathOperation(path, operation)">
+                            class="waves-effect waves-light btn" ng-click="pathCtl.addOperation(pathName, operation)">
                           {{operation | uppercase}}
                           </a>
                         </div>
@@ -340,7 +339,7 @@
                     </div>
                   </div>
                   <div class="row" >
-                    <div ng-repeat="(operation, value) in path.currentPathOperations" ng-show="path.currentPathOperations[operation]" class="valign-wrapper">
+                    <div ng-repeat="(operation, value) in pathCtl.paths[pathName]" ng-show="pathCtl.paths[pathName][operation]" class="valign-wrapper">
                       <div class="col s11 valign">
                         <ul class="collapsible blue-grey darken-2" init-collapse data-collapsible="accordion">
                           <li>
@@ -360,8 +359,12 @@
                                   <label id="label" for="label">Description</label>
                                 </div>
                               </div>
-                              <div class="section" ng-controller="parameterController as paramControl">
+                              <div class="section"
+                                    ng-if="pathCtl.paths[pathName][operation]"
+                                    ng-controller="parameterController as paramControl"
+                                    ng-init="paramControl.initController(pathName, operation)">
                                 <h5>Parameter</h5>
+                                {{paramControl.paths}}
                                 <div></div>
                                 <table class=" section bordered responsive-table">
                                   <thead>
@@ -375,24 +378,26 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr ng-repeat="param in paramControl.parametersList[operation] | orderBy:'name'">
+                                    <!--tr ng-repeat="param in paramControl.parametersList[operation] | orderBy:'name'"-->
+                                    <tr ng-repeat="param in pathCtl.paths[pathName][operation].parameters.parameterList | orderBy:'name'">
                                       <div >
                                         <td>{{param.name}}</td>
-                                        <td>{{param.in}}</td>
+                                        <td>{{param.inLocation}}</td>
                                         <td class="shrink">{{param.description}}</td>
                                         <td>{{param.required}}</td>
                                         <td class="shrink">{{param.schema}}</td>
                                         <td>
-                                          <a class="disabled" href="#param-modal" modal ng-click="paramControl.initParamData(path.currentName, operation, param.name, param.in)">
+                                          <a class="disabled" href="#param-modal" modal ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation)">
                                           <i class="material-icons">settings</i>
                                           </a>
                                         </td>
                                       </div>
-                                      {{paramControl.parametersList}}
+
                                     </tr>
                                   </tbody>
                                 </table>
-                                <form ng-submit="paramControl.addParam(path, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)">
+                                {{paramControl.parametersList}}
+                                <form ng-submit="paramControl.addParam(pathName, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)">
                                   <div class="valign-wrapper">
                                     <div unique-checkbox class="input-field col s4 valign">
                                       <input id="input" ng-model="paramControl.newParamData[operation].name" type="text" required="" aria-required="true"/>
@@ -544,14 +549,12 @@
                                                   value="multi" id="multi">multi</option>
                                         </select>
                                       </div>
-
                                       <div class="input-field col s12 valign" >
                                         <div ng-if="tempParam.type === 'array'">
                                           <textarea id="param-items" ng-model="tempParam.items" class="materialize-textarea" required="" aria-required="true"></textarea>
                                           <label for="param-items">Items</label>
                                         </div>
                                       </div>
-
                                       <div  class="input-field col s12 l6">
                                         <textarea id="param-extra" ng-model="tempParam.extra" class="materialize-textarea"></textarea>
                                         <label for="param-extra">Extra values</label>
@@ -591,7 +594,7 @@
                         </ul>
                       </div>
                       <div class="col s1 valign" >
-                        <button class="btn-flat waves-effect waves-light" type="submit" name="action" ng-click="togglePathOperation(path, operation)">
+                        <button class="btn-flat waves-effect waves-light" type="submit" name="action" ng-click="pathCtl.deleteOperation(pathName, operation)">
                         <i class="material-icons">delete</i>
                         </button>
                       </div>
@@ -608,7 +611,7 @@
         <div id="param-modal" class="modal blue-grey darken-1 modal-fixed-footer" ng-controller="ParameterModalController as paramModalControl">
           <form ng-submit="paramModalControl.updateParameter()">
             <div class="modal-content white-text">
-              {{tempParam}}
+              {{paramModalControl.tempParam}}
               <div class="row">
                 <div class="left-align col s12">
                   <h4>Parameter Options</h4>
@@ -620,7 +623,7 @@
                   <label for="newParamUtil">Parameter Name</label>
                 </div>
                 <div class="input-field col s3 valign" >
-                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="paramModalControl.tempParam.inLocation"  >
+                  <select class="browser-default" style="background-color: #455a64;" select-value ng-model="paramModalControl.tempParam.inLocation" ng-change="paramModalControl.setParamInModal(paramModalControl.tempParam.inLocation)" >
                     <option value="" disabled selected>Parameter Location</option>
                     <option value="path" id="path">Path</option>
                     <option value="query" id="query">Query</option>

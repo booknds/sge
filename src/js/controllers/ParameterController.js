@@ -1,19 +1,47 @@
 "use strict";
-swaggerGE.controller("parameterController", ['$scope', '$log', 'swaggerPathsService', function($scope, log, swaggerPaths){
+swaggerGE.controller("parameterController", ['$scope', '$log', 'PathService', "ParameterModalService",
+function($scope, log, swaggerPaths, pms){
 
-    //scope.currentParameterPath = swaggerPaths.chosenParameter;
+    //scope.ameterPath = swaggerPaths.chosenParameter;
 
-    //scope.currentParam;
+    //scope.am;
     var paramControl = this;
 
-    paramControl.currentParam = {};
+    //paramControl.am = {};
 
-    paramControl.parametersList = {
-      post:null,
-      get:null,
-      put:null,
-      delete:null,
-    };
+    paramControl.path = {
+      name: null,
+      operation: null,
+    }
+
+    paramControl.operation = null;
+
+    paramControl.initController = function(pathName, operation){
+      /*paramControl.path.name = pathName;
+      paramControl.path.operation = operation;
+
+      paramControl.operation = swaggerPaths.paths[pathName][operation];
+      paramControl.parametersList = paramControl.operation.parameters.parameterList*/
+      //pms.parameterToUpdate(swaggerPaths.paths[pathName][operation].parameters.parameterList)
+
+    }
+
+    //console.log(paramControl.operation);
+    //console.log(paramControl.operation.parameters);
+
+    paramControl.swaggerPaths = swaggerPaths;
+
+    //paramControl.path = paramControl.paths;
+
+    paramControl.parametersList = null;
+    /*{
+      post: paramControl.parameters.post.parameters,
+      get: paramControl.parameters.get.parameters,
+      put: paramControl.parameters.put.parameters,
+      delete: paramControl.parameters.delete.parameters,
+    };*/
+
+    //paramControl.parametersList = swaggerPaths.paths[pathDefinition]
 
     paramControl.newParamData = {
       post:{
@@ -34,34 +62,50 @@ swaggerGE.controller("parameterController", ['$scope', '$log', 'swaggerPathsServ
       },
     }
 
-  /*  $scope.$watch("currentParam", function(oldVal, newVal){
+  /*  $scope.$watch("am", function(oldVal, newVal){
 
         log.log(oldVal + ", " + newVal);
     });*/
 
     $scope.$watch(function(){return swaggerPaths.updateList}, function(newVal){
 
-      if(newVal.update && newVal){
-        console.log("watchhit")
-        console.log(newVal);
-        paramControl.updateParamList(newVal.path, newVal.operation);
-        swaggerPaths.updateList = {};
+      if(newVal){
+        if(newVal.update){
+          console.log("watchhit")
+          console.log(newVal);
+
+          updateParamList(newVal.path, newVal.operation);
+          $scope.$apply();
+          console.log("print updated list");
+          console.log(paramControl.parametersList);
+          console.log("----done---")
+          swaggerPaths.updateList = {};
+        }
       }
 
     })
 
+  /*  $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
+          $scope.am = newVal;
+          //console.log(newVal);
+          //console.log($scope.am);
+          $scope.tempParam = clone($scope.currentParam);
+          $scope.tempParam.schema = JSON.stringify($scope.tempParam.schema);
+          console.log($scope.tempParam);
+      });*/
+
     //Param methods
-    this.addParam = function(path, operation, paramName, paramInLocation){
+    this.addParam = function(pathName, operation, paramName, paramInLocation){
 
        // console.log("ADD PARAM!");
-        var pathName = path.currentName;
+        //var pathName = path.currentName;
 
 
 
         try{
             swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
             //$scope.parametersList = swaggerPaths.getParamList;
-            paramControl.updateParamList(pathName, operation);
+            //updateParamList(pathName, operation);
         }catch(e){
             console.log(e);
             //paramControl.toastUser("Not a unique parameter/query combo.");
@@ -70,58 +114,47 @@ swaggerGE.controller("parameterController", ['$scope', '$log', 'swaggerPathsServ
 
         //path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
 
-        path.newParam[operation] = "";
+        paramControl.newParamData[operation].name = "";
 
 
 
     }
 
-    paramControl.initParamData = function(pathName, operation, paramName, paramInLocation){
-      var tempParam = angular.copy(swaggerPaths.getParam(pathName, operation, paramName, paramInLocation));
-      tempParam.originalValues = {
-        path: pathName,
-        operation: operation,
-        name: paramName,
-        inLocation: paramInLocation,
-      };
+    paramControl.editParamData = function(pathName, operation, paramName, paramInLocation){
 
-      swaggerPaths.chosenParameter = tempParam;
+      var temp = swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
+
+      pms.parameterToUpdate(pathName, operation, temp);
 
     };
 
 
-    /*paramControl.setParamIn = function(inLocation){
-        paramControl.paramIn = inLocation;
 
-    }*/
-
-    /*paramControl.setParamInModal = function(inLocation){
-      if(inLocation === 'path'){
-        paramControl.tempParam.required = true;
-      }
-    }*/
-
-
-    paramControl.updateParamList = function(pathName, operation){
+    function updateParamList(pathName, operation){
+      console.log("updating param list");
+      console.log(pathName);
+      console.log(operation);
       paramControl.parametersList[operation] = angular.copy(swaggerPaths.getParamList(pathName,operation));
+      console.log(paramControl.parametersList[operation])
+      console.log("----- done updating param list -----")
     }
 
     //$scope.$watch("")
 
   /*  paramControl.paramRequired = function(){
 
-      console.log(paramControl.currentParam);
+      console.log(paramControl.am);
 
-      if(paramControl.currentParam.required){
+      if(paramControl.am.required){
         console.log("required true");
-        paramControl.currentParam.required = false;
+        paramControl.am.required = false;
       }else{
         console.log("required false");
-        paramControl.currentParam.required = true;
+        paramControl.am.required = true;
       }
 
       console.log("updateing param required");
-      console.log(paramControl.currentParam);
+      console.log(paramControl.am);
     }*/
 
 
