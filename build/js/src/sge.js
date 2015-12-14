@@ -295,9 +295,6 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
 swaggerGE.controller("parameterController", ['$scope', '$log', 'PathService', "ParameterModalService",
 function($scope, log, swaggerPaths, pms){
 
-    //scope.ameterPath = swaggerPaths.chosenParameter;
-
-    //scope.am;
     var paramControl = this;
 
     //paramControl.am = {};
@@ -307,34 +304,11 @@ function($scope, log, swaggerPaths, pms){
       operation: null,
     }
 
-    paramControl.operation = null;
+    //paramControl.operation = null;
 
-    paramControl.initController = function(pathName, operation){
-      /*paramControl.path.name = pathName;
-      paramControl.path.operation = operation;
-
-      paramControl.operation = swaggerPaths.paths[pathName][operation];
-      paramControl.parametersList = paramControl.operation.parameters.parameterList*/
-      //pms.parameterToUpdate(swaggerPaths.paths[pathName][operation].parameters.parameterList)
-
-    }
-
-    //console.log(paramControl.operation);
-    //console.log(paramControl.operation.parameters);
-
-    paramControl.swaggerPaths = swaggerPaths;
-
-    //paramControl.path = paramControl.paths;
+    //paramControl.swaggerPaths = swaggerPaths;
 
     paramControl.parametersList = null;
-    /*{
-      post: paramControl.parameters.post.parameters,
-      get: paramControl.parameters.get.parameters,
-      put: paramControl.parameters.put.parameters,
-      delete: paramControl.parameters.delete.parameters,
-    };*/
-
-    //paramControl.parametersList = swaggerPaths.paths[pathDefinition]
 
     paramControl.newParamData = {
       post:{
@@ -354,38 +328,6 @@ function($scope, log, swaggerPaths, pms){
         inLocation:null,
       },
     }
-
-  /*  $scope.$watch("am", function(oldVal, newVal){
-
-        log.log(oldVal + ", " + newVal);
-    });*/
-
-    $scope.$watch(function(){return swaggerPaths.updateList}, function(newVal){
-
-      if(newVal){
-        if(newVal.update){
-          console.log("watchhit")
-          console.log(newVal);
-
-          updateParamList(newVal.path, newVal.operation);
-          $scope.$apply();
-          console.log("print updated list");
-          console.log(paramControl.parametersList);
-          console.log("----done---")
-          swaggerPaths.updateList = {};
-        }
-      }
-
-    })
-
-  /*  $scope.$watch(function(){ return swaggerPaths.chosenParameter;}, function(newVal){
-          $scope.am = newVal;
-          //console.log(newVal);
-          //console.log($scope.am);
-          $scope.tempParam = clone($scope.currentParam);
-          $scope.tempParam.schema = JSON.stringify($scope.tempParam.schema);
-          console.log($scope.tempParam);
-      });*/
 
     //Param methods
     this.addParam = function(pathName, operation, paramName, paramInLocation){
@@ -422,89 +364,6 @@ function($scope, log, swaggerPaths, pms){
     };
 
 
-
-    function updateParamList(pathName, operation){
-      console.log("updating param list");
-      console.log(pathName);
-      console.log(operation);
-      paramControl.parametersList[operation] = angular.copy(swaggerPaths.getParamList(pathName,operation));
-      console.log(paramControl.parametersList[operation])
-      console.log("----- done updating param list -----")
-    }
-
-    //$scope.$watch("")
-
-  /*  paramControl.paramRequired = function(){
-
-      console.log(paramControl.am);
-
-      if(paramControl.am.required){
-        console.log("required true");
-        paramControl.am.required = false;
-      }else{
-        console.log("required false");
-        paramControl.am.required = true;
-      }
-
-      console.log("updateing param required");
-      console.log(paramControl.am);
-    }*/
-
-
-    function clone(obj) {
-      // Handle the 3 simple types, and null or undefined
-      if (null == obj || "object" != typeof obj){
-        console.log("null or not string");
-        return obj;
-      }
-
-      // Handle Date
-      if (obj instanceof Date) {
-        console.log("Copying Date");
-
-          var copy = new Date();
-          copy.setTime(obj.getTime());
-          return copy;
-      }
-
-      // Handle Array
-      if (obj instanceof Array) {
-        console.log("Copying Array");
-          var copy = [];
-          for (var i = 0, len = obj.length; i < len; i++) {
-              copy[i] = clone(obj[i]);
-          }
-          return copy;
-      }
-
-      // Handle Parameter
-      /*if(obj instanceof swaggerPaths.Parameter) {
-        console.log("Copying Parameter");
-        var copy = new Parameter();
-        for (var attr in obj){
-          if(obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
-        }
-
-        return copy;
-      }*/
-
-      // Handle Object
-      if (obj instanceof Object) {
-        console.log("Copying Object");
-
-          var copy = {};
-          for (var attr in obj) {
-              if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
-          }
-          return copy;
-      }
-
-      throw new Error("Unable to copy obj! Its type isn't supported.");
-    }
-
-
-
-
 }]);
 
 swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "ParameterModalService",
@@ -513,55 +372,37 @@ swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "Para
     var paramModal = this;
 
     paramModal.tempParam = {};
-    var origianlParamData = {
+    var originalParamData = {
       pathName:null,
       operation:null,
       parameter:null
     };
 
-    $scope.$watch(function(){return pms.currentParameter}, function(newVal){
-          //$scope.currentParam = newVal;
-          //console.log(newVal);
-          //console.log($scope.currentParam);
-          //paramModal.tempParam = clone($scope.currentParam);
-          if(newVal){
-            var currentParam = newVal;
-            console.log(currentParam);
-            //originalParamData = pms.getCurrentParameter()
-            origianlParamData.pathName = currentParam.pathName;
-            origianlParamData.operation = currentParam.operation;
-            origianlParamData.parameter = currentParam.parameter;
+    $scope.$watch(function(){return pms.currentParameter;}, function(newVal){
 
-            paramModal.tempParam = angular.copy(currentParam.parameter);
+        if(newVal.parameter){
 
-            if(paramModal.tempParam.schema){
-              paramModal.tempParam.schema = JSON.stringify(paramModal.tempParam.schema);
-            }
-            console.log("TEMP PARAM");
-            console.log(paramModal.tempParam);
-            $scope.$apply();
+          var currentParam = newVal;
+          originalParamData.pathName = currentParam.pathName;
+          originalParamData.operation = currentParam.operation;
+          originalParamData.parameter = currentParam.parameter;
+
+          paramModal.tempParam = angular.copy(currentParam.parameter);
+
+          if(paramModal.tempParam.schema){
+            paramModal.tempParam.schema = JSON.stringify(paramModal.tempParam.schema);
           }
 
-
-      });
+        }
+        
+      }, true);
 
       paramModal.updateParameter = function(){
         try{
-          console.log("updateParam");
           swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
-          //console.log("poop")
-          //console.log(paramModal.tempParam.originalValues.path);
-          //paramControl.updateParamList(paramControl.tempParam.originalValues.path, paramControl.tempParam.originalValues.operation);
-
-          /*swaggerPaths.updateList = {
-            update:true,
-            path: paramModal.tempParam.originalValues.path,
-            operation: paramModal.tempParam.originalValues.operation,
-          }*/
 
         }catch(e){
             console.log(e);
-            //paramControl.toastUser("Parameter name/query combo' already exists");
             Materialize.toast("Parameter name/query combo' already exists", 3000);
         }
       }
@@ -908,12 +749,15 @@ swaggerGE.factory("ParameterModalService", [function(){
   };
 
   pms.parameterToUpdate = function(pathName, operation, parameter){
-    console.log("updaiting parameter");
-    console.log(parameter);
-    pms.currentParameter.parameter = angular.copy(parameter);
+    //console.log("updaiting parameter");
+    //console.log(parameter);
+
     pms.currentParameter.pathName = pathName;
     pms.currentParameter.operation = operation;
+    pms.currentParameter.parameter = angular.copy(parameter);
 
+    //console.log(pms.currentParameter);
+    //console.log("Done updating parameter");
   }
 
   pms.getCurrentParameter = function(){
@@ -1262,6 +1106,8 @@ function(swaggerCompiler, OperationService){
 
     var paths = {};
 
+    self.paths = paths;
+
 /************** PATH FUNCTIONS START *******************/
     var Path = function(){
       this.get = null;
@@ -1287,7 +1133,7 @@ function(swaggerCompiler, OperationService){
       }
     }
 
-    this.setPaths= function(newPaths){
+    self.setPaths= function(newPaths){
       paths = newPaths;
         console.log('updatePaths from paths service');
         console.log('\t current paths');
@@ -1311,14 +1157,14 @@ function(swaggerCompiler, OperationService){
         console.log('------------------------------------');
     };
 
-    this.addPath = function(pathName, operations){
+    self.addPath = function(pathName, operations){
       if(pathExists(pathName)){
         throw "Path name already exsists, could not add"
       }else
         paths[pathName] = new Path();
     };
 
-    this.removePath = function(pathName){
+    self.removePath = function(pathName){
       if(pathExists(pathName))
         delete paths[pathName];
       else
@@ -1326,7 +1172,7 @@ function(swaggerCompiler, OperationService){
 
     };
 
-    this.updatePathName = function(oldPathName, newPathName){
+    self.updatePathName = function(oldPathName, newPathName){
       if(oldPathName === newPathName) return;
 
       if(pathExists(oldPathName)){
@@ -1349,7 +1195,7 @@ function(swaggerCompiler, OperationService){
 /************** OPERATION FUNCTIONS START *******************/
 
     /* make a separate Operations class */
-    this.addOperation = function(pathName, operation){
+    self.addOperation = function(pathName, operation){
 
         console.log("PATH SERVICE: adding operation");
 
@@ -1365,14 +1211,14 @@ function(swaggerCompiler, OperationService){
     /*
         Deletes an operation from a given service.
     */
-    this.removeOperation = function(pathName, operation){
+    self.removeOperation = function(pathName, operation){
       //reset the operation by deleteing it then adding it back as null
         delete paths[pathName][operation];
         paths[pathName][operation]=null;
 
     }
 
-    this.operationExists = function(pathName, operation){
+    self.operationExists = function(pathName, operation){
       if(paths[pathName][operation]){
         return false;
       }else{
@@ -1392,7 +1238,7 @@ function(swaggerCompiler, OperationService){
     /*
         Tries to create and validate a new parameter object.
     */
-    this.addNewParam = function(pathName, operation, paramName, paramIn){
+    self.addNewParam = function(pathName, operation, paramName, paramIn){
         if(debug){
             console.log("PATH SERVICE: Attempting to add a new Parameter");
             console.log(pathName);
@@ -1415,7 +1261,7 @@ function(swaggerCompiler, OperationService){
     /*
         This
     */
-    this.getParamList = function(pathName, operation){
+    self.getParamList = function(pathName, operation){
 
         var currentPath = paths[pathName][operation];
 
@@ -1423,13 +1269,13 @@ function(swaggerCompiler, OperationService){
 
     }
 
-    this.getParam = function(pathName, operation, paramName, paramIn){
+    self.getParam = function(pathName, operation, paramName, paramIn){
         console.log("------------------\nGETTING PARAM NAME");
         console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
         var paramObject = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
         console.log(paramObject);
         console.log("------------------");
-        return paramObject
+        return paramObject;
     };
 
     /*
@@ -1454,37 +1300,46 @@ function(swaggerCompiler, OperationService){
         }
     }
 
-    this.updateParameter = function(originalParameterData, newParameter){
+    /**
+     *
+     */
+    self.updateParameter = function(originalParameterData, newParameter){
+      if(debug){
+        console.log("START Swagger Paths -> updating the Parameter Model");
+        //console.log(originalParameterData);
+      }
 
-      console.log(originalParameterData);
+      var pathName = originalParameterData.pathName;
+      var operation = originalParameterData.operation;
 
+      var oParamName = originalParameterData.parameter.name;
+      var oParamIn = originalParameterData.parameter.inLocation;
 
+      var newParamName = newParameter.name;
+      var newParamIn = newParameter.inLocation;
 
-      //var originalData = tempParameter.originalValues;
 
       //validate new param
       //check to see if the name - inLocation pair of the parameter was changed
-      if(originalParameterData.parameter.name !== newParameter.name || originalParameterData.parameter.inLocation !== newParameter.inLocation){
+      if(oParamName !== newParamName || oParamIn !== newParamIn){
 
-        console.log("name is not the same or inLocation not the same");
-        console.log("\tname: " + originalParameterData.parameter.name + ", " + newParameter.name);
-        console.log("\tinLocation: " + originalParameterData.parameter.inLocation + ", " + newParameter.inLocation);
-        //if they have been changed check if the new combo is legitamit
-        if(!validateParam(originalParameterData.pathName, originalParameterData.operation, newParameter.name, newParameter.inLocation)){
+        //if they have been changed check if the new combo is unique
+        if(!validateParam(pathName, operation, newParamName, newParamIn)){
           throw "Invalid Parameter Name-in combination, must be unique."
         }
       }
 
-        console.log("name and inLocation are the same");
+        //set a reference to the actual parameter so to later manipulate
+        var originalParam = self.getParam(pathName, operation, oParamName, oParamIn);
 
-        var originalParam = paths[originalParameterData.pathName][originalParameterData.operation].parameters.getParameter(originalData.name, originalData.inLocation);
-        //var newParameter = new Parameter();
-
+        //update the original parameter with the new parameter's data
         for(var key in newParameter){
-          if(newParameter.hasOwnProperty(key) && key !== 'originalValues' && key !== "schema"){
+          if(newParameter.hasOwnProperty(key) && key !== "schema"){
             originalParam[key] = newParameter[key];
           }
+          //handle schema as a special case;
           if(key === "schema"){
+            //if the schema was updated, convert the JSON to an object
             if(newParameter[key] instanceof Object)
               originalParam[key] = newParameter[key];
             else
@@ -1492,15 +1347,15 @@ function(swaggerCompiler, OperationService){
           }
         }
 
+        if(debug){
+          console.log("FINISHED Swagger Paths -> updating the Parameter Model");
+          //console.log(originalParameterData);
+        }
+
     }
 
-    this.paths = paths;
 
-    this.chosenParameter= null;
 
-    this.updateChosenParameter = function(newChosen){
-      chosenParameter = newChosen;
-    };
 
 /************** PARAMETERS FUNCTIONS END*******************/
 
