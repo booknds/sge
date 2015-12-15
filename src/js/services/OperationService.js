@@ -1,6 +1,6 @@
 "use strict";
-swaggerGE.factory("OperationService", ["ParameterService",
-function(ParameterService){
+swaggerGE.factory("OperationService", ["ParameterService", "ResponseService",
+function(ParameterService, ResponseService){
 
   var Operation = function(){
       this.tags = null;
@@ -11,7 +11,7 @@ function(ParameterService){
       this.consumes = null;
       this.produces = null;
       this.parameters = ParameterService.newParameters();
-      this.responses = new Object();
+      this.responses = ResponseService.newResponses();
       this.schemes = null;
       this.deprecated = false;
       this.security = new Object();

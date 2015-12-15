@@ -332,11 +332,6 @@ function($scope, log, swaggerPaths, pms){
     //Param methods
     this.addParam = function(pathName, operation, paramName, paramInLocation){
 
-       // console.log("ADD PARAM!");
-        //var pathName = path.currentName;
-
-
-
         try{
             swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
             //$scope.parametersList = swaggerPaths.getParamList;
@@ -573,24 +568,14 @@ swaggerGE.controller("PathModalController", ["$scope", "PathService",
 
 }]);
 
-swaggerGE.controller("responseController",["$scope", "PathService", "ResponseService",
- function($scope, swaggerPaths, responseService){
+swaggerGE.controller("responseController",["$scope", "PathService", "ResponseModalService",
+ function($scope, PathService, rms){
   "use strict";
 
   var responseControl = this;
 
   responseControl.prevent = {
     responseUpdate: false
-  }
-
-  responseControl.tempResponse = null;
-  responseControl.currentResponse = null;
-
-  responseControl.responseList = {
-    post:new Array(),
-    get:new Array(),
-    put:new Array(),
-    delete:new Array(),
   }
 
   responseControl.newResponseData = {
@@ -614,40 +599,96 @@ swaggerGE.controller("responseController",["$scope", "PathService", "ResponseSer
 
   responseControl.initResponseData = function(pathName, operation, httpCode){
     console.log("initResponseData");
-  }
-
-  responseControl.addResponse = function(path, operation, httpCode, description){
-    console.log("addResponse");
-    console.log(httpCode);
-    console.log(description);
-    console.log(responseControl.newResponseData);
-    //if(hasResponse(path, operation, httpCode))
-    if(hasResponse(operation, httpCode))
-      throw "This reposne code already exists"
-    else
-      responseControl.responseList[operation].push(responseService.newResponse(httpCode, description));
-
-    console.log(responseControl.responseList[operation]);
-
-  }
-
-  function hasResponse(operation, httpCode){
-    console.log("Checking response list")
-    var exists = false;
-    responseControl.responseList[operation].forEach(function(response, index, responseList){
-      console.log(response);
+    try{
+      var currentResponse = PathService.getResponse(pathName, operation, httpCode);
+      console.log(currentResponse);
       console.log(httpCode);
-      console.log("---");
-      if(response.code === httpCode){
-        console.log("hit");
-        exists = true;
-        //return;
-      }
-    });
+      rms.responseToUpdate(pathName, operation, httpCode, currentResponse);
+    }catch(e){
+      console.log(e);
+      Materialize.toast(e, 3000);
+      return;
+    }
 
-    return exists;
+
+
   }
 
+  responseControl.addResponse = function(pathName, operation, httpCode, description){
+    console.log("RESPONSE CONTROLLER - ADD RESPONSE");
+
+    try{
+      PathService.addResponse(pathName, operation, httpCode, description);
+    }catch(e){
+      console.log(e);
+      Materialize.toast(e, 3000);
+    }
+
+    responseControl.newResponseData[operation]= {
+      httpCode:null,
+      description:null,
+    }
+
+  }
+
+
+}]);
+
+swaggerGE.controller("ResponseModalController", ["ResponseModalService", "$scope",
+  function(rms, $scope){
+
+    var vm = this;
+
+    vm.tempResponse = {};
+    var originalResponseData = {
+      pathName:null,
+      operation:null,
+      httpCode:null,
+      response:null,
+    };
+
+    $scope.$watch(function(){return rms.currentResponse;}, function(newVal){
+
+        if(newVal.response){
+          console.log("hit current response updated");
+          var currentResponse = newVal;
+          vm.originalResponseData = currentResponse;
+
+          vm.tempResponse = angular.copy(currentResponse.response);
+          vm.tempResponse.httpCode = vm.originalResponseData.httpCode;
+
+          if(vm.tempResponse.schema){
+            vm.tempResponse.schema = JSON.stringify(vm.tempResponse.schema);
+          }
+          if(vm.tempResponse.headers){
+            vm.tempResponse.headers = JSON.stringify(vm.tempResponse.headers);
+          }
+          if(vm.tempResponse.examples){
+            vm.tempResponse.examples = JSON.stringify(vm.tempResponse.examples);
+          }
+
+        }
+
+      }, true);
+
+      vm.updateParameter = function(){
+        try{
+          //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
+
+        }catch(e){
+            console.log(e);
+            Materialize.toast("Parameter name/query combo' already exists", 3000);
+        }
+      }
+
+      vm.setParamInModal = function(inLocation){
+        console.log("setting param modal");
+        if(inLocation === 'path'){
+          vm.tempResponse.required = true;
+          console.log(vm.tempResponse);
+        }
+
+      }
 
 }]);
 
@@ -680,8 +721,8 @@ swaggerGE.factory('OperationModel', [function(){
     
 }])
 "use strict";
-swaggerGE.factory("OperationService", ["ParameterService",
-function(ParameterService){
+swaggerGE.factory("OperationService", ["ParameterService", "ResponseService",
+function(ParameterService, ResponseService){
 
   var Operation = function(){
       this.tags = null;
@@ -692,7 +733,7 @@ function(ParameterService){
       this.consumes = null;
       this.produces = null;
       this.parameters = ParameterService.newParameters();
-      this.responses = new Object();
+      this.responses = ResponseService.newResponses();
       this.schemes = null;
       this.deprecated = false;
       this.security = new Object();
@@ -1230,11 +1271,6 @@ function(swaggerCompiler, OperationService){
 
 /************** PARAMETER(S) FUNCTIONS START *******************/
 
-
-    /*this.newParam = function(name, id){
-      return new newParameter(name, id);
-    }*/
-
     /*
         Tries to create and validate a new parameter object.
     */
@@ -1269,6 +1305,9 @@ function(swaggerCompiler, OperationService){
 
     }
 
+    /*
+
+    */
     self.getParam = function(pathName, operation, paramName, paramIn){
         console.log("------------------\nGETTING PARAM NAME");
         console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
@@ -1354,14 +1393,156 @@ function(swaggerCompiler, OperationService){
 
     }
 
-
-
-
 /************** PARAMETERS FUNCTIONS END*******************/
+
+/************** RESPONSE FUNCTIONS START*******************/
+  self.addResponse = function(pathName, operation, httpCode, description){
+    if(debug){
+      console.log("ADD RESPONSE - START");
+    }
+
+    if(!description){
+      throw "Description needs to be filled out"
+    }
+
+    var path = paths[pathName][operation];
+
+    if(hasResponse(pathName, operation, httpCode)){
+      throw "Http Code already exists"
+    }else{
+      path.responses.addResponse(httpCode, description);
+    }
+
+    if(debug){
+      console.log("ADD RESPONSE - END");
+    }
+  }
+
+  self.getResponse = function(pathName, operation, httpCode){
+
+    console.log(pathName + ", " + operation + ", " + httpCode);
+    var response = paths[pathName][operation].responses.getResponse(httpCode);
+    if(response){
+      return response;
+    }else {
+      throw "The Response Code could not be found"
+    }
+  }
+
+  self.updateResponse = function(originalResponseData, newResponse){
+    if(debug){
+      console.log("START Swagger Paths -> updating the Response Model");
+      //console.log(originalParameterData);
+    }
+
+    var pathName = originalResponseData.pathName;
+    var operation = originalResponse.operation;
+
+    var oHttpCode = originalResponseData.httpCode;
+    //var oParamIn = originalParameterData.parameter.inLocation;
+
+    //var newParamName = newParameter.name;
+    //var newParamIn = newParameter.inLocation;
+
+
+    //validate new param
+    //check to see if the name - inLocation pair of the parameter was changed
+    if(oParamName !== newParamName || oParamIn !== newParamIn){
+
+      //if they have been changed check if the new combo is unique
+      if(!validateParam(pathName, operation, newParamName, newParamIn)){
+        throw "Invalid Parameter Name-in combination, must be unique."
+      }
+    }
+
+      //set a reference to the actual parameter so to later manipulate
+      var originalParam = self.getParam(pathName, operation, oParamName, oParamIn);
+
+      //update the original parameter with the new parameter's data
+      for(var key in newParameter){
+        if(newParameter.hasOwnProperty(key) && key !== "schema"){
+          originalParam[key] = newParameter[key];
+        }
+        //handle schema as a special case;
+        if(key === "schema"){
+          //if the schema was updated, convert the JSON to an object
+          if(newParameter[key] instanceof Object)
+            originalParam[key] = newParameter[key];
+          else
+            originalParam[key] = JSON.parse(newParameter[key]);
+        }
+      }
+
+      if(debug){
+        console.log("FINISHED Swagger Paths -> updating the Parameter Model");
+        //console.log(originalParameterData);
+      }
+
+  };
+
+  function hasResponse(pathName, operation, httpCode){
+    if(debug){
+      console.log("HAS RESPONSE - START");
+    }
+
+    var path = paths[pathName][operation];
+
+    if(path.responses.responseExists(httpCode)){
+        if(debug)
+            console.log("\t Same Response found");
+
+        return true;
+    }else{
+        if(debug)
+            console.log("\t Response NOT found");
+
+        return false;
+    }
+
+    if(debug){
+      console.log("HAS RESPONSE - END");
+    }
+  }
+/************** RESPONSE FUNCTIONS END*******************/
+}]);
+
+swaggerGE.factory("ResponseModalService", [
+  function(){
+    var rms = this;
+
+    rms.currentResponse = {
+      pathName:null,
+      operation:null,
+      httpCode:null,
+      response:null,
+    };
+
+    rms.responseToUpdate = function(pathName, operation, httpCode, response){
+      //console.log("updaiting parameter");
+      //console.log(parameter);
+
+      rms.currentResponse.pathName = pathName;
+      rms.currentResponse.operation = operation;
+      rms.currentResponse.httpCode = httpCode;
+      rms.currentResponse.response = angular.copy(response);
+      console.log("updated current response");
+      console.log(rms.currentResponse);
+      //console.log(pms.currentParameter);
+      //console.log("Done updating parameter");
+    }
+
+    rms.getCurrentParameter = function(){
+      return rms.currentParameter;
+    }
+
+    return rms;
+
 
 }]);
 
 swaggerGE.factory("ResponseService",[function(){
+
+  var rs = this;
 
     function Response(){
         this.description = null;
@@ -1399,7 +1580,7 @@ swaggerGE.factory("ResponseService",[function(){
     */
     function Responses(){
 
-      this.responseList = new Array();
+      //this.responseList = new Object();
 
     }
 
@@ -1411,7 +1592,13 @@ swaggerGE.factory("ResponseService",[function(){
 
       */
       addResponse: function(httpCode, description){
-        this.responseList.push(new Response(httpCode, desctiption));
+        console.log(this.responseList);
+
+        this[httpCode] = new Response(description);
+
+        console.log(this.responseList);
+
+
       },
 
       /**
@@ -1430,7 +1617,7 @@ swaggerGE.factory("ResponseService",[function(){
       /**
       */
       getResponse: function(httpCode){
-        var response = null;
+        /*var response = null;
 
         this.responseList.forEach(function(resp, index, responseList){
           if(resp.hasOwnProperty(httpCode)){
@@ -1439,7 +1626,11 @@ swaggerGE.factory("ResponseService",[function(){
           }
         });
 
-        return angular.copy(response);
+        return angular.copy(response);*/
+        if(this.hasOwnProperty(httpCode))
+          return this[httpCode];
+        else
+          return null;
 
       },
 
@@ -1447,16 +1638,21 @@ swaggerGE.factory("ResponseService",[function(){
         Check to see if a response exists in the list
       */
       responseExists: function(httpCode){
-        var exists = false;
+        //var exists = false;
 
-        this.responseList.forEach(function(response, index, responseList){
-          if(response.hasOwnProperty(httpCode)){
-            exists = true;
-            return;
+        //this.responseList.forEach(function(response, index, responseList){
+        console.log("RESPONSE EXISTS FUNCTION");
+        console.log(httpCode);
+        console.log(this.responseList);
+          if(this.hasOwnProperty(httpCode)){
+            return true;
+            //return;
+          }else {
+            return false;
           }
-        });
+        //});
 
-        return exists;
+        //return exists;
       },
 
     };
@@ -1464,20 +1660,14 @@ swaggerGE.factory("ResponseService",[function(){
     /**
       Response Object
     */
-    function Response(httpCode, descrip){
+    function Response(descrip){
 
-      /*
-      this[httpCode] = {
-        description: descrip,
-        schema: new Object(),
-        headers: new Object(),
-        examples: new Object()
-      };*/
-      this.code = httpCode
       this.description = descrip,
       this.schema = new Object(),
       this.headers = new Object(),
       this.examples = new Object()
+
+      //return this[httpCode];
     }
 
     /**
@@ -1486,6 +1676,10 @@ swaggerGE.factory("ResponseService",[function(){
     Response.prototype = {};
 
     return {
+      newResponses:function(){
+        return new Responses();
+      },
+
       newResponse: function(httpCode, description){
         var response = null;
         var temp = null
@@ -1503,7 +1697,7 @@ swaggerGE.factory("ResponseService",[function(){
 
       },
       hasResponse: function(pathName, operation, httpCode){
-        
+
       }
     }
 }]);

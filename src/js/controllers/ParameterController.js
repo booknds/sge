@@ -39,11 +39,6 @@ function($scope, log, swaggerPaths, pms){
     //Param methods
     this.addParam = function(pathName, operation, paramName, paramInLocation){
 
-       // console.log("ADD PARAM!");
-        //var pathName = path.currentName;
-
-
-
         try{
             swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
             //$scope.parametersList = swaggerPaths.getParamList;

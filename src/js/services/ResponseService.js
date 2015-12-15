@@ -1,5 +1,7 @@
 swaggerGE.factory("ResponseService",[function(){
 
+  var rs = this;
+
     function Response(){
         this.description = null;
         this.headers = {};
@@ -36,7 +38,7 @@ swaggerGE.factory("ResponseService",[function(){
     */
     function Responses(){
 
-      this.responseList = new Array();
+      //this.responseList = new Object();
 
     }
 
@@ -48,7 +50,13 @@ swaggerGE.factory("ResponseService",[function(){
 
       */
       addResponse: function(httpCode, description){
-        this.responseList.push(new Response(httpCode, desctiption));
+        console.log(this.responseList);
+
+        this[httpCode] = new Response(description);
+
+        console.log(this.responseList);
+
+
       },
 
       /**
@@ -67,7 +75,7 @@ swaggerGE.factory("ResponseService",[function(){
       /**
       */
       getResponse: function(httpCode){
-        var response = null;
+        /*var response = null;
 
         this.responseList.forEach(function(resp, index, responseList){
           if(resp.hasOwnProperty(httpCode)){
@@ -76,7 +84,11 @@ swaggerGE.factory("ResponseService",[function(){
           }
         });
 
-        return angular.copy(response);
+        return angular.copy(response);*/
+        if(this.hasOwnProperty(httpCode))
+          return this[httpCode];
+        else
+          return null;
 
       },
 
@@ -84,16 +96,21 @@ swaggerGE.factory("ResponseService",[function(){
         Check to see if a response exists in the list
       */
       responseExists: function(httpCode){
-        var exists = false;
+        //var exists = false;
 
-        this.responseList.forEach(function(response, index, responseList){
-          if(response.hasOwnProperty(httpCode)){
-            exists = true;
-            return;
+        //this.responseList.forEach(function(response, index, responseList){
+        console.log("RESPONSE EXISTS FUNCTION");
+        console.log(httpCode);
+        console.log(this.responseList);
+          if(this.hasOwnProperty(httpCode)){
+            return true;
+            //return;
+          }else {
+            return false;
           }
-        });
+        //});
 
-        return exists;
+        //return exists;
       },
 
     };
@@ -101,20 +118,14 @@ swaggerGE.factory("ResponseService",[function(){
     /**
       Response Object
     */
-    function Response(httpCode, descrip){
+    function Response(descrip){
 
-      /*
-      this[httpCode] = {
-        description: descrip,
-        schema: new Object(),
-        headers: new Object(),
-        examples: new Object()
-      };*/
-      this.code = httpCode
       this.description = descrip,
       this.schema = new Object(),
       this.headers = new Object(),
       this.examples = new Object()
+
+      //return this[httpCode];
     }
 
     /**
@@ -123,6 +134,10 @@ swaggerGE.factory("ResponseService",[function(){
     Response.prototype = {};
 
     return {
+      newResponses:function(){
+        return new Responses();
+      },
+
       newResponse: function(httpCode, description){
         var response = null;
         var temp = null
@@ -140,7 +155,7 @@ swaggerGE.factory("ResponseService",[function(){
 
       },
       hasResponse: function(pathName, operation, httpCode){
-        
+
       }
     }
 }]);

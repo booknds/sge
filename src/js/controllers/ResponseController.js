@@ -1,21 +1,11 @@
-swaggerGE.controller("responseController",["$scope", "PathService", "ResponseService",
- function($scope, swaggerPaths, responseService){
+swaggerGE.controller("responseController",["$scope", "PathService", "ResponseModalService",
+ function($scope, PathService, rms){
   "use strict";
 
   var responseControl = this;
 
   responseControl.prevent = {
     responseUpdate: false
-  }
-
-  responseControl.tempResponse = null;
-  responseControl.currentResponse = null;
-
-  responseControl.responseList = {
-    post:new Array(),
-    get:new Array(),
-    put:new Array(),
-    delete:new Array(),
   }
 
   responseControl.newResponseData = {
@@ -39,38 +29,36 @@ swaggerGE.controller("responseController",["$scope", "PathService", "ResponseSer
 
   responseControl.initResponseData = function(pathName, operation, httpCode){
     console.log("initResponseData");
-  }
-
-  responseControl.addResponse = function(path, operation, httpCode, description){
-    console.log("addResponse");
-    console.log(httpCode);
-    console.log(description);
-    console.log(responseControl.newResponseData);
-    //if(hasResponse(path, operation, httpCode))
-    if(hasResponse(operation, httpCode))
-      throw "This reposne code already exists"
-    else
-      responseControl.responseList[operation].push(responseService.newResponse(httpCode, description));
-
-    console.log(responseControl.responseList[operation]);
-
-  }
-
-  function hasResponse(operation, httpCode){
-    console.log("Checking response list")
-    var exists = false;
-    responseControl.responseList[operation].forEach(function(response, index, responseList){
-      console.log(response);
+    try{
+      var currentResponse = PathService.getResponse(pathName, operation, httpCode);
+      console.log(currentResponse);
       console.log(httpCode);
-      console.log("---");
-      if(response.code === httpCode){
-        console.log("hit");
-        exists = true;
-        //return;
-      }
-    });
+      rms.responseToUpdate(pathName, operation, httpCode, currentResponse);
+    }catch(e){
+      console.log(e);
+      Materialize.toast(e, 3000);
+      return;
+    }
 
-    return exists;
+
+
+  }
+
+  responseControl.addResponse = function(pathName, operation, httpCode, description){
+    console.log("RESPONSE CONTROLLER - ADD RESPONSE");
+
+    try{
+      PathService.addResponse(pathName, operation, httpCode, description);
+    }catch(e){
+      console.log(e);
+      Materialize.toast(e, 3000);
+    }
+
+    responseControl.newResponseData[operation]= {
+      httpCode:null,
+      description:null,
+    }
+
   }
 
 
