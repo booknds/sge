@@ -130,6 +130,10 @@ function(swaggerCompiler, OperationService){
       }
     }
 
+    self.updateOperationInformation = function(pathName, operation, key, value){
+      paths[pathName][operation][key] = value;
+    }
+
 /************** OPERATION FUNCTIONS END *******************/
 
 /************** PARAMETER(S) FUNCTIONS START *******************/
@@ -292,49 +296,60 @@ function(swaggerCompiler, OperationService){
     }
   }
 
+  self.removeResponse = function (pathName, operation, httpCode){
+    delete paths[pathName][operation].responses[httpCode];
+  }
+
   self.updateResponse = function(originalResponseData, newResponse){
     if(debug){
       console.log("START Swagger Paths -> updating the Response Model");
       //console.log(originalParameterData);
     }
-
+    console.log(originalResponseData);
+    console.log(newResponse);
     var pathName = originalResponseData.pathName;
-    var operation = originalResponse.operation;
+    var operation = originalResponseData.operation;
 
     var oHttpCode = originalResponseData.httpCode;
-    //var oParamIn = originalParameterData.parameter.inLocation;
+    var newHttpCode = newResponse.httpCode;
 
-    //var newParamName = newParameter.name;
-    //var newParamIn = newParameter.inLocation;
-
-
-    //validate new param
-    //check to see if the name - inLocation pair of the parameter was changed
-    if(oParamName !== newParamName || oParamIn !== newParamIn){
+    if(oHttpCode !== newHttpCode){
 
       //if they have been changed check if the new combo is unique
-      if(!validateParam(pathName, operation, newParamName, newParamIn)){
+      if(hasResponse(pathName, operation, newHttpCode)){
         throw "Invalid Parameter Name-in combination, must be unique."
+      }else{
+        self.removeResponse(pathName, operation, oHttpCode);
+
+        self.addResponse(pathName, operation, newHttpCode, newResponse.response.description);
+        var newlyAddedResponse = self.getResponse(pathName, operation, newHttpCode);
+
+        for(var key in newlyAddedResponse){
+          if(key !== 'description'){
+            if(newlyAddedResponse[key] instanceof Object)
+              newlyAddedResponse[key] = newResponse.response[key];
+            else
+              newlyAddedResponse[key] = JSON.parse(newResponse.response[key]);
+          }
+        }
+      }
+
+    }else{
+
+      var originalResponse = self.getResponse(pathName, operation, oHttpCode);
+      console.log("Httpcodes match");
+      console.log(originalResponse);
+
+      for(var key in originalResponse){
+
+          if(originalResponse[key] instanceof Object || key === 'description')
+            originalResponse[key] = newResponse.response[key];
+          else
+            originalResponse[key] = JSON.parse(newResponse.response[key]);
+
       }
     }
 
-      //set a reference to the actual parameter so to later manipulate
-      var originalParam = self.getParam(pathName, operation, oParamName, oParamIn);
-
-      //update the original parameter with the new parameter's data
-      for(var key in newParameter){
-        if(newParameter.hasOwnProperty(key) && key !== "schema"){
-          originalParam[key] = newParameter[key];
-        }
-        //handle schema as a special case;
-        if(key === "schema"){
-          //if the schema was updated, convert the JSON to an object
-          if(newParameter[key] instanceof Object)
-            originalParam[key] = newParameter[key];
-          else
-            originalParam[key] = JSON.parse(newParameter[key]);
-        }
-      }
 
       if(debug){
         console.log("FINISHED Swagger Paths -> updating the Parameter Model");

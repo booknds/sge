@@ -15,6 +15,37 @@ swaggerGE.directive("pathCreator", ['$compile', function($compile) {
     }
 }]);
 
+swaggerGE.directive("focusOnLoad", [
+  function(){
+    return{
+      scope:{ focus: '@focusOnLoad'},
+      //controller: "PathController",
+      link: function(scope, element, attrs){
+        console.log("PATHMODALFOCUS");
+        console.log(focus);
+        scope.$watch("focus", function(newVal){
+          console.log("PATHMODALFOCUS - CHANGED!");
+          if(newVal === "true"){
+            console.log("PATHMODALFOCUS - TRUE!!");
+            element[0].focus();
+            //scope.focusPathModal = false;
+          }
+        })
+
+      },
+
+    }
+
+}]);
+
+swaggerGE.filter('capitalize', function() {
+  return function(input, scope) {
+    if (input!=null)
+    input = input.toLowerCase();
+    return input.substring(0,1).toUpperCase()+input.substring(1);
+  }
+});
+
 /*swaggerGE.directive("pathModal", ["$interval", function($interval) {
     return {
         restrict: "A",
@@ -129,6 +160,7 @@ swaggerGE.directive("closePathModal", function(){
     }
 });
 
+/*
 swaggerGE.directive("colorize", function(){
     return {
       scope: {
@@ -136,12 +168,12 @@ swaggerGE.directive("colorize", function(){
       },
       link: function(scope, element, attrs){
 
-          /*
+
           ng-class="{'blue': '{{operation}}' == 'get',
             'orange': '{{operation}}' === 'put',
             'green': '{{operation}}' === 'post',
             'red': '{{operation}}' === 'delete', }"
-            */
+
           //  operation = element.text();
 
 //            if()
@@ -154,7 +186,7 @@ swaggerGE.directive("colorize", function(){
 
         }
     }
-});
+});*/
 
 /*swaggerGE.directive("modalFocus", function(){
     return {
@@ -168,6 +200,7 @@ swaggerGE.directive("colorize", function(){
         }
     }
 });*/
+/*
 swaggerGE.directive("deepWatch", function(){
     return {
       scope: {
@@ -184,7 +217,7 @@ swaggerGE.directive("deepWatch", function(){
         },true);
     }
   }
-});
+});*/
 
 swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
     return {

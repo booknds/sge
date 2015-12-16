@@ -15,6 +15,37 @@ swaggerGE.directive("pathCreator", ['$compile', function($compile) {
     }
 }]);
 
+swaggerGE.directive("focusOnLoad", [
+  function(){
+    return{
+      scope:{ focus: '@focusOnLoad'},
+      //controller: "PathController",
+      link: function(scope, element, attrs){
+        console.log("PATHMODALFOCUS");
+        console.log(focus);
+        scope.$watch("focus", function(newVal){
+          console.log("PATHMODALFOCUS - CHANGED!");
+          if(newVal === "true"){
+            console.log("PATHMODALFOCUS - TRUE!!");
+            element[0].focus();
+            //scope.focusPathModal = false;
+          }
+        })
+
+      },
+
+    }
+
+}]);
+
+swaggerGE.filter('capitalize', function() {
+  return function(input, scope) {
+    if (input!=null)
+    input = input.toLowerCase();
+    return input.substring(0,1).toUpperCase()+input.substring(1);
+  }
+});
+
 /*swaggerGE.directive("pathModal", ["$interval", function($interval) {
     return {
         restrict: "A",
@@ -129,6 +160,7 @@ swaggerGE.directive("closePathModal", function(){
     }
 });
 
+/*
 swaggerGE.directive("colorize", function(){
     return {
       scope: {
@@ -136,12 +168,12 @@ swaggerGE.directive("colorize", function(){
       },
       link: function(scope, element, attrs){
 
-          /*
+
           ng-class="{'blue': '{{operation}}' == 'get',
             'orange': '{{operation}}' === 'put',
             'green': '{{operation}}' === 'post',
             'red': '{{operation}}' === 'delete', }"
-            */
+
           //  operation = element.text();
 
 //            if()
@@ -154,7 +186,7 @@ swaggerGE.directive("colorize", function(){
 
         }
     }
-});
+});*/
 
 /*swaggerGE.directive("modalFocus", function(){
     return {
@@ -168,6 +200,7 @@ swaggerGE.directive("colorize", function(){
         }
     }
 });*/
+/*
 swaggerGE.directive("deepWatch", function(){
     return {
       scope: {
@@ -184,7 +217,7 @@ swaggerGE.directive("deepWatch", function(){
         },true);
     }
   }
-});
+});*/
 
 swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
     return {
@@ -420,7 +453,7 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
 
      var vm = this;
 
-    $scope.thisObject = vm;
+    //$scope.thisObject = vm;
 
     //used to test the services
     vm.paths = swaggerPaths.paths;
@@ -428,6 +461,8 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
     vm.prevent = {
       showPaths:false,
     }
+
+    vm.focusPathModal = false;
 
     //$scope.closePathModal = false;
 
@@ -437,6 +472,9 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
       if($scope.paths.length > 0)
           $scope.prevent.pathsList = !$scope.prevent.pathsList;
     }*/
+    vm.focusPathModal = function(){
+      $scope.focusPathModal = !$scope.focusPathModal;
+    }
 
     vm.updatePathName = function(originalPathName, newPathName){
       try{
@@ -485,7 +523,7 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
       }else{
         console.log("dont delete operation");
       }
-    }
+    };
 
     vm.addOperation = function(pathName, operation){
       try{
@@ -494,7 +532,13 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
         console.log(e);
         Materialize.toast(e, 3000);
       }
-    }
+    };
+
+    vm.updateOperation = function(pathName, operation, key, value){
+      swaggerPaths.updateOperationInformation(pathName, operation, key, value);
+      value="";
+      Materialize.toast("Updated " + key, 2000);
+    };
 
 
 
@@ -634,12 +678,15 @@ swaggerGE.controller("responseController",["$scope", "PathService", "ResponseMod
 
 }]);
 
-swaggerGE.controller("ResponseModalController", ["ResponseModalService", "$scope",
-  function(rms, $scope){
+swaggerGE.controller("ResponseModalController", ["ResponseModalService", "PathService", "$scope",
+  function(rms, PathService, $scope){
 
     var vm = this;
 
-    vm.tempResponse = {};
+    vm.tempResponseData = {
+      httpCode:null,
+      response:null,
+    };
     var originalResponseData = {
       pathName:null,
       operation:null,
@@ -654,27 +701,27 @@ swaggerGE.controller("ResponseModalController", ["ResponseModalService", "$scope
           var currentResponse = newVal;
           vm.originalResponseData = currentResponse;
 
-          vm.tempResponse = angular.copy(currentResponse.response);
-          vm.tempResponse.httpCode = vm.originalResponseData.httpCode;
+          vm.tempResponseData.response = angular.copy(currentResponse.response);
+          vm.tempResponseData.httpCode = vm.originalResponseData.httpCode;
 
-          if(vm.tempResponse.schema){
-            vm.tempResponse.schema = JSON.stringify(vm.tempResponse.schema);
+          if(vm.tempResponseData.response.schema instanceof Object){
+            vm.tempResponseData.response.schema = JSON.stringify(vm.tempResponseData.response.schema);
           }
-          if(vm.tempResponse.headers){
-            vm.tempResponse.headers = JSON.stringify(vm.tempResponse.headers);
+          if(vm.tempResponseData.response.headers instanceof Object){
+            vm.tempResponseData.response.headers = JSON.stringify(vm.tempResponseData.response.headers);
           }
-          if(vm.tempResponse.examples){
-            vm.tempResponse.examples = JSON.stringify(vm.tempResponse.examples);
+          if(vm.tempResponseData.response.examples instanceof Object){
+            vm.tempResponseData.response.examples = JSON.stringify(vm.tempResponseData.response.examples);
           }
 
         }
 
       }, true);
 
-      vm.updateParameter = function(){
+      vm.updateResponse = function(originalResponse, newResponse){
         try{
           //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
-
+          PathService.updateResponse(originalResponse, newResponse);
         }catch(e){
             console.log(e);
             Materialize.toast("Parameter name/query combo' already exists", 3000);
@@ -1267,6 +1314,10 @@ function(swaggerCompiler, OperationService){
       }
     }
 
+    self.updateOperationInformation = function(pathName, operation, key, value){
+      paths[pathName][operation][key] = value;
+    }
+
 /************** OPERATION FUNCTIONS END *******************/
 
 /************** PARAMETER(S) FUNCTIONS START *******************/
@@ -1429,49 +1480,60 @@ function(swaggerCompiler, OperationService){
     }
   }
 
+  self.removeResponse = function (pathName, operation, httpCode){
+    delete paths[pathName][operation].responses[httpCode];
+  }
+
   self.updateResponse = function(originalResponseData, newResponse){
     if(debug){
       console.log("START Swagger Paths -> updating the Response Model");
       //console.log(originalParameterData);
     }
-
+    console.log(originalResponseData);
+    console.log(newResponse);
     var pathName = originalResponseData.pathName;
-    var operation = originalResponse.operation;
+    var operation = originalResponseData.operation;
 
     var oHttpCode = originalResponseData.httpCode;
-    //var oParamIn = originalParameterData.parameter.inLocation;
+    var newHttpCode = newResponse.httpCode;
 
-    //var newParamName = newParameter.name;
-    //var newParamIn = newParameter.inLocation;
-
-
-    //validate new param
-    //check to see if the name - inLocation pair of the parameter was changed
-    if(oParamName !== newParamName || oParamIn !== newParamIn){
+    if(oHttpCode !== newHttpCode){
 
       //if they have been changed check if the new combo is unique
-      if(!validateParam(pathName, operation, newParamName, newParamIn)){
+      if(hasResponse(pathName, operation, newHttpCode)){
         throw "Invalid Parameter Name-in combination, must be unique."
+      }else{
+        self.removeResponse(pathName, operation, oHttpCode);
+
+        self.addResponse(pathName, operation, newHttpCode, newResponse.response.description);
+        var newlyAddedResponse = self.getResponse(pathName, operation, newHttpCode);
+
+        for(var key in newlyAddedResponse){
+          if(key !== 'description'){
+            if(newlyAddedResponse[key] instanceof Object)
+              newlyAddedResponse[key] = newResponse.response[key];
+            else
+              newlyAddedResponse[key] = JSON.parse(newResponse.response[key]);
+          }
+        }
+      }
+
+    }else{
+
+      var originalResponse = self.getResponse(pathName, operation, oHttpCode);
+      console.log("Httpcodes match");
+      console.log(originalResponse);
+
+      for(var key in originalResponse){
+
+          if(originalResponse[key] instanceof Object || key === 'description')
+            originalResponse[key] = newResponse.response[key];
+          else
+            originalResponse[key] = JSON.parse(newResponse.response[key]);
+
       }
     }
 
-      //set a reference to the actual parameter so to later manipulate
-      var originalParam = self.getParam(pathName, operation, oParamName, oParamIn);
-
-      //update the original parameter with the new parameter's data
-      for(var key in newParameter){
-        if(newParameter.hasOwnProperty(key) && key !== "schema"){
-          originalParam[key] = newParameter[key];
-        }
-        //handle schema as a special case;
-        if(key === "schema"){
-          //if the schema was updated, convert the JSON to an object
-          if(newParameter[key] instanceof Object)
-            originalParam[key] = newParameter[key];
-          else
-            originalParam[key] = JSON.parse(newParameter[key]);
-        }
-      }
 
       if(debug){
         console.log("FINISHED Swagger Paths -> updating the Parameter Model");

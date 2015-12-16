@@ -1,9 +1,12 @@
-swaggerGE.controller("ResponseModalController", ["ResponseModalService", "$scope",
-  function(rms, $scope){
+swaggerGE.controller("ResponseModalController", ["ResponseModalService", "PathService", "$scope",
+  function(rms, PathService, $scope){
 
     var vm = this;
 
-    vm.tempResponse = {};
+    vm.tempResponseData = {
+      httpCode:null,
+      response:null,
+    };
     var originalResponseData = {
       pathName:null,
       operation:null,
@@ -18,27 +21,27 @@ swaggerGE.controller("ResponseModalController", ["ResponseModalService", "$scope
           var currentResponse = newVal;
           vm.originalResponseData = currentResponse;
 
-          vm.tempResponse = angular.copy(currentResponse.response);
-          vm.tempResponse.httpCode = vm.originalResponseData.httpCode;
+          vm.tempResponseData.response = angular.copy(currentResponse.response);
+          vm.tempResponseData.httpCode = vm.originalResponseData.httpCode;
 
-          if(vm.tempResponse.schema){
-            vm.tempResponse.schema = JSON.stringify(vm.tempResponse.schema);
+          if(vm.tempResponseData.response.schema instanceof Object){
+            vm.tempResponseData.response.schema = JSON.stringify(vm.tempResponseData.response.schema);
           }
-          if(vm.tempResponse.headers){
-            vm.tempResponse.headers = JSON.stringify(vm.tempResponse.headers);
+          if(vm.tempResponseData.response.headers instanceof Object){
+            vm.tempResponseData.response.headers = JSON.stringify(vm.tempResponseData.response.headers);
           }
-          if(vm.tempResponse.examples){
-            vm.tempResponse.examples = JSON.stringify(vm.tempResponse.examples);
+          if(vm.tempResponseData.response.examples instanceof Object){
+            vm.tempResponseData.response.examples = JSON.stringify(vm.tempResponseData.response.examples);
           }
 
         }
 
       }, true);
 
-      vm.updateParameter = function(){
+      vm.updateResponse = function(originalResponse, newResponse){
         try{
           //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
-
+          PathService.updateResponse(originalResponse, newResponse);
         }catch(e){
             console.log(e);
             Materialize.toast("Parameter name/query combo' already exists", 3000);

@@ -5,7 +5,7 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
 
      var vm = this;
 
-    $scope.thisObject = vm;
+    //$scope.thisObject = vm;
 
     //used to test the services
     vm.paths = swaggerPaths.paths;
@@ -13,6 +13,8 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
     vm.prevent = {
       showPaths:false,
     }
+
+    vm.focusPathModal = false;
 
     //$scope.closePathModal = false;
 
@@ -22,6 +24,9 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
       if($scope.paths.length > 0)
           $scope.prevent.pathsList = !$scope.prevent.pathsList;
     }*/
+    vm.focusPathModal = function(){
+      $scope.focusPathModal = !$scope.focusPathModal;
+    }
 
     vm.updatePathName = function(originalPathName, newPathName){
       try{
@@ -70,7 +75,7 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
       }else{
         console.log("dont delete operation");
       }
-    }
+    };
 
     vm.addOperation = function(pathName, operation){
       try{
@@ -79,7 +84,13 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
         console.log(e);
         Materialize.toast(e, 3000);
       }
-    }
+    };
+
+    vm.updateOperation = function(pathName, operation, key, value){
+      swaggerPaths.updateOperationInformation(pathName, operation, key, value);
+      value="";
+      Materialize.toast("Updated " + key, 2000);
+    };
 
 
 
