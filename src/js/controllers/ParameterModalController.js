@@ -10,6 +10,15 @@ swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "Para
       parameter:null
     };
 
+    paramModal.paramOptions = {
+      format : ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'],
+
+      type : ['string','number', 'integer', 'boolean', 'array', 'file'],
+
+      collectionFormat : ['csv', 'ssv', 'tsv', 'pipes', 'multi'],
+    }
+
+
     $scope.$watch(function(){return pms.currentParameter;}, function(newVal){
 
         if(newVal.parameter){
@@ -26,7 +35,7 @@ swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "Para
           }
 
         }
-        
+
       }, true);
 
       paramModal.updateParameter = function(){

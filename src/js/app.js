@@ -15,6 +15,56 @@ swaggerGE.directive("pathCreator", ['$compile', function($compile) {
     }
 }]);
 
+swaggerGE.directive("pathModal",
+  function(){
+    return{
+      restrict: 'E',
+      replace:'true',
+      templateUrl: 'js/templates/PathModal.tmpl.html',
+      controller:'PathModalController',
+    }
+  });
+
+swaggerGE.directive("parameterModal",
+  function(){
+    return{
+      restrict: 'E',
+      replace:'true',
+      templateUrl: 'js/templates/ParameterModal.tmpl.html',
+      controller:'ParameterModalController',
+    }
+  });
+
+swaggerGE.directive("responseModal",
+  function(){
+    return{
+      restrict: 'E',
+      replace:'true',
+      templateUrl: 'js/templates/ResponseModal.tmpl.html',
+      controller:'ResponseModalController',
+    }
+  });
+
+swaggerGE.directive("definitionCreationModal",
+  function(){
+    return{
+      restrict: 'E',
+      replace:'true',
+      templateUrl: 'js/templates/DefinitionCreationModal.tmpl.html',
+      controller:'DefinitionCreationController',
+    }
+  });
+
+  swaggerGE.directive("definitionEditorModal",
+    function(){
+      return{
+        restrict: 'E',
+        replace:'true',
+        templateUrl: 'js/templates/DefinitionEditorModal.tmpl.html',
+        controller:'DefinitionEditorController',
+      }
+    });
+
 swaggerGE.directive("focusOnLoad", [
   function(){
     return{
@@ -152,6 +202,22 @@ swaggerGE.directive("closePathModal", function(){
           if(scope.closePathModal === true){
             $('#path-creation-modal').closeModal();
             scope.closePathModal = false;
+          }
+        });
+
+
+      }
+    }
+});
+
+swaggerGE.directive("closeDefinitionCreationModal", function(){
+    return {
+      link: function(scope, element, attrs){
+        //console.log(scope);
+        scope.$watch('closeModal', function(update){
+          if(scope.closeModal === true){
+            $('#definition-creation-modal').closeModal();
+            scope.closeModal = false;
           }
         });
 

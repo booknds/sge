@@ -15,6 +15,56 @@ swaggerGE.directive("pathCreator", ['$compile', function($compile) {
     }
 }]);
 
+swaggerGE.directive("pathModal",
+  function(){
+    return{
+      restrict: 'E',
+      replace:'true',
+      templateUrl: 'js/templates/PathModal.tmpl.html',
+      controller:'PathModalController',
+    }
+  });
+
+swaggerGE.directive("parameterModal",
+  function(){
+    return{
+      restrict: 'E',
+      replace:'true',
+      templateUrl: 'js/templates/ParameterModal.tmpl.html',
+      controller:'ParameterModalController',
+    }
+  });
+
+swaggerGE.directive("responseModal",
+  function(){
+    return{
+      restrict: 'E',
+      replace:'true',
+      templateUrl: 'js/templates/ResponseModal.tmpl.html',
+      controller:'ResponseModalController',
+    }
+  });
+
+swaggerGE.directive("definitionCreationModal",
+  function(){
+    return{
+      restrict: 'E',
+      replace:'true',
+      templateUrl: 'js/templates/DefinitionCreationModal.tmpl.html',
+      controller:'DefinitionCreationController',
+    }
+  });
+
+  swaggerGE.directive("definitionEditorModal",
+    function(){
+      return{
+        restrict: 'E',
+        replace:'true',
+        templateUrl: 'js/templates/DefinitionEditorModal.tmpl.html',
+        controller:'DefinitionEditorController',
+      }
+    });
+
 swaggerGE.directive("focusOnLoad", [
   function(){
     return{
@@ -160,6 +210,22 @@ swaggerGE.directive("closePathModal", function(){
     }
 });
 
+swaggerGE.directive("closeDefinitionCreationModal", function(){
+    return {
+      link: function(scope, element, attrs){
+        //console.log(scope);
+        scope.$watch('closeModal', function(update){
+          if(scope.closeModal === true){
+            $('#definition-creation-modal').closeModal();
+            scope.closeModal = false;
+          }
+        });
+
+
+      }
+    }
+});
+
 /*
 swaggerGE.directive("colorize", function(){
     return {
@@ -260,6 +326,61 @@ swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
     }
 }]);
 
+swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsService',
+  function($scope, ds){
+    var vm = this;
+
+    $scope.closeModal=false;
+
+    vm.newDefinition = {
+      name:null,
+    }
+
+    vm.addDefinition = function(definitionName){
+
+      try{
+        ds.addDefinition(definitionName)
+      }catch(e){
+        console.log(e);
+        Materialize.toast(e, 3000);
+      }
+
+      $scope.closeModal = true;
+      vm.newDefinition.name=null;
+
+    }
+
+
+
+  }]);
+
+swaggerGE.controller("DefinitionEditorController", ["$scope", function($scope){
+
+
+
+
+}])
+
+swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService",
+  function($scope, ds){
+
+    var vm = this;
+
+    vm.definitons = ds.definitions;
+
+    $scope.$watch(function(){return ds.definitions;}, function(newVal){
+      console.log("DEFINITIONS HIT");
+      if(newVal){
+        console.log(newVal);
+        console.log("DEFINITIONS CHANGED");
+        vm.definitons = ds.definitions;
+      }
+    }, true);
+
+    
+
+}])
+
 swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseService', function($scope, $log, swaggerBaseService){
     
     //display functionality
@@ -337,10 +458,6 @@ function($scope, log, swaggerPaths, pms){
       operation: null,
     }
 
-    //paramControl.operation = null;
-
-    //paramControl.swaggerPaths = swaggerPaths;
-
     paramControl.parametersList = null;
 
     paramControl.newParamData = {
@@ -406,6 +523,15 @@ swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "Para
       parameter:null
     };
 
+    paramModal.paramOptions = {
+      format : ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'],
+
+      type : ['string','number', 'integer', 'boolean', 'array', 'file'],
+
+      collectionFormat : ['csv', 'ssv', 'tsv', 'pipes', 'multi'],
+    }
+
+
     $scope.$watch(function(){return pms.currentParameter;}, function(newVal){
 
         if(newVal.parameter){
@@ -422,7 +548,7 @@ swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "Para
           }
 
         }
-        
+
       }, true);
 
       paramModal.updateParameter = function(){
@@ -767,6 +893,49 @@ swaggerGE.factory('OperationModel', [function(){
     //function Operation()
     
 }])
+swaggerGE.factory("DefinitionsService", [function(){
+
+  var ds = this;
+
+  var definitions = {};
+
+  ds.definitions = definitions;
+
+
+  function Definition(objectName){
+    //this.
+  }
+
+  Definition.prototype = {
+  //  set
+  }
+
+
+  ds.addDefinition = function(definitionName){
+    if(hasDefinition(definitionName))
+      throw "Cannot Add, Definition Already Exists"
+    else{
+      console.log('adding definitiion');
+      definitions[definitionName] = {
+        poop:'hi'
+      }
+      console.log(definitions);
+      console.log(ds.definitions);
+    }
+  }
+
+  function hasDefinition(definitionName){
+    if(definitions.hasOwnProperty(definitionName))
+      return true;
+    else
+      return false;
+  }
+
+
+  return ds;
+
+}]);
+
 "use strict";
 swaggerGE.factory("OperationService", ["ParameterService", "ResponseService",
 function(ParameterService, ResponseService){
@@ -1813,7 +1982,6 @@ swaggerGE.service("swaggerBaseService", ["swaggerCompiler",function(swaggerCompi
     }
     
 }]);
-
 swaggerGE.factory("swaggerBuilder", [function(){
 
 

@@ -11,10 +11,6 @@ function($scope, log, swaggerPaths, pms){
       operation: null,
     }
 
-    //paramControl.operation = null;
-
-    //paramControl.swaggerPaths = swaggerPaths;
-
     paramControl.parametersList = null;
 
     paramControl.newParamData = {
