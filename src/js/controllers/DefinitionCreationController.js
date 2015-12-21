@@ -6,12 +6,12 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
 
     vm.newDefinition = {
       name:null,
-    }
+    };
 
-    vm.addDefinition = function(definitionName){
+    vm.addDefinition = function(definitionName, description){
 
       try{
-        ds.addDefinition(definitionName)
+        ds.addDefinition(definitionName, description);
       }catch(e){
         console.log(e);
         Materialize.toast(e, 3000);

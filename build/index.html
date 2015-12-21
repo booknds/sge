@@ -474,7 +474,7 @@
               <div class="card-content white-text">
                 <div class="row valign-wrapper">
                   <div class="col s6 m8 l10 valign">
-                    {{ defControl.definitons }}
+                    {{ defControl.definitions }}
                     <h3>Definitions</h3>
                   </div>
                   <div class="col s6 m4 l2 valign right-align">
@@ -483,7 +483,56 @@
                     </a>
                   </div>
                 </div>
-
+                <ul ng-repeat="(definition, defValue) in defControl.definitions"
+                    class="collapsible blue-grey darken-2"
+                    init-collapse
+                    data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header blue-grey">
+                      {{definition}}
+                    </div>
+                    <div class="collapsible-body ">
+                      {{defValue}}
+                      <div class="section">
+                      <h5> Attriputes </h5>
+                      <div class="input-field col s4 ">
+                        <input class="white-text" type="text" ng-model="defValue.description" disabled>
+                        <label class="white-text">Description</label>
+                      </div>
+                      <div class="input-field col s4 ">
+                        <input class="white-text" type="text" ng-model="defValue.type" disabled>
+                        <label class="white-text">Type</label>
+                      </div>
+                      <div class="input-field col s4 ">
+                        <input class="white-text" type="text" placeholder="" ng-model="defValue.required" disabled>
+                        <label class="white-text">Required</label>
+                      </div>
+                    </div>
+                    <div class="section">
+                      <h5> Properties </h5>
+                      <table class=" section bordered responsive-table">
+                        <thead>
+                          <tr>
+                            <th ng-repeat="header in defControl.headers"
+                                ng-attr-data-field="{{header}}">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <div ng-repeat="property in defValue.properties">
+                              <td>{{property.title}}</td>
+                              <td>{{property.description}}</td>
+                              <td>{{property.type}}</td>
+                              <td>{{property.required}}</td>
+                              <td>{{property.enum}}</td>
+                            </div>
+                          </tr>
+                        </tbody>
+                      </table>
+                    
+                    </div>
+                  </li>
+                </ul>
                 <definition-creation-modal></definition-creation-modal>
               </div>
             </div>

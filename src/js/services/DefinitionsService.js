@@ -2,28 +2,55 @@ swaggerGE.factory("DefinitionsService", [function(){
 
   var ds = this;
 
-  var definitions = {};
-
-  ds.definitions = definitions;
-
-
-  function Definition(objectName){
-    //this.
+  function Schema(title, description, type){
+    this.$ref = null;
+    this.format = null;
+    this.title = title || "";
+    this.description = description || "";
+    this.required = false;
+    this.enum = null;
+    this.type = type || "Object";
+    this.properties = {};
   }
 
-  Definition.prototype = {
-  //  set
+  Schema.prototype = {};
+
+  function Definitions(){
+    //this[objectName] = new Schema();
+
+    //return this[objectName];
+    //return new Object();
+    //this.poop = "poop";
+  }
+
+  Definitions.prototype = {
+
+    addDefinition:function(definitionName, description, type){
+      this[definitionName] = new Schema(definitionName, description, type);
+    },
+
+    hasDefinition: function(definitionName){
+      if(this.hasOwnProperty(definitionName))
+        return true;
+      else
+        return false;
+    },
+
+    getDefinition: function(definitionName){
+      return this[definitionName];
+    },
   }
 
 
-  ds.addDefinition = function(definitionName){
+  ds.addDefinition = function(definitionName, description, type){
     if(hasDefinition(definitionName))
       throw "Cannot Add, Definition Already Exists"
     else{
       console.log('adding definitiion');
-      definitions[definitionName] = {
-        poop:'hi'
-      }
+      //definitions[definitionName] = {
+      //  poop:'hi'
+      //}
+      ds.definitions.addDefinition(definitionName, description, type);
       console.log(definitions);
       console.log(ds.definitions);
     }
@@ -36,6 +63,10 @@ swaggerGE.factory("DefinitionsService", [function(){
       return false;
   }
 
+  var definitions = new Definitions();
+
+  ds.definitions = definitions;
+  console.log(definitions);
 
   return ds;
 

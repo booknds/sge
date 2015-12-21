@@ -334,12 +334,12 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
 
     vm.newDefinition = {
       name:null,
-    }
+    };
 
-    vm.addDefinition = function(definitionName){
+    vm.addDefinition = function(definitionName, description){
 
       try{
-        ds.addDefinition(definitionName)
+        ds.addDefinition(definitionName, description);
       }catch(e){
         console.log(e);
         Materialize.toast(e, 3000);
@@ -366,18 +366,37 @@ swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService",
 
     var vm = this;
 
-    vm.definitons = ds.definitions;
+    vm.definitions = ds.definitions;
 
     $scope.$watch(function(){return ds.definitions;}, function(newVal){
       console.log("DEFINITIONS HIT");
       if(newVal){
         console.log(newVal);
         console.log("DEFINITIONS CHANGED");
-        vm.definitons = ds.definitions;
+        vm.definitions = ds.definitions;
       }
     }, true);
 
-    
+    vm.headers = ['Name', 'Description', 'Type', 'Required', 'Enum'];
+    vm.Types = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'];
+
+    vm.showDefinitionProperty = function show(def, prop){
+      var allowedProperties = ['name', 'description', 'type', 'required', 'enum'];
+
+      console.log(def, prop);
+
+      var show = false;
+
+      if(!def[prop]){
+        for(var i = 0; i < allowedProperties.length; i++){
+          if(prop === allowedProperties)
+            show = true;
+        }
+      }
+
+      console.log("returning " + show);
+      return show;
+    }
 
 }])
 
@@ -897,28 +916,55 @@ swaggerGE.factory("DefinitionsService", [function(){
 
   var ds = this;
 
-  var definitions = {};
-
-  ds.definitions = definitions;
-
-
-  function Definition(objectName){
-    //this.
+  function Schema(title, description, type){
+    this.$ref = null;
+    this.format = null;
+    this.title = title || "";
+    this.description = description || "";
+    this.required = false;
+    this.enum = null;
+    this.type = type || "Object";
+    this.properties = {};
   }
 
-  Definition.prototype = {
-  //  set
+  Schema.prototype = {};
+
+  function Definitions(){
+    //this[objectName] = new Schema();
+
+    //return this[objectName];
+    //return new Object();
+    //this.poop = "poop";
+  }
+
+  Definitions.prototype = {
+
+    addDefinition:function(definitionName, description, type){
+      this[definitionName] = new Schema(definitionName, description, type);
+    },
+
+    hasDefinition: function(definitionName){
+      if(this.hasOwnProperty(definitionName))
+        return true;
+      else
+        return false;
+    },
+
+    getDefinition: function(definitionName){
+      return this[definitionName];
+    },
   }
 
 
-  ds.addDefinition = function(definitionName){
+  ds.addDefinition = function(definitionName, description, type){
     if(hasDefinition(definitionName))
       throw "Cannot Add, Definition Already Exists"
     else{
       console.log('adding definitiion');
-      definitions[definitionName] = {
-        poop:'hi'
-      }
+      //definitions[definitionName] = {
+      //  poop:'hi'
+      //}
+      ds.definitions.addDefinition(definitionName, description, type);
       console.log(definitions);
       console.log(ds.definitions);
     }
@@ -931,6 +977,10 @@ swaggerGE.factory("DefinitionsService", [function(){
       return false;
   }
 
+  var definitions = new Definitions();
+
+  ds.definitions = definitions;
+  console.log(definitions);
 
   return ds;
 
@@ -1931,6 +1981,7 @@ swaggerGE.factory("ResponseService",[function(){
 
       }
     }
+
 }]);
 
 swaggerGE.service("swaggerBaseService", ["swaggerCompiler",function(swaggerCompiler){
