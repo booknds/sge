@@ -1,6 +1,6 @@
 var swaggerGE = angular.module("SwaggerGraphicalEditor", ['ui.materialize']);
 
-swaggerGE.directive("pathCreator", ['$compile', function($compile) {
+/*swaggerGE.directive("pathCreator", ['$compile', function($compile) {
     return {
 
         link: function(scope, element, attrs){
@@ -13,7 +13,7 @@ swaggerGE.directive("pathCreator", ['$compile', function($compile) {
 
         }
     }
-}]);
+}]);*/
 
 swaggerGE.directive("pathModal",
   function(){
@@ -96,74 +96,6 @@ swaggerGE.filter('capitalize', function() {
   }
 });
 
-/*swaggerGE.directive("pathModal", ["$interval", function($interval) {
-    return {
-        restrict: "A",
-        compile:null,
-        link: function(scope, elem, attrs) {
-            //On click
-            if(scope.triggerModal){
-                $('.modal-trigger').leanModal();
-                scope.triggerModal = false;
-            }
-            //console.log('triggerModal');
-            //$('.modal-trigger').leanModal();
-
-        }
-    }
-}]);*/
-
-/*swaggerGE.directive("paramModal", ["$interval", function($interval) {
-    return {
-        restrict: "A",
-        link: function(scope, elem, attrs) {
-            //On click
-            //if(scope.triggerModal){
-            console.log('paramModal');
-                $('.param-modal-trigger').leanModal();
-            //    scope.triggerModal = false;
-            //}
-            //console.log('triggerModal');
-            //$('.modal-trigger').leanModal();
-
-        }
-    }
-}]);*/
-
-/*swaggerGE.directive("addParam", ["$interval", function($interval) {
-    return {
-        restrict: "A",
-        link: function(scope, element, attrs) {
-           // console.log(scope);
-           //console.log("ATTEMPTING!!!!!!!!!!!!!!!!!!!!!");
-            //$('select').material_select();
-            if(element.is("select")){
-                //console.log("IS SELECT");
-                element.material_select();
-            }
-
-        }
-    }
-}]);*/
-
-/*swaggerGE.directive("initCollapse", ["$interval", function($interval) {
-    return {
-        restrict: "A",
-        link: function(scope, element, attrs) {
-           // console.log(scope);
-           //console.log("ATTEMPTING!!!!!!!!!!!!!!!!!!!!!");
-            //$('select').material_select();
-            if(element.hasClass('collapsible')){
-                //console.log("IS SELECT");
-                element.collapsible({
-                  accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-                });
-            }
-
-        }
-    }
-}]);*/
-
 /**
  *  Mark updated
 */
@@ -226,6 +158,22 @@ swaggerGE.directive("closeDefinitionCreationModal", function(){
     }
 });
 
+swaggerGE.directive("closeDefinitionEditorModal", function(){
+    return {
+      link: function(scope, element, attrs){
+        //console.log(scope);
+        scope.$watch('closeModal', function(update){
+          if(scope.closeModal === true){
+            $('#definition-editor-modal').closeModal();
+            scope.closeModal = false;
+          }
+        });
+
+
+      }
+    }
+});
+
 /*
 swaggerGE.directive("colorize", function(){
     return {
@@ -265,24 +213,6 @@ swaggerGE.directive("colorize", function(){
 
         }
     }
-});*/
-/*
-swaggerGE.directive("deepWatch", function(){
-    return {
-      scope: {
-        param: '='
-      },
-      link: function(scope, element, attrs){
-
-          scope.$watch('param', function(newValue, oldValue) {
-            if (newValue){
-            //  console.log("I see a data change!");
-            //  scope. = angular.copy($scope.data);
-            }
-
-        },true);
-    }
-  }
 });*/
 
 swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
@@ -354,15 +284,51 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
 
   }]);
 
-swaggerGE.controller("DefinitionEditorController", ["$scope", function($scope){
+swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsService", "DefinitionEditorModalService",
+  function($scope, ds, dems){
 
+    var vm = this;
 
+    vm.tempDefinition = {
+      name:null,
+      value:null,
+    };
+    vm.originalDefinition = null;
 
+    vm.types = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'];
+
+    vm.toast = function(msg){
+      var message = msg || "No toast supplied, but hello!!";
+      Materialize.toast(msg, 2000);
+    }
+
+    vm.addProperty = function(definitionName, propertyName){
+
+      try{
+        ds.addProperty(definitionName, propertyName);
+      }catch(e){
+          console.log(e);
+          Materialize.toast(e, 3000);
+      }
+    }
+
+    $scope.$watch(function(){return dems.currentDefinition;}, function(newVal){
+
+        if(newVal.name){
+          console.log("hit current definition updated");
+          var currentDefinition = newVal;
+          vm.originalDefinition = currentDefinition;
+
+          vm.tempDefinition.name = vm.originalDefinition.name;
+          vm.tempDefinition.value = angular.copy(vm.originalDefinition.value) ;
+        }
+
+      }, true);
 
 }])
 
-swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService",
-  function($scope, ds){
+swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService", "DefinitionEditorModalService",
+  function($scope, ds, dems){
 
     var vm = this;
 
@@ -396,6 +362,20 @@ swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService",
 
       console.log("returning " + show);
       return show;
+    }
+
+    vm.initDefinitionEditorModal = function(definitionName, definitionValue){
+      console.log("initDefinitionEditorModal");
+      try{
+        //var currentResponse = PathService.getResponse(pathName, operation, httpCode);
+        console.log(definitionName);
+        console.log(definitionValue);
+        dems.definitionToUpdate(definitionName, definitionValue);
+      }catch(e){
+        console.log(e);
+        Materialize.toast(e, 3000);
+        return;
+      }
     }
 
 }])
@@ -912,6 +892,40 @@ swaggerGE.factory('OperationModel', [function(){
     //function Operation()
     
 }])
+swaggerGE.factory("DefinitionEditorModalService", [
+  function(){
+    var dems = this;
+
+    dems.currentDefinition = {
+      name:null,
+      value:null,
+    };
+
+    dems.definitionToUpdate = function(definitionName, definitionValue){
+      //console.log("updaiting parameter");
+      //console.log(parameter);
+
+      //rms.currentResponse.pathName = pathName;
+      //rms.currentResponse.operation = operation;
+      //rms.currentResponse.httpCode = httpCode;
+      //rms.currentResponse.response = angular.copy(response);
+      dems.currentDefinition.name = definitionName;
+      dems.currentDefinition.value = definitionValue;
+      console.log("updated current definition");
+      console.log(dems.currentDefinition);
+      //console.log(pms.currentParameter);
+      //console.log("Done updating parameter");
+    }
+
+    dems.getCurrentDefinition = function(){
+      return dems.currentDefinition;
+    }
+
+    return dems;
+
+
+}]);
+
 swaggerGE.factory("DefinitionsService", [function(){
 
   var ds = this;
@@ -921,7 +935,7 @@ swaggerGE.factory("DefinitionsService", [function(){
     this.format = null;
     this.title = title || "";
     this.description = description || "";
-    this.required = false;
+    this.required = new Array();
     this.enum = null;
     this.type = type || "Object";
     this.properties = {};
@@ -972,6 +986,23 @@ swaggerGE.factory("DefinitionsService", [function(){
 
   function hasDefinition(definitionName){
     if(definitions.hasOwnProperty(definitionName))
+      return true;
+    else
+      return false;
+  }
+
+  ds.addProperty = function(definitionName, propertyName){
+    if(hasProperty(definitionName, propertyName)){
+      throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
+
+    }else {
+        definition[definitionName].properties[propertyName] = new Schema();
+    }
+
+  };
+
+  function hasProperty(definitionName, propertyName){
+    if(definitions[definitionName].properties.hasOwnProperty(propertyName))
       return true;
     else
       return false;
@@ -1813,7 +1844,7 @@ swaggerGE.factory("ResponseModalService", [
     }
 
     rms.getCurrentParameter = function(){
-      return rms.currentParameter;
+      return rms.currentResponse;
     }
 
     return rms;

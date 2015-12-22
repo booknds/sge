@@ -7,7 +7,7 @@ swaggerGE.factory("DefinitionsService", [function(){
     this.format = null;
     this.title = title || "";
     this.description = description || "";
-    this.required = false;
+    this.required = new Array();
     this.enum = null;
     this.type = type || "Object";
     this.properties = {};
@@ -58,6 +58,23 @@ swaggerGE.factory("DefinitionsService", [function(){
 
   function hasDefinition(definitionName){
     if(definitions.hasOwnProperty(definitionName))
+      return true;
+    else
+      return false;
+  }
+
+  ds.addProperty = function(definitionName, propertyName){
+    if(hasProperty(definitionName, propertyName)){
+      throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
+
+    }else {
+        definition[definitionName].properties[propertyName] = new Schema();
+    }
+
+  };
+
+  function hasProperty(definitionName, propertyName){
+    if(definitions[definitionName].properties.hasOwnProperty(propertyName))
       return true;
     else
       return false;

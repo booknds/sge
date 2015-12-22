@@ -1,6 +1,6 @@
 var swaggerGE = angular.module("SwaggerGraphicalEditor", ['ui.materialize']);
 
-swaggerGE.directive("pathCreator", ['$compile', function($compile) {
+/*swaggerGE.directive("pathCreator", ['$compile', function($compile) {
     return {
 
         link: function(scope, element, attrs){
@@ -13,7 +13,7 @@ swaggerGE.directive("pathCreator", ['$compile', function($compile) {
 
         }
     }
-}]);
+}]);*/
 
 swaggerGE.directive("pathModal",
   function(){
@@ -96,74 +96,6 @@ swaggerGE.filter('capitalize', function() {
   }
 });
 
-/*swaggerGE.directive("pathModal", ["$interval", function($interval) {
-    return {
-        restrict: "A",
-        compile:null,
-        link: function(scope, elem, attrs) {
-            //On click
-            if(scope.triggerModal){
-                $('.modal-trigger').leanModal();
-                scope.triggerModal = false;
-            }
-            //console.log('triggerModal');
-            //$('.modal-trigger').leanModal();
-
-        }
-    }
-}]);*/
-
-/*swaggerGE.directive("paramModal", ["$interval", function($interval) {
-    return {
-        restrict: "A",
-        link: function(scope, elem, attrs) {
-            //On click
-            //if(scope.triggerModal){
-            console.log('paramModal');
-                $('.param-modal-trigger').leanModal();
-            //    scope.triggerModal = false;
-            //}
-            //console.log('triggerModal');
-            //$('.modal-trigger').leanModal();
-
-        }
-    }
-}]);*/
-
-/*swaggerGE.directive("addParam", ["$interval", function($interval) {
-    return {
-        restrict: "A",
-        link: function(scope, element, attrs) {
-           // console.log(scope);
-           //console.log("ATTEMPTING!!!!!!!!!!!!!!!!!!!!!");
-            //$('select').material_select();
-            if(element.is("select")){
-                //console.log("IS SELECT");
-                element.material_select();
-            }
-
-        }
-    }
-}]);*/
-
-/*swaggerGE.directive("initCollapse", ["$interval", function($interval) {
-    return {
-        restrict: "A",
-        link: function(scope, element, attrs) {
-           // console.log(scope);
-           //console.log("ATTEMPTING!!!!!!!!!!!!!!!!!!!!!");
-            //$('select').material_select();
-            if(element.hasClass('collapsible')){
-                //console.log("IS SELECT");
-                element.collapsible({
-                  accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-                });
-            }
-
-        }
-    }
-}]);*/
-
 /**
  *  Mark updated
 */
@@ -226,6 +158,22 @@ swaggerGE.directive("closeDefinitionCreationModal", function(){
     }
 });
 
+swaggerGE.directive("closeDefinitionEditorModal", function(){
+    return {
+      link: function(scope, element, attrs){
+        //console.log(scope);
+        scope.$watch('closeModal', function(update){
+          if(scope.closeModal === true){
+            $('#definition-editor-modal').closeModal();
+            scope.closeModal = false;
+          }
+        });
+
+
+      }
+    }
+});
+
 /*
 swaggerGE.directive("colorize", function(){
     return {
@@ -265,24 +213,6 @@ swaggerGE.directive("colorize", function(){
 
         }
     }
-});*/
-/*
-swaggerGE.directive("deepWatch", function(){
-    return {
-      scope: {
-        param: '='
-      },
-      link: function(scope, element, attrs){
-
-          scope.$watch('param', function(newValue, oldValue) {
-            if (newValue){
-            //  console.log("I see a data change!");
-            //  scope. = angular.copy($scope.data);
-            }
-
-        },true);
-    }
-  }
 });*/
 
 swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {

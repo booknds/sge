@@ -529,11 +529,19 @@
                           </tr>
                         </tbody>
                       </table>
-                    
+                      <div class="col s6 m4 l2 valign right-align">
+                        <a class="btn-floating btn-large waves-effect waves-light green accent-4"
+                            href="#definition-editor-modal"
+                            ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
+                            modal>
+                        <i class="material-icons">add</i>
+                        </a>
+                      </div>
                     </div>
                   </li>
                 </ul>
                 <definition-creation-modal></definition-creation-modal>
+                <definition-editor-modal></definition-editor-modal>
               </div>
             </div>
           </div>

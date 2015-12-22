@@ -1,5 +1,5 @@
-swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService",
-  function($scope, ds){
+swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService", "DefinitionEditorModalService",
+  function($scope, ds, dems){
 
     var vm = this;
 
@@ -33,6 +33,20 @@ swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService",
 
       console.log("returning " + show);
       return show;
+    }
+
+    vm.initDefinitionEditorModal = function(definitionName, definitionValue){
+      console.log("initDefinitionEditorModal");
+      try{
+        //var currentResponse = PathService.getResponse(pathName, operation, httpCode);
+        console.log(definitionName);
+        console.log(definitionValue);
+        dems.definitionToUpdate(definitionName, definitionValue);
+      }catch(e){
+        console.log(e);
+        Materialize.toast(e, 3000);
+        return;
+      }
     }
 
 }])

@@ -24,7 +24,7 @@ swaggerGE.factory("ResponseModalService", [
     }
 
     rms.getCurrentParameter = function(){
-      return rms.currentParameter;
+      return rms.currentResponse;
     }
 
     return rms;

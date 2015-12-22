@@ -1,0 +1,85 @@
+<div id="definition-editor-modal" ng-controller="DefinitionEditorController as definitionEditor" class="modal blue-grey darken-1 modal-fixed-footer" >
+  <form name="createDefinition" ng-submit="" novalidate>
+    <div class="modal-content">
+      <div class="row">
+        {{ definitionEditor.tempDefinition }}
+        <div class="left-align col s12">
+          <h4>Edit Definition</h4>
+        </div>
+        <div class="input-field col s12 l6 ">
+          <input id="definition-name" type="text" ng-model="definitionEditor.tempDefinition.name" required="" aria-required="true">
+          <label for="definition-name">Definition Name</label>
+        </div>
+        <div class="input-field col s12 l6">
+          <input id="definition-ref" type="text" ng-model="definitionEditor.tempDefinition.value.$ref" >
+          <label for="definition-ref">$ref</label>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="definition-description" ng-model="definitionEditor.tempDefinition.value.description" class="materialize-textarea"></textarea>
+          <label for="definition-description">Description</label>
+        </div>
+        <div class="input-field col s4 ">
+          {{ definitionEditor.tempDefinition.value.format }}
+          <select class="browser-default" style="background-color: #455a64;" select-value ng-modal="definitionEditor.tempDefinition.value.format">
+
+            <option value="" selected>Property Format</option>
+            <option ng-repeat="format in definitionEditor.types"
+                    ng-attr-value="{{ format }}"
+                    ng-attr-id="{{ format }}">{{ format }}</option>
+          </select>
+        </div>
+        <div class="input-field col s4">
+          <input id="definition-type" type="text" ng-model="definitionEditor.tempDefinition.value.type">
+          <label for="definition-type">Type</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="definition-enum" type="text" placeholder="value,must,be,comma,separated" value="" ng-model="definitionEditor.tempDefinition.value.enum">
+          <label class="active" for="definition-enum">Enum</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <h5>Properties</h5>
+        </div>
+        <div class="col s12">
+          <form ng-submit="" novalidate>
+            <div class="input-field col s6">
+              <input id="new-property-name" type="text" ng-model="definitionEditor.newProperty.name" required aria-required="true">
+              <label for="new-property-name">Property Name</label>
+            </div>
+            <div class="input-field col s6">
+              <button type="submit"
+                ng-if="!definitionEditor.newProperty.name"
+                ng-click="definitionEditor.toast('Name cannot be empty')"
+                class=" waves-effect waves-green btn disabled">
+                <i class="material-icons">add</i>
+              </button>
+              <button
+                ng-if="definitionEditor.newProperty.name"
+                ng-class="{'disabled': !definitionEditor.newProperty.name}"
+                ng-click="definitionEditor.addProperty(newProperty.name);"
+                class=" waves-effect waves-green btn">
+                <i class="material-icons">add</i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer blue-grey darken-1 ">
+      <div>
+        <button type="submit"
+          close-definition-creation-modal
+          ng-class="{'disabled': !definitionCreation.newDefinition.name}"
+          class=" waves-effect waves-green btn">
+        Update Definition
+        </button>
+      </div>
+      <div class="container">
+        <button class=" waves-effect waves-green btn modal-action modal-close">
+        Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
