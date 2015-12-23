@@ -10,7 +10,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!--materialize css-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
     <!-- Angularjs -->
     <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
@@ -250,9 +250,6 @@
                     <a class="btn-floating btn-large waves-effect waves-light green accent-4" href="#path-creation-modal" modal>
                     <i class="material-icons">add</i>
                     </a>
-                    <!-- Path Creation Modal Structure -->
-                    <!--div id="path-creation-modal" class="modal blue-grey darken-1" -->
-
                   </div>
                 </div>
                 {{pathCtl.paths}}
@@ -357,12 +354,12 @@
                                   <tbody>
                                     <tr ng-repeat="param in pathCtl.paths[pathName][operation].parameters.parameterList | orderBy:'name'">
                                       <div >
-                                        <td>{{param.name}}</td>
-                                        <td>{{param.inLocation}}</td>
-                                        <td class="shrink">{{param.description}}</td>
-                                        <td>{{param.required}}</td>
+                                        <td class="white-text">{{param.name}}</td>
+                                        <td class="white-text">{{param.inLocation}}</td>
+                                        <td class="shrink white-text">{{param.description}}</td>
+                                        <td class="white-text">{{param.required}}</td>
                                         <td class="shrink">{{param.schema}}</td>
-                                        <td>
+                                        <td class="white-text">
                                           <a class="disabled" href="#param-modal" modal ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation)">
                                           <i class="material-icons">settings</i>
                                           </a>
@@ -466,9 +463,7 @@
         <response-modal></response-modal>
       </div>
       <div class="container" ng-controller="DefinitionsController as defControl" ng-cloak>
-
         <div class="row">
-
           <div class="col s12">
             <div class="card blue-grey darken-1">
               <div class="card-content white-text">
@@ -491,51 +486,57 @@
                     <div class="collapsible-header blue-grey">
                       {{definition}}
                     </div>
-                    <div class="collapsible-body ">
-                      {{defValue}}
+                    <div class="collapsible-body">
                       <div class="section">
-                      <h5> Attriputes </h5>
-                      <div class="input-field col s4 ">
-                        <input class="white-text" type="text" ng-model="defValue.description" disabled>
-                        <label class="white-text">Description</label>
+                        <span class="card-title col s12">Attributes</span>
+                          <div class="input-field col s4 ">
+                            <input class="white-text"
+                                    type="text"
+                                    placeholder="Some information about the Definition"
+                                    ng-model="defValue.description"
+                                    disabled>
+                            <label class="white-text active">Description</label>
+                          </div>
+                          <div class="input-field col s4 ">
+                            <input class="white-text" type="text" ng-model="defValue.type" disabled>
+                            <label class="white-text">Type</label>
+                          </div>
+                          <div class="input-field col s4 ">
+                            <input class="white-text" type="text" placeholder="" ng-model="defValue.required" disabled>
+                            <label class="white-text">Required</label>
+                          </div>
                       </div>
-                      <div class="input-field col s4 ">
-                        <input class="white-text" type="text" ng-model="defValue.type" disabled>
-                        <label class="white-text">Type</label>
+                      <div class="section">
+                        <span class="card-title">Properties</span>
+                        <table class="section bordered responsive-table">
+                          <thead>
+                            <tr>
+                              <th ng-repeat="header in defControl.headers"
+                                  ng-attr-data-field="{{header}}">{{header}}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-if="defValue.properties">
+                              <div ng-repeat="property in defValue.properties">
+                                <td>{{property.title}}</td>
+                                <td>{{property.description}}</td>
+                                <td>{{property.type}}</td>
+                                <td>{{property.required}}</td>
+                                <td>{{property.enum}}</td>
+                              </div>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="input-field col s4 ">
-                        <input class="white-text" type="text" placeholder="" ng-model="defValue.required" disabled>
-                        <label class="white-text">Required</label>
-                      </div>
-                    </div>
-                    <div class="section">
-                      <h5> Properties </h5>
-                      <table class=" section bordered responsive-table">
-                        <thead>
-                          <tr>
-                            <th ng-repeat="header in defControl.headers"
-                                ng-attr-data-field="{{header}}">{{header}}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <div ng-repeat="property in defValue.properties">
-                              <td>{{property.title}}</td>
-                              <td>{{property.description}}</td>
-                              <td>{{property.type}}</td>
-                              <td>{{property.required}}</td>
-                              <td>{{property.enum}}</td>
-                            </div>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div class="col s6 m4 l2 valign right-align">
-                        <a class="btn-floating btn-large waves-effect waves-light green accent-4"
-                            href="#definition-editor-modal"
-                            ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
-                            modal>
-                        <i class="material-icons">add</i>
-                        </a>
+                      <div class="row">
+                        <div class="col s2 offset-s10">
+                          <button class="waves-effect waves-light btn"
+                              href="#definition-editor-modal"
+                              ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
+                              modal>
+                            Edit Definition
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </li>

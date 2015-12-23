@@ -64,16 +64,23 @@ swaggerGE.factory("DefinitionsService", [function(){
   }
 
   ds.addProperty = function(definitionName, propertyName){
+
+    console.log("DS add property");
+    console.log(definitionName, propertyName);
+
     if(hasProperty(definitionName, propertyName)){
       throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
 
     }else {
-        definition[definitionName].properties[propertyName] = new Schema();
+        definitions[definitionName].properties[propertyName] = new Schema();
+        definitions[definitionName].properties[propertyName].type = null;
     }
 
   };
 
   function hasProperty(definitionName, propertyName){
+    console.log("HAS PROPERTY");
+    console.log(definitionName, propertyName);
     if(definitions[definitionName].properties.hasOwnProperty(propertyName))
       return true;
     else

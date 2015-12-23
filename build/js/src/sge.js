@@ -295,7 +295,12 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
     };
     vm.originalDefinition = null;
 
-    vm.types = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'];
+    vm.newProperty = {
+      name: null,
+    };
+
+    vm.formats = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
+    vm.types = ['integer', 'number', 'string', 'boolean'];
 
     vm.toast = function(msg){
       var message = msg || "No toast supplied, but hello!!";
@@ -309,6 +314,27 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
       }catch(e){
           console.log(e);
           Materialize.toast(e, 3000);
+      }
+
+      //if(tempDefniition.value.properties.hasOwnProperty)
+
+      vm.newProperty.name = "";
+
+    }
+
+    vm.togglePropertyRequired = function(propertyName, isRequired){
+      console.log("TOGGLE PROPERTY REQUIRED");
+      console.log(propertyName, isRequired);
+      if(isRequired){
+        vm.tempDefinition.value.required.push(propertyName);
+      }else{
+        for(var i = 0; i < vm.tempDefinition.value.required.length; i++){
+          if(vm.tempDefinition.value.required[i] === propertyName){
+            vm.tempDefinition.value.required.splice(i, 1);
+            return;
+          }
+
+        }
       }
     }
 
@@ -992,16 +1018,23 @@ swaggerGE.factory("DefinitionsService", [function(){
   }
 
   ds.addProperty = function(definitionName, propertyName){
+
+    console.log("DS add property");
+    console.log(definitionName, propertyName);
+
     if(hasProperty(definitionName, propertyName)){
       throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
 
     }else {
-        definition[definitionName].properties[propertyName] = new Schema();
+        definitions[definitionName].properties[propertyName] = new Schema();
+        definitions[definitionName].properties[propertyName].type = null;
     }
 
   };
 
   function hasProperty(definitionName, propertyName){
+    console.log("HAS PROPERTY");
+    console.log(definitionName, propertyName);
     if(definitions[definitionName].properties.hasOwnProperty(propertyName))
       return true;
     else
