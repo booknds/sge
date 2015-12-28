@@ -6,6 +6,7 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
 
     vm.newDefinition = {
       name:null,
+      description:null,
     };
 
     vm.addDefinition = function(definitionName, description){
@@ -18,7 +19,10 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
       }
 
       $scope.closeModal = true;
-      vm.newDefinition.name=null;
+      vm.newDefinition = {
+        name:null,
+        description:null,
+      };
 
     }
 

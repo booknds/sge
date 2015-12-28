@@ -1,134 +1,143 @@
-swaggerGE.factory("DefinitionsService", [function(){
+swaggerGE.factory("DefinitionsService", ['$window',
+  function($window){
 
-  var ds = this;
+    var ds = this;
 
-  function Schema(title, description, type){
-    this.$ref = null;
-    this.format = null;
-    this.title = title || "";
-    this.description = description || "";
-    this.required = new Array();
-    this.enum = null;
-    this.type = type || "Object";
-    this.properties = {};
-  }
+    function Schema(title, description, type){
+      this.$ref = null;
+      this.format = null;
+      this.title = title || "";
+      this.description = description || "";
+      this.required = new Array();
+      this.enum = null;
+      this.type = type || "Object";
+      this.properties = {};
+    }
 
-  Schema.prototype = {};
+    Schema.prototype = {};
 
-  function Definitions(){
-    //this[objectName] = new Schema();
+    function Definitions(){
+      //this[objectName] = new Schema();
 
-    //return this[objectName];
-    //return new Object();
-    //this.poop = "poop";
-  }
+      //return this[objectName];
+      //return new Object();
+      //this.poop = "poop";
+    }
 
-  Definitions.prototype = {
+    Definitions.prototype = {
 
-    addDefinition:function(definitionName, description, type){
-      this[definitionName] = new Schema(definitionName, description, type);
-    },
+      addDefinition:function(definitionName, description, type){
+        this[definitionName] = new Schema(definitionName, description, type);
+      },
 
-    hasDefinition: function(definitionName){
-      if(this.hasOwnProperty(definitionName))
+      hasDefinition: function(definitionName){
+        if(this.hasOwnProperty(definitionName))
+          return true;
+        else
+          return false;
+      },
+
+      getDefinition: function(definitionName){
+        return this[definitionName];
+      },
+    }
+
+
+    ds.addDefinition = function(definitionName, description, type){
+      if(hasDefinition(definitionName))
+        throw "Cannot Add, Definition Already Exists"
+      else{
+        console.log('adding definitiion');
+        //definitions[definitionName] = {
+        //  poop:'hi'
+        //}
+        ds.definitions.addDefinition(definitionName, description, type);
+        console.log(definitions);
+        console.log(ds.definitions);
+      }
+    }
+
+    function hasDefinition(definitionName){
+      if(definitions.hasOwnProperty(definitionName))
         return true;
       else
         return false;
-    },
-
-    getDefinition: function(definitionName){
-      return this[definitionName];
-    },
-  }
-
-
-  ds.addDefinition = function(definitionName, description, type){
-    if(hasDefinition(definitionName))
-      throw "Cannot Add, Definition Already Exists"
-    else{
-      console.log('adding definitiion');
-      //definitions[definitionName] = {
-      //  poop:'hi'
-      //}
-      ds.definitions.addDefinition(definitionName, description, type);
-      console.log(definitions);
-      console.log(ds.definitions);
-    }
-  }
-
-  function hasDefinition(definitionName){
-    if(definitions.hasOwnProperty(definitionName))
-      return true;
-    else
-      return false;
-  }
-
-  ds.addProperty = function(definitionName, propertyName){
-
-    console.log("DS add property");
-    console.log(definitionName, propertyName);
-
-    if(hasProperty(definitionName, propertyName)){
-      throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
-
-    }else {
-        definitions[definitionName].properties[propertyName] = new Schema();
-        definitions[definitionName].properties[propertyName].type = null;
     }
 
-  };
+    ds.addProperty = function(definitionName, propertyName){
 
-  function hasProperty(definitionName, propertyName){
-    console.log("HAS PROPERTY");
-    console.log(definitionName, propertyName);
-    if(definitions[definitionName].properties.hasOwnProperty(propertyName))
-      return true;
-    else
-      return false;
-  }
+      console.log("DS add property");
+      console.log(definitionName, propertyName);
 
-  ds.updateDefinition = function(originalDefinition, updatedDefinition){
-    console.log("SERVICE - update definition");
-    var oName = originalDefinition.name,
-        oValue = originalDefinition.value,
-        uName = updatedDefinition.name,
-        uValue = updatedDefinition.value;
+      if(hasProperty(definitionName, propertyName)){
+        throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
 
-    if(oName === uName){
-      var definitionToUpdate = definitions[oName];
-
-      for(var key in definitionToUpdate){
-        definitionToUpdate[key] = uValue[key];
+      }else {
+          definitions[definitionName].properties[propertyName] = new Schema();
+          definitions[definitionName].properties[propertyName].type = null;
       }
 
-    }else{
+    };
 
-      if(hasDefinition(uName)){
+    function hasProperty(definitionName, propertyName){
+      console.log("HAS PROPERTY");
+      console.log(definitionName, propertyName);
+      if(definitions[definitionName].properties.hasOwnProperty(propertyName))
+        return true;
+      else
+        return false;
+    }
 
-        throw "Definition already exists, cannot change definition name."
+    ds.updateDefinition = function(originalDefinition, updatedDefinition){
+      console.log("SERVICE - update definition");
+      var oName = originalDefinition.name,
+          oValue = originalDefinition.value,
+          uName = updatedDefinition.name,
+          uValue = updatedDefinition.value;
+
+      if(oName === uName){
+        var definitionToUpdate = definitions[oName];
+
+        for(var key in definitionToUpdate){
+          definitionToUpdate[key] = uValue[key];
+        }
 
       }else{
 
-        ds.addDefinition(uName);
+        if(hasDefinition(uName)){
 
-        var currentDefinition = definitions[uName];
+          throw "Definition already exists, cannot change definition name."
 
-        for(var key in currentDefinition){
-            currentDefinition[key] = uValue[key];
+        }else{
+
+          ds.addDefinition(uName);
+
+          var currentDefinition = definitions[uName];
+
+          for(var key in currentDefinition){
+              currentDefinition[key] = uValue[key];
+          }
+
+          delete definitions[oName];
+
         }
-
-        delete definitions[oName];
-        
       }
+
     }
 
-  }
+    ds.newSchema = function(title, description, type){
+      return new Schema(title, description, type);
+    }
 
-  var definitions = new Definitions();
+    ds.deleteDefinition = function(definitionName){
+      delete ds.definitions[definitionName];
+    }
 
-  ds.definitions = definitions;
-  console.log(definitions);
+    var definitions = new Definitions();
 
-  return ds;
+    ds.definitions = definitions;
+    console.log(definitions);
+
+    return ds;
 
 }]);

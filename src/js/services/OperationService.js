@@ -5,7 +5,7 @@ function(ParameterService, ResponseService){
   var Operation = function(){
       this.tags = null;
       this.summary = null;
-      this.descripiton = null;
+      this.description = null;
       this.externalDocs = new Object();
       this.operationId = null;
       this.consumes = null;

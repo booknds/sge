@@ -1,5 +1,5 @@
-swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsService", "DefinitionEditorModalService",
-  function($scope, ds, dems){
+swaggerGE.controller("DefinitionEditorController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService",
+  function($scope, $window, ds, dems){
 
     var vm = this;
 
@@ -24,12 +24,20 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
     }
 
     vm.addProperty = function(definitionName, propertyName){
-
+      /*
       try{
         ds.addProperty(definitionName, propertyName);
       }catch(e){
           console.log(e);
           Materialize.toast(e, 3000);
+      }
+      */
+
+      if(vm.tempDefinition.value.properties.hasOwnProperty(propertyName)){
+        Materialize.toast('Property already exists on this definition.');
+      }else{
+        vm.tempDefinition.value.properties[propertyName] =  ds.newSchema();
+        vm.tempDefinition.value.properties[propertyName].type = null;
       }
 
       //if(tempDefniition.value.properties.hasOwnProperty)
@@ -62,6 +70,14 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
       }catch(e){
         console.log(e);
         Materialize.toast(e, 3000);
+      }
+    }
+
+    vm.deleteProperty = function(propertyName){
+      if($window.confirm('Are you sure you want to delete the property?')){
+        delete vm.tempDefinition.value.properties[propertyName];
+      }else{
+        console.log("Don't delete property")
       }
     }
 

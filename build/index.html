@@ -46,9 +46,10 @@
         <div class="nav-wrapper container">
           <a href="#" class="brand-logo">Swagger Graphical Tool</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
+            <!--li><a href="sass.html">Sass</a></li>
             <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
+            <li><a href="collapsible.html">JavaScript</a></li-->
+            <li><a href="http://hkmconsultingllc.com"> HKM Solutions</a></li>
           </ul>
         </div>
       </nav>
@@ -83,18 +84,24 @@
         </ul>
         -->
     </header>
-    <main>
-      <!--div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <main ng-controller="CompilerController as compilerController">
+      <div
+          class="fixed-action-btn" style="bottom: 45px; right: 24px;">
         <a class="btn-floating btn-large red">
         <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-          <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></i></a></li>
+          <!--li><a class="btn-floating red"><i class="material-icons">insert_chart</i></i></a></li>
           <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
           <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-          <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+          <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li-->
+          <li><a ng-click="compilerController.recompile()"
+                  class="btn-floating green">
+                <i class="material-icons">publish</i></a></li>
         </ul>
-        </div-->
+
+      </div>
+      poop:{{compilerController.compiledDocument}}
       <div class="container" ng-controller="swaggerBaseController" ng-cloak>
         <div class="row">
           <form ng-submit="updateInfo()">
@@ -167,12 +174,26 @@
                               <label for="basePath">Basepath</label>
                             </div>
                             <div class="input-field col s6 m3 l3">
-                              <input id="produces" type="text" ng-model="basicInfo.produces"></input>
-                              <label for="produces">Produces</label>
+                              <!--input id="produces" type="text" ng-model="basicInfo.produces"></input>
+                              <label for="produces">Produces</label-->
+                              <select class="browser-default" style="background-color: #455a64;" select-value
+                                      ng-model="basicInfo.produces">
+                                <option value="" selected>Produces:</option>
+                                <option ng-repeat="type in mimeTypes"
+                                        ng-attr-value="{{ type }}"
+                                        ng-attr-id="{{ type }}">{{ type }}</option>
+                              </select>
                             </div>
                             <div class="input-field col s6 m3 l3">
-                              <input id="consumes" type="text" ng-model="basicInfo.consumes"></input>
-                              <label for="consumes">Consumes</label>
+                              <!--input id="consumes" type="text" ng-model="basicInfo.consumes"></input>
+                              <label for="consumes">Consumes</label-->
+                              <select class="browser-default" style="background-color: #455a64;" select-value
+                                      ng-model="basicInfo.consumes">
+                                <option value="" selected>Consumes:</option>
+                                <option ng-repeat="type in mimeTypes"
+                                        ng-attr-value="{{ type }}"
+                                        ng-attr-id="{{ type }}">{{ type }}</option>
+                              </select>
                             </div>
                           </div>
                         </div>
@@ -231,7 +252,7 @@
         {{service}}
       </div>
       <div class="container" ng-controller="PathController as pathCtl" ng-cloak>
-        {{thisObject}}
+
         <path-modal></path-modal>
         <div class="row">
           <div class="col s12">
@@ -469,7 +490,6 @@
               <div class="card-content white-text">
                 <div class="row valign-wrapper">
                   <div class="col s6 m8 l10 valign">
-                    {{ defControl.definitions }}
                     <h3>Definitions</h3>
                   </div>
                   <div class="col s6 m4 l2 valign right-align">
@@ -516,25 +536,38 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr ng-if="defValue.properties">
-                              <div ng-repeat="property in defValue.properties">
-                                <td>{{property.title}}</td>
-                                <td>{{property.description}}</td>
-                                <td>{{property.type}}</td>
-                                <td>{{property.required}}</td>
-                                <td>{{property.enum}}</td>
-                              </div>
+                            <tr ng-repeat="(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'">
+
+                                <td class="white-text">{{propertyName}}</td>
+                                <td class="white-text shrink">{{propertyValue.description}}</td>
+                                <td class="white-text">{{propertyValue.type}}</td>
+                                <td class="white-text"
+                                    ng-if="defValue.required.includes(propertyName);">true</td>
+                                <td class="white-text"
+                                    ng-if="!defValue.required.includes(propertyName);">false</td>
+                                <td class="white-text">{{propertyValue.enum}}</td>
+
                             </tr>
                           </tbody>
                         </table>
                       </div>
                       <div class="row">
-                        <div class="col s2 offset-s10">
+                        <div class="col offset-s9">
                           <button class="waves-effect waves-light btn"
                               href="#definition-editor-modal"
                               ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
                               modal>
                             Edit Definition
+                          </button>
+                        </div>
+                        <div class="col  ">
+                          <button tooltipped
+                                  class="btn"
+                                  data-position="top"
+                                  data-delay="50"
+                                  data-tooltip="Delete Def"
+                                  ng-click="defControl.deleteDefinition(definition);">
+                          <i class="material-icons">delete</i>
                           </button>
                         </div>
                       </div>

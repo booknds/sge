@@ -256,6 +256,27 @@ swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
     }
 }]);
 
+swaggerGE.controller("CompilerController", ["$scope", "CompilerService",
+  function($scope, cs){
+    var vm =  this;
+
+    vm.compiledDocument = cs.compiled;
+
+    vm.recompile = function(){
+      cs.recompile();
+    };
+
+    $scope.$watch(function(){return cs.compiled;}, function(newVal){
+      console.log("COMPILKED CHANGED");
+      console.log(newVal)
+      if(newVal){
+        vm.compiledDocument = cs.compiled;
+        //vm.definitions = ds.definitions;
+      }
+    }, true);
+
+  }])
+
 swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsService',
   function($scope, ds){
     var vm = this;
@@ -264,6 +285,7 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
 
     vm.newDefinition = {
       name:null,
+      description:null,
     };
 
     vm.addDefinition = function(definitionName, description){
@@ -276,7 +298,10 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
       }
 
       $scope.closeModal = true;
-      vm.newDefinition.name=null;
+      vm.newDefinition = {
+        name:null,
+        description:null,
+      };
 
     }
 
@@ -284,8 +309,8 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
 
   }]);
 
-swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsService", "DefinitionEditorModalService",
-  function($scope, ds, dems){
+swaggerGE.controller("DefinitionEditorController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService",
+  function($scope, $window, ds, dems){
 
     var vm = this;
 
@@ -310,12 +335,20 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
     }
 
     vm.addProperty = function(definitionName, propertyName){
-
+      /*
       try{
         ds.addProperty(definitionName, propertyName);
       }catch(e){
           console.log(e);
           Materialize.toast(e, 3000);
+      }
+      */
+
+      if(vm.tempDefinition.value.properties.hasOwnProperty(propertyName)){
+        Materialize.toast('Property already exists on this definition.');
+      }else{
+        vm.tempDefinition.value.properties[propertyName] =  ds.newSchema();
+        vm.tempDefinition.value.properties[propertyName].type = null;
       }
 
       //if(tempDefniition.value.properties.hasOwnProperty)
@@ -351,6 +384,14 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
       }
     }
 
+    vm.deleteProperty = function(propertyName){
+      if($window.confirm('Are you sure you want to delete the property?')){
+        delete vm.tempDefinition.value.properties[propertyName];
+      }else{
+        console.log("Don't delete property")
+      }
+    }
+
     $scope.$watch(function(){return dems.currentDefinition;}, function(newVal){
 
         if(newVal.name){
@@ -366,8 +407,8 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
 
 }])
 
-swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService", "DefinitionEditorModalService",
-  function($scope, ds, dems){
+swaggerGE.controller("DefinitionsController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService",
+  function($scope, $window, ds, dems){
 
     var vm = this;
 
@@ -417,26 +458,41 @@ swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService", "
       }
     }
 
+    vm.deleteDefinition = function(definitionName){
+      if($window.confirm('Are you sure you want to delete the definition?')){
+        ds.deleteDefinition(definitionName);
+      }else{
+        console.log("Don't delete definitions");
+      }
+
+    }
+
 }])
 
 swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseService', function($scope, $log, swaggerBaseService){
-    
+
     //display functionality
     $scope.preventUpdate = true;
 
-    
+
     //get the basic info.
     $scope.basicInfo = swaggerBaseService.newBaseInfo();
-    
+
     //used to test the base info singleton
     $scope.service = null;
-    
-    
+
+    $scope.mimeTypes = ['text/plain; charset=utf-8', 'application/json', 'application/vnd.github+json',
+                        'application/vnd.github.v3+json', 'application/vnd.github.v3.raw+json',
+                        'application/vnd.github.v3.text+json', 'application/vnd.github.v3.html+json',
+                        'application/vnd.github.v3.full+json', 'application/vnd.github.v3.diff',
+                        'application/vnd.github.v3.patch'];
+
+
     $scope.updateInfo = function(){
         swaggerBaseService.setSwaggerInfo($scope.basicInfo);
         $scope.service = swaggerBaseService.getSwaggerInfo();
     };
-    
+
     /*
         watch for Api's version number and title
             These are required as part of the SWAGGER definition
@@ -448,41 +504,42 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
     $scope.$watch('basicInfo.info.version', function(){
         $scope.checkMinRequirements();
     }, false);
-    
+
     $scope.checkMinRequirements = function(){
         if(!$scope.basicInfo.info.title || !$scope.basicInfo.info.version)
             $scope.preventUpdate = true;
         else
             $scope.preventUpdate = false;
     }
-    
+
     /*
         Update the schemes list. Add the scheme if checked, and remove if unchecked
     */
     $scope.updateCheckBox = function(schemeType){
-        
+
         var removedScheme = false;
-        
+
         //check the values in scheme
         for(var i = 0; i < $scope.basicInfo.schemes.length; i++){
-            
+
             if($scope.basicInfo.schemes[i] === schemeType){
                 //if its in the list remove it
                 $scope.basicInfo.schemes.splice(i, 1);
-                
+
                 removedScheme = true;
-                
-            }     
+
+            }
         }
-        
+
         //if a scheme hasnt been removed, it means it didn't exist so add it to the list.
         if(!removedScheme)
             $scope.basicInfo.schemes.push(schemeType);
-        
+
     }
-    
-    
+
+
 }]);
+
 "use strict";
 swaggerGE.controller("parameterController", ['$scope', '$log', 'PathService', "ParameterModalService",
 function($scope, log, swaggerPaths, pms){
@@ -931,6 +988,64 @@ swaggerGE.factory('OperationModel', [function(){
     //function Operation()
     
 }])
+swaggerGE.factory('CompilerService',["swaggerBaseService", "PathService", "DefinitionsService",
+  function(infoService, PathsService, DefinitionsService){
+
+    var cs = this;
+
+    //var compiled = {};
+
+    var info = infoService.getSwaggerInfo();
+    var paths = PathsService.paths;
+    var definitions = DefinitionsService.definitions;
+
+    cs.compiled = {};
+
+    cs.recompile = function(){
+      cs.compiled = angular.copy(infoService.getSwaggerInfo());
+      cs.compiled.paths = paths;
+      cs.compiled.definitions = definitions;
+
+      console.log("recompile- before clean");
+      console.log(cs.compiled);
+
+      cleanDocument(cs.compiled);
+
+      console.log("recompile- after clean");
+      console.log(cs.compiled);
+
+      cleanDocument(cs.compiled);
+
+      console.log("recompile- after 2nd clean");
+      console.log(cs.compiled);
+    }
+
+    /**
+      Remove all null values from document
+    **/
+    function cleanDocument(obj){
+
+      for(var key in obj){
+        console.log(key);
+        if(obj[key] === null || obj[key] === ""){
+          delete obj[key];
+        }else{
+          if(obj instanceof Object || obj instanceof Array){
+            cleanDocument(obj[key]);
+          }
+
+        }
+        if(obj[key] === null || obj[key] === ""){
+          delete obj[key];
+        }
+      }
+
+    }
+
+    return cs;
+
+}])
+
 swaggerGE.factory("DefinitionEditorModalService", [
   function(){
     var dems = this;
@@ -965,138 +1080,147 @@ swaggerGE.factory("DefinitionEditorModalService", [
 
 }]);
 
-swaggerGE.factory("DefinitionsService", [function(){
+swaggerGE.factory("DefinitionsService", ['$window',
+  function($window){
 
-  var ds = this;
+    var ds = this;
 
-  function Schema(title, description, type){
-    this.$ref = null;
-    this.format = null;
-    this.title = title || "";
-    this.description = description || "";
-    this.required = new Array();
-    this.enum = null;
-    this.type = type || "Object";
-    this.properties = {};
-  }
+    function Schema(title, description, type){
+      this.$ref = null;
+      this.format = null;
+      this.title = title || "";
+      this.description = description || "";
+      this.required = new Array();
+      this.enum = null;
+      this.type = type || "Object";
+      this.properties = {};
+    }
 
-  Schema.prototype = {};
+    Schema.prototype = {};
 
-  function Definitions(){
-    //this[objectName] = new Schema();
+    function Definitions(){
+      //this[objectName] = new Schema();
 
-    //return this[objectName];
-    //return new Object();
-    //this.poop = "poop";
-  }
+      //return this[objectName];
+      //return new Object();
+      //this.poop = "poop";
+    }
 
-  Definitions.prototype = {
+    Definitions.prototype = {
 
-    addDefinition:function(definitionName, description, type){
-      this[definitionName] = new Schema(definitionName, description, type);
-    },
+      addDefinition:function(definitionName, description, type){
+        this[definitionName] = new Schema(definitionName, description, type);
+      },
 
-    hasDefinition: function(definitionName){
-      if(this.hasOwnProperty(definitionName))
+      hasDefinition: function(definitionName){
+        if(this.hasOwnProperty(definitionName))
+          return true;
+        else
+          return false;
+      },
+
+      getDefinition: function(definitionName){
+        return this[definitionName];
+      },
+    }
+
+
+    ds.addDefinition = function(definitionName, description, type){
+      if(hasDefinition(definitionName))
+        throw "Cannot Add, Definition Already Exists"
+      else{
+        console.log('adding definitiion');
+        //definitions[definitionName] = {
+        //  poop:'hi'
+        //}
+        ds.definitions.addDefinition(definitionName, description, type);
+        console.log(definitions);
+        console.log(ds.definitions);
+      }
+    }
+
+    function hasDefinition(definitionName){
+      if(definitions.hasOwnProperty(definitionName))
         return true;
       else
         return false;
-    },
-
-    getDefinition: function(definitionName){
-      return this[definitionName];
-    },
-  }
-
-
-  ds.addDefinition = function(definitionName, description, type){
-    if(hasDefinition(definitionName))
-      throw "Cannot Add, Definition Already Exists"
-    else{
-      console.log('adding definitiion');
-      //definitions[definitionName] = {
-      //  poop:'hi'
-      //}
-      ds.definitions.addDefinition(definitionName, description, type);
-      console.log(definitions);
-      console.log(ds.definitions);
-    }
-  }
-
-  function hasDefinition(definitionName){
-    if(definitions.hasOwnProperty(definitionName))
-      return true;
-    else
-      return false;
-  }
-
-  ds.addProperty = function(definitionName, propertyName){
-
-    console.log("DS add property");
-    console.log(definitionName, propertyName);
-
-    if(hasProperty(definitionName, propertyName)){
-      throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
-
-    }else {
-        definitions[definitionName].properties[propertyName] = new Schema();
-        definitions[definitionName].properties[propertyName].type = null;
     }
 
-  };
+    ds.addProperty = function(definitionName, propertyName){
 
-  function hasProperty(definitionName, propertyName){
-    console.log("HAS PROPERTY");
-    console.log(definitionName, propertyName);
-    if(definitions[definitionName].properties.hasOwnProperty(propertyName))
-      return true;
-    else
-      return false;
-  }
+      console.log("DS add property");
+      console.log(definitionName, propertyName);
 
-  ds.updateDefinition = function(originalDefinition, updatedDefinition){
-    console.log("SERVICE - update definition");
-    var oName = originalDefinition.name,
-        oValue = originalDefinition.value,
-        uName = updatedDefinition.name,
-        uValue = updatedDefinition.value;
+      if(hasProperty(definitionName, propertyName)){
+        throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
 
-    if(oName === uName){
-      var definitionToUpdate = definitions[oName];
-
-      for(var key in definitionToUpdate){
-        definitionToUpdate[key] = uValue[key];
+      }else {
+          definitions[definitionName].properties[propertyName] = new Schema();
+          definitions[definitionName].properties[propertyName].type = null;
       }
 
-    }else{
+    };
 
-      if(hasDefinition(uName)){
+    function hasProperty(definitionName, propertyName){
+      console.log("HAS PROPERTY");
+      console.log(definitionName, propertyName);
+      if(definitions[definitionName].properties.hasOwnProperty(propertyName))
+        return true;
+      else
+        return false;
+    }
 
-        throw "Definition already exists, cannot change definition name."
+    ds.updateDefinition = function(originalDefinition, updatedDefinition){
+      console.log("SERVICE - update definition");
+      var oName = originalDefinition.name,
+          oValue = originalDefinition.value,
+          uName = updatedDefinition.name,
+          uValue = updatedDefinition.value;
+
+      if(oName === uName){
+        var definitionToUpdate = definitions[oName];
+
+        for(var key in definitionToUpdate){
+          definitionToUpdate[key] = uValue[key];
+        }
 
       }else{
 
-        ds.addDefinition(uName);
+        if(hasDefinition(uName)){
 
-        var currentDefinition = definitions[uName];
+          throw "Definition already exists, cannot change definition name."
 
-        for(var key in currentDefinition){
-            currentDefinition[key] = uValue[key];
+        }else{
+
+          ds.addDefinition(uName);
+
+          var currentDefinition = definitions[uName];
+
+          for(var key in currentDefinition){
+              currentDefinition[key] = uValue[key];
+          }
+
+          delete definitions[oName];
+
         }
-
-        delete definitions[oName];
-        
       }
+
     }
 
-  }
+    ds.newSchema = function(title, description, type){
+      return new Schema(title, description, type);
+    }
 
-  var definitions = new Definitions();
+    ds.deleteDefinition = function(definitionName){
+      delete ds.definitions[definitionName];
+    }
 
-  ds.definitions = definitions;
-  console.log(definitions);
+    var definitions = new Definitions();
 
-  return ds;
+    ds.definitions = definitions;
+    console.log(definitions);
+
+    return ds;
 
 }]);
 
@@ -1107,7 +1231,7 @@ function(ParameterService, ResponseService){
   var Operation = function(){
       this.tags = null;
       this.summary = null;
-      this.descripiton = null;
+      this.description = null;
       this.externalDocs = new Object();
       this.operationId = null;
       this.consumes = null;

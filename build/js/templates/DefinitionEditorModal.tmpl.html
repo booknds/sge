@@ -4,10 +4,8 @@
         novalidate>
     <div class="modal-content">
       <div class="row">
-        {{ definitionEditor.tempDefinition }}
         <div class="left-align col s12">
-          <h4>Edit Definition</h4>
-          {{definitionEditor.originalDefinition}}
+          <h4>Edit Definition</h4>]
         </div>
         <div class="input-field col s12 ">
           <input id="definition-name" type="text" ng-model="definitionEditor.tempDefinition.name" required="" aria-required="true">
@@ -59,10 +57,9 @@
             </div>
           </form>
         </div>
-        {{ definitionEditor.tempDefinition.value.properties }}
 
       </div>
-      <ul ng-repeat="(property, pValue) in definitionEditor.tempDefinition.value.properties"
+      <ul ng-repeat="(property, pValue) in definitionEditor.tempDefinition.value.properties | orderBy:'property'"
           class="collapsible blue-grey darken-2"
           init-collapse
           data-collapsible="accordion">
@@ -106,16 +103,17 @@
               </div>
             </div>
             <div class="valign-wrapper section" >
-              <div class="input-field col s1 offset-s10 valign">
+              <div class="input-field col s1 offset-s11 valign">
                 <button tooltipped
                         class="btn col "
                         data-position="top"
                         data-delay="50"
-                        data-tooltip="You should know what a trash can does" >
+                        data-tooltip="Delete Property"
+                        ng-click="definitionEditor.deleteProperty(property)">
                 <i class="material-icons">delete</i>
                 </button>
               </div>
-              <div class="input-field col s1 valign">
+              <!--div class="input-field col s1 valign">
                 <button tooltipped
                         class="btn col "
                         data-position="top"
@@ -123,7 +121,7 @@
                         data-tooltip="Update Property Data">
                 <i class="material-icons">done</i>
                 </button>
-              </div>
+              </div-->
             </div>
           </div>
         </li>
@@ -131,13 +129,11 @@
     </div>
     <div class="modal-footer blue-grey darken-1 ">
       <div>
-        <button type="submit"
-          close-definition-editor-modal
-          ng-if="!definitionEditor.tempDefinition.name"
+        <button ng-if="!definitionEditor.tempDefinition.name"
           class=" waves-effect waves-green btn disabled">
         Update Definition
         </button>
-        <button class="waves-effect waves-green btn"
+        <button class="waves-effect waves-green btn modal-action modal-close"
                 close-definition-editor-modal
                 ng-if="definitionEditor.tempDefinition.name"
                 ng-click="definitionEditor.updateDefinition(definitionEditor.originalDefinition, definitionEditor.tempDefinition)">

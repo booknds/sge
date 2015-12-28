@@ -1,5 +1,5 @@
-swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService", "DefinitionEditorModalService",
-  function($scope, ds, dems){
+swaggerGE.controller("DefinitionsController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService",
+  function($scope, $window, ds, dems){
 
     var vm = this;
 
@@ -47,6 +47,15 @@ swaggerGE.controller("DefinitionsController", ["$scope", "DefinitionsService", "
         Materialize.toast(e, 3000);
         return;
       }
+    }
+
+    vm.deleteDefinition = function(definitionName){
+      if($window.confirm('Are you sure you want to delete the definition?')){
+        ds.deleteDefinition(definitionName);
+      }else{
+        console.log("Don't delete definitions");
+      }
+
     }
 
 }])
