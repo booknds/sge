@@ -16,6 +16,8 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
     vm.formats = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
     vm.types = ['integer', 'number', 'string', 'boolean'];
 
+    $scope.closeModal = false;
+
     vm.toast = function(msg){
       var message = msg || "No toast supplied, but hello!!";
       Materialize.toast(msg, 2000);
@@ -49,6 +51,17 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
           }
 
         }
+      }
+    }
+
+    vm.updateDefinition = function(originalDefinition, newDefinition){
+      console.log("CONTROLLER - Update definition");
+      try{
+        ds.updateDefinition(originalDefinition, newDefinition);
+        $scope.closeModal = true;
+      }catch(e){
+        console.log(e);
+        Materialize.toast(e, 3000);
       }
     }
 

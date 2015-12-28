@@ -302,6 +302,8 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
     vm.formats = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
     vm.types = ['integer', 'number', 'string', 'boolean'];
 
+    $scope.closeModal = false;
+
     vm.toast = function(msg){
       var message = msg || "No toast supplied, but hello!!";
       Materialize.toast(msg, 2000);
@@ -335,6 +337,17 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "DefinitionsServic
           }
 
         }
+      }
+    }
+
+    vm.updateDefinition = function(originalDefinition, newDefinition){
+      console.log("CONTROLLER - Update definition");
+      try{
+        ds.updateDefinition(originalDefinition, newDefinition);
+        $scope.closeModal = true;
+      }catch(e){
+        console.log(e);
+        Materialize.toast(e, 3000);
       }
     }
 
@@ -1039,6 +1052,43 @@ swaggerGE.factory("DefinitionsService", [function(){
       return true;
     else
       return false;
+  }
+
+  ds.updateDefinition = function(originalDefinition, updatedDefinition){
+    console.log("SERVICE - update definition");
+    var oName = originalDefinition.name,
+        oValue = originalDefinition.value,
+        uName = updatedDefinition.name,
+        uValue = updatedDefinition.value;
+
+    if(oName === uName){
+      var definitionToUpdate = definitions[oName];
+
+      for(var key in definitionToUpdate){
+        definitionToUpdate[key] = uValue[key];
+      }
+
+    }else{
+
+      if(hasDefinition(uName)){
+
+        throw "Definition already exists, cannot change definition name."
+
+      }else{
+
+        ds.addDefinition(uName);
+
+        var currentDefinition = definitions[uName];
+
+        for(var key in currentDefinition){
+            currentDefinition[key] = uValue[key];
+        }
+
+        delete definitions[oName];
+        
+      }
+    }
+
   }
 
   var definitions = new Definitions();

@@ -87,6 +87,43 @@ swaggerGE.factory("DefinitionsService", [function(){
       return false;
   }
 
+  ds.updateDefinition = function(originalDefinition, updatedDefinition){
+    console.log("SERVICE - update definition");
+    var oName = originalDefinition.name,
+        oValue = originalDefinition.value,
+        uName = updatedDefinition.name,
+        uValue = updatedDefinition.value;
+
+    if(oName === uName){
+      var definitionToUpdate = definitions[oName];
+
+      for(var key in definitionToUpdate){
+        definitionToUpdate[key] = uValue[key];
+      }
+
+    }else{
+
+      if(hasDefinition(uName)){
+
+        throw "Definition already exists, cannot change definition name."
+
+      }else{
+
+        ds.addDefinition(uName);
+
+        var currentDefinition = definitions[uName];
+
+        for(var key in currentDefinition){
+            currentDefinition[key] = uValue[key];
+        }
+
+        delete definitions[oName];
+        
+      }
+    }
+
+  }
+
   var definitions = new Definitions();
 
   ds.definitions = definitions;
