@@ -17,7 +17,11 @@
     <!-- angular-materialize -->
     <script type="text/javascript" src="js/bower_components/angular-materialize/src/angular-materialize.js"></script>
     <!-- app -->
+    
+    <script src="dep.js"></script>
+    <script src="js/bower_components/angular-file-saver/dist/angular-file-saver.bundle.min.js"></script>
     <script src="js/src/sge.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!--script src="../bower_components/angular-materialize/src/angular-materialize.js"></script-->
     <!--style>
@@ -93,8 +97,12 @@
         <ul>
           <!--li><a class="btn-floating red"><i class="material-icons">insert_chart</i></i></a></li>
           <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-          <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-          <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li-->
+          <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>-->
+          <li><a ng-click="compilerController.download(compilerController.compiledDocument)"
+                  class="btn-floating blue">
+                  <i class="material-icons">attach_file</i>
+              </a>
+          </li>
           <li><a ng-click="compilerController.recompile()"
                   class="btn-floating green">
                 <i class="material-icons">publish</i></a></li>
@@ -166,11 +174,11 @@
                           </div>
                           <div class="row">
                             <div class="input-field col s6 m3 l3">
-                              <input id="host" type="text" ng-model="basicInfo.host"></input>
+                              <input id="host" type="text" ng-model="basicInfo.host"/>
                               <label for="host">Host</label>
                             </div>
                             <div class="input-field col s6 m3 l3">
-                              <input id="basePath" type="text" ng-model="basicInfo.basePath"></input>
+                              <input id="basePath" type="text" ng-model="basicInfo.basePath"/>
                               <label for="basePath">Basepath</label>
                             </div>
                             <div class="input-field col s6 m3 l3">
@@ -201,51 +209,51 @@
                     </div>
                     <div class="col s12 m6">
                       <div class="row">
-          <form class="col s12">
-          <span class="card-title">Contact</span>
-          <div class="row">
-          <div class="input-field col s4">
-          <input id="contact_name" type="text" ng-model="basicInfo.info.contact.name" ></input>
-          <label for="contact_name">Name</label>
-          </div>
-          <div class="input-field col s4">
-          <input id="contact_url" type="text" ng-model="basicInfo.info.contact.url"></input>
-          <label for="contact_url">Url</label>
-          </div>
-          <div class="input-field col s4">
-          <input id="contactemail" type="email" class="validate" ng-model="basicInfo.info.contact.email"></input>
-          <label for="contact_textarea-description" data-error="enter valid email">Email</label>
-          </div>
-          </div>
-          <span class="card-title">License</span>
-          <div class="row">
-          <div class="input-field col s6">
-          <input id="license_name" type="text" ng-model="basicInfo.info.license.name"></input>
-          <label for="license_name">Name</label>
-          </div>
-          <div class="input-field col s6">
-          <input id="license_url" type="text" ng-model="basicInfo.info.license.url"></input>
-          <label for="license_url">Url</label>
-          </div>
-          </div>
-          <div class="row">
-          <div class="input-field col s12">
-          <input id="terms" type="text" ng-model="basicInfo.info.termsOfService"></input>
-          <label for="terms">Terms Of Service</label>
-          </div>
-          </div>
-          </form>
-          </div>
-          </div>
-          </div>
-          </div>
-          <div class="card-action">
-          <button class="btn waves-effect waves-light disabled" type="submit" name="action" ng-class="{ 'disabled': preventUpdate }">Update
-          <!--i class="material-icons right">send</i-->
-          </button>
-          </div>
-          </div>
-          </div>
+                        <div class="col s12">
+                          <span class="card-title">Contact</span>
+                          <div class="row">
+                            <div class="input-field col s4">
+                              <input id="contact_name" type="text" ng-model="basicInfo.info.contact.name" />
+                              <label for="contact_name">Name</label>
+                            </div>
+                            <div class="input-field col s4">
+                              <input id="contact_url" type="text" ng-model="basicInfo.info.contact.url"/>
+                              <label for="contact_url">Url</label>
+                            </div>
+                            <div class="input-field col s4">
+                              <input id="contactemail" type="email" class="validate" ng-model="basicInfo.info.contact.email"/>
+                              <label for="contact_textarea-description" data-error="enter valid email">Email</label>
+                            </div>
+                          </div>
+                          <span class="card-title">License</span>
+                          <div class="row">
+                            <div class="input-field col s6">
+                              <input id="license_name" type="text" ng-model="basicInfo.info.license.name"/>
+                              <label for="license_name">Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input id="license_url" type="text" ng-model="basicInfo.info.license.url"/>
+                              <label for="license_url">Url</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input id="terms" type="text" ng-model="basicInfo.info.termsOfService"/>
+                              <label for="terms">Terms Of Service</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-action">
+                    <button class="btn waves-effect waves-light disabled" type="submit" name="action" ng-class="{ 'disabled': preventUpdate }">Update
+                    <!--i class="material-icons right">send</i-->
+                    </button>
+                  </div>
+                </div>    
+              </div>
+            </div>
           </form>
         </div>
         {{basicInfo}}

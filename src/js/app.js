@@ -1,4 +1,4 @@
-var swaggerGE = angular.module("SwaggerGraphicalEditor", ['ui.materialize']);
+var swaggerGE = angular.module("SwaggerGraphicalEditor", ['ui.materialize','ngFileSaver']);
 
 /*swaggerGE.directive("pathCreator", ['$compile', function($compile) {
     return {
