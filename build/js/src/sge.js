@@ -496,6 +496,8 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
                         'application/vnd.github.v3.full+json', 'application/vnd.github.v3.diff',
                         'application/vnd.github.v3.patch'];
 
+    $scope.schemeTypes = ['http', 'https', 'ws', 'wws'];
+
 
     $scope.updateInfo = function(){
         swaggerBaseService.setSwaggerInfo($scope.basicInfo);
@@ -2288,8 +2290,8 @@ swaggerGE.service("swaggerBaseService", ["swaggerCompiler",function(swaggerCompi
                    host: "",
                    basePath: "",
                    schemes: [],
-                   consumes: "",
-                   produces: ""
+                   consumes: [],
+                   produces: []
             }
         }
     }
