@@ -40,8 +40,8 @@ swaggerGE.service("swaggerBaseService", ["swaggerCompiler",function(swaggerCompi
                    host: "",
                    basePath: "",
                    schemes: [],
-                   consumes: "",
-                   produces: ""
+                   consumes: [],
+                   produces: []
             }
         }
     }
