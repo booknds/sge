@@ -15,6 +15,33 @@ var swaggerGE = angular.module("SwaggerGraphicalEditor", ['ui.materialize','ngFi
     }
 }]);*/
 
+//directive based on Mark Rajcok's answer on stack overflow to focus an elemenet on button click event.
+swaggerGE.directive('focusMe', function($timeout, $parse) {
+  return {
+    //scope: true,   // optionally create a child scope
+    link: function(scope, element, attrs) {
+      //get the attribute on the element called focus-me and put its value into model
+      var model = $parse(attrs.focusMe);
+
+      //watch whenever model changes, if it true, the pop up modal was activated and should focus on the input
+      scope.$watch(model, function(value) {
+        console.log('value=',value);
+        if(value === true) { 
+          $timeout(function() {
+            element[0].focus(); 
+          });
+        }
+      });
+      // to address @blesh's comment, set attribute value to 'false'
+      // on blur event:
+      element.bind('blur', function() {
+         console.log('blur');
+         scope.$apply(model.assign(scope, false));
+      });
+    }
+  };
+});
+
 swaggerGE.directive("pathModal",
   function(){
     return{
@@ -134,6 +161,7 @@ swaggerGE.directive("closePathModal", function(){
           if(scope.closePathModal === true){
             $('#path-creation-modal').closeModal();
             scope.closePathModal = false;
+            //scope.focusPathModal = false;
           }
         });
 

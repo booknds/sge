@@ -14,7 +14,7 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
       showPaths:false,
     }
 
-    vm.focusPathModal = false;
+    $scope.focusPathModal = false;
 
     //$scope.closePathModal = false;
 
@@ -24,8 +24,10 @@ swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompile
       if($scope.paths.length > 0)
           $scope.prevent.pathsList = !$scope.prevent.pathsList;
     }*/
-    vm.focusPathModal = function(){
-      $scope.focusPathModal = !$scope.focusPathModal;
+    $scope.openFocusPathModal = function(){
+      $scope.focusPathModal = true;
+      console.log("toggle focus: focusPathModal ==" + $scope.focusPathModal)
+      //$scope.focusPathModal = !$scope.focusPathModal;
     }
 
     vm.updatePathName = function(originalPathName, newPathName){

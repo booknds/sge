@@ -11,7 +11,7 @@
     <!--materialize css-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <!-- Angularjs -->
     <script src="//code.angularjs.org/1.4.3/angular.min.js"></script>
     <!-- angular-materialize -->
@@ -276,7 +276,10 @@
                     </a>
                   </div>
                   <div class="col s6 m2 l2 valign right-align">
-                    <a class="btn-floating btn-large waves-effect waves-light green accent-4" href="#path-creation-modal" modal>
+                    <a ng-click="openFocusPathModal()"
+                        class="btn-floating btn-large waves-effect waves-light green accent-4" 
+                        href="#path-creation-modal" 
+                        modal>
                     <i class="material-icons">add</i>
                     </a>
                   </div>
@@ -304,7 +307,7 @@
                     <div class="left-align" style="padding-left:15px;">Operations </div>
                     <div class="col s12 l6">
                       <div class="row" >
-                        <div class="col s3" ng-repeat="(operation, value) in pathCtl.paths[pathName]" ng-hide="pathCtl.paths[pathName][operation]">
+                        <div class="col" ng-repeat="(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'" ng-hide="pathCtl.paths[pathName][operation]">
                           <a ng-class="{'blue': '{{operation}}' == 'get',
                             'orange': '{{operation}}' === 'put',
                             'green': '{{operation}}' === 'post',
@@ -328,39 +331,38 @@
                               class="collapsible-header "><i class="material-icons">filter_drama</i>{{ operation | uppercase }}   {{ " " + path.currentName}}</div>
                             <div class="collapsible-body ">
                               <div class="section">
-                                <form ng-submit="pathCtl.updateOperation(pathName, operation, 'summary', pathCtl.operation[operation].summary)">
-                                  <div class="valign-wrapper">
-                                    <div unique-checkbox class="input-field col s10 valign">
+                                <!--form ng-submit="pathCtl.updateOperation(pathName, operation, 'summary', pathCtl.operation[operation].summary)"-->
+                                  <div class="">
+                                    <div unique-checkbox class="input-field col s12">
                                       <input id="input"
-                                        ng-attr-placeholder="pathCtl.operation[operation].summary"
-                                        ng-model="pathCtl.operation[operation].summary"
-                                        maxlength="150" type="text" required=""
-                                        aria-required="true"/>
+                                        ng-attr-placeholder="pathCtl.paths[pathName][operation].summary"
+                                        ng-model="pathCtl.paths[pathName][operation].summary"
+                                        maxlength="150" type="text"/>
                                       <label id="label"  for="label">Summary</label>
                                     </div>
-                                    <div class="col s2 valign">
+                                    <!--div class="col s2 valign">
                                       <button class="waves-effect waves-light btn" type="submit" name="action">
                                       Update
                                       </button>
-                                    </div>
-                                  </div>
-                                </form>
-                                <form ng-submit="pathCtl.updateOperation(pathName, operation, 'description', pathCtl.operation[operation].description)">
-                                  <div class=" valign-wrapper">
-                                    <div unique-checkbox class="input-field col s10 valign">
+                                    </div-->
+                                  <!--/div-->
+                                <!--/form-->
+                                <!--form ng-submit="pathCtl.updateOperation(pathName, operation, 'description', pathCtl.operation[operation].description)"-->
+                                  <!--div class=" valign-wrapper"-->
+                                    <div unique-checkbox class="input-field col s12">
                                       <textarea id="input"
-                                        ng-attr-placeholder="pathCtl.operation[operation].description"
-                                        ng-model="pathCtl.operation[operation].description"
-                                        class="materialize-textarea" required="" aria-required="true"></textarea>
+                                        ng-attr-placeholder="pathCtl.paths[pathName][operation].description"
+                                        ng-model="pathCtl.paths[pathName][operation].description"
+                                        class="materialize-textarea"></textarea>
                                       <label id="label" for="label">Description</label>
                                     </div>
-                                    <div class="col s2 valign">
+                                    <!--div class="col s2 valign">
                                       <button class="waves-effect waves-light btn" type="submit" name="action">
                                       Update
                                       </button>
-                                    </div>
+                                    </div-->
                                   </div>
-                                </form>
+                                <!--/form-->
                               </div>
                               <div class="section"
                                 ng-if="pathCtl.paths[pathName][operation]"
@@ -473,7 +475,7 @@
                         </ul>
                       </div>
                       <div class="col s1 valign" >
-                        <button class="btn-flat waves-effect waves-light" type="submit" name="action" ng-click="pathCtl.deleteOperation(pathName, operation)">
+                        <button class="btn-flat" type="submit" name="action" ng-click="pathCtl.deleteOperation(pathName, operation)">
                         <i class="material-icons">delete</i>
                         </button>
                       </div>
@@ -560,22 +562,22 @@
                         </table>
                       </div>
                       <div class="row">
-                        <div class="col offset-s9">
-                          <button class="waves-effect waves-light btn"
+                        <div class="col s6">
+                          <button tooltipped
+                                  class="btn-flat"
+                                  data-position="top"
+                                  data-delay="50"
+                                  data-tooltip="Delete Definition"
+                                  ng-click="defControl.deleteDefinition(definition);">
+                          <i class="material-icons">delete</i>
+                          </button>
+                        </div>
+                        <div class="col s6 ">
+                          <button class="btn-flat"
                               href="#definition-editor-modal"
                               ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
                               modal>
-                            Edit Definition
-                          </button>
-                        </div>
-                        <div class="col  ">
-                          <button tooltipped
-                                  class="btn"
-                                  data-position="top"
-                                  data-delay="50"
-                                  data-tooltip="Delete Def"
-                                  ng-click="defControl.deleteDefinition(definition);">
-                          <i class="material-icons">delete</i>
+                            <i class="material-icons">settings</i>
                           </button>
                         </div>
                       </div>
