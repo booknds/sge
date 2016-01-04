@@ -42,3 +42,10 @@ html, body {
     cursor: text;
     transition: .2s ease-out;
 }
+input.ng-invalid {
+border-bottom: 1px solid #ff5252;
+}
+
+.error {
+  color: #ff5252;
+}

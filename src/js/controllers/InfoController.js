@@ -18,6 +18,12 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
 
     $scope.schemeTypes = ['http', 'https', 'ws', 'wws'];
 
+    $scope.extraInfo ={
+        schemes: new Array(),
+        produces: new Array(),
+        consumes: new Array(),
+    };
+
 
     $scope.updateInfo = function(){
         swaggerBaseService.setSwaggerInfo($scope.basicInfo);

@@ -9,11 +9,11 @@
           <input id="path-name" type="text" 
                   name="pathName"
                   ng-model="pathModal.newPath.name" 
-                  ng-pattern="/^\/[0-9a-zA-Z]$/"
+                  ng-pattern="/^\/[0-9a-zA-Z]/"
                   ng-minlength=3
                   ng-maxlength=45 
                   required="" 
-                  aria-required="true"
+                  
                   focus-me="focusPathModal">
           <label for="path-name">Path Name</label>
           <div class="error"
