@@ -112,10 +112,11 @@
       poop:{{compilerController.compiledDocument}}
       <div class="container" ng-controller="swaggerBaseController" ng-cloak>
         <div class="row">
-          <form name="baseInfo" novalidate ng-submit="updateInfo()">
+          <form name="baseInfo" novalidate ng-submit="baseInfo.$valid && updateInfo()">
             <div class="col s12">
               <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
+                {{basicInfo}}
                   <h3>{{ basicInfo.info.title + ' API' }}</h3>
                   <p>Start building your Swagger definition by describing some basic info. Watch out some
                     fields are required to enter, but don't worry we will prompt you if anything is missing.
@@ -155,7 +156,7 @@
                                   </small>
                                   <small class="error"
                                     ng-show="baseInfo.version.$error.pattern">
-                                  Allowed format "v1", "v1.0", "v1.0.0", "1.0.0"
+                                  Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
                                   </small>
                                 </div>
                               </div>
@@ -255,42 +256,59 @@
                           </p>
                         </div>
                       </div>
-                    <div class="input-field col s6 m3 l3">
+                    <div class="input-field col s12 m4 l4">
                       <!--input id="produces" type="text" ng-model="basicInfo.produces"></input>
                         <label for="produces">Produces</label-->
                       <select class="browser-default" style="background-color: #455a64;" select-value
-                        ng-model="basicInfo.produces">
+                        ng-model="info.produce">
                         <option value="" selected>Produces:</option>
                         <option ng-repeat="type in mimeTypes"
                           ng-attr-value="{{ type }}"
                           ng-attr-id="{{ type }}">{{ type }}</option>
                       </select>
+                      <button class="btn waves-effect waves-light" ng-click="basicInfo.produces.push(info.produce); console.log(basicInfo.produces);">
+                        add
+                        <!--i class="material-icons right">send</i-->
+                      </button>
+                      <button class="btn waves-effect waves-light" >
+                        delete
+                        <!--i class="material-icons right">send</i-->
+                      </button>
                     </div>
-                    <div class="input-field col s6 m3 l3">
+                    <div class="input-field col s12 m4 l4">
                       <!--input id="consumes" type="text" ng-model="basicInfo.consumes"></input>
                         <label for="consumes">Consumes</label-->
                       <select class="browser-default" style="background-color: #455a64;" select-value
-                        ng-model="basicInfo.consumes">
+                        ng-model="info.consume">
                         <option value="" selected>Consumes:</option>
                         <option ng-repeat="type in mimeTypes"
                           ng-attr-value="{{ type }}"
                           ng-attr-id="{{ type }}">{{ type }}</option>
                       </select>
+
+                      <button class="btn waves-effect waves-light" ng-click="basicInfo.consumes.push(info.consume); console.log(basicInfo.produces);">
+                        add
+                        <!--i class="material-icons right">send</i-->
+                      </button>
+                      <button class="btn waves-effect waves-light" >
+                        delete
+                        <!--i class="material-icons right">send</i-->
+                      </button>
                     </div>
                   </div>
                   </div>
                   
                 </div>
                 <div class="card-action">
-                  <button class="btn waves-effect waves-light disabled" type="submit" name="action" ng-class="{ 'disabled': preventUpdate }">
+                  <button class="btn waves-effect waves-light" type="submit" name="action" ng-class="{ 'disabled': baseInfo.$invalid }">
                     Update
                     <!--i class="material-icons right">send</i-->
                   </button>
                 </div>
               </div>
             </div>
+          </form>
         </div>
-        </form>
       </div>
       {{basicInfo}}
       {{service}}
