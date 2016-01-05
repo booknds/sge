@@ -193,7 +193,7 @@
                             </div>
                             <div class="input-field col s12 m4">
                               <input id="contactemail" type="email" class="validate" ng-model="basicInfo.info.contact.email"/>
-                              <label for="contact_textarea-description" data-error="enter valid email">Email</label>
+                              <label for="contact_textarea-description" data-error="">Email</label>
                             </div>
                           </div>
                           <span class="card-title">License</span>
@@ -229,71 +229,88 @@
                     <div class="row">
                      <div class="col s12">
                     <span class="card-title">Extra Info</span>
-                      <span class="cardTitle">Schemes </span>
-                      <div class="row">
-                        <div class="input-field col s3">
-                          <p>
-                            <input type="checkbox" id="http" ng-click="updateCheckBox('http')"/>
-                            <label for="http">http</label>
-                          </p>
-                        </div>
-                        <div class="input-field col s3">
-                          <p>
-                            <input type="checkbox" id="https" ng-click="updateCheckBox('https')"/>
-                            <label for="https">https</label>
-                          </p>
-                        </div>
-                        <div class="input-field col s3">
-                          <p>
-                            <input type="checkbox" id="ws" ng-click="updateCheckBox('ws')"/>
-                            <label for="ws">ws</label>
-                          </p>
-                        </div>
-                        <div class="input-field col s3">
-                          <p>
-                            <input type="checkbox" id="wss" ng-click="updateCheckBox('wws')"/>
-                            <label for="wss">wss</label>
-                          </p>
-                        </div>
-                      </div>
+                      <div class="section col s12">
                     <div class="input-field col s12 m4 l4">
                       <!--input id="produces" type="text" ng-model="basicInfo.produces"></input>
                         <label for="produces">Produces</label-->
-                      <select class="browser-default" style="background-color: #455a64;" select-value
-                        ng-model="info.produce">
-                        <option value="" selected>Produces:</option>
-                        <option ng-repeat="type in mimeTypes"
-                          ng-attr-value="{{ type }}"
-                          ng-attr-id="{{ type }}">{{ type }}</option>
-                      </select>
-                      <button class="btn waves-effect waves-light" ng-click="basicInfo.produces.push(info.produce); console.log(basicInfo.produces);">
-                        add
-                        <!--i class="material-icons right">send</i-->
-                      </button>
-                      <button class="btn waves-effect waves-light" >
-                        delete
-                        <!--i class="material-icons right">send</i-->
-                      </button>
+                        <div class="col  s12">Produces: </div>
+                        <select class="browser-default col m10" style="background-color: #455a64;" select-value
+                          ng-model="info.produce">
+                          <option value="" selected></option>
+                          <option ng-repeat="type in mimeTypes"
+                            ng-attr-value="{{ type }}"
+                            ng-attr-id="{{ type }}">{{ type }}</option>
+                        </select>
+                      
+                        <button class="btn-flat waves-effect waves-light col m2" ng-click="addProduceType(info.produce);">
+                         <i class="material-icons">add</i>
+                          <!--i class="material-icons right">send</i-->
+                        </button>
+                        <ul class="col s12">
+                          <li class="valign-wrapper" ng-repeat="produce in basicInfo.produces"> 
+                            <div class="col m10 valign"> {{produce}} </div>
+                            <button class="btn-flat waves-effect waves-light col m2 valign" ng-click="removeProduceType(produce);">
+                              <i class="material-icons">delete</i>
+                              <!--i class="material-icons right">send</i-->
+                            </button>
+                          </li>
+                        </ul>
+
                     </div>
                     <div class="input-field col s12 m4 l4">
                       <!--input id="consumes" type="text" ng-model="basicInfo.consumes"></input>
                         <label for="consumes">Consumes</label-->
-                      <select class="browser-default" style="background-color: #455a64;" select-value
+                      <div class="col  s12">Consumes: </div>
+                      <select class="browser-default col s10" style="background-color: #455a64;" select-value
                         ng-model="info.consume">
-                        <option value="" selected>Consumes:</option>
+                        <option value="" selected></option>
                         <option ng-repeat="type in mimeTypes"
                           ng-attr-value="{{ type }}"
                           ng-attr-id="{{ type }}">{{ type }}</option>
                       </select>
 
-                      <button class="btn waves-effect waves-light" ng-click="basicInfo.consumes.push(info.consume); console.log(basicInfo.produces);">
-                        add
-                        <!--i class="material-icons right">send</i-->
-                      </button>
-                      <button class="btn waves-effect waves-light" >
-                        delete
-                        <!--i class="material-icons right">send</i-->
-                      </button>
+                      <button class="btn-flat waves-effect waves-light col m2" ng-click="addConsumeType(info.consume);">
+                         <i class="material-icons">add</i>
+                          <!--i class="material-icons right">send</i-->
+                        </button>
+                        
+                        <ul class="col s12">
+                          <li class="valign-wrapper" ng-repeat="consuming in basicInfo.consumes"> 
+                            <div class="col m10 valign"> {{consuming}} </div>
+                            <button class="btn-flat waves-effect waves-light col m2 valign" ng-click="removeConsumeType(consuming);">
+                          <i class="material-icons">delete</i>
+                          <!--i class="material-icons right">send</i-->
+                        </button>
+                          </li>
+                        </ul>
+                    </div>
+                     <div class="input-field col s12 m4 l4">
+                      <!--input id="produces" type="text" ng-model="basicInfo.produces"></input>
+                        <label for="produces">Produces</label-->
+                        <div class="col  s12">Schemes: </div>
+                        <select class="browser-default col m10" style="background-color: #455a64;" select-value
+                          ng-model="info.scheme">
+                          <option value="" selected></option>
+                          <option ng-repeat="type in schemeTypes"
+                            ng-attr-value="{{ type }}"
+                            ng-attr-id="{{ type }}">{{ type }}</option>
+                        </select>
+                      
+                        <button class="btn-flat waves-effect waves-light col m2" ng-click="addSchemeType(info.scheme);">
+                         <i class="material-icons">add</i>
+                          <!--i class="material-icons right">send</i-->
+                        </button>
+                        <ul class="col s12">
+                          <li class="valign-wrapper" ng-repeat="scheme in basicInfo.schemes"> 
+                            <div class="col m10 valign"> {{scheme}} </div>
+                            <button class="btn-flat waves-effect waves-light col m2 valign" ng-click="removeSchemeType(scheme);">
+                              <i class="material-icons">delete</i>
+                              <!--i class="material-icons right">send</i-->
+                            </button>
+                          </li>
+                        </ul>
+
+                    </div>
                     </div>
                   </div>
                   </div>
@@ -422,6 +439,37 @@
                                 ng-controller="parameterController as paramControl"
                                 ng-init="paramControl.initController(pathName, operation)">
                                 <h5>Parameter</h5>
+                                {{paramControl.parametersList}}
+                                <form name="addParameter" novalidate ng-submit="addParameter.name.$valid && paramControl.addParam(pathName, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)">
+                                  <div class="valign-wrapper">
+                                    <div unique-checkbox class="input-field col s4 valign">
+                                      <input id="input" name="name" ng-model="paramControl.newParamData[operation].name" type="text" required=""/>
+                                      <label id="label" for="label">Parameter Name</label>
+                                      <div  class="error"
+                                            ng-show="addParameter.name.$dirty && addParameter.name.$invalid">
+                                        <small class="error"
+                                              ng-show="addParameter.name.$error.required">
+                                          Parameter name is required.
+                                        </small>
+                                      </div>
+                                    </div>
+                                    <div class="input-field col s4 valign" >
+                                      <select class="browser-default" ng-model="paramControl.newParamData[operation].inLocation" style="background-color: #455a64;">
+                                        <option  value="" disabled selected>Choose your Parameter Location</option>
+                                        <option value="path">Path</option>
+                                        <option value="query">Query</option>
+                                        <option value="header">Header</option>
+                                        <option value="body">Body</option>
+                                        <option value="formData">Form Data</option>
+                                      </select>
+                                    </div>
+                                    <div class="col s4 valign">
+                                      <button  class="waves-effect waves-light btn" ng-class="{ 'disabled': addParameter.name.$invalid }">
+                                      <i class="material-icons">add</i>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
                                 {{paramControl.paths}}
                                 <div></div>
                                 <table class=" section bordered responsive-table">
@@ -452,33 +500,42 @@
                                     </tr>
                                   </tbody>
                                 </table>
-                                {{paramControl.parametersList}}
-                                <form ng-submit="paramControl.addParam(pathName, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)">
+                                
+                              </div>
+                              <div class="section" ng-controller="responseController as responseControl">
+                                <h5>Response</h5>
+                                <form name="addResponse" novalidate ng-submit="addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)">
                                   <div class="valign-wrapper">
                                     <div unique-checkbox class="input-field col s4 valign">
-                                      <input id="input" ng-model="paramControl.newParamData[operation].name" type="text" required="" aria-required="true"/>
-                                      <label id="label" for="label">Parameter Name</label>
+                                      <input id="input" ng-model="responseControl.newResponseData[operation].httpCode" name="code" type="text" required=""/>
+                                      <label id="label" for="label">Response Code</label>
+                                      <div  class="error"
+                                            ng-show="addResponse.code.$dirty && addResponse.code.$invalid">
+                                        <small class="error"
+                                              ng-show="addResponse.code.$error.required">
+                                          Response code is required.
+                                        </small>
+                                      </div>
                                     </div>
-                                    <div class="input-field col s4 valign" >
-                                      <select class="browser-default" ng-model="paramControl.newParamData[operation].inLocation" style="background-color: #455a64;">
-                                        <option  value="" disabled selected>Choose your Parameter Location</option>
-                                        <option value="path">Path</option>
-                                        <option value="query">Query</option>
-                                        <option value="header">Header</option>
-                                        <option value="body">Body</option>
-                                        <option value="formData">Form Data</option>
-                                      </select>
+                                    <div unique-checkbox class="input-field col s4 valign">
+                                      <input id="input" ng-model="responseControl.newResponseData[operation].description" name="description" type="text" required="" />
+                                      <label id="label" for="label">Response Description</label>
+                                      <div  class="error"
+                                            ng-show="addResponse.description.$dirty && addResponse.desctiption.$invalid">
+                                        <small class="error"
+                                              ng-show="addResponse.description.$error.required">
+                                          Response description is required.
+                                        </small>
+                                      </div>
                                     </div>
                                     <div class="col s4 valign">
-                                      <button  class="waves-effect waves-light btn" ng-class="{ 'disabled': !paramControl.newParamData[operation].name }">
+                                      <button  class="waves-effect waves-light btn"
+                                        ng-class="{ 'disabled': addResponse.$invalid}">
                                       <i class="material-icons">add</i>
                                       </button>
                                     </div>
                                   </div>
                                 </form>
-                              </div>
-                              <div class="section" ng-controller="responseController as responseControl">
-                                <h5>Response</h5>
                                 <div></div>
                                 <table class=" section bordered responsive-table">
                                   <thead>
@@ -504,24 +561,7 @@
                                     </tr>
                                   </tbody>
                                 </table>
-                                <form ng-submit="responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)">
-                                  <div class="valign-wrapper">
-                                    <div unique-checkbox class="input-field col s4 valign">
-                                      <input id="input" ng-model="responseControl.newResponseData[operation].httpCode" type="text" required="" aria-required="true"/>
-                                      <label id="label" for="label">Response Code</label>
-                                    </div>
-                                    <div unique-checkbox class="input-field col s4 valign">
-                                      <input id="input" ng-model="responseControl.newResponseData[operation].description" type="text" required="" aria-required="true"/>
-                                      <label id="label" for="label">Response Description</label>
-                                    </div>
-                                    <div class="col s4 valign">
-                                      <button  class="waves-effect waves-light btn"
-                                        ng-class="{ 'disabled': !responseControl.newResponseData[operation].httpCode || !responseControl.newResponseData[operation].description}">
-                                      <i class="material-icons">add</i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                </form>
+                                
                               </div>
                             </div>
                           </li>

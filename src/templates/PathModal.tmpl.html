@@ -9,7 +9,7 @@
           <input id="path-name" type="text" 
                   name="pathName"
                   ng-model="pathModal.newPath.name" 
-                  ng-pattern="/^\/[0-9a-zA-Z]/"
+                  ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
                   ng-minlength=3
                   ng-maxlength=45 
                   required="" 
