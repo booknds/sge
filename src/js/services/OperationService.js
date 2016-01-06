@@ -10,7 +10,7 @@ function(ParameterService, ResponseService){
       this.operationId = null;
       this.consumes = null;
       this.produces = null;
-      this.parameters = ParameterService.newParameters();
+      this.parameters = new Array();
       this.responses = ResponseService.newResponses();
       this.schemes = null;
       this.deprecated = false;
@@ -21,9 +21,13 @@ function(ParameterService, ResponseService){
 
       addParameter: function(paramName, paramIn){
           //if the parameter does not exist for this operation add it.
-          if(!this.parameters.hasParameter){
+          /*if(!this.parameters.hasParameter){
               this.parameters.addParameter(paramName, paramIn);
-          }
+          }*/
+
+          if(hasParameter.call(this, paramName, paramIn))
+            this.parameter.push(ParameterService.newParameter(paramName, paramIn));
+          
       },
 
       getJSON: function(){
@@ -45,6 +49,20 @@ function(ParameterService, ResponseService){
 
 
   };
+
+  function hasParameter(name, inLoc){
+    var found = false
+
+    this.parameters.forEach(function(element, index, array){
+      if(element.name === name && element.in === inLoc)
+        found = true;
+    });
+
+    if(found)
+      return true;
+    else 
+      return false;
+  }
 
   function newOperation(){
     return new Operation();

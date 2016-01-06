@@ -1,5 +1,5 @@
-swaggerGE.service("PathService", ['swaggerCompiler', 'OperationService',
-function(swaggerCompiler, OperationService){
+swaggerGE.service("PathService", ['swaggerCompiler', 'OperationService', "ParameterService",
+function(swaggerCompiler, OperationService, ParameterService){
     "use strict";
 
     var self = this;
@@ -154,8 +154,11 @@ function(swaggerCompiler, OperationService){
         var path = paths[pathName][operation];
 
         if(validateParam(pathName, operation, paramName, pIn)){
-            path.parameters.addParameter(paramName, pIn);
-
+            //path.parameters.addParameter(paramName, pIn);
+            console.log("validated");
+            console.log(path.parameters);
+            path.parameters.push(ParameterService.newParameter(paramName, pIn));
+            console.log(path.parameters);
         }else{
             throw "Invalid Parameter Name-in combination, must be unique."
         }
@@ -168,7 +171,7 @@ function(swaggerCompiler, OperationService){
 
         var currentPath = paths[pathName][operation];
 
-        return currentPath.parameters.getParameterList();
+        return currentPath.parameters;
 
     }
 
@@ -187,13 +190,13 @@ function(swaggerCompiler, OperationService){
     /*
         Checks to see if the given param name is valid for the given path.
     */
-    var validateParam = function(pathName, operation, paramName, paramIn){
+    function validateParam (pathName, operation, paramName, paramIn){
         if(debug)
             console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
 
         var path = paths[pathName][operation];
 
-        if(path.parameters.hasParameter(paramName, paramIn)){
+        if(hasParameter.call(path, paramName, paramIn)){
             if(debug)
                 console.log("\t Same Parameter found, returning false!");
 
@@ -204,6 +207,21 @@ function(swaggerCompiler, OperationService){
 
             return true;
         }
+    }
+
+    function hasParameter(name, inLoc){
+      var found = false
+
+      this.parameters.forEach(function(element, index, array){
+        if(element.name === name && element.inLocation === inLoc)
+          found = true;
+        
+      });
+
+      if(found)
+        return true;
+      else 
+        return false;
     }
 
     /**

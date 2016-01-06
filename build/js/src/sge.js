@@ -550,6 +550,8 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
                 //prompt the user that it has already been added.
                 Materialize.toast("mimeType already added", 3000);
             }
+        }else {
+            Materialize.toast("Choose a mime type!", 3000);
         }
         
     }
@@ -563,6 +565,8 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
                 //prompt the user that it has already been added.
                 Materialize.toast("mimeType already added", 3000);
             }
+        }else {
+            Materialize.toast("Choose a mime type!", 3000);
         }
     }
 
@@ -575,6 +579,8 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
                 //prompt the user that it has already been added.
                 Materialize.toast("scheme type already added", 3000);
             }
+        }else {
+            Materialize.toast("Choose a scheme type!", 3000);
         }
     }
 
@@ -715,9 +721,16 @@ function($scope, log, swaggerPaths, pms){
 
     }
 
-    paramControl.editParamData = function(pathName, operation, paramName, paramInLocation){
+    paramControl.editParamData = function(pathName, operation, paramName, paramInLocation, index){
 
-      var temp = swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
+      console.log(index);
+
+      var params = swaggerPaths.getParamList(pathName, operation);//swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
+
+      var temp = params[index];
+
+      console.log(params);
+      console.log(temp);
 
       pms.parameterToUpdate(pathName, operation, temp);
 
@@ -1373,7 +1386,7 @@ function(ParameterService, ResponseService){
       this.operationId = null;
       this.consumes = null;
       this.produces = null;
-      this.parameters = ParameterService.newParameters();
+      this.parameters = new Array();
       this.responses = ResponseService.newResponses();
       this.schemes = null;
       this.deprecated = false;
@@ -1384,9 +1397,13 @@ function(ParameterService, ResponseService){
 
       addParameter: function(paramName, paramIn){
           //if the parameter does not exist for this operation add it.
-          if(!this.parameters.hasParameter){
+          /*if(!this.parameters.hasParameter){
               this.parameters.addParameter(paramName, paramIn);
-          }
+          }*/
+
+          if(hasParameter.call(this, paramName, paramIn))
+            this.parameter.push(ParameterService.newParameter(paramName, paramIn));
+          
       },
 
       getJSON: function(){
@@ -1408,6 +1425,20 @@ function(ParameterService, ResponseService){
 
 
   };
+
+  function hasParameter(name, inLoc){
+    var found = false
+
+    this.parameters.forEach(function(element, index, array){
+      if(element.name === name && element.in === inLoc)
+        found = true;
+    });
+
+    if(found)
+      return true;
+    else 
+      return false;
+  }
 
   function newOperation(){
     return new Operation();
@@ -1454,11 +1485,12 @@ swaggerGE.factory("ParameterService", [function(){
 
   var debug = true;
 
-  var Parameters = function(){
+  function oldParameters(){
       this.parameterList = new Array();
   }
+  var parameter = new Array();
 
-  Parameters.prototype = {
+  oldParameters.prototype = {
       /*
           This function add a new Parameter Object to the ParameterList
               By the Swagger definitions, "name" and "in" properties are
@@ -1556,6 +1588,10 @@ swaggerGE.factory("ParameterService", [function(){
           return param;
       }
   }
+
+//var foo = new Parameters();
+//console.log(parameter);
+//console.log(parameter.constructor);
 
   var Parameter = function(name, inLocation){
       this.name = name || "";
@@ -1661,7 +1697,7 @@ swaggerGE.factory("ParameterService", [function(){
   return {
     newParameters:newParameters,
     newParameter:newParameter
-  }
+  };
 
   /*
       Tries to create and validate a new parameter object.
@@ -1776,8 +1812,8 @@ swaggerGE.factory("ParameterService", [function(){
 
 }])
 
-swaggerGE.service("PathService", ['swaggerCompiler', 'OperationService',
-function(swaggerCompiler, OperationService){
+swaggerGE.service("PathService", ['swaggerCompiler', 'OperationService', "ParameterService",
+function(swaggerCompiler, OperationService, ParameterService){
     "use strict";
 
     var self = this;
@@ -1932,8 +1968,11 @@ function(swaggerCompiler, OperationService){
         var path = paths[pathName][operation];
 
         if(validateParam(pathName, operation, paramName, pIn)){
-            path.parameters.addParameter(paramName, pIn);
-
+            //path.parameters.addParameter(paramName, pIn);
+            console.log("validated");
+            console.log(path.parameters);
+            path.parameters.push(ParameterService.newParameter(paramName, pIn));
+            console.log(path.parameters);
         }else{
             throw "Invalid Parameter Name-in combination, must be unique."
         }
@@ -1946,7 +1985,7 @@ function(swaggerCompiler, OperationService){
 
         var currentPath = paths[pathName][operation];
 
-        return currentPath.parameters.getParameterList();
+        return currentPath.parameters;
 
     }
 
@@ -1965,13 +2004,13 @@ function(swaggerCompiler, OperationService){
     /*
         Checks to see if the given param name is valid for the given path.
     */
-    var validateParam = function(pathName, operation, paramName, paramIn){
+    function validateParam (pathName, operation, paramName, paramIn){
         if(debug)
             console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
 
         var path = paths[pathName][operation];
 
-        if(path.parameters.hasParameter(paramName, paramIn)){
+        if(hasParameter.call(path, paramName, paramIn)){
             if(debug)
                 console.log("\t Same Parameter found, returning false!");
 
@@ -1982,6 +2021,21 @@ function(swaggerCompiler, OperationService){
 
             return true;
         }
+    }
+
+    function hasParameter(name, inLoc){
+      var found = false
+
+      this.parameters.forEach(function(element, index, array){
+        if(element.name === name && element.inLocation === inLoc)
+          found = true;
+        
+      });
+
+      if(found)
+        return true;
+      else 
+        return false;
     }
 
     /**

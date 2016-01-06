@@ -53,9 +53,16 @@ function($scope, log, swaggerPaths, pms){
 
     }
 
-    paramControl.editParamData = function(pathName, operation, paramName, paramInLocation){
+    paramControl.editParamData = function(pathName, operation, paramName, paramInLocation, index){
 
-      var temp = swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
+      console.log(index);
+
+      var params = swaggerPaths.getParamList(pathName, operation);//swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
+
+      var temp = params[index];
+
+      console.log(params);
+      console.log(temp);
 
       pms.parameterToUpdate(pathName, operation, temp);
 

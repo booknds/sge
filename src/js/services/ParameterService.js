@@ -2,11 +2,12 @@ swaggerGE.factory("ParameterService", [function(){
 
   var debug = true;
 
-  var Parameters = function(){
+  function oldParameters(){
       this.parameterList = new Array();
   }
+  var parameter = new Array();
 
-  Parameters.prototype = {
+  oldParameters.prototype = {
       /*
           This function add a new Parameter Object to the ParameterList
               By the Swagger definitions, "name" and "in" properties are
@@ -104,6 +105,10 @@ swaggerGE.factory("ParameterService", [function(){
           return param;
       }
   }
+
+//var foo = new Parameters();
+//console.log(parameter);
+//console.log(parameter.constructor);
 
   var Parameter = function(name, inLocation){
       this.name = name || "";
@@ -209,7 +214,7 @@ swaggerGE.factory("ParameterService", [function(){
   return {
     newParameters:newParameters,
     newParameter:newParameter
-  }
+  };
 
   /*
       Tries to create and validate a new parameter object.

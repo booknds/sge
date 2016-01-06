@@ -242,14 +242,14 @@
                             ng-attr-id="{{ type }}">{{ type }}</option>
                         </select>
                       
-                        <button class="btn-flat waves-effect waves-light col m2" ng-click="addProduceType(info.produce);">
+                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="addProduceType(info.produce);">
                          <i class="material-icons">add</i>
                           <!--i class="material-icons right">send</i-->
                         </button>
                         <ul class="col s12">
                           <li class="valign-wrapper" ng-repeat="produce in basicInfo.produces"> 
                             <div class="col m10 valign"> {{produce}} </div>
-                            <button class="btn-flat waves-effect waves-light col m2 valign" ng-click="removeProduceType(produce);">
+                            <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="removeProduceType(produce);">
                               <i class="material-icons">delete</i>
                               <!--i class="material-icons right">send</i-->
                             </button>
@@ -269,7 +269,7 @@
                           ng-attr-id="{{ type }}">{{ type }}</option>
                       </select>
 
-                      <button class="btn-flat waves-effect waves-light col m2" ng-click="addConsumeType(info.consume);">
+                      <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="addConsumeType(info.consume);">
                          <i class="material-icons">add</i>
                           <!--i class="material-icons right">send</i-->
                         </button>
@@ -277,7 +277,7 @@
                         <ul class="col s12">
                           <li class="valign-wrapper" ng-repeat="consuming in basicInfo.consumes"> 
                             <div class="col m10 valign"> {{consuming}} </div>
-                            <button class="btn-flat waves-effect waves-light col m2 valign" ng-click="removeConsumeType(consuming);">
+                            <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="removeConsumeType(consuming);">
                           <i class="material-icons">delete</i>
                           <!--i class="material-icons right">send</i-->
                         </button>
@@ -296,14 +296,14 @@
                             ng-attr-id="{{ type }}">{{ type }}</option>
                         </select>
                       
-                        <button class="btn-flat waves-effect waves-light col m2" ng-click="addSchemeType(info.scheme);">
+                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" type="submit" name="action" ng-click="addSchemeType(info.scheme);">
                          <i class="material-icons">add</i>
                           <!--i class="material-icons right">send</i-->
                         </button>
                         <ul class="col s12">
                           <li class="valign-wrapper" ng-repeat="scheme in basicInfo.schemes"> 
                             <div class="col m10 valign"> {{scheme}} </div>
-                            <button class="btn-flat waves-effect waves-light col m2 valign" ng-click="removeSchemeType(scheme);">
+                            <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" type="submit" name="action" ng-click="removeSchemeType(scheme);">
                               <i class="material-icons">delete</i>
                               <!--i class="material-icons right">send</i-->
                             </button>
@@ -434,12 +434,39 @@
                                 </div>
                                 <!--/form-->
                               </div>
-                              <div class="section"
+                              <div class="Section       "
                                 ng-if="pathCtl.paths[pathName][operation]"
                                 ng-controller="parameterController as paramControl"
-                                ng-init="paramControl.initController(pathName, operation)">
+                                >
                                 <h5>Parameter</h5>
-                                {{paramControl.parametersList}}
+                                <table class=" section bordered responsive-table">
+                                  <thead>
+                                    <tr>
+                                      <th data-field="name">Name</th>
+                                      <th data-field="in">Located In</th>
+                                      <th data-field="description">Description</th>
+                                      <th data-field="required">Required</th>
+                                      <th data-field="Schema">Schema</th>
+                                      <th data-field="Edit">Edit</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr ng-repeat="param in pathCtl.paths[pathName][operation].parameters | orderBy:'name'">
+                                      <div >
+                                        <td class="white-text">{{param.name}}</td>
+                                        <td class="white-text">{{param.inLocation}}</td>
+                                        <td class="shrink white-text">{{param.description}}</td>
+                                        <td class="white-text">{{param.required}}</td>
+                                        <td class="shrink">{{param.schema}}</td>
+                                        <td class="white-text">
+                                          <a class="disabled" href="#param-modal" modal ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)">
+                                          <i class="material-icons">settings</i>
+                                          </a>
+                                        </td>
+                                      </div>
+                                    </tr>
+                                  </tbody>
+                                </table>
                                 <form name="addParameter" novalidate ng-submit="addParameter.name.$valid && paramControl.addParam(pathName, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)">
                                   <div class="valign-wrapper">
                                     <div unique-checkbox class="input-field col s4 valign">
@@ -472,27 +499,29 @@
                                 </form>
                                 {{paramControl.paths}}
                                 <div></div>
+                                
+                                
+                              </div>
+                              <div class="section" ng-controller="responseController as responseControl">
+                                <h5>Response</h5>
+                                <div></div>
                                 <table class=" section bordered responsive-table">
                                   <thead>
                                     <tr>
-                                      <th data-field="name">Name</th>
-                                      <th data-field="in">Located In</th>
+                                      <th data-field="code">Code</th>
                                       <th data-field="description">Description</th>
-                                      <th data-field="required">Required</th>
                                       <th data-field="Schema">Schema</th>
                                       <th data-field="Edit">Edit</th>
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr ng-repeat="param in pathCtl.paths[pathName][operation].parameters.parameterList | orderBy:'name'">
+                                    <tr ng-repeat="(responseCode, response) in pathCtl.paths[pathName][operation].responses | orderBy:'responseCode'">
                                       <div >
-                                        <td class="white-text">{{param.name}}</td>
-                                        <td class="white-text">{{param.inLocation}}</td>
-                                        <td class="shrink white-text">{{param.description}}</td>
-                                        <td class="white-text">{{param.required}}</td>
-                                        <td class="shrink">{{param.schema}}</td>
-                                        <td class="white-text">
-                                          <a class="disabled" href="#param-modal" modal ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation)">
+                                        <td>{{responseCode}}</td>
+                                        <td class="shrink">{{response.description}}</td>
+                                        <td class="shrink">{{response.schema}}</td>
+                                        <td>
+                                          <a class="disabled" href="#response-modal" modal ng-click="responseControl.initResponseData(pathName, operation, responseCode)">
                                           <i class="material-icons">settings</i>
                                           </a>
                                         </td>
@@ -500,10 +529,6 @@
                                     </tr>
                                   </tbody>
                                 </table>
-                                
-                              </div>
-                              <div class="section" ng-controller="responseController as responseControl">
-                                <h5>Response</h5>
                                 <form name="addResponse" novalidate ng-submit="addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)">
                                   <div class="valign-wrapper">
                                     <div unique-checkbox class="input-field col s4 valign">
@@ -536,31 +561,7 @@
                                     </div>
                                   </div>
                                 </form>
-                                <div></div>
-                                <table class=" section bordered responsive-table">
-                                  <thead>
-                                    <tr>
-                                      <th data-field="code">Code</th>
-                                      <th data-field="description">Description</th>
-                                      <th data-field="Schema">Schema</th>
-                                      <th data-field="Edit">Edit</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr ng-repeat="(responseCode, response) in pathCtl.paths[pathName][operation].responses | orderBy:'responseCode'">
-                                      <div >
-                                        <td>{{responseCode}}</td>
-                                        <td class="shrink">{{response.description}}</td>
-                                        <td class="shrink">{{response.schema}}</td>
-                                        <td>
-                                          <a class="disabled" href="#response-modal" modal ng-click="responseControl.initResponseData(pathName, operation, responseCode)">
-                                          <i class="material-icons">settings</i>
-                                          </a>
-                                        </td>
-                                      </div>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                                
                                 
                               </div>
                             </div>

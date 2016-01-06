@@ -42,6 +42,8 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
                 //prompt the user that it has already been added.
                 Materialize.toast("mimeType already added", 3000);
             }
+        }else {
+            Materialize.toast("Choose a mime type!", 3000);
         }
         
     }
@@ -55,6 +57,8 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
                 //prompt the user that it has already been added.
                 Materialize.toast("mimeType already added", 3000);
             }
+        }else {
+            Materialize.toast("Choose a mime type!", 3000);
         }
     }
 
@@ -67,6 +71,8 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
                 //prompt the user that it has already been added.
                 Materialize.toast("scheme type already added", 3000);
             }
+        }else {
+            Materialize.toast("Choose a scheme type!", 3000);
         }
     }
 
