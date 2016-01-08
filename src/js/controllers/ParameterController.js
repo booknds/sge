@@ -1,72 +1,77 @@
-"use strict";
-swaggerGE.controller("parameterController", ['$scope', '$log', 'PathService', "ParameterModalService",
-function($scope, log, swaggerPaths, pms){
+(function(){
+  "use strict";
 
-    var paramControl = this;
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("parameterController", ['$scope', '$log', 'PathService', "ParameterModalService", ParameterCtrl]);
 
-    //paramControl.am = {};
+  function ParameterCtrl($scope, log, swaggerPaths, pms){
 
-    paramControl.path = {
-      name: null,
-      operation: null,
-    }
+      var paramControl = this;
 
-    paramControl.parametersList = null;
+      //paramControl.am = {};
 
-    paramControl.newParamData = {
-      post:{
-        name:null,
-        inLocation:null,
-      },
-      get:{
-        name:null,
-        inLocation:null,
-      },
-      put:{
-        name:null,
-        inLocation:null,
-      },
-      delete:{
-        name:null,
-        inLocation:null,
-      },
-    }
+      paramControl.path = {
+        name: null,
+        operation: null,
+      }
 
-    //Param methods
-    this.addParam = function(pathName, operation, paramName, paramInLocation){
+      paramControl.parametersList = null;
 
-        try{
-            swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
-            //$scope.parametersList = swaggerPaths.getParamList;
-            //updateParamList(pathName, operation);
-        }catch(e){
-            console.log(e);
-            //paramControl.toastUser("Not a unique parameter/query combo.");
-            Materialize.toast("Parameter name/query combo' already exists", 3000);
-        }
+      paramControl.newParamData = {
+        post:{
+          name:null,
+          inLocation:null,
+        },
+        get:{
+          name:null,
+          inLocation:null,
+        },
+        put:{
+          name:null,
+          inLocation:null,
+        },
+        delete:{
+          name:null,
+          inLocation:null,
+        },
+      }
 
-        //path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
+      //Param methods
+      this.addParam = function(pathName, operation, paramName, paramInLocation){
 
-        paramControl.newParamData[operation].name = "";
+          try{
+              swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
+              //$scope.parametersList = swaggerPaths.getParamList;
+              //updateParamList(pathName, operation);
+          }catch(e){
+              console.log(e);
+              //paramControl.toastUser("Not a unique parameter/query combo.");
+              Materialize.toast("Parameter name/query combo' already exists", 3000);
+          }
 
+          //path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
 
-
-    }
-
-    paramControl.editParamData = function(pathName, operation, paramName, paramInLocation, index){
-
-      console.log(index);
-
-      var params = swaggerPaths.getParamList(pathName, operation);//swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
-
-      var temp = params[index];
-
-      console.log(params);
-      console.log(temp);
-
-      pms.parameterToUpdate(pathName, operation, temp);
-
-    };
+          paramControl.newParamData[operation].name = "";
 
 
-}]);
+
+      }
+
+      paramControl.editParamData = function(pathName, operation, paramName, paramInLocation, index){
+
+        console.log(index);
+
+        var params = swaggerPaths.getParamList(pathName, operation);
+        var temp = params[index];
+
+        console.log(params);
+        console.log(temp);
+
+        pms.parameterToUpdate(pathName, operation, temp);
+
+      };
+
+
+  }
+})();

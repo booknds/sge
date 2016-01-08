@@ -13,7 +13,7 @@ function(swaggerCompiler, OperationService, ParameterService){
     self.paths = paths;
 
 /************** PATH FUNCTIONS START *******************/
-    var Path = function(){
+    function Path(){
       this.get = null;
       this.post = null;
       this.put = null;
@@ -181,10 +181,23 @@ function(swaggerCompiler, OperationService, ParameterService){
     self.getParam = function(pathName, operation, paramName, paramIn){
         console.log("------------------\nGETTING PARAM NAME");
         console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
-        var paramObject = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
-        console.log(paramObject);
+        var parameter;// = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
+        paths[pathName][operation].parameters.forEach(function loop(element, index, array){
+          if(element.name === paramName && element.inLocation === paramIn){
+            parameter = element;
+          }
+
+        })
+
+        // for(var param in paths[pathName][operation].parameters){
+        //   if(param.name === paramName && param.inLocation === paramIn){
+        //     parameter = param;
+        //   }
+        // }
+        debugger;
+        //console.log(paramObject);
         console.log("------------------");
-        return paramObject;
+        return parameter;
     };
 
     /*
@@ -215,12 +228,12 @@ function(swaggerCompiler, OperationService, ParameterService){
       this.parameters.forEach(function(element, index, array){
         if(element.name === name && element.inLocation === inLoc)
           found = true;
-        
+
       });
 
       if(found)
         return true;
-      else 
+      else
         return false;
     }
 

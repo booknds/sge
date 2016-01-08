@@ -1,67 +1,71 @@
-"use strict";
-swaggerGE.controller("PathModalController", ["$scope", "PathService",
-  function($scope, PathService){
+(function(){
+  "use strict";
 
-    var vm = this;
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("PathModalController", ["$scope", "PathService", PathModalCtrl]);
 
-    vm.newPath = {
-      name:null,
-      operations:{
-        post:false,
-        get:false,
-        put:false,
-        delete:false,
-      }
-    }
-
-    vm.prevent = {
-      pathCreation: false,
-    }
-
-    $scope.closePathModal = false;
-
-    /*
-        Add a new path object to the array containing all the paths
-    */
-    vm.addPath = function(pathName, operation){
-      try{
-        PathService.addPath(pathName);
-      }catch(e){
-        console.log(e);
-        Materialize.toast('Not a unique name!', 2000);
-      }
-        for(var operation in vm.newPath.operations){
-
-            if(vm.newPath.operations[operation]){
-              console.log("CURRENT OP");
-              console.log(operation);
-              console.log(vm.newPath.operations);
-
-              try{
-                PathService.addOperation(pathName, operation)
-              }catch(e){
-                console.log(e);
-              }
-            }
-
+    function PathModalCtrl($scope, PathService){
+      
+      this.newPath = {
+        name:null,
+        operations:{
+          post:false,
+          get:false,
+          put:false,
+          delete:false,
         }
+      }
 
+      this.prevent = {
+        pathCreation: false,
+      }
 
-        vm.newPath = {
-          name:null,
-          operations:{
-            post:false,
-            get:false,
-            put:false,
-            delete:false,
+      $scope.closePathModal = false;
+
+      /*
+          Add a new path object to the array containing all the paths
+      */
+      this.addPath = function(pathName, operation){
+        try{
+          PathService.addPath(pathName);
+        }catch(e){
+          console.log(e);
+          Materialize.toast('Not a unique name!', 2000);
+        }
+          for(var operation in this.newPath.operations){
+
+              if(this.newPath.operations[operation]){
+                console.log("CURRENT OP");
+                console.log(operation);
+                console.log(this.newPath.operations);
+
+                try{
+                  PathService.addOperation(pathName, operation)
+                }catch(e){
+                  console.log(e);
+                }
+              }
+
           }
-        };
-
-        vm.prevent.pathCreation = true;
-
-        $scope.closePathModal = true;
-
-    };
 
 
-}]);
+          this.newPath = {
+            name:null,
+            operations:{
+              post:false,
+              get:false,
+              put:false,
+              delete:false,
+            }
+          };
+
+          this.prevent.pathCreation = true;
+
+          $scope.closePathModal = true;
+
+      };
+
+
+  }
+})();

@@ -1,9 +1,13 @@
-swaggerGE.controller("ResponseModalController", ["ResponseModalService", "PathService", "$scope",
-  function(rms, PathService, $scope){
+(function(){
+  "use strict";
 
-    var vm = this;
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("ResponseModalController", ["ResponseModalService", "PathService", "$scope", ResponseModalCtrl]);
 
-    vm.tempResponseData = {
+  function ResponseModalCtrl(rms, PathService, $scope){
+
+    this.tempResponseData = {
       httpCode:null,
       response:null,
     };
@@ -14,47 +18,51 @@ swaggerGE.controller("ResponseModalController", ["ResponseModalService", "PathSe
       response:null,
     };
 
-    $scope.$watch(function(){return rms.currentResponse;}, function(newVal){
+    $scope.$watch(function(){return rms.currentResponse;}, onModalInit.bind(this), true);
 
-        if(newVal.response){
-          console.log("hit current response updated");
-          var currentResponse = newVal;
-          vm.originalResponseData = currentResponse;
+    function onModalInit(newVal){
 
-          vm.tempResponseData.response = angular.copy(currentResponse.response);
-          vm.tempResponseData.httpCode = vm.originalResponseData.httpCode;
+      if(newVal.response){
+        console.log("hit current response updated");
+        var currentResponse = newVal;
+        this.originalResponseData = currentResponse;
 
-          if(vm.tempResponseData.response.schema instanceof Object){
-            vm.tempResponseData.response.schema = JSON.stringify(vm.tempResponseData.response.schema);
-          }
-          if(vm.tempResponseData.response.headers instanceof Object){
-            vm.tempResponseData.response.headers = JSON.stringify(vm.tempResponseData.response.headers);
-          }
-          if(vm.tempResponseData.response.examples instanceof Object){
-            vm.tempResponseData.response.examples = JSON.stringify(vm.tempResponseData.response.examples);
-          }
+        this.tempResponseData.response = angular.copy(currentResponse.response);
+        this.tempResponseData.httpCode = this.originalResponseData.httpCode;
 
+        if(this.tempResponseData.response.schema instanceof Object){
+          this.tempResponseData.response.schema = JSON.stringify(this.tempResponseData.response.schema);
         }
-
-      }, true);
-
-      vm.updateResponse = function(originalResponse, newResponse){
-        try{
-          //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
-          PathService.updateResponse(originalResponse, newResponse);
-        }catch(e){
-            console.log(e);
-            Materialize.toast("Parameter name/query combo' already exists", 3000);
+        if(this.tempResponseData.response.headers instanceof Object){
+          this.tempResponseData.response.headers = JSON.stringify(this.tempResponseData.response.headers);
         }
-      }
-
-      vm.setParamInModal = function(inLocation){
-        console.log("setting param modal");
-        if(inLocation === 'path'){
-          vm.tempResponse.required = true;
-          console.log(vm.tempResponse);
+        if(this.tempResponseData.response.examples instanceof Object){
+          this.tempResponseData.response.examples = JSON.stringify(this.tempResponseData.response.examples);
         }
 
       }
 
-}]);
+    }
+
+    this.updateResponse = function(originalResponse, newResponse){
+      try{
+        //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
+        PathService.updateResponse(originalResponse, newResponse);
+      }catch(e){
+          console.log(e);
+          Materialize.toast("Parameter name/query combo' already exists", 3000);
+      }
+    }
+
+    this.setParamInModal = function(inLocation){
+      console.log("setting param modal");
+      if(inLocation === 'path'){
+        this.tempResponse.required = true;
+        console.log(this.tempResponse);
+      }
+
+    }
+
+  }
+
+})();

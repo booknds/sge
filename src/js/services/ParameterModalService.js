@@ -2,7 +2,6 @@ swaggerGE.factory("ParameterModalService", [function(){
 
   var pms = {};
 
-
   pms.currentParameter = {
     pathName:null,
     operation:null,
@@ -10,8 +9,8 @@ swaggerGE.factory("ParameterModalService", [function(){
   };
 
   pms.parameterToUpdate = function(pathName, operation, parameter){
-    //console.log("updaiting parameter");
-    //console.log(parameter);
+    console.log("updaiting parameter");
+    console.log(parameter);
 
     pms.currentParameter.pathName = pathName;
     pms.currentParameter.operation = operation;

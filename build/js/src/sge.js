@@ -284,38 +284,53 @@ swaggerGE.directive("uniqueCheckbox", ["$interval", function($interval) {
     }
 }]);
 
-swaggerGE.controller("CompilerController", ["$scope", "CompilerService", 'FileSaver', 'Blob',
-  function($scope, cs, FileSaver, Blob){
-    var vm =  this;
+(function(){
+  "use strict";
 
-    vm.compiledDocument = cs.compiled;
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("CompilerController", ["$scope", "CompilerService", 'FileSaver', 'Blob', CompilerCtrl]);
 
-    /*
-    *
-    *
-    */
-    vm.recompile = function(){
-      cs.recompile();
-    };
 
-    vm.download = function(text){
-      var data = new Blob([JSON.stringify(text)], { type: 'application/json' });
-      FileSaver.saveAs(data, 'swagger.json');
+    function CompilerCtrl($scope, cs, FileSaver, Blob){
+      var vm =  this;
+
+      vm.compiledDocument = cs.compiled;
+
+      /*
+      *
+      *
+      */
+      vm.recompile = function(){
+        cs.recompile();
+      };
+
+      vm.download = function(text){
+        var data = new Blob([JSON.stringify(text)], { type: 'application/json' });
+        FileSaver.saveAs(data, 'swagger.json');
+      }
+
+      $scope.$watch(function(){return cs.compiled;}, function(newVal){
+        console.log("COMPILKED CHANGED");
+        console.log(newVal)
+        if(newVal){
+          vm.compiledDocument = cs.compiled;
+          //vm.definitions = ds.definitions;
+        }
+      }, true);
+
     }
 
-    $scope.$watch(function(){return cs.compiled;}, function(newVal){
-      console.log("COMPILKED CHANGED");
-      console.log(newVal)
-      if(newVal){
-        vm.compiledDocument = cs.compiled;
-        //vm.definitions = ds.definitions;
-      }
-    }, true);
+})();
 
-  }])
+(function(){
+  "use strict";
 
-swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsService',
-  function($scope, ds){
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("DefinitionCreationController", ['$scope', 'DefinitionsService', DefinitionCreationCtrl]);
+
+  function DefinitionCreationCtrl($scope, ds){
     var vm = this;
 
     $scope.closeModal=false;
@@ -341,13 +356,18 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
       };
 
     }
+  }
 
+})();
 
+(function(){
+  "use strict";
 
-  }]);
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("DefinitionEditorController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService", DefinitionEditorCtrl]);
 
-swaggerGE.controller("DefinitionEditorController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService",
-  function($scope, $window, ds, dems){
+  function DefinitionEditorCtrl($scope, $window, ds, dems){
 
     var vm = this;
 
@@ -442,10 +462,17 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "$window", "Defini
 
       }, true);
 
-}])
+  }
+})();
 
-swaggerGE.controller("DefinitionsController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService",
-  function($scope, $window, ds, dems){
+(function(){
+  "use strict";
+
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("DefinitionsController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService", DefinitionsCtrl]);
+
+  function DefinitionsCtrl($scope, $window, ds, dems){
 
     var vm = this;
 
@@ -504,10 +531,18 @@ swaggerGE.controller("DefinitionsController", ["$scope", "$window", "Definitions
 
     }
 
-}])
+  }
+})();
 
-swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseService', function($scope, $log, swaggerBaseService){
+(function(){
+  "use strict";
 
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseService', SwaggerBaseCtrl]);
+
+  /* @ngInject */
+  function SwaggerBaseCtrl($scope, $log, swaggerBaseService){
     //display functionality
     $scope.preventUpdate = true;
 
@@ -553,14 +588,14 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
         }else {
             Materialize.toast("Choose a mime type!", 3000);
         }
-        
+
     }
 
     $scope.addProduceType = function(mimeType){
         if(mimeType){
             if($scope.basicInfo.produces.indexOf(mimeType) === -1){
                 $scope.basicInfo.produces.push(mimeType);
-            
+
             }else {
                 //prompt the user that it has already been added.
                 Materialize.toast("mimeType already added", 3000);
@@ -574,7 +609,7 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
         if(schemeType){
             if($scope.basicInfo.schemes.indexOf(schemeType) === -1){
                 $scope.basicInfo.schemes.push(schemeType);
-            
+
             }else {
                 //prompt the user that it has already been added.
                 Materialize.toast("scheme type already added", 3000);
@@ -603,7 +638,7 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
 
     }
 
-     $scope.removeSchemeType = function(schemeType){
+    $scope.removeSchemeType = function(schemeType){
         var index = $scope.basicInfo.schemes.indexOf(schemeType);
         if(index >= 0)
             $scope.basicInfo.schemes.splice(index, 1);
@@ -611,18 +646,11 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
             Materialize.toast("scheme type already deleted", 3000);
     }
 
-    function addMimeType(mimeType){
-
-    }
-
-    function removeMimeType(mimeType){
-
-    }
 
     /*
         watch for Api's version number and title
             These are required as part of the SWAGGER definition
-    
+
     $scope.$watch('basicInfo.info.title', function(){
         $scope.checkMinRequirements();
         //console.log($scope.basicInfo.info.title)
@@ -640,7 +668,7 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
 
     /*
         Update the schemes list. Add the scheme if checked, and remove if unchecked
-    
+
     $scope.updateCheckBox = function(schemeType){
 
         var removedScheme = false;
@@ -664,94 +692,109 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
     }*/
 
 
-}]);
+  }
 
-"use strict";
-swaggerGE.controller("parameterController", ['$scope', '$log', 'PathService', "ParameterModalService",
-function($scope, log, swaggerPaths, pms){
+})(angular);
 
-    var paramControl = this;
+(function(){
+  "use strict";
 
-    //paramControl.am = {};
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("parameterController", ['$scope', '$log', 'PathService', "ParameterModalService", ParameterCtrl]);
 
-    paramControl.path = {
-      name: null,
-      operation: null,
-    }
+  function ParameterCtrl($scope, log, swaggerPaths, pms){
 
-    paramControl.parametersList = null;
+      var paramControl = this;
 
-    paramControl.newParamData = {
-      post:{
-        name:null,
-        inLocation:null,
-      },
-      get:{
-        name:null,
-        inLocation:null,
-      },
-      put:{
-        name:null,
-        inLocation:null,
-      },
-      delete:{
-        name:null,
-        inLocation:null,
-      },
-    }
+      //paramControl.am = {};
 
-    //Param methods
-    this.addParam = function(pathName, operation, paramName, paramInLocation){
+      paramControl.path = {
+        name: null,
+        operation: null,
+      }
 
-        try{
-            swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
-            //$scope.parametersList = swaggerPaths.getParamList;
-            //updateParamList(pathName, operation);
-        }catch(e){
-            console.log(e);
-            //paramControl.toastUser("Not a unique parameter/query combo.");
-            Materialize.toast("Parameter name/query combo' already exists", 3000);
-        }
+      paramControl.parametersList = null;
 
-        //path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
+      paramControl.newParamData = {
+        post:{
+          name:null,
+          inLocation:null,
+        },
+        get:{
+          name:null,
+          inLocation:null,
+        },
+        put:{
+          name:null,
+          inLocation:null,
+        },
+        delete:{
+          name:null,
+          inLocation:null,
+        },
+      }
 
-        paramControl.newParamData[operation].name = "";
+      //Param methods
+      this.addParam = function(pathName, operation, paramName, paramInLocation){
 
+          try{
+              swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
+              //$scope.parametersList = swaggerPaths.getParamList;
+              //updateParamList(pathName, operation);
+          }catch(e){
+              console.log(e);
+              //paramControl.toastUser("Not a unique parameter/query combo.");
+              Materialize.toast("Parameter name/query combo' already exists", 3000);
+          }
 
+          //path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
 
-    }
-
-    paramControl.editParamData = function(pathName, operation, paramName, paramInLocation, index){
-
-      console.log(index);
-
-      var params = swaggerPaths.getParamList(pathName, operation);//swaggerPaths.getParam(pathName, operation, paramName, paramInLocation);
-
-      var temp = params[index];
-
-      console.log(params);
-      console.log(temp);
-
-      pms.parameterToUpdate(pathName, operation, temp);
-
-    };
+          paramControl.newParamData[operation].name = "";
 
 
-}]);
 
-swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "ParameterModalService",
-  function($scope, swaggerPaths, pms){
+      }
 
-    var paramModal = this;
+      paramControl.editParamData = function(pathName, operation, paramName, paramInLocation, index){
 
-    paramModal.tempParam = {};
+        console.log(index);
+
+        var params = swaggerPaths.getParamList(pathName, operation);
+        var temp = params[index];
+
+        console.log(params);
+        console.log(temp);
+
+        pms.parameterToUpdate(pathName, operation, temp);
+
+      };
+
+
+  }
+})();
+
+(function(){
+  "use strict";
+
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("ParameterModalController", ["$scope", "PathService", "ParameterModalService", ParameterModalCtrl]);
+
+  function ParameterModalCtrl($scope, swaggerPaths, pms){
+
+    var vm = this;
+
+    this.tempParam = {};
+    this.currentParam = {};
+
     var originalParamData = {
       pathName:null,
       operation:null,
       parameter:null
     };
 
-    paramModal.paramOptions = {
+    this.paramOptions = {
       format : ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'],
 
       type : ['string','number', 'integer', 'boolean', 'array', 'file'],
@@ -760,28 +803,30 @@ swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "Para
     }
 
 
-    $scope.$watch(function(){return pms.currentParameter;}, function(newVal){
+    $scope.$watch(function(){return pms.currentParameter;}, onModalInit.bind(this), true);
+
+    function onModalInit(newVal, oldVal){
 
         if(newVal.parameter){
+          this.currentParam = pms.currentParameter;
 
           var currentParam = newVal;
           originalParamData.pathName = currentParam.pathName;
           originalParamData.operation = currentParam.operation;
           originalParamData.parameter = currentParam.parameter;
 
-          paramModal.tempParam = angular.copy(currentParam.parameter);
+          this.tempParam = angular.copy(currentParam.parameter);
 
-          if(paramModal.tempParam.schema){
-            paramModal.tempParam.schema = JSON.stringify(paramModal.tempParam.schema);
+          if(this.tempParam.schema){
+            this.tempParam.schema = JSON.stringify(this.tempParam.schema);
           }
-
         }
 
-      }, true);
+      }
 
-      paramModal.updateParameter = function(){
+      this.updateParameter = function(){
         try{
-          swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
+          swaggerPaths.updateParameter(originalParamData, this.tempParam);
 
         }catch(e){
             console.log(e);
@@ -789,257 +834,273 @@ swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "Para
         }
       }
 
-      paramModal.setParamInModal = function(inLocation){
+      this.setParamInModal = function(inLocation){
         console.log("setting param modal");
         if(inLocation === 'path'){
-          paramModal.tempParam.required = true;
-          console.log(paramModal.tempParam);
+          this.tempParam.required = true;
+          console.log(this.tempParam);
         }
 
       }
 
-  }]);
+  }
+})();
 
-swaggerGE.controller("PathController", ['$scope', 'PathService', 'swaggerCompiler', '$window',
-  function($scope, swaggerPaths, swaggerCompiler, $window){
+(function(){
+  "use strict";
 
-     "use strict";
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("PathController", ['$scope', 'PathService', 'swaggerCompiler', '$window', PathCtrl]);
 
-     var vm = this;
+    function PathCtrl($scope, swaggerPaths, swaggerCompiler, $window){
+      //$scope.thisObject = this;
 
-    //$scope.thisObject = vm;
+      //used to test the services
+      this.paths = swaggerPaths.paths;
 
-    //used to test the services
-    vm.paths = swaggerPaths.paths;
-
-    vm.prevent = {
-      showPaths:false,
-    }
-
-    $scope.focusPathModal = false;
-
-    //$scope.closePathModal = false;
-
-
-  /*  vm.togglePaths = function(){
-      //make sure there are paths to show
-      if($scope.paths.length > 0)
-          $scope.prevent.pathsList = !$scope.prevent.pathsList;
-    }*/
-    $scope.openFocusPathModal = function(){
-      $scope.focusPathModal = true;
-      console.log("toggle focus: focusPathModal ==" + $scope.focusPathModal)
-      //$scope.focusPathModal = !$scope.focusPathModal;
-    }
-
-    vm.updatePathName = function(originalPathName, newPathName){
-      try{
-        swaggerPaths.updatePathName(originalPathName, newPathName);
-        //delete the old pathName saved on the Object
-        //delete vm[originalPathName];
-        vm[newPathName]="";
-      }catch(e){
-        console.log(e);
-        Materialize.toast(e, 3000);
+      this.prevent = {
+        showPaths:false,
       }
-    }
 
-    vm.deletePath = function(pathName){
-      if($window.confirm('Are you sure you want to delete the path?')){
+      $scope.focusPathModal = false;
 
+      //$scope.closePathModal = false;
+
+
+    /*  this.togglePaths = function(){
+        //make sure there are paths to show
+        if($scope.paths.length > 0)
+            $scope.prevent.pathsList = !$scope.prevent.pathsList;
+      }*/
+      $scope.openFocusPathModal = function(){
+        $scope.focusPathModal = true;
+        console.log("toggle focus: focusPathModal ==" + $scope.focusPathModal)
+        //$scope.focusPathModal = !$scope.focusPathModal;
+      }
+
+      this.updatePathName = function(originalPathName, newPathName){
         try{
-          swaggerPaths.removePath(pathName);
+          swaggerPaths.updatePathName(originalPathName, newPathName);
+          //delete the old pathName saved on the Object
+          //delete this[originalPathName];
+          this[newPathName]="";
         }catch(e){
           console.log(e);
           Materialize.toast(e, 3000);
         }
-        //  swaggerPaths.deleteOperation(pathName, operation);
-
-          //delete path.pathDefinition[pathName][operation];
-
-      }else{
-          //angular
-          console.log('DONT DELETE');
-          //path.currentPathOperations[operation] = !path.currentPathOperations[operation];
-
       }
-    }
 
-/**---------  START Operation methods ---------**/
+      this.deletePath = function(pathName){
+        if($window.confirm('Are you sure you want to delete the path?')){
 
-    vm.deleteOperation = function(pathName, operation){
-      //if the operation exists delete it
-
-        if($window.confirm('Are you sure you want to delete the ' + operation + ' operation?')){
-
-            swaggerPaths.removeOperation(pathName, operation);
+          try{
+            swaggerPaths.removePath(pathName);
+          }catch(e){
+            console.log(e);
+            Materialize.toast(e, 3000);
+          }
+          //  swaggerPaths.deleteOperation(pathName, operation);
 
             //delete path.pathDefinition[pathName][operation];
 
-      }else{
-        console.log("dont delete operation");
-      }
-    };
-
-    vm.addOperation = function(pathName, operation){
-      try{
-        swaggerPaths.addOperation(pathName, operation);
-      }catch(e){
-        console.log(e);
-        Materialize.toast(e, 3000);
-      }
-    };
-
-    vm.updateOperation = function(pathName, operation, key, value){
-      swaggerPaths.updateOperationInformation(pathName, operation, key, value);
-      value="";
-      Materialize.toast("Updated " + key, 2000);
-    };
-
-
-
-}]);
-
-"use strict";
-swaggerGE.controller("PathModalController", ["$scope", "PathService",
-  function($scope, PathService){
-
-    var vm = this;
-
-    vm.newPath = {
-      name:null,
-      operations:{
-        post:false,
-        get:false,
-        put:false,
-        delete:false,
-      }
-    }
-
-    vm.prevent = {
-      pathCreation: false,
-    }
-
-    $scope.closePathModal = false;
-
-    /*
-        Add a new path object to the array containing all the paths
-    */
-    vm.addPath = function(pathName, operation){
-      try{
-        PathService.addPath(pathName);
-      }catch(e){
-        console.log(e);
-        Materialize.toast('Not a unique name!', 2000);
-      }
-        for(var operation in vm.newPath.operations){
-
-            if(vm.newPath.operations[operation]){
-              console.log("CURRENT OP");
-              console.log(operation);
-              console.log(vm.newPath.operations);
-
-              try{
-                PathService.addOperation(pathName, operation)
-              }catch(e){
-                console.log(e);
-              }
-            }
+        }else{
+            //angular
+            console.log('DONT DELETE');
+            //path.currentPathOperations[operation] = !path.currentPathOperations[operation];
 
         }
+      }
+
+  /**---------  START Operation methods ---------**/
+
+      this.deleteOperation = function(pathName, operation){
+        //if the operation exists delete it
+
+          if($window.confirm('Are you sure you want to delete the ' + operation + ' operation?')){
+
+              swaggerPaths.removeOperation(pathName, operation);
+
+              //delete path.pathDefinition[pathName][operation];
+
+        }else{
+          console.log("dont delete operation");
+        }
+      };
+
+      this.addOperation = function(pathName, operation){
+        try{
+          swaggerPaths.addOperation(pathName, operation);
+        }catch(e){
+          console.log(e);
+          Materialize.toast(e, 3000);
+        }
+      };
+
+      this.updateOperation = function(pathName, operation, key, value){
+        swaggerPaths.updateOperationInformation(pathName, operation, key, value);
+        value="";
+        Materialize.toast("Updated " + key, 2000);
+      };
 
 
-        vm.newPath = {
-          name:null,
-          operations:{
-            post:false,
-            get:false,
-            put:false,
-            delete:false,
-          }
-        };
 
-        vm.prevent.pathCreation = true;
+  }
 
-        $scope.closePathModal = true;
+})();
 
-    };
-
-
-}]);
-
-swaggerGE.controller("responseController",["$scope", "PathService", "ResponseModalService",
- function($scope, PathService, rms){
+(function(){
   "use strict";
 
-  var responseControl = this;
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("PathModalController", ["$scope", "PathService", PathModalCtrl]);
 
-  responseControl.prevent = {
-    responseUpdate: false
+    function PathModalCtrl($scope, PathService){
+      
+      this.newPath = {
+        name:null,
+        operations:{
+          post:false,
+          get:false,
+          put:false,
+          delete:false,
+        }
+      }
+
+      this.prevent = {
+        pathCreation: false,
+      }
+
+      $scope.closePathModal = false;
+
+      /*
+          Add a new path object to the array containing all the paths
+      */
+      this.addPath = function(pathName, operation){
+        try{
+          PathService.addPath(pathName);
+        }catch(e){
+          console.log(e);
+          Materialize.toast('Not a unique name!', 2000);
+        }
+          for(var operation in this.newPath.operations){
+
+              if(this.newPath.operations[operation]){
+                console.log("CURRENT OP");
+                console.log(operation);
+                console.log(this.newPath.operations);
+
+                try{
+                  PathService.addOperation(pathName, operation)
+                }catch(e){
+                  console.log(e);
+                }
+              }
+
+          }
+
+
+          this.newPath = {
+            name:null,
+            operations:{
+              post:false,
+              get:false,
+              put:false,
+              delete:false,
+            }
+          };
+
+          this.prevent.pathCreation = true;
+
+          $scope.closePathModal = true;
+
+      };
+
+
   }
+})();
 
-  responseControl.newResponseData = {
-    post:{
-      httpCode:null,
-      description:null,
-    },
-    get:{
-      httpCode:null,
-      description:null,
-    },
-    put:{
-      httpCode:null,
-      description:null,
-    },
-    delete:{
-      httpCode:null,
-      description:null,
-    },
+(function(){
+  "use strict";
+
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("responseController",["$scope", "PathService", "ResponseModalService", ResponseCtrl]);
+
+  function ResponseCtrl($scope, PathService, rms){
+
+   this.prevent = {
+     responseUpdate: false
+   }
+
+   this.newResponseData = {
+     post:{
+       httpCode:null,
+       description:null,
+     },
+     get:{
+       httpCode:null,
+       description:null,
+     },
+     put:{
+       httpCode:null,
+       description:null,
+     },
+     delete:{
+       httpCode:null,
+       description:null,
+     },
+   }
+
+   this.initResponseData = function(pathName, operation, httpCode){
+     console.log("initResponseData");
+     try{
+       var currentResponse = PathService.getResponse(pathName, operation, httpCode);
+       console.log(currentResponse);
+       console.log(httpCode);
+       rms.responseToUpdate(pathName, operation, httpCode, currentResponse);
+     }catch(e){
+       console.log(e);
+       Materialize.toast(e, 3000);
+       return;
+     }
+
+
+
+   }
+
+   this.addResponse = function(pathName, operation, httpCode, description){
+     console.log("RESPONSE CONTROLLER - ADD RESPONSE");
+
+     try{
+       PathService.addResponse(pathName, operation, httpCode, description);
+     }catch(e){
+       console.log(e);
+       Materialize.toast(e, 3000);
+     }
+
+     this.newResponseData[operation]= {
+       httpCode:null,
+       description:null,
+     }
+
+   }
+
+
   }
+})();
 
-  responseControl.initResponseData = function(pathName, operation, httpCode){
-    console.log("initResponseData");
-    try{
-      var currentResponse = PathService.getResponse(pathName, operation, httpCode);
-      console.log(currentResponse);
-      console.log(httpCode);
-      rms.responseToUpdate(pathName, operation, httpCode, currentResponse);
-    }catch(e){
-      console.log(e);
-      Materialize.toast(e, 3000);
-      return;
-    }
+(function(){
+  "use strict";
 
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("ResponseModalController", ["ResponseModalService", "PathService", "$scope", ResponseModalCtrl]);
 
+  function ResponseModalCtrl(rms, PathService, $scope){
 
-  }
-
-  responseControl.addResponse = function(pathName, operation, httpCode, description){
-    console.log("RESPONSE CONTROLLER - ADD RESPONSE");
-
-    try{
-      PathService.addResponse(pathName, operation, httpCode, description);
-    }catch(e){
-      console.log(e);
-      Materialize.toast(e, 3000);
-    }
-
-    responseControl.newResponseData[operation]= {
-      httpCode:null,
-      description:null,
-    }
-
-  }
-
-
-}]);
-
-swaggerGE.controller("ResponseModalController", ["ResponseModalService", "PathService", "$scope",
-  function(rms, PathService, $scope){
-
-    var vm = this;
-
-    vm.tempResponseData = {
+    this.tempResponseData = {
       httpCode:null,
       response:null,
     };
@@ -1050,50 +1111,54 @@ swaggerGE.controller("ResponseModalController", ["ResponseModalService", "PathSe
       response:null,
     };
 
-    $scope.$watch(function(){return rms.currentResponse;}, function(newVal){
+    $scope.$watch(function(){return rms.currentResponse;}, onModalInit.bind(this), true);
 
-        if(newVal.response){
-          console.log("hit current response updated");
-          var currentResponse = newVal;
-          vm.originalResponseData = currentResponse;
+    function onModalInit(newVal){
 
-          vm.tempResponseData.response = angular.copy(currentResponse.response);
-          vm.tempResponseData.httpCode = vm.originalResponseData.httpCode;
+      if(newVal.response){
+        console.log("hit current response updated");
+        var currentResponse = newVal;
+        this.originalResponseData = currentResponse;
 
-          if(vm.tempResponseData.response.schema instanceof Object){
-            vm.tempResponseData.response.schema = JSON.stringify(vm.tempResponseData.response.schema);
-          }
-          if(vm.tempResponseData.response.headers instanceof Object){
-            vm.tempResponseData.response.headers = JSON.stringify(vm.tempResponseData.response.headers);
-          }
-          if(vm.tempResponseData.response.examples instanceof Object){
-            vm.tempResponseData.response.examples = JSON.stringify(vm.tempResponseData.response.examples);
-          }
+        this.tempResponseData.response = angular.copy(currentResponse.response);
+        this.tempResponseData.httpCode = this.originalResponseData.httpCode;
 
+        if(this.tempResponseData.response.schema instanceof Object){
+          this.tempResponseData.response.schema = JSON.stringify(this.tempResponseData.response.schema);
         }
-
-      }, true);
-
-      vm.updateResponse = function(originalResponse, newResponse){
-        try{
-          //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
-          PathService.updateResponse(originalResponse, newResponse);
-        }catch(e){
-            console.log(e);
-            Materialize.toast("Parameter name/query combo' already exists", 3000);
+        if(this.tempResponseData.response.headers instanceof Object){
+          this.tempResponseData.response.headers = JSON.stringify(this.tempResponseData.response.headers);
         }
-      }
-
-      vm.setParamInModal = function(inLocation){
-        console.log("setting param modal");
-        if(inLocation === 'path'){
-          vm.tempResponse.required = true;
-          console.log(vm.tempResponse);
+        if(this.tempResponseData.response.examples instanceof Object){
+          this.tempResponseData.response.examples = JSON.stringify(this.tempResponseData.response.examples);
         }
 
       }
 
-}]);
+    }
+
+    this.updateResponse = function(originalResponse, newResponse){
+      try{
+        //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
+        PathService.updateResponse(originalResponse, newResponse);
+      }catch(e){
+          console.log(e);
+          Materialize.toast("Parameter name/query combo' already exists", 3000);
+      }
+    }
+
+    this.setParamInModal = function(inLocation){
+      console.log("setting param modal");
+      if(inLocation === 'path'){
+        this.tempResponse.required = true;
+        console.log(this.tempResponse);
+      }
+
+    }
+
+  }
+
+})();
 
 swaggerGE.directive("infoItem", [function(){
     return {
@@ -1454,7 +1519,6 @@ swaggerGE.factory("ParameterModalService", [function(){
 
   var pms = {};
 
-
   pms.currentParameter = {
     pathName:null,
     operation:null,
@@ -1462,8 +1526,8 @@ swaggerGE.factory("ParameterModalService", [function(){
   };
 
   pms.parameterToUpdate = function(pathName, operation, parameter){
-    //console.log("updaiting parameter");
-    //console.log(parameter);
+    console.log("updaiting parameter");
+    console.log(parameter);
 
     pms.currentParameter.pathName = pathName;
     pms.currentParameter.operation = operation;
@@ -1827,7 +1891,7 @@ function(swaggerCompiler, OperationService, ParameterService){
     self.paths = paths;
 
 /************** PATH FUNCTIONS START *******************/
-    var Path = function(){
+    function Path(){
       this.get = null;
       this.post = null;
       this.put = null;
@@ -1995,10 +2059,23 @@ function(swaggerCompiler, OperationService, ParameterService){
     self.getParam = function(pathName, operation, paramName, paramIn){
         console.log("------------------\nGETTING PARAM NAME");
         console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
-        var paramObject = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
-        console.log(paramObject);
+        var parameter;// = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
+        paths[pathName][operation].parameters.forEach(function loop(element, index, array){
+          if(element.name === paramName && element.inLocation === paramIn){
+            parameter = element;
+          }
+
+        })
+
+        // for(var param in paths[pathName][operation].parameters){
+        //   if(param.name === paramName && param.inLocation === paramIn){
+        //     parameter = param;
+        //   }
+        // }
+        debugger;
+        //console.log(paramObject);
         console.log("------------------");
-        return paramObject;
+        return parameter;
     };
 
     /*
@@ -2029,12 +2106,12 @@ function(swaggerCompiler, OperationService, ParameterService){
       this.parameters.forEach(function(element, index, array){
         if(element.name === name && element.inLocation === inLoc)
           found = true;
-        
+
       });
 
       if(found)
         return true;
-      else 
+      else
         return false;
     }
 

@@ -1,16 +1,24 @@
-swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "ParameterModalService",
-  function($scope, swaggerPaths, pms){
+(function(){
+  "use strict";
 
-    var paramModal = this;
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("ParameterModalController", ["$scope", "PathService", "ParameterModalService", ParameterModalCtrl]);
 
-    paramModal.tempParam = {};
+  function ParameterModalCtrl($scope, swaggerPaths, pms){
+
+    var vm = this;
+
+    this.tempParam = {};
+    this.currentParam = {};
+
     var originalParamData = {
       pathName:null,
       operation:null,
       parameter:null
     };
 
-    paramModal.paramOptions = {
+    this.paramOptions = {
       format : ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'],
 
       type : ['string','number', 'integer', 'boolean', 'array', 'file'],
@@ -19,28 +27,30 @@ swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "Para
     }
 
 
-    $scope.$watch(function(){return pms.currentParameter;}, function(newVal){
+    $scope.$watch(function(){return pms.currentParameter;}, onModalInit.bind(this), true);
+
+    function onModalInit(newVal, oldVal){
 
         if(newVal.parameter){
+          this.currentParam = pms.currentParameter;
 
           var currentParam = newVal;
           originalParamData.pathName = currentParam.pathName;
           originalParamData.operation = currentParam.operation;
           originalParamData.parameter = currentParam.parameter;
 
-          paramModal.tempParam = angular.copy(currentParam.parameter);
+          this.tempParam = angular.copy(currentParam.parameter);
 
-          if(paramModal.tempParam.schema){
-            paramModal.tempParam.schema = JSON.stringify(paramModal.tempParam.schema);
+          if(this.tempParam.schema){
+            this.tempParam.schema = JSON.stringify(this.tempParam.schema);
           }
-
         }
 
-      }, true);
+      }
 
-      paramModal.updateParameter = function(){
+      this.updateParameter = function(){
         try{
-          swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
+          swaggerPaths.updateParameter(originalParamData, this.tempParam);
 
         }catch(e){
             console.log(e);
@@ -48,13 +58,14 @@ swaggerGE.controller("ParameterModalController", ["$scope", "PathService", "Para
         }
       }
 
-      paramModal.setParamInModal = function(inLocation){
+      this.setParamInModal = function(inLocation){
         console.log("setting param modal");
         if(inLocation === 'path'){
-          paramModal.tempParam.required = true;
-          console.log(paramModal.tempParam);
+          this.tempParam.required = true;
+          console.log(this.tempParam);
         }
 
       }
 
-  }]);
+  }
+})();

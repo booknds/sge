@@ -1,5 +1,12 @@
-swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseService', function($scope, $log, swaggerBaseService){
+(function(){
+  "use strict";
 
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseService', SwaggerBaseCtrl]);
+
+  /* @ngInject */
+  function SwaggerBaseCtrl($scope, $log, swaggerBaseService){
     //display functionality
     $scope.preventUpdate = true;
 
@@ -45,14 +52,14 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
         }else {
             Materialize.toast("Choose a mime type!", 3000);
         }
-        
+
     }
 
     $scope.addProduceType = function(mimeType){
         if(mimeType){
             if($scope.basicInfo.produces.indexOf(mimeType) === -1){
                 $scope.basicInfo.produces.push(mimeType);
-            
+
             }else {
                 //prompt the user that it has already been added.
                 Materialize.toast("mimeType already added", 3000);
@@ -66,7 +73,7 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
         if(schemeType){
             if($scope.basicInfo.schemes.indexOf(schemeType) === -1){
                 $scope.basicInfo.schemes.push(schemeType);
-            
+
             }else {
                 //prompt the user that it has already been added.
                 Materialize.toast("scheme type already added", 3000);
@@ -95,7 +102,7 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
 
     }
 
-     $scope.removeSchemeType = function(schemeType){
+    $scope.removeSchemeType = function(schemeType){
         var index = $scope.basicInfo.schemes.indexOf(schemeType);
         if(index >= 0)
             $scope.basicInfo.schemes.splice(index, 1);
@@ -103,18 +110,11 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
             Materialize.toast("scheme type already deleted", 3000);
     }
 
-    function addMimeType(mimeType){
-
-    }
-
-    function removeMimeType(mimeType){
-
-    }
 
     /*
         watch for Api's version number and title
             These are required as part of the SWAGGER definition
-    
+
     $scope.$watch('basicInfo.info.title', function(){
         $scope.checkMinRequirements();
         //console.log($scope.basicInfo.info.title)
@@ -132,7 +132,7 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
 
     /*
         Update the schemes list. Add the scheme if checked, and remove if unchecked
-    
+
     $scope.updateCheckBox = function(schemeType){
 
         var removedScheme = false;
@@ -156,4 +156,6 @@ swaggerGE.controller("swaggerBaseController", ['$scope', '$log', 'swaggerBaseSer
     }*/
 
 
-}]);
+  }
+
+})(angular);

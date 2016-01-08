@@ -1,5 +1,11 @@
-swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsService',
-  function($scope, ds){
+(function(){
+  "use strict";
+
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("DefinitionCreationController", ['$scope', 'DefinitionsService', DefinitionCreationCtrl]);
+
+  function DefinitionCreationCtrl($scope, ds){
     var vm = this;
 
     $scope.closeModal=false;
@@ -25,7 +31,6 @@ swaggerGE.controller("DefinitionCreationController", ['$scope', 'DefinitionsServ
       };
 
     }
+  }
 
-
-
-  }]);
+})();

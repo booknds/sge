@@ -1,5 +1,11 @@
-swaggerGE.controller("DefinitionEditorController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService",
-  function($scope, $window, ds, dems){
+(function(){
+  "use strict";
+
+  angular
+    .module("SwaggerGraphicalEditor")
+    .controller("DefinitionEditorController", ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService", DefinitionEditorCtrl]);
+
+  function DefinitionEditorCtrl($scope, $window, ds, dems){
 
     var vm = this;
 
@@ -94,4 +100,5 @@ swaggerGE.controller("DefinitionEditorController", ["$scope", "$window", "Defini
 
       }, true);
 
-}])
+  }
+})();
