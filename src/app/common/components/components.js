@@ -1,6 +1,7 @@
 import angular from 'angular';
 import Header from './header/header';
 import Footer from './footer/footer';
+import Sidenav from './sidenav/sidenav';
 import UniqueInput from './uniqueInput/uniqueInput';
 import ModalCloser from './modalCloser/modalCloser';
 import Focus from './focusOnClick/focusOnClick';
@@ -10,6 +11,7 @@ let CommonComponents =
     [
       Header.name,
       Footer.name,
+      Sidenav.name,
       UniqueInput.name,
       ModalCloser.name,
       Focus.name
