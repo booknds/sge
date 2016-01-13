@@ -1,1 +1,5 @@
 build/**
+.DS_Store
+.tmp
+.git
+node_modules

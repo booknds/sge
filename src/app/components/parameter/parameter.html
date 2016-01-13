@@ -1,0 +1,61 @@
+<h5>Parameter</h5>
+<table class=" section bordered responsive-table">
+  <thead>
+    <tr>
+      <th data-field="name">Name</th>
+      <th data-field="in">Located In</th>
+      <th data-field="description">Description</th>
+      <th data-field="required">Required</th>
+      <th data-field="Schema">Schema</th>
+      <th data-field="Edit">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="param in pathCtl.paths[pathName][operation].parameters | orderBy:'name'">
+      <div >
+        <td class="white-text">{{param.name}}</td>
+        <td class="white-text">{{param.inLocation}}</td>
+        <td class="shrink white-text">{{param.description}}</td>
+        <td class="white-text">{{param.required}}</td>
+        <td class="shrink">{{param.schema}}</td>
+        <td class="white-text">
+          <a class="disabled" href="#param-modal" modal ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)">
+          <i class="material-icons">settings</i>
+          </a>
+        </td>
+      </div>
+    </tr>
+  </tbody>
+</table>
+<form name="addParameter" novalidate ng-submit="addParameter.name.$valid && paramControl.addParam(pathName, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)">
+  <div class="valign-wrapper">
+    <div sg-unique-input class="input-field col s4 valign">
+      <input id="input" name="name" ng-model="paramControl.newParamData[operation].name" type="text" required=""/>
+      <label id="label" for="label">Parameter Name</label>
+      <div  class="error"
+            ng-show="addParameter.name.$dirty && addParameter.name.$invalid">
+        <small class="error"
+              ng-show="addParameter.name.$error.required">
+          Parameter name is required.
+        </small>
+      </div>
+    </div>
+    <div class="input-field col s4 valign" >
+      <select class="browser-default" ng-model="paramControl.newParamData[operation].inLocation" style="background-color: #455a64;">
+        <option  value="" disabled selected>Choose your Parameter Location</option>
+        <option value="path">Path</option>
+        <option value="query">Query</option>
+        <option value="header">Header</option>
+        <option value="body">Body</option>
+        <option value="formData">Form Data</option>
+      </select>
+    </div>
+    <div class="col s4 valign">
+      <button  class="waves-effect waves-light btn" ng-class="{ 'disabled': addParameter.name.$invalid }">
+      <i class="material-icons">add</i>
+      </button>
+    </div>
+  </div>
+</form>
+{{paramControl.paths}}
+<div></div>

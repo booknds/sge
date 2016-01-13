@@ -1,0 +1,219 @@
+<div class="container" ng-cloak>
+  <div class="row">
+    <form name="baseInfo" novalidate ng-submit="baseInfo.$valid && updateInfo()">
+      <div class="col s12">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+          {{basicInfo}}
+            <h3>{{ basicInfo.info.title + ' API' }}</h3>
+            <p>Start building your Swagger definition by describing some basic info. Watch out some
+              fields are required to enter, but don't worry we will prompt you if anything is missing.
+            </p>
+            <div class="section">
+                <div class="col s12 m6">
+                  <span class="card-title">Info</span>
+                  <div class="row">
+                    <div class="col s12">
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <input id="title" type="text"
+                            ng-model="basicInfo.info.title"
+                            name="apiName"
+                            required="" >
+                          <label for="title">Title</label>
+                          <div class="error"
+                            ng-show="baseInfo.apiName.$dirty && baseInfo.apiName.$invalid">
+                            <small class="error"
+                              ng-show="baseInfo.apiName.$error.required">
+                            The API name is required.
+                            </small>
+                          </div>
+                        </div>
+                        <div class="input-field col s12 m6">
+                          <input id="version" type="text"
+                            ng-model="basicInfo.info.version"
+                            ng-pattern="/^([v]?)([0-9]+)((\.([0-9]+))*)?$/"
+                            name="version"
+                            required="" >
+                          <label for="version">Version</label>
+                          <div class="error"
+                            ng-show="baseInfo.version.$dirty && baseInfo.version.$invalid">
+                            <small class="error"
+                              ng-show="baseInfo.version.$error.required">
+                            The version is required.
+                            </small>
+                            <small class="error"
+                              ng-show="baseInfo.version.$error.pattern">
+                            Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <textarea id="description" ng-model="basicInfo.info.description" class="materialize-textarea"></textarea>
+                          <label for="description">Description</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <input id="host" type="text" ng-model="basicInfo.host"/>
+                          <label for="host">Host</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                          <input id="basePath" type="text" ng-model="basicInfo.basePath"/>
+                          <label for="basePath">Basepath</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m6">
+                    <span class="card-title">Contact</span>
+                    <div class="row">
+                      <div class="input-field col s12 m4">
+                        <input id="contact_name" type="text" ng-model="basicInfo.info.contact.name" />
+                        <label for="contact_name">Name</label>
+                      </div>
+                      <div class="input-field col s12 m4">
+                        <input id="contact_url" type="text" ng-model="basicInfo.info.contact.url"/>
+                        <label for="contact_url">Url</label>
+                      </div>
+                      <div class="input-field col s12 m4">
+                        <input id="contactemail" type="email" class="validate" ng-model="basicInfo.info.contact.email"/>
+                        <label for="contact_textarea-description" data-error="">Email</label>
+                      </div>
+                    </div>
+                    <span class="card-title">License</span>
+                    <div class="row">
+                      <div class="input-field col s12 m6">
+                        <input id="license_name" type="text"
+                            ng-model="basicInfo.info.license.name"
+                            required=""
+                            ng-if="basicInfo.info.license.url"/>
+                            <input id="license_name" type="text"
+                            ng-model="basicInfo.info.license.name"
+                            ng-if="!basicInfo.info.license.url"/>
+                        <label for="license_name">Name</label>
+                      </div>
+                      <div class="input-field col s12 m6">
+                        <input id="license_url" type="text" ng-model="basicInfo.info.license.url"/>
+                        <label for="license_url">Url</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="terms" type="text" ng-model="basicInfo.info.termsOfService"/>
+                        <label for="terms">Terms Of Service</label>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="section">
+
+
+              </div>
+              <div class="row">
+               <div class="col s12">
+              <span class="card-title">Extra Info</span>
+                <div class="section col s12">
+              <div class="input-field col s12 m4 l4">
+                <!--input id="produces" type="text" ng-model="basicInfo.produces"></input>
+                  <label for="produces">Produces</label-->
+                  <div class="col  s12">Produces: </div>
+                  <select class="browser-default col m10" style="background-color: #455a64;" select-value
+                    ng-model="info.produce">
+                    <option value="" selected></option>
+                    <option ng-repeat="type in mimeTypes"
+                      ng-attr-value="{{ type }}"
+                      ng-attr-id="{{ type }}">{{ type }}</option>
+                  </select>
+
+                  <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="addProduceType(info.produce);">
+                   <i class="material-icons">add</i>
+                    <!--i class="material-icons right">send</i-->
+                  </button>
+                  <ul class="col s12">
+                    <li class="valign-wrapper" ng-repeat="produce in basicInfo.produces">
+                      <div class="col m10 valign"> {{produce}} </div>
+                      <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="removeProduceType(produce);">
+                        <i class="material-icons">delete</i>
+                        <!--i class="material-icons right">send</i-->
+                      </button>
+                    </li>
+                  </ul>
+
+              </div>
+              <div class="input-field col s12 m4 l4">
+                <!--input id="consumes" type="text" ng-model="basicInfo.consumes"></input>
+                  <label for="consumes">Consumes</label-->
+                <div class="col  s12">Consumes: </div>
+                <select class="browser-default col s10" style="background-color: #455a64;" select-value
+                  ng-model="info.consume">
+                  <option value="" selected></option>
+                  <option ng-repeat="type in mimeTypes"
+                    ng-attr-value="{{ type }}"
+                    ng-attr-id="{{ type }}">{{ type }}</option>
+                </select>
+
+                <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="addConsumeType(info.consume);">
+                   <i class="material-icons">add</i>
+                    <!--i class="material-icons right">send</i-->
+                  </button>
+
+                  <ul class="col s12">
+                    <li class="valign-wrapper" ng-repeat="consuming in basicInfo.consumes">
+                      <div class="col m10 valign"> {{consuming}} </div>
+                      <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="removeConsumeType(consuming);">
+                    <i class="material-icons">delete</i>
+                    <!--i class="material-icons right">send</i-->
+                  </button>
+                    </li>
+                  </ul>
+              </div>
+               <div class="input-field col s12 m4 l4">
+                <!--input id="produces" type="text" ng-model="basicInfo.produces"></input>
+                  <label for="produces">Produces</label-->
+                  <div class="col  s12">Schemes: </div>
+                  <select class="browser-default col m10" style="background-color: #455a64;" select-value
+                    ng-model="info.scheme">
+                    <option value="" selected></option>
+                    <option ng-repeat="type in schemeTypes"
+                      ng-attr-value="{{ type }}"
+                      ng-attr-id="{{ type }}">{{ type }}</option>
+                  </select>
+
+                  <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" type="submit" name="action" ng-click="addSchemeType(info.scheme);">
+                   <i class="material-icons">add</i>
+                    <!--i class="material-icons right">send</i-->
+                  </button>
+                  <ul class="col s12">
+                    <li class="valign-wrapper" ng-repeat="scheme in basicInfo.schemes">
+                      <div class="col m10 valign"> {{scheme}} </div>
+                      <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" type="submit" name="action" ng-click="removeSchemeType(scheme);">
+                        <i class="material-icons">delete</i>
+                        <!--i class="material-icons right">send</i-->
+                      </button>
+                    </li>
+                  </ul>
+
+              </div>
+              </div>
+            </div>
+            </div>
+
+          </div>
+          <div class="card-action">
+            <button class="btn waves-effect waves-light" type="submit" name="action" ng-class="{ 'disabled': baseInfo.$invalid }">
+              Save
+              <!--i class="material-icons right">send</i-->
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{{basicInfo}}
+{{service}}

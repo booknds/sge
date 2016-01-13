@@ -1,0 +1,97 @@
+<div class="container" ng-cloak>
+  <div class="row">
+    <div class="col s12">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <div class="row valign-wrapper">
+            <div class="col s6 m8 l10 valign">
+              <h3>Definitions</h3>
+            </div>
+            <div class="col s6 m4 l2 valign right-align">
+              <a ng-click="openFocusDefinitionModal()"
+                  class="btn-floating btn-large waves-effect waves-light green accent-4" href="#definition-creation-modal" modal>
+              <i class="material-icons">add</i>
+              </a>
+            </div>
+          </div>
+          <ul ng-repeat="(definition, defValue) in defControl.definitions"
+            class="collapsible blue-grey darken-2"
+            init-collapse
+            data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header blue-grey">
+                {{definition}}
+              </div>
+              <div class="collapsible-body">
+                <div class="section">
+                  <span class="card-title col s12">Attributes</span>
+                  <div class="input-field col s4 ">
+                    <input class="white-text"
+                      type="text"
+                      placeholder="Some information about the Definition"
+                      ng-model="defValue.description"
+                      disabled>
+                    <label class="white-text active">Description</label>
+                  </div>
+                  <div class="input-field col s4 ">
+                    <input class="white-text" type="text" ng-model="defValue.type" disabled>
+                    <label class="white-text">Type</label>
+                  </div>
+                  <div class="input-field col s4 ">
+                    <input class="white-text" type="text" placeholder="" ng-model="defValue.required" disabled>
+                    <label class="white-text">Required</label>
+                  </div>
+                </div>
+                <div class="section">
+                  <span class="card-title">Properties</span>
+                  <table class="section bordered responsive-table">
+                    <thead>
+                      <tr>
+                        <th ng-repeat="header in defControl.headers"
+                          ng-attr-data-field="{{header}}">{{header}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'">
+                        <td class="white-text">{{propertyName}}</td>
+                        <td class="white-text shrink">{{propertyValue.description}}</td>
+                        <td class="white-text">{{propertyValue.type}}</td>
+                        <td class="white-text"
+                          ng-if="defValue.required.includes(propertyName);">true</td>
+                        <td class="white-text"
+                          ng-if="!defValue.required.includes(propertyName);">false</td>
+                        <td class="white-text">{{propertyValue.enum}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <div class="col s6">
+                    <button tooltipped
+                      class="btn-flat"
+                      data-position="top"
+                      data-delay="50"
+                      data-tooltip="Delete Definition"
+                      ng-click="defControl.deleteDefinition(definition);">
+                    <i class="material-icons">delete</i>
+                    </button>
+                  </div>
+                  <div class="col s6 ">
+                    <button class="btn-flat"
+                      href="#definition-editor-modal"
+                      ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
+                      modal>
+                    <i class="material-icons">settings</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <sg-definition-creator-modal></sg-definition-creator-modal>
+          <sg-definition-editor-modal></sg-definition-editor-modal>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
