@@ -1,6 +1,6 @@
 /**
 * This components ensures that an <input> / <label> pair
-*   is given a matching unique ID 
+*   is given a matching unique ID
 **/
 import angular from 'angular';
 
@@ -12,6 +12,7 @@ function uniqueInputCtrl(scope){
   var input = angular.element(document.getElementById('input'));
   input.removeAttr('id');
   input.attr('id', scope.$id);
+
 
   var label = angular.element(document.getElementById('label'));
   label.removeAttr('id');

@@ -4,19 +4,23 @@
 **/
 import angular from 'angular';
 
-let ModalCloserController = ["$scope", ModalCloserCtrl]
+let ModalCloserController = ['$scope', ModalCloserCtrl]
 
 export default ModalCloserController;
 
 function ModalCloserCtrl($scope){
 
-  $scope.$watch('ngModel', function(update){
+  $scope.$watch(getModel.bind(this), watchModel.bind(this));
 
-      if(!$scope.ngModel) return;
+  function watchModel(model){
 
-      $(`#${$scope.modalId}`).closeModal();
+    if(!this.ngModel) return;
 
-      $scope.ngModel = false;
-    }
-  );
+    $(`#${this.modalId}`).closeModal();
+    this.ngModel = false;
+  }
+
+  function getModel(){
+    return this.ngModel;
+  }
 }

@@ -29,8 +29,47 @@
 <a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="500" data-closeonclick="false">
     Show side-nav
 </a>-->
-<ul id="slide-out" class="side-nav fixed">
-      <li><a href="#!">First Sidebar Link</a></li>
-      <li><a href="#!">Second Sidebar Link</a></li>
+<ul id="nav-mobile" class="side-nav fixed">
+  <div style="background-color: #3F1C3E;padding-top:10px;padding-bottom:0px;">
+    <li class="logo center-align" style="background-color: #3F1C3E;">
+      <a id="logo-container" href="http://www.booknds.com/" style="background-color: #3F1C3E;" class="brand-logo">
+        <h3 class="white-text" style="background-color: #3F1C3E;">
+          Booknds
+        </h3>
+      </a>
+    </li>
+  </div>
+  <!--li class="search">
+    <div class="search-wrapper card">
+      <input id="search"><i class="material-icons">search</i>
+      <div class="search-results"></div>
+    </div>
+  </li-->
+  <li class="no-padding white-text">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header">Save<i class="mdi-navigation-arrow-drop-down"></i></a>
+        <div class="collapsible-body">
+          <ul>
+            <li><a href="#!">To SwaggerHub</a></li>
+            <li><a href="" ng-click="sidenav.download();">To Local</a></li>
+          </ul>
+        </div>
+      </li>
     </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
+  </li>
+  <li class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header">Open<i class="mdi-navigation-arrow-drop-down"></i></a>
+        <div class="collapsible-body">
+          <ul>
+            <li><a href="#!">From SwaggerHub</a></li>
+            <li><a href="#!">From Local</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+
+</ul>

@@ -2,8 +2,33 @@ import angular from 'angular';
 
 export default function InfoService(){
 
-    var self = this;
+    //var self = this;
     var swaggerInfo = {};
+
+    swaggerInfo = {
+        swagger: "2.0",
+        info: {
+              title: "",
+              description: "",
+              termsOfService: "",
+              contact: {
+                  name: "",
+                  url: "",
+                  email: "",
+              },
+              license: {
+                  name: "",
+                  url: ""
+              },
+              version: "",
+          },
+         host: "",
+         basePath: "",
+         schemes: [],
+         consumes: [],
+         produces: []
+      }
+
 
     return{
         /*
@@ -16,7 +41,7 @@ export default function InfoService(){
             //console.log(swaggerInfo);
 
         },
-
+        swaggerInfo: this.swaggerInfo,
         getSwaggerInfo: function() {
             return swaggerInfo;
         },

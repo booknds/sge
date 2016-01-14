@@ -35,17 +35,19 @@
 //   },
 // };
 
-var jQuery = require('jquery');
-
-console.log(jQuery);
-
+var webpack = require('webpack');
 
 module.exports = {
-  entry: './src/app/app.js',
+  entry: ['./src/app/app.js'],
   devtool: 'sourcemap',
   output: {
     filename: 'bundle.js'
   },
+  // plugins: [
+  //   new webpack.ProvidePlugin({
+  //     'window.jQuery': 'jquery'
+  //   })
+  // ],
   module: {
     loaders: [
        { test: /\.js$/,

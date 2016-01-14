@@ -5,11 +5,13 @@ export default modalCloser;
 function modalCloser(){
   return{
       restrict: "A",
-      replace: true,
-      scope:{
-        ngModel: "=?",
-        modalId: "@"
+      require: "ngModel",
+      scope:{},
+      bindToController: {
+          modalId: "@",
+          ngModel: "=?"
       },
       controller,
+      controllerAs: 'ModalCloserCtrl',
   }
 }
