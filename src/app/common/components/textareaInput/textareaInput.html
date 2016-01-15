@@ -1,0 +1,4 @@
+<textarea ng-if="textareaCtrl.required" id="input" ng-model="textareaCtrl.ngModel" required="" class="materialize-textarea"></textarea>
+<textarea ng-if="!textareaCtrl.required" id="input" ng-model="textareaCtrl.ngModel" class="materialize-textarea"></textarea>
+<label id="label" >{{textareaCtrl.sgLabel}}</label>
+<ng-transclude></ng-transclude>

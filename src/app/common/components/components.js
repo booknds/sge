@@ -7,6 +7,7 @@ import ModalCloser from './modalCloser/modalCloser';
 import Focus from './focusOnClick/focusOnClick';
 import TextField from './textInputField/textInputField';
 import Dropdown from './dropdown/dropdown';
+import TextArea from './textareaInput/textareaInput';
 
 let CommonComponents =
   angular.module('common.components',
@@ -18,7 +19,8 @@ let CommonComponents =
       ModalCloser.name,
       Focus.name,
       TextField.name,
-      Dropdown.name
+      Dropdown.name,
+      TextArea.name
     ]);
 
 export default CommonComponents;

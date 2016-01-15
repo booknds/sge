@@ -25,7 +25,7 @@ function BaseInfoCtrl(InfoService){
                         'application/vnd.github.v3.text+json', 'application/vnd.github.v3.html+json',
                         'application/vnd.github.v3.full+json', 'application/vnd.github.v3.diff',
                         'application/vnd.github.v3.patch'],
-  }
+  };
 
   /**
     * @name addType

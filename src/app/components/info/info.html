@@ -23,7 +23,7 @@
                         <label for="title">Title</label>
                         <div class="error" ng-show="infoForm.apiName.$dirty && infoForm.apiName.$invalid">
                           <small class="error" ng-show="infoForm.apiName.$error.required">
-                          The API name is required.
+                            The API name is required.
                           </small>
                         </div>
                       </div>
@@ -36,19 +36,20 @@
                         <label for="version">Version</label>
                         <div class="error" ng-show="infoForm.version.$dirty && infoForm.version.$invalid">
                           <small class="error" ng-show="infoForm.version.$error.required">
-                          The version is required.
+                            The version is required.
                           </small>
                           <small class="error" ng-show="infoForm.version.$error.pattern">
-                          Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
+                            Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
                           </small>
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="input-field col s12">
+                      <sg-textarea class="input-field col s12" unique-input sg-label="Description" ng-model="basicInfo.sgBase.info.description"></sg-textarea>
+                      <!-- <div class="input-field col s12">
                         <textarea id="description" ng-model="basicInfo.sgBase.info.description" class="materialize-textarea"></textarea>
                         <label for="description">Description</label>
-                      </div>
+                      </div> -->
                     </div>
                     <div class="row">
                       <sg-text-input class="input-field col s12 m6" unique-input sg-label="Host" ng-model="basicInfo.sgBase.info.host"> </sg-text-input>

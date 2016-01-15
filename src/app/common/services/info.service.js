@@ -69,7 +69,7 @@ function InfoService(){
     function removeType(list, type){
       //check if list exists
       if(!validList(list))
-        throw "List does not exist"
+        throw "List does not exist";
 
       let index = swaggerInfo[list].indexOf(type);
       if(index >= 0)
