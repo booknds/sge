@@ -13,7 +13,7 @@ function infoComponent(){
     restrict: 'E',
 //    replace: true,
     controller,
-    //controllerAs: 'compilerController',
+    controllerAs: 'basicInfo',
   }
 }
 

@@ -1,11 +1,11 @@
 <div class="container" ng-cloak>
-  
+{{basicInfo.sgBase}}
   <div class="row">
-    <form name="baseInfo" novalidate ng-submit="baseInfo.$valid && updateInfo()">
+    <form name="infoForm" novalidate ng-submit="infoForm.$valid">
       <div class="col s12">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text">
-            <h3>{{ basicInfo.info.title + ' API' }}</h3>
+            <h3>{{ basicInfo.sgBase.info.title + ' API' }}</h3>
             <p>Start building your Swagger definition by describing some basic info. Watch out some
               fields are required to enter, but don't worry we will prompt you if anything is missing.
             </p>
@@ -17,28 +17,28 @@
                     <div class="row">
                       <div class="input-field col s12 m6">
                         <input id="title" type="text"
-                          ng-model="basicInfo.info.title"
+                          ng-model="basicInfo.sgBase.info.title"
                           name="apiName"
                           required="" >
                         <label for="title">Title</label>
-                        <div class="error" ng-show="baseInfo.apiName.$dirty && baseInfo.apiName.$invalid">
-                          <small class="error" ng-show="baseInfo.apiName.$error.required">
+                        <div class="error" ng-show="infoForm.apiName.$dirty && infoForm.apiName.$invalid">
+                          <small class="error" ng-show="infoForm.apiName.$error.required">
                           The API name is required.
                           </small>
                         </div>
                       </div>
                       <div class="input-field col s12 m6">
                         <input id="version" type="text"
-                          ng-model="basicInfo.info.version"
+                          ng-model="basicInfo.sgBase.info.version"
                           ng-pattern="/^([v]?)([0-9]+)((\.([0-9]+))*)?$/"
                           name="version"
                           required="" >
                         <label for="version">Version</label>
-                        <div class="error" ng-show="baseInfo.version.$dirty && baseInfo.version.$invalid">
-                          <small class="error" ng-show="baseInfo.version.$error.required">
+                        <div class="error" ng-show="infoForm.version.$dirty && infoForm.version.$invalid">
+                          <small class="error" ng-show="infoForm.version.$error.required">
                           The version is required.
                           </small>
-                          <small class="error" ng-show="baseInfo.version.$error.pattern">
+                          <small class="error" ng-show="infoForm.version.$error.pattern">
                           Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
                           </small>
                         </div>
@@ -46,13 +46,13 @@
                     </div>
                     <div class="row">
                       <div class="input-field col s12">
-                        <textarea id="description" ng-model="basicInfo.info.description" class="materialize-textarea"></textarea>
+                        <textarea id="description" ng-model="basicInfo.sgBase.info.description" class="materialize-textarea"></textarea>
                         <label for="description">Description</label>
                       </div>
                     </div>
                     <div class="row">
-                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="Host" ng-model="basicInfo.host"> </sg-text-input>
-                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="Base Path" ng-model="basicInfo.basePath"> </sg-text-input>
+                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="Host" ng-model="basicInfo.sgBase.info.host"> </sg-text-input>
+                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="Base Path" ng-model="basicInfo.sgBase.info.basePath"> </sg-text-input>
                     </div>
                   </div>
                 </div>
@@ -60,18 +60,18 @@
               <div class="col s12 m6">
                 <span class="card-title">Contact</span>
                 <div class="row">
-                  <sg-text-input class="input-field col s12 m4" unique-input sg-label="Name" ng-model="basicInfo.info.contact.name"> </sg-text-input>
-                  <sg-text-input class="input-field col s12 m4" unique-input sg-label="Url" ng-model="basicInfo.info.contact.url"> </sg-text-input>
-                  <sg-text-input class="input-field col s12 m4" unique-input sg-label="Email" ng-model="basicInfo.info.contact.email"> </sg-text-input>
+                  <sg-text-input class="input-field col s12 m4" unique-input sg-label="Name" ng-model="basicInfo.sgBase.info.contact.name"> </sg-text-input>
+                  <sg-text-input class="input-field col s12 m4" unique-input sg-label="Url" ng-model="basicInfo.sgBase.info.contact.url"> </sg-text-input>
+                  <sg-text-input class="input-field col s12 m4" unique-input sg-label="Email" ng-model="basicInfo.sgBase.info.contact.email"> </sg-text-input>
                 </div>
                 <span class="card-title">License</span>
                 <div class="row">
-                  <sg-text-input ng-if="basicInfo.info.license.url" class="input-field col s12 m6" unique-input sg-label="Name" ng-model="basicInfo.info.license.name" required="true"> </sg-text-input>
-                  <sg-text-input ng-if="!basicInfo.info.license.url" class="input-field col s12 m6" unique-input sg-label="Name" ng-model="basicInfo.info.license.name"> </sg-text-input>
-                  <sg-text-input class="input-field col s12 m6" unique-input sg-label="Url" ng-model="basicInfo.info.license.url"> </sg-text-input>
+                  <sg-text-input ng-if="basicInfo.sgBase.info.license.url" class="input-field col s12 m6" unique-input sg-label="Name" ng-model="basicInfo.info.license.name" required="true"> </sg-text-input>
+                  <sg-text-input ng-if="!basicInfo.sgBase.info.license.url" class="input-field col s12 m6" unique-input sg-label="Name" ng-model="basicInfo.info.license.name"> </sg-text-input>
+                  <sg-text-input class="input-field col s12 m6" unique-input sg-label="Url" ng-model="basicInfo.sgBase.info.license.url"> </sg-text-input>
                 </div>
                 <div class="row">
-                  <sg-text-input class="input-field col s12 " unique-input sg-label="Terms Of Service" ng-model="basicInfo.info.termsOfService"> </sg-text-input>
+                  <sg-text-input class="input-field col s12 " unique-input sg-label="Terms Of Service" ng-model="basicInfo.sgBase.info.termsOfService"> </sg-text-input>
                 </div>
               </div>
             </div>
@@ -80,75 +80,46 @@
                 <span class="card-title">Extra Info</span>
                 <div class="section col s12">
                   <div class="input-field col s12 m4 l4">
-                    <!--input id="produces" type="text" ng-model="basicInfo.produces"></input>
-                      <label for="produces">Produces</label-->
                     <div class="col  s12">Produces: </div>
-                    <select class="browser-default col m10" style="background-color: #455a64;" select-value ng-model="info.produce">
-                      <option value="" selected></option>
-                      <option ng-repeat="type in mimeTypes"
-                        ng-attr-value="{{ type }}"
-                        ng-attr-id="{{ type }}">{{ type }}</option>
-                    </select>
-                    <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="addProduceType(info.produce);">
+                    <sg-dropdown class="browser-default col s10" style="background-color: #455a64;" ng-model="basicInfo.produce" sg-choices="basicInfo.types.mime"></sg-dropdown>
+                    <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="basicInfo.addType('produces', basicInfo.produce);">
                       <i class="material-icons">add</i>
-                      <!--i class="material-icons right">send</i-->
                     </button>
                     <ul class="col s12">
-                      <li class="valign-wrapper" ng-repeat="produce in basicInfo.produces">
+                      <li class="valign-wrapper" ng-repeat="produce in basicInfo.sgBase.produces">
                         <div class="col m10 valign"> {{produce}} </div>
-                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="removeProduceType(produce);">
+                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="basicInfo.removeType('produces', produce);">
                           <i class="material-icons">delete</i>
-                          <!--i class="material-icons right">send</i-->
                         </button>
                       </li>
                     </ul>
                   </div>
                   <div class="input-field col s12 m4 l4">
-                    <!--input id="consumes" type="text" ng-model="basicInfo.consumes"></input>
-                      <label for="consumes">Consumes</label-->
                     <div class="col  s12">Consumes: </div>
-                    <select class="browser-default col s10" style="background-color: #455a64;" select-value
-                      ng-model="info.consume">
-                      <option value="" selected></option>
-                      <option ng-repeat="type in mimeTypes"
-                        ng-attr-value="{{ type }}"
-                        ng-attr-id="{{ type }}">{{ type }}</option>
-                    </select>
-                    <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="addConsumeType(info.consume);">
+                    <sg-dropdown class="browser-default col s10" style="background-color: #455a64;" ng-model="basicInfo.consume" sg-choices="basicInfo.types.mime"></sg-dropdown>
+                    <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="basicInfo.addType('consumes', basicInfo.consume);">
                       <i class="material-icons">add</i>
-                      <!--i class="material-icons right">send</i-->
                     </button>
                     <ul class="col s12">
-                      <li class="valign-wrapper" ng-repeat="consuming in basicInfo.consumes">
-                        <div class="col m10 valign"> {{consuming}} </div>
-                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="removeConsumeType(consuming);">
+                      <li class="valign-wrapper" ng-repeat="consume in basicInfo.sgBase.consumes">
+                        <div class="col m10 valign"> {{consume}} </div>
+                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="basicInfo.removeType('consumes', consume);">
                           <i class="material-icons">delete</i>
-                          <!--i class="material-icons right">send</i-->
                         </button>
                       </li>
                     </ul>
                   </div>
                   <div class="input-field col s12 m4 l4">
-                    <!--input id="produces" type="text" ng-model="basicInfo.produces"></input>
-                      <label for="produces">Produces</label-->
                     <div class="col  s12">Schemes: </div>
-                    <select class="browser-default col m10" style="background-color: #455a64;" select-value
-                      ng-model="info.scheme">
-                      <option value="" selected></option>
-                      <option ng-repeat="type in schemeTypes"
-                        ng-attr-value="{{ type }}"
-                        ng-attr-id="{{ type }}">{{ type }}</option>
-                    </select>
-                    <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" type="submit" name="action" ng-click="addSchemeType(info.scheme);">
+                    <sg-dropdown class="browser-default col s10" style="background-color: #455a64;" ng-model="basicInfo.scheme" sg-choices="basicInfo.types.scheme"></sg-dropdown>
+                    <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" type="submit" name="action" ng-click="basicInfo.addType('schemes', basicInfo.scheme);">
                       <i class="material-icons">add</i>
-                      <!--i class="material-icons right">send</i-->
                     </button>
                     <ul class="col s12">
-                      <li class="valign-wrapper" ng-repeat="scheme in basicInfo.schemes">
+                      <li class="valign-wrapper" ng-repeat="scheme in basicInfo.sgBase.schemes">
                         <div class="col m10 valign"> {{scheme}} </div>
-                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" type="submit" name="action" ng-click="removeSchemeType(scheme);">
+                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" type="submit" name="action" ng-click="basicInfo.removeType('schemes', scheme);">
                           <i class="material-icons">delete</i>
-                          <!--i class="material-icons right">send</i-->
                         </button>
                       </li>
                     </ul>
@@ -157,11 +128,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="card-action">
-            <button class="btn waves-effect waves-light" type="submit" name="action" ng-class="{ 'disabled': baseInfo.$invalid }">
-              Save
-            </button>
-          </div> -->
         </div>
       </div>
     </form>

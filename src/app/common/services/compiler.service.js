@@ -10,14 +10,14 @@ function CompilerService(PathsService, infoService, DefinitionsService){
 
   //var compiled = {};
 
-  var info = infoService.getSwaggerInfo();
+  var info = infoService.getBaseInfo();
   var paths = PathsService.paths;
   var definitions = DefinitionsService.definitions;
 
   cs.compiled = {};
 
   cs.recompile = function(){
-    cs.compiled = angular.copy(infoService.getSwaggerInfo());
+    cs.compiled = angular.copy(infoService.getBaseInfo());
     cs.compiled.paths = angular.copy(paths);
     cs.compiled.definitions = angular.copy(definitions);
 

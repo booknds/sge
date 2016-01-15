@@ -9,9 +9,10 @@ function TextInputComponent(){
     template,
     scope:{},
     bindToController:{
-      ngModel: "=",
-      sgLabel: "@",
-      required: "=?",
+      ngModel: '=',
+      sgLabel: '@',
+      required: '=?',
+      ngPattern: '=?',
     },
     controller,
     controllerAs: 'textInputCtrl',
