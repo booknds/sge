@@ -45,11 +45,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <sg-textarea class="input-field col s12" unique-input sg-label="Description" ng-model="basicInfo.sgBase.info.description"></sg-textarea>
-                      <!-- <div class="input-field col s12">
-                        <textarea id="description" ng-model="basicInfo.sgBase.info.description" class="materialize-textarea"></textarea>
-                        <label for="description">Description</label>
-                      </div> -->
+                      <sg-textarea class="input-field col s12" sg-unique-input sg-label="Description" ng-model="basicInfo.sgBase.info.description"></sg-textarea>
                     </div>
                     <div class="row">
                       <sg-text-input class="input-field col s12 m6" unique-input sg-label="Host" ng-model="basicInfo.sgBase.info.host"> </sg-text-input>
@@ -78,7 +74,7 @@
             </div>
             <div class="row">
               <div class="col s12">
-                <span class="card-title">Extra Info</span>
+                <span class="card-title">Types</span>
                 <div class="section col s12">
                   <div class="input-field col s12 m4 l4">
                     <div class="col  s12">Produces: </div>

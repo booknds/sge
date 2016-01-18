@@ -33,6 +33,7 @@ function PathService(OperationService, ParameterService){
 
     Path.prototype = {
       addOperation: function(operation){
+        debugger;
         this[operation] = OperationService.newOperation();
       },
 
@@ -109,6 +110,7 @@ function PathService(OperationService, ParameterService){
         console.log("PATH SERVICE: adding operation");
 
         if(pathExists(pathName)){
+        //  debugger;
           paths[pathName][operation] = OperationService.newOperation();
         }else {
           throw "Cannot add Operation, path does not exist"

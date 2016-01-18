@@ -12,6 +12,10 @@ export default responseComponent;
 function responseComponent(){
   return{
     template,
+    scope:{},
+    bindToController:{
+      sgContext: '=',
+    },
     restrict: 'E',
 //    replace: true,
     controller,

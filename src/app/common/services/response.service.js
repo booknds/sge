@@ -1,142 +1,180 @@
 /* @ngInject */
 export default function ResponseService(){
 
-  var rs = this;
+  var Responses = {
 
-    function Response(){
-        this.description = null;
-        this.headers = {};
+    addResponse: function(httpCode, description){
 
+      //this[httpCode] = new Response(description);
+      this[httpCode] = Object.create(Response);
+      this[httpCode].init(description);
 
-    }
+    },
 
-    function Header(name){
-        this[name] = new HeaderObject();
+    /**
+    */
+    removeResponse: function(httpCode){
 
-        this.HeaderObject = function(){
-            return {
-                description:"",
-                type:"",
-                format:"",
-                items: new Object(), //should be an 'items' object
-                collectionFormat:"",
-
-
-            }
+      this.responseList.forEach(function(resp, index, responseList){
+        if(resp.hasOwnProperty(httpCode)){
+          this.responseList.splice(index, 1);
+          return;
         }
+      });
 
-    }
+    },
 
-    function Headers(){
+    /**
+    */
+    getResponse: function(httpCode){
+      /*var response = null;
 
-        this.addHeader = function(headerName){
-            return new Header(headerName);
+      this.responseList.forEach(function(resp, index, responseList){
+        if(resp.hasOwnProperty(httpCode)){
+          response = resp;
+          return;
         }
-    }
+      });
+
+      return angular.copy(response);*/
+      if(this.hasOwnProperty(httpCode))
+        return this[httpCode];
+      else
+        return null;
+
+    },
 
     /**
-      Responses Object
+      Check to see if a response exists in the list
     */
-    function Responses(){
+    responseExists: function(httpCode){
+      //var exists = false;
 
-      //this.responseList = new Object();
+      //this.responseList.forEach(function(response, index, responseList){
+      console.log("RESPONSE EXISTS FUNCTION");
+      console.log(httpCode);
+      console.log(this.responseList);
+        if(this.hasOwnProperty(httpCode)){
+          return true;
+          //return;
+        }else {
+          return false;
+        }
+      //});
 
-    }
+      //return exists;
+    },
 
-    /**
-      Responses function
-    */
-    Responses.prototype = {
-      /**
-
-      */
-      addResponse: function(httpCode, description){
-        console.log(this.responseList);
-
-        this[httpCode] = new Response(description);
-
-        console.log(this.responseList);
+  };
 
 
-      },
-
-      /**
-      */
-      removeResponse: function(httpCode){
-
-        this.responseList.forEach(function(resp, index, responseList){
-          if(resp.hasOwnProperty(httpCode)){
-            this.responseList.splice(index, 1);
-            return;
-          }
-        });
-
-      },
-
-      /**
-      */
-      getResponse: function(httpCode){
-        /*var response = null;
-
-        this.responseList.forEach(function(resp, index, responseList){
-          if(resp.hasOwnProperty(httpCode)){
-            response = resp;
-            return;
-          }
-        });
-
-        return angular.copy(response);*/
-        if(this.hasOwnProperty(httpCode))
-          return this[httpCode];
-        else
-          return null;
-
-      },
-
-      /**
-        Check to see if a response exists in the list
-      */
-      responseExists: function(httpCode){
-        //var exists = false;
-
-        //this.responseList.forEach(function(response, index, responseList){
-        console.log("RESPONSE EXISTS FUNCTION");
-        console.log(httpCode);
-        console.log(this.responseList);
-          if(this.hasOwnProperty(httpCode)){
-            return true;
-            //return;
-          }else {
-            return false;
-          }
-        //});
-
-        //return exists;
-      },
-
-    };
-
-    /**
-      Response Object
-    */
-    function Response(descrip){
-
+  var Response = {
+    init: function(descrip){
       this.description = descrip,
       this.schema = new Object(),
       this.headers = new Object(),
       this.examples = new Object()
-
-      //return this[httpCode];
     }
+  }
 
-    /**
-      Response Functions
-    */
-    Response.prototype = {};
+    // /**
+    //   Responses Object
+    // */
+    // function Responses(){
+    //
+    //   //this.responseList = new Object();
+    //
+    // }
+    //
+    // /**
+    //   Responses function
+    // */
+    // Responses.prototype = {
+    //   /**
+    //
+    //   */
+    //   addResponse: function(httpCode, description){
+    //     console.log(this.responseList);
+    //
+    //     this[httpCode] = new Response(description);
+    //
+    //     console.log(this.responseList);
+    //
+    //
+    //   },
+    //
+    //   /**
+    //   */
+    //   removeResponse: function(httpCode){
+    //
+    //     this.responseList.forEach(function(resp, index, responseList){
+    //       if(resp.hasOwnProperty(httpCode)){
+    //         this.responseList.splice(index, 1);
+    //         return;
+    //       }
+    //     });
+    //
+    //   },
+    //
+    //   /**
+    //   */
+    //   getResponse: function(httpCode){
+    //     /*var response = null;
+    //
+    //     this.responseList.forEach(function(resp, index, responseList){
+    //       if(resp.hasOwnProperty(httpCode)){
+    //         response = resp;
+    //         return;
+    //       }
+    //     });
+    //
+    //     return angular.copy(response);*/
+    //     if(this.hasOwnProperty(httpCode))
+    //       return this[httpCode];
+    //     else
+    //       return null;
+    //
+    //   },
+    //
+    //   /**
+    //     Check to see if a response exists in the list
+    //   */
+    //   responseExists: function(httpCode){
+    //     //var exists = false;
+    //
+    //     //this.responseList.forEach(function(response, index, responseList){
+    //     console.log("RESPONSE EXISTS FUNCTION");
+    //     console.log(httpCode);
+    //     console.log(this.responseList);
+    //       if(this.hasOwnProperty(httpCode)){
+    //         return true;
+    //         //return;
+    //       }else {
+    //         return false;
+    //       }
+    //     //});
+    //
+    //     //return exists;
+    //   },
+    //
+    // };
+    //
+    // /**
+    //   Response Object
+    // */
+    // function Response(descrip){
+    //
+    //
+    //
+    //   //return this[httpCode];
+    // }
+
+
 
     return {
       newResponses:function(){
-        return new Responses();
+         return Object.create(Responses);
+        //return new Responses();
       },
 
       newResponse: function(httpCode, description){

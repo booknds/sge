@@ -1,0 +1,34 @@
+<ul class="collapsible blue-grey darken-2" init-collapse data-collapsible="accordion">
+  <li>
+    <div ng-class="{'blue': '{{operation}}' == 'get',
+      'orange': '{{operation}}' === 'put',
+      'green': '{{operation}}' === 'post',
+      'red': '{{operation}}' === 'delete', }"
+      class="collapsible-header "><i class="material-icons">filter_drama</i>{{ operation | uppercase }}   {{ " " + path.currentName}}</div>
+    <div class="collapsible-body ">
+      <div class="section">
+        <div class="">
+          <div sg-unique-input class="input-field col s12">
+            <input id="input"
+              ng-attr-placeholder="pathCtl.paths[pathName][operation].summary"
+              ng-model="pathCtl.paths[pathName][operation].summary"
+              maxlength="150" type="text"/>
+            <label id="label"  for="label">Summary</label>
+          </div>
+          <div sg-unique-input class="input-field col s12">
+            <textarea id="input"
+              ng-attr-placeholder="pathCtl.paths[pathName][operation].description"
+              ng-model="pathCtl.paths[pathName][operation].description"
+              class="materialize-textarea"></textarea>
+            <label id="label" for="label">Description</label>
+          </div>
+        </div>
+      </div>
+      <div class="Section" ng-if="pathCtl.paths[pathName][operation]">
+        <sg-parameter></sg-parameter>
+
+      </div>
+      <sg-response></sg-response>
+    </div>
+  </li>
+</ul>

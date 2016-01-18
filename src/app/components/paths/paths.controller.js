@@ -19,14 +19,6 @@ function PathCtrl($scope, swaggerPaths, $window){
 
   $scope.focusPathModal = false;
 
-  //$scope.closePathModal = false;
-
-
-/*  this.togglePaths = function(){
-    //make sure there are paths to show
-    if($scope.paths.length > 0)
-        $scope.prevent.pathsList = !$scope.prevent.pathsList;
-  }*/
   $scope.openFocusPathModal = function(){
     $scope.focusPathModal = true;
     console.log("toggle focus: focusPathModal ==" + $scope.focusPathModal)

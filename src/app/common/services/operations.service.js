@@ -4,7 +4,9 @@ export default operations;
 
 function OperationsService(ParameterService, ResponseService){
 
-  var Operation = function(){
+
+  var Operation = {
+    init: function(){
       this.tags = null;
       this.summary = null;
       this.description = null;
@@ -17,40 +19,30 @@ function OperationsService(ParameterService, ResponseService){
       this.schemes = null;
       this.deprecated = false;
       this.security = new Object();
-  };
+    },
+    addParameter: function(paramName, paramIn){
 
-  Operation.prototype = {
+        if(hasParameter.call(this, paramName, paramIn))
+          this.parameter.push(ParameterService.newParameter(paramName, paramIn));
 
-      addParameter: function(paramName, paramIn){
-          //if the parameter does not exist for this operation add it.
-          /*if(!this.parameters.hasParameter){
-              this.parameters.addParameter(paramName, paramIn);
-          }*/
+    },
 
-          if(hasParameter.call(this, paramName, paramIn))
-            this.parameter.push(ParameterService.newParameter(paramName, paramIn));
+    getJSON: function(){
+        var operationJSON = {};
 
-      },
+        for(var property in this){
+            console.log(property);
+            if(this[property]){
+                //if(property === "parameters");
+                operationJSON[property] = this[property];
 
-      getJSON: function(){
-          var operationJSON = {};
+            }
+        };
 
-          for(var property in this){
-              console.log(property);
-              if(this[property]){
-                  //if(property === "parameters");
-                  operationJSON[property] = this[property];
+        return operationJSON;
 
-              }
-          };
-
-          return operationJSON;
-
-      }
-
-
-
-  };
+    }
+  }
 
   function hasParameter(name, inLoc){
     var found = false
@@ -67,11 +59,13 @@ function OperationsService(ParameterService, ResponseService){
   }
 
   function newOperation(){
-    return new Operation();
+    let temp = Object.create(Operation);
+    temp.init();
+    return temp;
   }
 
   return {
-    newOperation:newOperation,
+    newOperation
   }
 
 }

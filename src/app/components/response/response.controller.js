@@ -27,7 +27,11 @@ function ResponseCtrl($scope, PathService, rms){
    },
  }
 
+ this.rKeys = null;
+
+
  this.initResponseData = function(pathName, operation, httpCode){
+
    console.log("initResponseData");
    try{
      var currentResponse = PathService.getResponse(pathName, operation, httpCode);
@@ -47,17 +51,29 @@ function ResponseCtrl($scope, PathService, rms){
  this.addResponse = function(pathName, operation, httpCode, description){
    console.log("RESPONSE CONTROLLER - ADD RESPONSE");
 
+
+   console.log(this.sgContext);
+
+
+//   debugger;
+
    try{
-     PathService.addResponse(pathName, operation, httpCode, description);
+     this.sgContext.responses.addResponse(httpCode, description);
+     //PathService.addResponse(pathName, operation, httpCode, description);
    }catch(e){
      console.log(e);
      Materialize.toast(e, 3000);
    }
 
-   this.newResponseData[operation]= {
-     httpCode:null,
-     description:null,
-   }
+  //  this.newResponseData[operation]= {
+  //    httpCode:null,
+  //    description:null,
+  //  }
+  debugger;
+  $scope.addResponse.$setPristine();
+  console.log($scope);
+
+   this.rKeys= Object.keys(this.sgContext.responses).length;
 
  }
 

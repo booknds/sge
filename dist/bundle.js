@@ -29274,7 +29274,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<header>\n  <nav class=\"top-nav\" style=\"background-color:#3F1C3E;\">\n    <a href=\"#\" data-activates=\"nav-mobile\" class=\"button-collapse top-nav full hide-on-large-only\"><i class=\"mdi-navigation-menu\"></i></a>\n    <div class=\"nav-wrapper container\">\n      <a href=\"#\" class=\"brand-logo page-title\">Swagger Graphical Editor</a>\n      <ul id=\"nav-mobile\" class=\"right hide-on-med-and-down\">\n        <li><a href=\"http://hkmconsultingllc.com\"> HKM Solutions</a></li>\n      </ul>\n    </div>\n  </nav>\n  <sg-sidenav></sg-sidenav>\n</header>\n"
+	module.exports = "<header>\n  <nav class=\"top-nav\" style=\"background-color:#3F1C3E; height:95px;\">\n    <a href=\"#\" data-activates=\"nav-mobile\" class=\"button-collapse top-nav full hide-on-large-only\">\n      <i class=\"mdi-navigation-menu\"></i>\n    </a>\n    <div class=\"nav-wrapper container\">\n      <a href=\"#\" class=\"brand-logo page-title\" style=\"padding-top:12px\">\n        Swagger Graphical Editor\n      </a>\n      <ul id=\"nav-mobile\" class=\"right hide-on-med-and-down\" style=\"padding-top:12px\">\n        <li><a href=\"http://hkmconsultingllc.com\"> HKM Solutions</a></li>\n      </ul>\n    </div>\n  </nav>\n  <sg-sidenav></sg-sidenav>\n</header>\n"
 
 /***/ },
 /* 9 */
@@ -29505,7 +29505,7 @@
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _uniqueInput = __webpack_require__(18);
@@ -29517,18 +29517,47 @@
 	exports.default = uniqueInput;
 	
 	function uniqueInput() {
-	    return {
-	        restrict: "A",
-	        scope: {},
-	        controller: _uniqueInput2.default
-	    };
+	  return {
+	    restrict: "A",
+	    //scope:{},
+	    controller: _uniqueInput2.default,
+	    link: function link(scope, element, attrs) {
+	      console.log("Unique controller.");
+	
+	      var children = element.children();
+	      var newID = scope.$id;
+	
+	      for (var childNode in children) {
+	
+	        if (children[childNode].nodeName === 'INPUT') {
+	
+	          var attributes = children[childNode].attributes;
+	
+	          for (var index in attributes) {
+	            if (attributes[index].nodeName === "id") {
+	              attributes[index].value = newID;
+	            }
+	          }
+	        } else if (children[childNode].nodeName === 'LABEL') {
+	
+	          var attributes = children[childNode].attributes;
+	
+	          for (var index in attributes) {
+	            if (attributes[index].nodeName === "for") {
+	              attributes[index].value = newID;
+	            }
+	          }
+	        }
+	      }
+	    }
+	  };
 	}
 
 /***/ },
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -29548,14 +29577,27 @@
 	exports.default = uniqueInputController;
 	
 	function uniqueInputCtrl(scope) {
-	  var input = _angular2.default.element(document.getElementById('input'));
-	  input.removeAttr('id');
-	  input.attr('id', scope.$id);
 	
-	  var label = _angular2.default.element(document.getElementById('label'));
-	  label.removeAttr('id');
-	  label.removeAttr('for');
-	  label.attr('for', scope.$id);
+	  //   //debugger;
+	  //   console.log("Unique controller.");
+	  //
+	  //   // let input = angular.element(document.getElementById('input'));
+	  //   // input.removeAttr('id');
+	  //   // input.attr('id', scope.$id);
+	  //
+	  //
+	  //   let label = angular.element(document.getElementById('label'));
+	  //   ///debugger;
+	  //   console.log(label);
+	  //   label.removeAttr('id');
+	  // //  debugger;
+	  //   label.removeAttr('for');
+	  //   label.attr('for', scope.$id);
+	  //   console.log(label);
+	  // //  debugger;
+	  //
+	  //   label.attr('poop', 'poop');
+	
 	}
 
 /***/ },
@@ -30270,6 +30312,7 @@
 	
 	  Path.prototype = {
 	    addOperation: function addOperation(operation) {
+	      debugger;
 	      this[operation] = OperationService.newOperation();
 	    },
 	
@@ -30335,6 +30378,7 @@
 	    console.log("PATH SERVICE: adding operation");
 	
 	    if (pathExists(pathName)) {
+	      //  debugger;
 	      paths[pathName][operation] = OperationService.newOperation();
 	    } else {
 	      throw "Cannot add Operation, path does not exist";
@@ -30759,7 +30803,7 @@
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	var operations = ["ParameterService", "ResponseService", OperationsService];
 	
@@ -30767,65 +30811,60 @@
 	
 	function OperationsService(ParameterService, ResponseService) {
 	
-	    var Operation = function Operation() {
-	        this.tags = null;
-	        this.summary = null;
-	        this.description = null;
-	        this.externalDocs = new Object();
-	        this.operationId = null;
-	        this.consumes = null;
-	        this.produces = null;
-	        this.parameters = new Array();
-	        this.responses = ResponseService.newResponses();
-	        this.schemes = null;
-	        this.deprecated = false;
-	        this.security = new Object();
-	    };
+	  var Operation = {
+	    init: function init() {
+	      this.tags = null;
+	      this.summary = null;
+	      this.description = null;
+	      this.externalDocs = new Object();
+	      this.operationId = null;
+	      this.consumes = null;
+	      this.produces = null;
+	      this.parameters = new Array();
+	      this.responses = ResponseService.newResponses();
+	      this.schemes = null;
+	      this.deprecated = false;
+	      this.security = new Object();
+	    },
+	    addParameter: function addParameter(paramName, paramIn) {
 	
-	    Operation.prototype = {
+	      if (hasParameter.call(this, paramName, paramIn)) this.parameter.push(ParameterService.newParameter(paramName, paramIn));
+	    },
 	
-	        addParameter: function addParameter(paramName, paramIn) {
-	            //if the parameter does not exist for this operation add it.
-	            /*if(!this.parameters.hasParameter){
-	                this.parameters.addParameter(paramName, paramIn);
-	            }*/
+	    getJSON: function getJSON() {
+	      var operationJSON = {};
 	
-	            if (hasParameter.call(this, paramName, paramIn)) this.parameter.push(ParameterService.newParameter(paramName, paramIn));
-	        },
-	
-	        getJSON: function getJSON() {
-	            var operationJSON = {};
-	
-	            for (var property in this) {
-	                console.log(property);
-	                if (this[property]) {
-	                    //if(property === "parameters");
-	                    operationJSON[property] = this[property];
-	                }
-	            };
-	
-	            return operationJSON;
+	      for (var property in this) {
+	        console.log(property);
+	        if (this[property]) {
+	          //if(property === "parameters");
+	          operationJSON[property] = this[property];
 	        }
+	      };
 	
-	    };
-	
-	    function hasParameter(name, inLoc) {
-	        var found = false;
-	
-	        this.parameters.forEach(function (element, index, array) {
-	            if (element.name === name && element.in === inLoc) found = true;
-	        });
-	
-	        if (found) return true;else return false;
+	      return operationJSON;
 	    }
+	  };
 	
-	    function newOperation() {
-	        return new Operation();
-	    }
+	  function hasParameter(name, inLoc) {
+	    var found = false;
 	
-	    return {
-	        newOperation: newOperation
-	    };
+	    this.parameters.forEach(function (element, index, array) {
+	      if (element.name === name && element.in === inLoc) found = true;
+	    });
+	
+	    if (found) return true;else return false;
+	  }
+	
+	  function newOperation() {
+	    var temp = Object.create(Operation);
+	    temp.init();
+	    return temp;
+	  }
+	
+	  return {
+	    newOperation: newOperation
+	  };
 	}
 
 /***/ },
@@ -31142,54 +31181,13 @@
 	/* @ngInject */
 	function ResponseService() {
 	
-	  var rs = this;
+	  var Responses = {
 	
-	  function Response() {
-	    this.description = null;
-	    this.headers = {};
-	  }
-	
-	  function Header(name) {
-	    this[name] = new HeaderObject();
-	
-	    this.HeaderObject = function () {
-	      return {
-	        description: "",
-	        type: "",
-	        format: "",
-	        items: new Object(), //should be an 'items' object
-	        collectionFormat: ""
-	
-	      };
-	    };
-	  }
-	
-	  function Headers() {
-	
-	    this.addHeader = function (headerName) {
-	      return new Header(headerName);
-	    };
-	  }
-	
-	  /**
-	    Responses Object
-	  */
-	  function Responses() {}
-	
-	  //this.responseList = new Object();
-	
-	  /**
-	    Responses function
-	  */
-	  Responses.prototype = {
-	    /**
-	     */
 	    addResponse: function addResponse(httpCode, description) {
-	      console.log(this.responseList);
 	
-	      this[httpCode] = new Response(description);
-	
-	      console.log(this.responseList);
+	      //this[httpCode] = new Response(description);
+	      this[httpCode] = Object.create(Response);
+	      this[httpCode].init(description);
 	    },
 	
 	    /**
@@ -31241,24 +31239,108 @@
 	
 	  };
 	
-	  /**
-	    Response Object
-	  */
-	  function Response(descrip) {
+	  var Response = {
+	    init: function init(descrip) {
+	      this.description = descrip, this.schema = new Object(), this.headers = new Object(), this.examples = new Object();
+	    }
+	  };
 	
-	    this.description = descrip, this.schema = new Object(), this.headers = new Object(), this.examples = new Object();
-	
-	    //return this[httpCode];
-	  }
-	
-	  /**
-	    Response Functions
-	  */
-	  Response.prototype = {};
+	  // /**
+	  //   Responses Object
+	  // */
+	  // function Responses(){
+	  //
+	  //   //this.responseList = new Object();
+	  //
+	  // }
+	  //
+	  // /**
+	  //   Responses function
+	  // */
+	  // Responses.prototype = {
+	  //   /**
+	  //
+	  //   */
+	  //   addResponse: function(httpCode, description){
+	  //     console.log(this.responseList);
+	  //
+	  //     this[httpCode] = new Response(description);
+	  //
+	  //     console.log(this.responseList);
+	  //
+	  //
+	  //   },
+	  //
+	  //   /**
+	  //   */
+	  //   removeResponse: function(httpCode){
+	  //
+	  //     this.responseList.forEach(function(resp, index, responseList){
+	  //       if(resp.hasOwnProperty(httpCode)){
+	  //         this.responseList.splice(index, 1);
+	  //         return;
+	  //       }
+	  //     });
+	  //
+	  //   },
+	  //
+	  //   /**
+	  //   */
+	  //   getResponse: function(httpCode){
+	  //     /*var response = null;
+	  //
+	  //     this.responseList.forEach(function(resp, index, responseList){
+	  //       if(resp.hasOwnProperty(httpCode)){
+	  //         response = resp;
+	  //         return;
+	  //       }
+	  //     });
+	  //
+	  //     return angular.copy(response);*/
+	  //     if(this.hasOwnProperty(httpCode))
+	  //       return this[httpCode];
+	  //     else
+	  //       return null;
+	  //
+	  //   },
+	  //
+	  //   /**
+	  //     Check to see if a response exists in the list
+	  //   */
+	  //   responseExists: function(httpCode){
+	  //     //var exists = false;
+	  //
+	  //     //this.responseList.forEach(function(response, index, responseList){
+	  //     console.log("RESPONSE EXISTS FUNCTION");
+	  //     console.log(httpCode);
+	  //     console.log(this.responseList);
+	  //       if(this.hasOwnProperty(httpCode)){
+	  //         return true;
+	  //         //return;
+	  //       }else {
+	  //         return false;
+	  //       }
+	  //     //});
+	  //
+	  //     //return exists;
+	  //   },
+	  //
+	  // };
+	  //
+	  // /**
+	  //   Response Object
+	  // */
+	  // function Response(descrip){
+	  //
+	  //
+	  //
+	  //   //return this[httpCode];
+	  // }
 	
 	  return {
 	    newResponses: function newResponses() {
-	      return new Responses();
+	      return Object.create(Responses);
+	      //return new Responses();
 	    },
 	
 	    newResponse: function newResponse(httpCode, description) {
@@ -32649,7 +32731,7 @@
 /* 75 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"path-creation-modal\" class=\"modal blue-grey darken-1 white-text modal-fixed-footer\"\n      sg-modal-closer ng-model=\"pathModal.closeModal\" modal-id=\"path-creation-modal\">\n  <form name=\"addPathForm\" novalidate ng-submit=\"addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)\" >\n    <div class=\"modal-content\">\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Create New Path</h4>\n        </div>\n        <div class=\"input-field col s12 \">\n          <input id=\"path-name\" type=\"text\"\n                  name=\"pathName\"\n                  ng-model=\"pathModal.newPath.name\"\n                  ng-pattern=\"/^\\/[0-9a-zA-Z\\/\\.\\_\\-\\{\\}]*$/\"\n                  ng-minlength=3\n                  ng-maxlength=45\n                  required=\"\"\n\n                  focus-me=\"focusPathModal\">\n          <label for=\"path-name\">Path Name</label>\n          <div class=\"error\"\n               ng-show=\"addPathForm.pathName.$dirty && addPathForm.pathName.$invalid\">\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.required\">\n                    The Path name is required.\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.pattern\">\n                    The Path must start with a '/' (forward slash).\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.minlength\">\n                    The Path name is required to be at least 3 characters\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.maxlength\">\n              The Path name cannot be longer than 45 characters\n            </small>\n          </div>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n        <div class=\"col s12 l6\">\n          <div class=\"row\">\n            <div ng-repeat=\"(operation, value) in pathModal.newPath.operations\" class=\"col s3\" >\n              <p sg-unique-input>\n                <input type=\"checkbox\" id=\"input\" ng-model=\"pathModal.newPath.operations[operation]\"/>\n                <label id=\"label\" for=\"label\">{{operation | uppercase}}</label>\n              </p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <div>\n        <button type=\"submit\" name=\"action\" close-path-modal ng-class=\"{'disabled': addPathForm.$invalid}\"\n          class=\" waves-effect waves-green btn\">\n        Create\n        </button>\n      </div>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
+	module.exports = "<div id=\"path-creation-modal\" class=\"modal blue-grey darken-1 white-text modal-fixed-footer\"\n      sg-modal-closer ng-model=\"pathModal.closeModal\" modal-id=\"path-creation-modal\">\n  <form name=\"addPathForm\" novalidate ng-submit=\"addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)\" >\n    <div class=\"modal-content\">\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Create New Path</h4>\n        </div>\n        <div class=\"input-field col s12 \">\n          <input id=\"path-name\" type=\"text\"\n                  name=\"pathName\"\n                  ng-model=\"pathModal.newPath.name\"\n                  ng-pattern=\"/^\\/[0-9a-zA-Z\\/\\.\\_\\-\\{\\}]*$/\"\n                  ng-minlength=3\n                  ng-maxlength=45\n                  required=\"\"\n\n                  focus-me=\"focusPathModal\">\n          <label for=\"path-name\">Path Name</label>\n          <div class=\"error\"\n               ng-show=\"addPathForm.pathName.$dirty && addPathForm.pathName.$invalid\">\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.required\">\n                    The Path name is required.\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.pattern\">\n                    The Path must start with a '/' (forward slash).\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.minlength\">\n                    The Path name is required to be at least 3 characters\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.maxlength\">\n              The Path name cannot be longer than 45 characters\n            </small>\n          </div>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n        <div class=\"col s12 l6\">\n          <div class=\"row\">\n            <div ng-repeat=\"(operation, value) in pathModal.newPath.operations\" class=\"col s3\" >\n              <p sg-unique-input>\n                <input type=\"checkbox\" id=\"input\" ng-model=\"pathModal.newPath.operations[operation]\"/>\n                <label for=\"label\">{{operation | uppercase}}</label>\n              </p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <div>\n        <button type=\"submit\" name=\"action\" close-path-modal ng-class=\"{'disabled': addPathForm.$invalid}\"\n          class=\" waves-effect waves-green btn\">\n        Create\n        </button>\n      </div>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
 /* 76 */
@@ -33058,7 +33140,7 @@
 /* 87 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\" ng-cloak>\n{{basicInfo.sgBase}}\n  <div class=\"row\">\n    <form name=\"infoForm\" novalidate ng-submit=\"infoForm.$valid\">\n      <div class=\"col s12\">\n        <div class=\"card blue-grey darken-1\">\n          <div class=\"card-content white-text\">\n            <h3>{{ basicInfo.sgBase.info.title + ' API' }}</h3>\n            <p>Start building your Swagger definition by describing some basic info. Watch out some\n              fields are required to enter, but don't worry we will prompt you if anything is missing.\n            </p>\n            <div class=\"section\">\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Info</span>\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <div class=\"row\">\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"title\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.title\"\n                          name=\"apiName\"\n                          required=\"\" >\n                        <label for=\"title\">Title</label>\n                        <div class=\"error\" ng-show=\"infoForm.apiName.$dirty && infoForm.apiName.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.apiName.$error.required\">\n                            The API name is required.\n                          </small>\n                        </div>\n                      </div>\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"version\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.version\"\n                          ng-pattern=\"/^([v]?)([0-9]+)((\\.([0-9]+))*)?$/\"\n                          name=\"version\"\n                          required=\"\" >\n                        <label for=\"version\">Version</label>\n                        <div class=\"error\" ng-show=\"infoForm.version.$dirty && infoForm.version.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.required\">\n                            The version is required.\n                          </small>\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <sg-textarea class=\"input-field col s12\" unique-input sg-label=\"Description\" ng-model=\"basicInfo.sgBase.info.description\"></sg-textarea>\n                      <!-- <div class=\"input-field col s12\">\n                        <textarea id=\"description\" ng-model=\"basicInfo.sgBase.info.description\" class=\"materialize-textarea\"></textarea>\n                        <label for=\"description\">Description</label>\n                      </div> -->\n                    </div>\n                    <div class=\"row\">\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Host\" ng-model=\"basicInfo.sgBase.info.host\"> </sg-text-input>\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Base Path\" ng-model=\"basicInfo.sgBase.info.basePath\"> </sg-text-input>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Contact</span>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.contact.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.contact.url\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Email\" ng-model=\"basicInfo.sgBase.info.contact.email\"> </sg-text-input>\n                </div>\n                <span class=\"card-title\">License</span>\n                <div class=\"row\">\n                  <sg-text-input ng-if=\"basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\" required=\"true\"> </sg-text-input>\n                  <sg-text-input ng-if=\"!basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.license.url\"> </sg-text-input>\n                </div>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 \" unique-input sg-label=\"Terms Of Service\" ng-model=\"basicInfo.sgBase.info.termsOfService\"> </sg-text-input>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col s12\">\n                <span class=\"card-title\">Extra Info</span>\n                <div class=\"section col s12\">\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Produces: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"col m10 valign\"> {{produce}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('produces', produce);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Consumes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"col m10 valign\"> {{consume}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('consumes', consume);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Schemes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <div class=\"col m10 valign\"> {{scheme}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.removeType('schemes', scheme);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n"
+	module.exports = "<div class=\"container\" ng-cloak>\n{{basicInfo.sgBase}}\n  <div class=\"row\">\n    <form name=\"infoForm\" novalidate ng-submit=\"infoForm.$valid\">\n      <div class=\"col s12\">\n        <div class=\"card blue-grey darken-1\">\n          <div class=\"card-content white-text\">\n            <h3>{{ basicInfo.sgBase.info.title + ' API' }}</h3>\n            <p>Start building your Swagger definition by describing some basic info. Watch out some\n              fields are required to enter, but don't worry we will prompt you if anything is missing.\n            </p>\n            <div class=\"section\">\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Info</span>\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <div class=\"row\">\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"title\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.title\"\n                          name=\"apiName\"\n                          required=\"\" >\n                        <label for=\"title\">Title</label>\n                        <div class=\"error\" ng-show=\"infoForm.apiName.$dirty && infoForm.apiName.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.apiName.$error.required\">\n                            The API name is required.\n                          </small>\n                        </div>\n                      </div>\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"version\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.version\"\n                          ng-pattern=\"/^([v]?)([0-9]+)((\\.([0-9]+))*)?$/\"\n                          name=\"version\"\n                          required=\"\" >\n                        <label for=\"version\">Version</label>\n                        <div class=\"error\" ng-show=\"infoForm.version.$dirty && infoForm.version.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.required\">\n                            The version is required.\n                          </small>\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <sg-textarea class=\"input-field col s12\" sg-unique-input sg-label=\"Description\" ng-model=\"basicInfo.sgBase.info.description\"></sg-textarea>\n                    </div>\n                    <div class=\"row\">\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Host\" ng-model=\"basicInfo.sgBase.info.host\"> </sg-text-input>\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Base Path\" ng-model=\"basicInfo.sgBase.info.basePath\"> </sg-text-input>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Contact</span>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.contact.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.contact.url\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Email\" ng-model=\"basicInfo.sgBase.info.contact.email\"> </sg-text-input>\n                </div>\n                <span class=\"card-title\">License</span>\n                <div class=\"row\">\n                  <sg-text-input ng-if=\"basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\" required=\"true\"> </sg-text-input>\n                  <sg-text-input ng-if=\"!basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.license.url\"> </sg-text-input>\n                </div>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 \" unique-input sg-label=\"Terms Of Service\" ng-model=\"basicInfo.sgBase.info.termsOfService\"> </sg-text-input>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col s12\">\n                <span class=\"card-title\">Types</span>\n                <div class=\"section col s12\">\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Produces: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"col m10 valign\"> {{produce}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('produces', produce);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Consumes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"col m10 valign\"> {{consume}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('consumes', consume);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Schemes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <div class=\"col m10 valign\"> {{scheme}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.removeType('schemes', scheme);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n"
 
 /***/ },
 /* 88 */
@@ -33189,7 +33271,7 @@
 /* 91 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\" ng-cloak>\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s3 m2 l2 valign\">\n              <h3>Paths</h3>\n            </div>\n            <div class=\"col s3 m8 l8\">\n              <a class=\"btn-flat\" ng-click=\"togglePaths()\">\n              <i class=\"large material-icons\">swap_vert</i>\n              </a>\n            </div>\n            <div class=\"col s6 m2 l2 valign right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n                <!--label for=\"path-name\">Path Name</label-->\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                  <!--i class=\"material-icons right\">send</i-->\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n              <div class=\"col s12 l6\">\n                <div class=\"row\" >\n                  <div class=\"col\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'\" ng-hide=\"pathCtl.paths[pathName][operation]\">\n                    <a ng-class=\"{'blue': '{{operation}}' == 'get',\n                      'orange': '{{operation}}' === 'put',\n                      'green': '{{operation}}' === 'post',\n                      'red': '{{operation}}' === 'delete', }\"\n                      class=\"waves-effect waves-light btn\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                    {{operation | uppercase}}\n                    </a>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\" class=\"valign-wrapper\">\n                <div class=\"col s11 valign\">\n                  <ul class=\"collapsible blue-grey darken-2\" init-collapse data-collapsible=\"accordion\">\n                    <li>\n                      <div ng-class=\"{'blue': '{{operation}}' == 'get',\n                        'orange': '{{operation}}' === 'put',\n                        'green': '{{operation}}' === 'post',\n                        'red': '{{operation}}' === 'delete', }\"\n                        class=\"collapsible-header \"><i class=\"material-icons\">filter_drama</i>{{ operation | uppercase }}   {{ \" \" + path.currentName}}</div>\n                      <div class=\"collapsible-body \">\n                        <div class=\"section\">\n                          <!--form ng-submit=\"pathCtl.updateOperation(pathName, operation, 'summary', pathCtl.operation[operation].summary)\"-->\n                          <div class=\"\">\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <input id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].summary\"\n                                ng-model=\"pathCtl.paths[pathName][operation].summary\"\n                                maxlength=\"150\" type=\"text\"/>\n                              <label id=\"label\"  for=\"label\">Summary</label>\n                            </div>\n                            <!--div class=\"col s2 valign\">\n                              <button class=\"waves-effect waves-light btn\" type=\"submit\" name=\"action\">\n                              Update\n                              </button>\n                              </div-->\n                            <!--/div-->\n                            <!--/form-->\n                            <!--form ng-submit=\"pathCtl.updateOperation(pathName, operation, 'description', pathCtl.operation[operation].description)\"-->\n                            <!--div class=\" valign-wrapper\"-->\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <textarea id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].description\"\n                                ng-model=\"pathCtl.paths[pathName][operation].description\"\n                                class=\"materialize-textarea\"></textarea>\n                              <label id=\"label\" for=\"label\">Description</label>\n                            </div>\n                            <!--div class=\"col s2 valign\">\n                              <button class=\"waves-effect waves-light btn\" type=\"submit\" name=\"action\">\n                              Update\n                              </button>\n                              </div-->\n                          </div>\n                          <!--/form-->\n                        </div>\n                        <div class=\"Section\"\n                          ng-if=\"pathCtl.paths[pathName][operation]\"\n                          >\n                          <sg-parameter></sg-parameter>\n\n                        </div>\n                        <sg-response></sg-response>\n                      </div>\n                    </li>\n                  </ul>\n                </div>\n                <div class=\"col s1 valign\" >\n                  <button class=\"btn-flat\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deleteOperation(pathName, operation)\">\n                  <i class=\"material-icons\">delete</i>\n                  </button>\n                </div>\n              </div>\n              {{path}}\n            </div>\n          </div>\n          {{paths}}\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
+	module.exports = "<div class=\"container\" ng-cloak>\n  {{pathCtl.paths}}\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s3 m2 l2 valign\">\n              <h3>Paths</h3>\n            </div>\n            <div class=\"col s3 m8 l8\">\n              <a class=\"btn-flat\" ng-click=\"togglePaths()\">\n              <i class=\"large material-icons\">swap_vert</i>\n              </a>\n            </div>\n            <div class=\"col s6 m2 l2 valign right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n              <div class=\"col s12 l6\">\n                <div class=\"row\" >\n                  <div class=\"col\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'\" ng-hide=\"pathCtl.paths[pathName][operation]\">\n                    <a ng-class=\"{'blue': '{{operation}}' == 'get',\n                      'orange': '{{operation}}' === 'put',\n                      'green': '{{operation}}' === 'post',\n                      'red': '{{operation}}' === 'delete', }\"\n                      class=\"waves-effect waves-light btn\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                    {{operation | uppercase}}\n                    </a>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\" class=\"valign-wrapper\">\n                <div class=\"col s11 valign\">\n                  <ul class=\"collapsible blue-grey darken-2\" init-collapse data-collapsible=\"accordion\">\n                    <li>\n                      <div ng-class=\"{'blue': '{{operation}}' == 'get',\n                        'orange': '{{operation}}' === 'put',\n                        'green': '{{operation}}' === 'post',\n                        'red': '{{operation}}' === 'delete', }\"\n                        class=\"collapsible-header \"><i class=\"material-icons\">filter_drama</i>{{ operation | uppercase }}   {{ \" \" + path.currentName}}</div>\n                      <div class=\"collapsible-body \">\n                        <div class=\"section\">\n                          <div class=\"\">\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <input id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].summary\"\n                                ng-model=\"pathCtl.paths[pathName][operation].summary\"\n                                maxlength=\"150\" type=\"text\"/>\n                              <label id=\"label\"  for=\"label\">Summary</label>\n                            </div>\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <textarea id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].description\"\n                                ng-model=\"pathCtl.paths[pathName][operation].description\"\n                                class=\"materialize-textarea\"></textarea>\n                              <label id=\"label\" for=\"label\">Description</label>\n                            </div>\n                          </div>\n                        </div>\n                        <div class=\"Section\" ng-if=\"pathCtl.paths[pathName][operation]\">\n                          <sg-parameter></sg-parameter>\n\n                        </div>\n                        <sg-response sg-context=\"pathCtl.paths[pathName][operation]\"></sg-response>\n                      </div>\n                    </li>\n                  </ul>\n                </div>\n                <div class=\"col s1 valign\" >\n                  <button class=\"btn-flat\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deleteOperation(pathName, operation)\">\n                  <i class=\"material-icons\">delete</i>\n                  </button>\n                </div>\n              </div>\n              {{path}}\n            </div>\n          </div>\n          {{paths}}\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
 
 /***/ },
 /* 92 */
@@ -33227,13 +33309,6 @@
 	
 	  $scope.focusPathModal = false;
 	
-	  //$scope.closePathModal = false;
-	
-	  /*  this.togglePaths = function(){
-	      //make sure there are paths to show
-	      if($scope.paths.length > 0)
-	          $scope.prevent.pathsList = !$scope.prevent.pathsList;
-	    }*/
 	  $scope.openFocusPathModal = function () {
 	    $scope.focusPathModal = true;
 	    console.log("toggle focus: focusPathModal ==" + $scope.focusPathModal);
@@ -33370,7 +33445,7 @@
 /* 95 */
 /***/ function(module, exports) {
 
-	module.exports = "<h5>Parameter</h5>\n<table class=\" section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"name\">Name</th>\n      <th data-field=\"in\">Located In</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"required\">Required</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"param in pathCtl.paths[pathName][operation].parameters | orderBy:'name'\">\n      <div >\n        <td class=\"white-text\">{{param.name}}</td>\n        <td class=\"white-text\">{{param.inLocation}}</td>\n        <td class=\"shrink white-text\">{{param.description}}</td>\n        <td class=\"white-text\">{{param.required}}</td>\n        <td class=\"shrink\">{{param.schema}}</td>\n        <td class=\"white-text\">\n          <a class=\"disabled\" href=\"#param-modal\" modal ng-click=\"paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addParameter\" novalidate ng-submit=\"addParameter.name.$valid && paramControl.addParam(pathName, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)\">\n  <div class=\"valign-wrapper\">\n    <div sg-unique-input class=\"input-field col s4 valign\">\n      <input id=\"input\" name=\"name\" ng-model=\"paramControl.newParamData[operation].name\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Parameter Name</label>\n      <div  class=\"error\"\n            ng-show=\"addParameter.name.$dirty && addParameter.name.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addParameter.name.$error.required\">\n          Parameter name is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"input-field col s4 valign\" >\n      <select class=\"browser-default\" ng-model=\"paramControl.newParamData[operation].inLocation\" style=\"background-color: #455a64;\">\n        <option  value=\"\" disabled selected>Choose your Parameter Location</option>\n        <option value=\"path\">Path</option>\n        <option value=\"query\">Query</option>\n        <option value=\"header\">Header</option>\n        <option value=\"body\">Body</option>\n        <option value=\"formData\">Form Data</option>\n      </select>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\" ng-class=\"{ 'disabled': addParameter.name.$invalid }\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n</form>\n{{paramControl.paths}}\n<div></div>\n"
+	module.exports = "<h5>Parameters</h5>\n<table ng-if=\"pathCtl.paths[pathName][operation].parameters.length > 0;\" class=\" section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"name\">Name</th>\n      <th data-field=\"in\">Located In</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"required\">Required</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"param in pathCtl.paths[pathName][operation].parameters | orderBy:'name'\">\n      <div >\n        <td class=\"white-text\">{{param.name}}</td>\n        <td class=\"white-text\">{{param.inLocation}}</td>\n        <td class=\"shrink white-text\">{{param.description}}</td>\n        <td class=\"white-text\">{{param.required}}</td>\n        <td class=\"shrink\">{{param.schema}}</td>\n        <td class=\"white-text\">\n          <a class=\"disabled\" href=\"#param-modal\" modal ng-click=\"paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addParameter\" novalidate ng-submit=\"addParameter.name.$valid && paramControl.addParam(pathName, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)\">\n  <div class=\"valign-wrapper\">\n    <div sg-unique-input class=\"input-field col s4 valign\">\n      <input id=\"input\" name=\"name\" ng-model=\"paramControl.newParamData[operation].name\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Parameter Name</label>\n      <div  class=\"error\"\n            ng-show=\"addParameter.name.$dirty && addParameter.name.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addParameter.name.$error.required\">\n          Parameter name is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"input-field col s4 valign\" >\n      <select class=\"browser-default\" ng-model=\"paramControl.newParamData[operation].inLocation\" style=\"background-color: #455a64;\">\n        <option  value=\"\" disabled selected>Choose your Parameter Location</option>\n        <option value=\"path\">Path</option>\n        <option value=\"query\">Query</option>\n        <option value=\"header\">Header</option>\n        <option value=\"body\">Body</option>\n        <option value=\"formData\">Form Data</option>\n      </select>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\" ng-class=\"{ 'disabled': addParameter.name.$invalid }\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n</form>\n{{paramControl.paths}}\n"
 
 /***/ },
 /* 96 */
@@ -33506,6 +33581,10 @@
 	function responseComponent() {
 	  return {
 	    template: _response2.default,
+	    scope: {},
+	    bindToController: {
+	      sgContext: '='
+	    },
 	    restrict: 'E',
 	    //    replace: true,
 	    controller: _response4.default,
@@ -33517,7 +33596,7 @@
 /* 99 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"section\">\n  <h5>Response</h5>\n  <div></div>\n  <table class=\" section bordered responsive-table\">\n    <thead>\n      <tr>\n        <th data-field=\"code\">Code</th>\n        <th data-field=\"description\">Description</th>\n        <th data-field=\"Schema\">Schema</th>\n        <th data-field=\"Edit\">Edit</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"(responseCode, response) in pathCtl.paths[pathName][operation].responses | orderBy:'responseCode'\">\n        <div >\n          <td>{{responseCode}}</td>\n          <td class=\"shrink\">{{response.description}}</td>\n          <td class=\"shrink\">{{response.schema}}</td>\n          <td>\n            <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseData(pathName, operation, responseCode)\">\n            <i class=\"material-icons\">settings</i>\n            </a>\n          </td>\n        </div>\n      </tr>\n    </tbody>\n  </table>\n  <form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)\">\n    <div class=\"valign-wrapper\">\n      <div unique-checkbox class=\"input-field col s4 valign\">\n        <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].httpCode\" name=\"code\" type=\"text\" required=\"\"/>\n        <label id=\"label\" for=\"label\">Response Code</label>\n        <div  class=\"error\"\n              ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n          <small class=\"error\"\n                ng-show=\"addResponse.code.$error.required\">\n            Response code is required.\n          </small>\n        </div>\n      </div>\n      <div unique-checkbox class=\"input-field col s4 valign\">\n        <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].description\" name=\"description\" type=\"text\" required=\"\" />\n        <label id=\"label\" for=\"label\">Response Description</label>\n        <div  class=\"error\"\n              ng-show=\"addResponse.description.$dirty && addResponse.desctiption.$invalid\">\n          <small class=\"error\"\n                ng-show=\"addResponse.description.$error.required\">\n            Response description is required.\n          </small>\n        </div>\n      </div>\n      <div class=\"col s4 valign\">\n        <button  class=\"waves-effect waves-light btn\"\n          ng-class=\"{ 'disabled': addResponse.$invalid}\">\n        <i class=\"material-icons\">add</i>\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
+	module.exports = "<h5>Response</h5>\n<table ng-if=\"responseControl.rKeys > 0;\" class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext.responses | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseData(pathName, operation, responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].httpCode\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n      <div  class=\"error\"\n            ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          <!-- Response code is required. -->\n        </small>\n      </div>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n      <div class=\"error\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          <!-- Response description is required. -->\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n</form>\n"
 
 /***/ },
 /* 100 */
@@ -33557,7 +33636,10 @@
 	    }
 	  };
 	
+	  this.rKeys = null;
+	
 	  this.initResponseData = function (pathName, operation, httpCode) {
+	
 	    console.log("initResponseData");
 	    try {
 	      var currentResponse = PathService.getResponse(pathName, operation, httpCode);
@@ -33574,17 +33656,27 @@
 	  this.addResponse = function (pathName, operation, httpCode, description) {
 	    console.log("RESPONSE CONTROLLER - ADD RESPONSE");
 	
+	    console.log(this.sgContext);
+	
+	    //   debugger;
+	
 	    try {
-	      PathService.addResponse(pathName, operation, httpCode, description);
+	      this.sgContext.responses.addResponse(httpCode, description);
+	      //PathService.addResponse(pathName, operation, httpCode, description);
 	    } catch (e) {
 	      console.log(e);
 	      Materialize.toast(e, 3000);
 	    }
 	
-	    this.newResponseData[operation] = {
-	      httpCode: null,
-	      description: null
-	    };
+	    //  this.newResponseData[operation]= {
+	    //    httpCode:null,
+	    //    description:null,
+	    //  }
+	    debugger;
+	    $scope.addResponse.$setPristine();
+	    console.log($scope);
+	
+	    this.rKeys = Object.keys(this.sgContext.responses).length;
 	  };
 	}
 
