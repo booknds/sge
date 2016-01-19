@@ -1,5 +1,5 @@
 <h5>Parameters</h5>
-<table ng-if="pathCtl.paths[pathName][operation].parameters.length > 0;" class=" section bordered responsive-table">
+<table ng-if="paramControl.sgContext.parameters.length > 0;" class=" section bordered responsive-table">
   <thead>
     <tr>
       <th data-field="name">Name</th>
@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="param in pathCtl.paths[pathName][operation].parameters | orderBy:'name'">
+    <tr ng-repeat="param in paramControl.sgContext.parameters | orderBy:'name'">
       <div >
         <td class="white-text">{{param.name}}</td>
         <td class="white-text">{{param.inLocation}}</td>
@@ -27,7 +27,7 @@
     </tr>
   </tbody>
 </table>
-<form name="addParameter" novalidate ng-submit="addParameter.name.$valid && paramControl.addParam(pathName, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)">
+<form name="addParameter" novalidate ng-submit="addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)">
   <div class="valign-wrapper">
     <div sg-unique-input class="input-field col s4 valign">
       <input id="input" name="name" ng-model="paramControl.newParamData[operation].name" type="text" required=""/>

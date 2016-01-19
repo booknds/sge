@@ -15,28 +15,20 @@ export default function ResponseService(){
     */
     removeResponse: function(httpCode){
 
-      this.responseList.forEach(function(resp, index, responseList){
-        if(resp.hasOwnProperty(httpCode)){
-          this.responseList.splice(index, 1);
-          return;
-        }
-      });
+      // this.responseList.forEach(function(resp, index, responseList){
+      //   if(resp.hasOwnProperty(httpCode)){
+      //     this.responseList.splice(index, 1);
+      //     return;
+      //   }
+      // });
+      delete this[httpCode];
 
     },
 
     /**
     */
     getResponse: function(httpCode){
-      /*var response = null;
 
-      this.responseList.forEach(function(resp, index, responseList){
-        if(resp.hasOwnProperty(httpCode)){
-          response = resp;
-          return;
-        }
-      });
-
-      return angular.copy(response);*/
       if(this.hasOwnProperty(httpCode))
         return this[httpCode];
       else
@@ -47,7 +39,7 @@ export default function ResponseService(){
     /**
       Check to see if a response exists in the list
     */
-    responseExists: function(httpCode){
+    hasResponse: function(httpCode){
       //var exists = false;
 
       //this.responseList.forEach(function(response, index, responseList){
@@ -77,125 +69,31 @@ export default function ResponseService(){
     }
   }
 
-    // /**
-    //   Responses Object
-    // */
-    // function Responses(){
-    //
-    //   //this.responseList = new Object();
-    //
-    // }
-    //
-    // /**
-    //   Responses function
-    // */
-    // Responses.prototype = {
-    //   /**
-    //
-    //   */
-    //   addResponse: function(httpCode, description){
-    //     console.log(this.responseList);
-    //
-    //     this[httpCode] = new Response(description);
-    //
-    //     console.log(this.responseList);
-    //
-    //
-    //   },
-    //
-    //   /**
-    //   */
-    //   removeResponse: function(httpCode){
-    //
-    //     this.responseList.forEach(function(resp, index, responseList){
-    //       if(resp.hasOwnProperty(httpCode)){
-    //         this.responseList.splice(index, 1);
-    //         return;
-    //       }
-    //     });
-    //
-    //   },
-    //
-    //   /**
-    //   */
-    //   getResponse: function(httpCode){
-    //     /*var response = null;
-    //
-    //     this.responseList.forEach(function(resp, index, responseList){
-    //       if(resp.hasOwnProperty(httpCode)){
-    //         response = resp;
-    //         return;
-    //       }
-    //     });
-    //
-    //     return angular.copy(response);*/
-    //     if(this.hasOwnProperty(httpCode))
-    //       return this[httpCode];
-    //     else
-    //       return null;
-    //
-    //   },
-    //
-    //   /**
-    //     Check to see if a response exists in the list
-    //   */
-    //   responseExists: function(httpCode){
-    //     //var exists = false;
-    //
-    //     //this.responseList.forEach(function(response, index, responseList){
-    //     console.log("RESPONSE EXISTS FUNCTION");
-    //     console.log(httpCode);
-    //     console.log(this.responseList);
-    //       if(this.hasOwnProperty(httpCode)){
-    //         return true;
-    //         //return;
-    //       }else {
-    //         return false;
-    //       }
-    //     //});
-    //
-    //     //return exists;
-    //   },
-    //
-    // };
-    //
-    // /**
-    //   Response Object
-    // */
-    // function Response(descrip){
-    //
-    //
-    //
-    //   //return this[httpCode];
-    // }
-
-
-
     return {
       newResponses:function(){
          return Object.create(Responses);
         //return new Responses();
       },
 
-      newResponse: function(httpCode, description){
-        var response = null;
-        var temp = null
-
-        if(!httpCode)
-          throw "To create a response code please pass a http code status"
-        else if(!description)
-          throw "A description is required to create a response"
-        else
-          return new Response(httpCode, description);
-
-          //response = temp[httpCode];
-
-          //return response;
-
-      },
-      hasResponse: function(pathName, operation, httpCode){
-
-      }
+      // newResponse: function(httpCode, description){
+      //   var response = null;
+      //   var temp = null
+      //
+      //   if(!httpCode)
+      //     throw "To create a response code please pass a http code status"
+      //   else if(!description)
+      //     throw "A description is required to create a response"
+      //   else
+      //     return new Response(httpCode, description);
+      //
+      //     //response = temp[httpCode];
+      //
+      //     //return response;
+      //
+      // },
+      // hasResponse: function(pathName, operation, httpCode){
+      //
+      // }
     }
 
 }

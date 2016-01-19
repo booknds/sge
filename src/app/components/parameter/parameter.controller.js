@@ -1,8 +1,8 @@
-let ParameterController = ['$scope', '$log', 'PathService', "ParameterModalService", ParameterCtrl];
+let ParameterController = ['$scope', 'PathService', "ParameterModalService", ParameterCtrl];
 
 export default ParameterController;
 
-function ParameterCtrl($scope, log, swaggerPaths, pms){
+function ParameterCtrl($scope, swaggerPaths, pms){
 
   var paramControl = this;
 
@@ -32,40 +32,36 @@ function ParameterCtrl($scope, log, swaggerPaths, pms){
       name:null,
       inLocation:null,
     },
-  }
+  };
+
+  this.pLength = null;
 
   //Param methods
-  this.addParam = function(pathName, operation, paramName, paramInLocation){
+  this.addParam = function(paramName, paramInLocation){
 
       try{
-          swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
-          //$scope.parametersList = swaggerPaths.getParamList;
-          //updateParamList(pathName, operation);
+          swaggerPaths.addNewParam(this.sgContext, paramName, paramInLocation)
       }catch(e){
           console.log(e);
-          //paramControl.toastUser("Not a unique parameter/query combo.");
           Materialize.toast("Parameter name/query combo' already exists", 3000);
       }
 
-      //path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
-
       paramControl.newParamData[operation].name = "";
 
-
+      this.pLength = this.sgContext.parameters.length;
 
   }
 
   paramControl.editParamData = function(pathName, operation, paramName, paramInLocation, index){
 
-    console.log(index);
+    var param = this.sgContext.getParameter(paramName, paramInLocation);
 
-    var params = swaggerPaths.getParamList(pathName, operation);
-    var temp = params[index];
+    debugger;
+    //pms.initParameter(this.sgContext, paramName, paramInLocation);
 
-    console.log(params);
-    console.log(temp);
+    pms.initParameter(this.sgContext, param);
 
-    pms.parameterToUpdate(pathName, operation, temp);
+    pms.parameterToUpdate(pathName, operation, param);
 
   };
 

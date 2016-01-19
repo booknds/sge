@@ -1,5 +1,5 @@
 <div id="param-modal" class="modal blue-grey darken-1 modal-fixed-footer">
-  <form ng-submit="paramModalControl.updateParameter()">
+  <form name="editParam" novalidate ng-submit="paramModalControl.updateParameter()">
     <div class="modal-content white-text">
       {{paramModalControl.tempParam}}
       {{paramModalControl.currentParam}}
@@ -10,7 +10,7 @@
       </div>
       <div class="row valign-wrapper">
         <div class="input-field col s3 valign">
-          <input id="newParamUtil" ng-model="paramModalControl.tempParam.name" type="text" required="" aria-required="true"/>
+          <input id="newParamUtil" name"paramName" ng-model="paramModalControl.tempParam.name" type="text" required="" aria-required="true"/>
           <label for="newParamUtil">Parameter Name</label>
         </div>
         <div class="input-field col s3 valign" >

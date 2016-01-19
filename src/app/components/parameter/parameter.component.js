@@ -13,6 +13,10 @@ function parameterComponent(){
   return{
     template,
     restrict: 'E',
+    scope:{},
+    bindToController:{
+      sgContext: '=',
+    },
 //    replace: true,
     controller,
     controllerAs: 'paramControl',

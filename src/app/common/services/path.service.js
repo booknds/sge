@@ -148,110 +148,97 @@ function PathService(OperationService, ParameterService){
     /*
         Tries to create and validate a new parameter object.
     */
-    self.addNewParam = function(pathName, operation, paramName, paramIn){
-        if(debug){
-            console.log("PATH SERVICE: Attempting to add a new Parameter");
-            console.log(pathName);
-            console.log(operation);
-            console.log(paramName);
-        }
+    this.addNewParam = function(operation, paramName, paramIn){
+      var pIn = paramIn || "query";
 
-        var pIn = paramIn || "query";
-
-        var path = paths[pathName][operation];
-
-        if(validateParam(pathName, operation, paramName, pIn)){
-            //path.parameters.addParameter(paramName, pIn);
-            console.log("validated");
-            console.log(path.parameters);
-            path.parameters.push(ParameterService.newParameter(paramName, pIn));
-            console.log(path.parameters);
-        }else{
-            throw "Invalid Parameter Name-in combination, must be unique."
-        }
+      if(!operation.hasParameter(paramName, pIn)){
+        operation.addParameter(paramName, pIn);
+      }else{
+        throw "Invalid Parameter Name-in combination, must be unique."
+      }
     }
 
     /*
         This
     */
-    self.getParamList = function(pathName, operation){
-
-        var currentPath = paths[pathName][operation];
-
-        return currentPath.parameters;
-
-    }
+    // self.getParamList = function(pathName, operation){
+    //
+    //     var currentPath = paths[pathName][operation];
+    //
+    //     return currentPath.parameters;
+    //
+    // }
 
     /*
 
     */
-    self.getParam = function(pathName, operation, paramName, paramIn){
-        console.log("------------------\nGETTING PARAM NAME");
-        console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
-        var parameter;// = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
-        paths[pathName][operation].parameters.forEach(function loop(element, index, array){
-          if(element.name === paramName && element.inLocation === paramIn){
-            parameter = element;
-          }
-
-        })
-
-        // for(var param in paths[pathName][operation].parameters){
-        //   if(param.name === paramName && param.inLocation === paramIn){
-        //     parameter = param;
-        //   }
-        // }
-        debugger;
-        //console.log(paramObject);
-        console.log("------------------");
-        return parameter;
-    };
+    // self.getParam = function(pathName, operation, paramName, paramIn){
+    //     console.log("------------------\nGETTING PARAM NAME");
+    //     console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
+    //     var parameter;// = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
+    //     paths[pathName][operation].parameters.forEach(function loop(element, index, array){
+    //       if(element.name === paramName && element.inLocation === paramIn){
+    //         parameter = element;
+    //       }
+    //
+    //     })
+    //
+    //     // for(var param in paths[pathName][operation].parameters){
+    //     //   if(param.name === paramName && param.inLocation === paramIn){
+    //     //     parameter = param;
+    //     //   }
+    //     // }
+    //     debugger;
+    //     //console.log(paramObject);
+    //     console.log("------------------");
+    //     return parameter;
+    // };
 
     /*
         Checks to see if the given param name is valid for the given path.
     */
-    function validateParam (pathName, operation, paramName, paramIn){
-        if(debug)
-            console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
+    // function validateParam (pathName, operation, paramName, paramIn){
+    //     if(debug)
+    //         console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
+    //
+    //     var path = paths[pathName][operation];
+    //
+    //     if(hasParameter.call(path, paramName, paramIn)){
+    //         if(debug)
+    //             console.log("\t Same Parameter found, returning false!");
+    //
+    //         return false;
+    //     }else{
+    //         if(debug)
+    //             console.log("\t Parameter NOT found, returning true!");
+    //
+    //         return true;
+    //     }
+    // }
 
-        var path = paths[pathName][operation];
-
-        if(hasParameter.call(path, paramName, paramIn)){
-            if(debug)
-                console.log("\t Same Parameter found, returning false!");
-
-            return false;
-        }else{
-            if(debug)
-                console.log("\t Parameter NOT found, returning true!");
-
-            return true;
-        }
-    }
-
-    function hasParameter(name, inLoc){
-      var found = false
-
-      this.parameters.forEach(function(element, index, array){
-        if(element.name === name && element.inLocation === inLoc)
-          found = true;
-
-      });
-
-      if(found)
-        return true;
-      else
-        return false;
-    }
+    // function hasParameter(name, inLoc){
+    //   var found = false
+    //
+    //   this.parameters.forEach(function(element, index, array){
+    //     if(element.name === name && element.inLocation === inLoc)
+    //       found = true;
+    //
+    //   });
+    //
+    //   if(found)
+    //     return true;
+    //   else
+    //     return false;
+    // }
 
     /**
      *
      */
     self.updateParameter = function(originalParameterData, newParameter){
-      if(debug){
-        console.log("START Swagger Paths -> updating the Parameter Model");
-        //console.log(originalParameterData);
-      }
+      // if(debug){
+      //   console.log("START Swagger Paths -> updating the Parameter Model");
+      //   //console.log(originalParameterData);
+      // }
 
       var pathName = originalParameterData.pathName;
       var operation = originalParameterData.operation;
@@ -301,27 +288,27 @@ function PathService(OperationService, ParameterService){
 /************** PARAMETERS FUNCTIONS END*******************/
 
 /************** RESPONSE FUNCTIONS START*******************/
-  self.addResponse = function(pathName, operation, httpCode, description){
-    if(debug){
-      console.log("ADD RESPONSE - START");
-    }
-
-    if(!description){
-      throw "Description needs to be filled out"
-    }
-
-    var path = paths[pathName][operation];
-
-    if(hasResponse(pathName, operation, httpCode)){
-      throw "Http Code already exists"
-    }else{
-      path.responses.addResponse(httpCode, description);
-    }
-
-    if(debug){
-      console.log("ADD RESPONSE - END");
-    }
-  }
+  // self.addResponse = function(pathName, operation, httpCode, description){
+  //   if(debug){
+  //     console.log("ADD RESPONSE - START");
+  //   }
+  //
+  //   if(!description){
+  //     throw "Description needs to be filled out"
+  //   }
+  //
+  //   var path = paths[pathName][operation];
+  //
+  //   if(hasResponse(pathName, operation, httpCode)){
+  //     throw "Http Code already exists"
+  //   }else{
+  //     path.responses.addResponse(httpCode, description);
+  //   }
+  //
+  //   if(debug){
+  //     console.log("ADD RESPONSE - END");
+  //   }
+  // }
 
   self.getResponse = function(pathName, operation, httpCode){
 

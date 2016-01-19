@@ -61,19 +61,19 @@
 	
 	var _common2 = _interopRequireDefault(_common);
 	
-	var _components = __webpack_require__(46);
+	var _components = __webpack_require__(47);
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _app = __webpack_require__(107);
+	var _app = __webpack_require__(108);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _angularMaterialize = __webpack_require__(102);
+	var _angularMaterialize = __webpack_require__(103);
 	
 	var _angularMaterialize2 = _interopRequireDefault(_angularMaterialize);
 	
-	var _angularFileSaver = __webpack_require__(51);
+	var _angularFileSaver = __webpack_require__(52);
 	
 	var _angularFileSaver2 = _interopRequireDefault(_angularFileSaver);
 	
@@ -29140,7 +29140,7 @@
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _filters = __webpack_require__(44);
+	var _filters = __webpack_require__(45);
 	
 	var _filters2 = _interopRequireDefault(_filters);
 	
@@ -30059,11 +30059,13 @@
 	
 	var _response2 = _interopRequireDefault(_response);
 	
+	var _objectFactory = __webpack_require__(44);
+	
+	var _objectFactory2 = _interopRequireDefault(_objectFactory);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	'use strict';
-	
-	var compilerModule = _angular2.default.module("compilerModule", []).factory('CompilerService', _compiler2.default).factory('InfoService', _info2.default).service('PathService', _path2.default).factory('DefinitionsService', _definitions2.default).factory('OperationService', _operations2.default).factory('ParameterService', _parameter2.default).factory('ResponseService', _response2.default);
+	var compilerModule = _angular2.default.module("compilerModule", []).factory('CompilerService', _compiler2.default).factory('InfoService', _info2.default).service('PathService', _path2.default).factory('DefinitionsService', _definitions2.default).factory('OperationService', _operations2.default).factory('ParameterService', _parameter2.default).factory('ResponseService', _response2.default).factory('ObjectFactory', _objectFactory2.default);
 	
 	exports.default = compilerModule;
 
@@ -30413,24 +30415,11 @@
 	  /*
 	      Tries to create and validate a new parameter object.
 	  */
-	  self.addNewParam = function (pathName, operation, paramName, paramIn) {
-	    if (debug) {
-	      console.log("PATH SERVICE: Attempting to add a new Parameter");
-	      console.log(pathName);
-	      console.log(operation);
-	      console.log(paramName);
-	    }
-	
+	  this.addNewParam = function (operation, paramName, paramIn) {
 	    var pIn = paramIn || "query";
 	
-	    var path = paths[pathName][operation];
-	
-	    if (validateParam(pathName, operation, paramName, pIn)) {
-	      //path.parameters.addParameter(paramName, pIn);
-	      console.log("validated");
-	      console.log(path.parameters);
-	      path.parameters.push(ParameterService.newParameter(paramName, pIn));
-	      console.log(path.parameters);
+	    if (!operation.hasParameter(paramName, pIn)) {
+	      operation.addParameter(paramName, pIn);
 	    } else {
 	      throw "Invalid Parameter Name-in combination, must be unique.";
 	    }
@@ -30439,73 +30428,83 @@
 	  /*
 	      This
 	  */
-	  self.getParamList = function (pathName, operation) {
-	
-	    var currentPath = paths[pathName][operation];
-	
-	    return currentPath.parameters;
-	  };
+	  // self.getParamList = function(pathName, operation){
+	  //
+	  //     var currentPath = paths[pathName][operation];
+	  //
+	  //     return currentPath.parameters;
+	  //
+	  // }
 	
 	  /*
 	   */
-	  self.getParam = function (pathName, operation, paramName, paramIn) {
-	    console.log("------------------\nGETTING PARAM NAME");
-	    console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
-	    var parameter; // = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
-	    paths[pathName][operation].parameters.forEach(function loop(element, index, array) {
-	      if (element.name === paramName && element.inLocation === paramIn) {
-	        parameter = element;
-	      }
-	    });
-	
-	    // for(var param in paths[pathName][operation].parameters){
-	    //   if(param.name === paramName && param.inLocation === paramIn){
-	    //     parameter = param;
-	    //   }
-	    // }
-	    debugger;
-	    //console.log(paramObject);
-	    console.log("------------------");
-	    return parameter;
-	  };
+	  // self.getParam = function(pathName, operation, paramName, paramIn){
+	  //     console.log("------------------\nGETTING PARAM NAME");
+	  //     console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
+	  //     var parameter;// = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
+	  //     paths[pathName][operation].parameters.forEach(function loop(element, index, array){
+	  //       if(element.name === paramName && element.inLocation === paramIn){
+	  //         parameter = element;
+	  //       }
+	  //
+	  //     })
+	  //
+	  //     // for(var param in paths[pathName][operation].parameters){
+	  //     //   if(param.name === paramName && param.inLocation === paramIn){
+	  //     //     parameter = param;
+	  //     //   }
+	  //     // }
+	  //     debugger;
+	  //     //console.log(paramObject);
+	  //     console.log("------------------");
+	  //     return parameter;
+	  // };
 	
 	  /*
 	      Checks to see if the given param name is valid for the given path.
 	  */
-	  function validateParam(pathName, operation, paramName, paramIn) {
-	    if (debug) console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
+	  // function validateParam (pathName, operation, paramName, paramIn){
+	  //     if(debug)
+	  //         console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
+	  //
+	  //     var path = paths[pathName][operation];
+	  //
+	  //     if(hasParameter.call(path, paramName, paramIn)){
+	  //         if(debug)
+	  //             console.log("\t Same Parameter found, returning false!");
+	  //
+	  //         return false;
+	  //     }else{
+	  //         if(debug)
+	  //             console.log("\t Parameter NOT found, returning true!");
+	  //
+	  //         return true;
+	  //     }
+	  // }
 	
-	    var path = paths[pathName][operation];
-	
-	    if (hasParameter.call(path, paramName, paramIn)) {
-	      if (debug) console.log("\t Same Parameter found, returning false!");
-	
-	      return false;
-	    } else {
-	      if (debug) console.log("\t Parameter NOT found, returning true!");
-	
-	      return true;
-	    }
-	  }
-	
-	  function hasParameter(name, inLoc) {
-	    var found = false;
-	
-	    this.parameters.forEach(function (element, index, array) {
-	      if (element.name === name && element.inLocation === inLoc) found = true;
-	    });
-	
-	    if (found) return true;else return false;
-	  }
+	  // function hasParameter(name, inLoc){
+	  //   var found = false
+	  //
+	  //   this.parameters.forEach(function(element, index, array){
+	  //     if(element.name === name && element.inLocation === inLoc)
+	  //       found = true;
+	  //
+	  //   });
+	  //
+	  //   if(found)
+	  //     return true;
+	  //   else
+	  //     return false;
+	  // }
 	
 	  /**
 	   *
 	   */
 	  self.updateParameter = function (originalParameterData, newParameter) {
-	    if (debug) {
-	      console.log("START Swagger Paths -> updating the Parameter Model");
-	      //console.log(originalParameterData);
-	    }
+	    // if(debug){
+	    //   console.log("START Swagger Paths -> updating the Parameter Model");
+	    //   //console.log(originalParameterData);
+	    // }
 	
 	    var pathName = originalParameterData.pathName;
 	    var operation = originalParameterData.operation;
@@ -30550,27 +30549,27 @@
 	  /************** PARAMETERS FUNCTIONS END*******************/
 	
 	  /************** RESPONSE FUNCTIONS START*******************/
-	  self.addResponse = function (pathName, operation, httpCode, description) {
-	    if (debug) {
-	      console.log("ADD RESPONSE - START");
-	    }
-	
-	    if (!description) {
-	      throw "Description needs to be filled out";
-	    }
-	
-	    var path = paths[pathName][operation];
-	
-	    if (hasResponse(pathName, operation, httpCode)) {
-	      throw "Http Code already exists";
-	    } else {
-	      path.responses.addResponse(httpCode, description);
-	    }
-	
-	    if (debug) {
-	      console.log("ADD RESPONSE - END");
-	    }
-	  };
+	  // self.addResponse = function(pathName, operation, httpCode, description){
+	  //   if(debug){
+	  //     console.log("ADD RESPONSE - START");
+	  //   }
+	  //
+	  //   if(!description){
+	  //     throw "Description needs to be filled out"
+	  //   }
+	  //
+	  //   var path = paths[pathName][operation];
+	  //
+	  //   if(hasResponse(pathName, operation, httpCode)){
+	  //     throw "Http Code already exists"
+	  //   }else{
+	  //     path.responses.addResponse(httpCode, description);
+	  //   }
+	  //
+	  //   if(debug){
+	  //     console.log("ADD RESPONSE - END");
+	  //   }
+	  // }
 	
 	  self.getResponse = function (pathName, operation, httpCode) {
 	
@@ -30826,9 +30825,41 @@
 	      this.deprecated = false;
 	      this.security = new Object();
 	    },
-	    addParameter: function addParameter(paramName, paramIn) {
 	
-	      if (hasParameter.call(this, paramName, paramIn)) this.parameter.push(ParameterService.newParameter(paramName, paramIn));
+	    addParameter: function addParameter(paramName, paramIn) {
+	      this.parameters.push(ParameterService.newParameter(paramName, paramIn));
+	    },
+	
+	    getParameter: function getParameter(name, inLoc) {
+	      var parameter = null;
+	      this.parameters.forEach(function (element, index, array) {
+	        console.log(element);
+	        if (element.name === name && element.inLocation === inLoc) {
+	          parameter = element;
+	          return;
+	        }
+	      });
+	
+	      return parameter;
+	    },
+	
+	    hasParameter: function hasParameter(name, inLoc) {
+	      var found = false;
+	
+	      this.parameters.forEach(function (element, index, array) {
+	        if (element.name === name && element.inLocation === inLoc) found = true;
+	      });
+	
+	      if (found) return true;else return false;
+	    },
+	
+	    updateParameter: function updateParameter(oldParameter, newParameter) {
+	      // if(oldParameter.name !== newParameter.name && oldParameter.inLocation !== newParameter.inLocation){
+	      //
+	      // }
+	      var original = this.getParameter(oldParameter.name, oldParameter.inLocation);
+	
+	      original = newParameter;
 	    },
 	
 	    getJSON: function getJSON() {
@@ -30844,17 +30875,8 @@
 	
 	      return operationJSON;
 	    }
+	
 	  };
-	
-	  function hasParameter(name, inLoc) {
-	    var found = false;
-	
-	    this.parameters.forEach(function (element, index, array) {
-	      if (element.name === name && element.in === inLoc) found = true;
-	    });
-	
-	    if (found) return true;else return false;
-	  }
 	
 	  function newOperation() {
 	    var temp = Object.create(Operation);
@@ -30872,300 +30894,59 @@
 /***/ function(module, exports) {
 
 	"use strict";
+	/* @ngInject */
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	exports.default = ParameterService;
-	/* @ngInject */
 	function ParameterService() {
 	
-	    var debug = true;
+	  var Parameter = {
+	    init: function init(name, inLocation) {
+	      this.name = name || "";
+	      this.inLocation = inLocation || "query";
+	      this.description = null;
+	      this.required = this.inLocation === "path" ? true : false;
+	      this.schema = new Object();
+	      this.type = "";
+	      this.format = "";
+	      this.allowEmptyValue = false;
+	      this.items = new Object();
+	      this.collectionFormat = "";
+	    },
 	
-	    function oldParameters() {
-	        this.parameterList = new Array();
-	    }
-	    var parameter = new Array();
+	    getJSON: function getJSON() {
 	
-	    oldParameters.prototype = {
-	        /*
-	            This function add a new Parameter Object to the ParameterList
-	                By the Swagger definitions, "name" and "in" properties are
-	                required when making any parameter.
-	        */
-	        addParameter: function addParameter(paramName, paramIn) {
-	            if (debug) console.log("PARAMETERS - Adding Param: " + paramName + ", " + paramIn);
+	      var paramJSON = {};
 	
-	            this.parameterList.push(new Parameter(paramName, paramIn));
-	
-	            if (debug) {
-	                console.log("PARAMETERS - Addws Param, paramList:  ");
-	                console.log(this.parameterList);
-	                console.log("-----------------------------------------------------");
-	            }
-	        },
-	
-	        /*
-	            By the Swagger definition, each parameter is uniquely identified by
-	                The combination of the Parameter's "name" and "in" properties.
-	        */
-	        removeParameter: function removeParameter(paramName, paramIn) {
-	            if (debug) console.log("PARAMETER - Removing Param: " + paramName + ", " + paramIn);
-	
-	            this.parameterList.forEach(function (parameter, index, paramList) {
-	                if (parameter.name === paramName && parameter.inLocation === paramIn) {
-	                    console.log("Removing: ");
-	                    console.log(paramList[index]);
-	                    console.log(parameter);
-	                    paramList.splice(index, 1);
-	                    return;
-	                }
-	            });
-	        },
-	
-	        /*
-	            This function checks to see if the passed Parameter already Exists.
-	        */
-	        hasParameter: function hasParameter(paramName, paramIn) {
-	            if (debug) console.log("PARAMETER: Validating Param: " + paramName + ", " + paramIn);
-	
-	            var found = 0;
-	
-	            this.parameterList.forEach(function (parameter, pos, paramList) {
-	                if (parameter.name === paramName && parameter.inLocation === paramIn) {
-	
-	                    found = 1;
-	
-	                    return;
-	                }
-	            });
-	
-	            if (found) return true;else return false;
-	        },
-	
-	        /*
-	         */
-	        getParameterList: function getParameterList() {
-	            var paramListClean = new Array();
-	            this.parameterList.forEach(function (parameter, index, paramList) {
-	                console.log(parameter.getJSON());
-	                paramListClean.push(parameter.getJSON());
-	            });
-	
-	            console.log(paramListClean);
-	
-	            return paramListClean;
-	        },
-	
-	        getParameter: function getParameter(name, inLoc) {
-	
-	            console.log("---\nGETPARAM");
-	            console.log(name + ", " + inLoc);
-	            var param;
-	            this.parameterList.forEach(function (parameter, index, paramList) {
-	                console.log('-');
-	                console.log(parameter);
-	                console.log(parameter.name + ", " + name + ", " + parameter.inLocation + ", " + inLoc);
-	                if (parameter.name === name && parameter.inLocation === inLoc) {
-	                    param = parameter;
-	                    console.log("hit!");
-	                }
-	            });
-	
-	            console.log(param);
-	            console.log("---");
-	            return param;
-	        }
-	    };
-	
-	    //var foo = new Parameters();
-	    //console.log(parameter);
-	    //console.log(parameter.constructor);
-	
-	    var Parameter = function Parameter(name, inLocation) {
-	        this.name = name || "";
-	        this.inLocation = inLocation || "";
-	        this.description = null;
-	        this.required = this.inLocation === "path" ? true : false;
-	        this.schema = new Object();
-	        this.type = "";
-	        this.format = "";
-	        this.allowEmptyValue = false;
-	        this.items = new Object();
-	        this.collectionFormat = "";
-	    };
-	
-	    Parameter.prototype = {
-	        setName: function setName(newName) {
-	            if (debug) console.log("Setting Param 'name': " + newName);
-	
-	            this.name = newName;
-	        },
-	
-	        getName: function getName() {
-	            return this.name;
-	        },
-	
-	        setIn: function setIn(newInLocation) {
-	            if (debug) console.log("Setting Param 'in': " + newInLocation);
-	
-	            this.inLocation = newInLocation;
-	        },
-	
-	        getIn: function getIn() {
-	            return this.inLocation;
-	        },
-	
-	        setDescription: function setDescription(newDesc) {
-	            if (debug) console.log("Setting Param 'description':" + newDesc);
-	
-	            this.description = newDesc;
-	        },
-	
-	        getDescription: function getDescription() {
-	            return this.description;
-	        },
-	
-	        isRequired: function isRequired(flag) {
-	            if (debug) console.log("Setting Param 'required':" + flag);
-	
-	            this.required = flag;
-	        },
-	
-	        getRequired: function getRequired() {
-	            return this.required;
-	        },
-	
-	        getJSON: function getJSON() {
-	
-	            var paramJSON = {};
-	
-	            if (this.name) {
-	                paramJSON.name = this.name;
-	            }
-	
-	            if (this.inLocation) {
-	                paramJSON.in = this.inLocation;
-	            }
-	
-	            if (this.description) {
-	                paramJSON.description = this.description;
-	            }
-	
-	            paramJSON.required = this.required;
-	
-	            /*return {
-	                name: this.name,
-	                in: this.inLocation,
-	                description: this.description,
-	                required: this.required
-	            }*/
-	
-	            return paramJSON;
-	        }
-	
-	    };
-	
-	    /*this.newParam = function(name, id){
-	      return new newParameter(name, id);
-	    }*/
-	
-	    function newParameters() {
-	        return new Parameters();
-	    }
-	
-	    function newParameter(name, inLocation) {
-	        return new Parameter(name, inLocation);
-	    }
-	
-	    return {
-	        newParameters: newParameters,
-	        newParameter: newParameter
-	    };
-	
-	    /*
-	        Tries to create and validate a new parameter object.
-	     this.addNewParam = function(pathName, operation, paramName, paramIn){
-	        if(debug){
-	            console.log("PATH SERVICE: Attempting to add a new Parameter");
-	            console.log(pathName);
-	            console.log(operation);
-	            console.log(paramName);
-	        }
-	         var pIn = paramIn || "query";
-	         var path = paths[pathName][operation];
-	         if(validateParam(pathName, operation, paramName, pIn)){
-	            path.parameters.addParameter(paramName, pIn);
-	            self.chosenParameter = {
-	                path:pathName,
-	                operation:operation,
-	                paramName:paramName,
-	                inLoc:pIn
-	            }
-	        }else{
-	            throw "Invalid Parameter Name-in combination, must be unique."
-	        }
-	    }
-	      this.getParamList = function(pathName, operation){
-	         var currentPath = paths[pathName][operation];
-	        //console.log("LJFLAFJALKFJALF");
-	        //console.log(pathName);
-	         //console.log(currentPath);
-	         //console.log(currentPath.parameters);
-	         return currentPath.parameters.getParameterList();
-	     }
-	     this.getParam = function(pathName, operation, paramName, paramIn){
-	        console.log("------------------\nGETTING PARAM NAME");
-	        console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
-	        var paramObject = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
-	        console.log(paramObject);
-	        console.log("------------------");
-	        return paramObject
-	    };
-	      var validateParam = function(pathName, operation, paramName, paramIn){
-	        if(debug)
-	            console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
-	         var path = paths[pathName][operation];
-	         if(path.parameters.hasParameter(paramName, paramIn)){
-	            if(debug)
-	                console.log("\t Same Parameter found, returning false!");
-	             return false;
-	        }else{
-	            if(debug)
-	                console.log("\t Parameter NOT found, returning true!");
-	             return true;
-	        }
-	    }
-	     this.updateParameter = function(tempParameter){
-	       console.log(tempParameter);
-	       var originalData = tempParameter.originalValues;
-	       //validate new param
-	      //check to see if the name - inLocation pair of the parameter was changed
-	      if(originalData.name !== tempParameter.name || originalData.inLocation !== tempParameter.inLocation){
-	         console.log("name is not the same or inLocation not the same");
-	        console.log("\tname: " + originalData.name + ", " + tempParameter.name);
-	        console.log("\tinLocation: " + originalData.inLocation + ", " + tempParameter.inLocation);
-	        //if they have been changed check if the new combo is legitamit
-	        if(!validateParam(originalData.path, originalData.operation, tempParameter.name, tempParameter.inLocation)){
-	          throw "Invalid Parameter Name-in combination, must be unique."
-	        }
+	      if (this.name) {
+	        paramJSON.name = this.name;
 	      }
-	         console.log("name and inLocation are the same");
-	         var originalParam = paths[originalData.path][originalData.operation].parameters.getParameter(originalData.name, originalData.inLocation);
-	        //var newParameter = new Parameter();
-	         for(var key in tempParameter){
-	          if(tempParameter.hasOwnProperty(key) && key !== 'originalValues' && key !== "schema"){
-	            originalParam[key] = tempParameter[key];
-	          }
-	          if(key === "schema"){
-	            if(tempParameter[key] instanceof Object)
-	              originalParam[key] = tempParameter[key];
-	            else
-	              originalParam[key] = JSON.parse(tempParameter[key]);
-	          }
-	        }
-	     }
-	    */
+	
+	      if (this.inLocation) {
+	        paramJSON.in = this.inLocation;
+	      }
+	
+	      if (this.description) {
+	        paramJSON.description = this.description;
+	      }
+	
+	      paramJSON.required = this.required;
+	
+	      return paramJSON;
+	    }
+	  };
+	
+	  function newParameter(name, inLocation) {
+	    var temp = Object.create(Parameter);
+	    temp.init(name, inLocation);
+	    return temp;
+	  }
+	
+	  return {
+	    newParameter: newParameter
+	  };
 	}
 
 /***/ },
@@ -31180,6 +30961,167 @@
 	exports.default = ResponseService;
 	/* @ngInject */
 	function ResponseService() {
+	
+	  var Responses = {
+	
+	    addResponse: function addResponse(httpCode, description) {
+	
+	      //this[httpCode] = new Response(description);
+	      this[httpCode] = Object.create(Response);
+	      this[httpCode].init(description);
+	    },
+	
+	    /**
+	    */
+	    removeResponse: function removeResponse(httpCode) {
+	
+	      // this.responseList.forEach(function(resp, index, responseList){
+	      //   if(resp.hasOwnProperty(httpCode)){
+	      //     this.responseList.splice(index, 1);
+	      //     return;
+	      //   }
+	      // });
+	      delete this[httpCode];
+	    },
+	
+	    /**
+	    */
+	    getResponse: function getResponse(httpCode) {
+	
+	      if (this.hasOwnProperty(httpCode)) return this[httpCode];else return null;
+	    },
+	
+	    /**
+	      Check to see if a response exists in the list
+	    */
+	    hasResponse: function hasResponse(httpCode) {
+	      //var exists = false;
+	
+	      //this.responseList.forEach(function(response, index, responseList){
+	      console.log("RESPONSE EXISTS FUNCTION");
+	      console.log(httpCode);
+	      console.log(this.responseList);
+	      if (this.hasOwnProperty(httpCode)) {
+	        return true;
+	        //return;
+	      } else {
+	          return false;
+	        }
+	      //});
+	
+	      //return exists;
+	    }
+	
+	  };
+	
+	  var Response = {
+	    init: function init(descrip) {
+	      this.description = descrip, this.schema = new Object(), this.headers = new Object(), this.examples = new Object();
+	    }
+	  };
+	
+	  return {
+	    newResponses: function newResponses() {
+	      return Object.create(Responses);
+	      //return new Responses();
+	    }
+	
+	  };
+	}
+
+/***/ },
+/* 44 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = ObjectFactory;
+	
+	function ObjectFactory() {
+	
+	  var Operation = {
+	    init: function init() {
+	      this.tags = null;
+	      this.summary = null;
+	      this.description = null;
+	      this.externalDocs = new Object();
+	      this.operationId = null;
+	      this.consumes = null;
+	      this.produces = null;
+	      this.parameters = new Array();
+	      this.responses = ResponseService.newResponses();
+	      this.schemes = null;
+	      this.deprecated = false;
+	      this.security = new Object();
+	    },
+	    addParameter: function addParameter(paramName, paramIn) {
+	
+	      //if(hasParameter.call(this, paramName, paramIn))
+	      this.parameters.push(ParameterService.newParameter(paramName, paramIn));
+	    },
+	
+	    getJSON: function getJSON() {
+	      var operationJSON = {};
+	
+	      for (var property in this) {
+	        console.log(property);
+	        if (this[property]) {
+	          //if(property === "parameters");
+	          operationJSON[property] = this[property];
+	        }
+	      };
+	
+	      return operationJSON;
+	    },
+	    hasParameter: function hasParameter(name, inLoc) {
+	      var found = false;
+	
+	      this.parameters.forEach(function (element, index, array) {
+	        if (element.name === name && element.in === inLoc) found = true;
+	      });
+	
+	      if (found) return true;else return false;
+	    }
+	  };
+	
+	  var Parameter = {
+	    init: function init(name, inLocation) {
+	      this.name = name || "";
+	      this.inLocation = inLocation || "query";
+	      this.description = null;
+	      this.required = this.inLocation === "path" ? true : false;
+	      this.schema = new Object();
+	      this.type = "";
+	      this.format = "";
+	      this.allowEmptyValue = false;
+	      this.items = new Object();
+	      this.collectionFormat = "";
+	    },
+	
+	    getJSON: function getJSON() {
+	
+	      var paramJSON = {};
+	
+	      if (this.name) {
+	        paramJSON.name = this.name;
+	      }
+	
+	      if (this.inLocation) {
+	        paramJSON.in = this.inLocation;
+	      }
+	
+	      if (this.description) {
+	        paramJSON.description = this.description;
+	      }
+	
+	      paramJSON.required = this.required;
+	
+	      return paramJSON;
+	    }
+	  };
 	
 	  var Responses = {
 	
@@ -31245,120 +31187,31 @@
 	    }
 	  };
 	
-	  // /**
-	  //   Responses Object
-	  // */
-	  // function Responses(){
-	  //
-	  //   //this.responseList = new Object();
-	  //
-	  // }
-	  //
-	  // /**
-	  //   Responses function
-	  // */
-	  // Responses.prototype = {
-	  //   /**
-	  //
-	  //   */
-	  //   addResponse: function(httpCode, description){
-	  //     console.log(this.responseList);
-	  //
-	  //     this[httpCode] = new Response(description);
-	  //
-	  //     console.log(this.responseList);
-	  //
-	  //
-	  //   },
-	  //
-	  //   /**
-	  //   */
-	  //   removeResponse: function(httpCode){
-	  //
-	  //     this.responseList.forEach(function(resp, index, responseList){
-	  //       if(resp.hasOwnProperty(httpCode)){
-	  //         this.responseList.splice(index, 1);
-	  //         return;
-	  //       }
-	  //     });
-	  //
-	  //   },
-	  //
-	  //   /**
-	  //   */
-	  //   getResponse: function(httpCode){
-	  //     /*var response = null;
-	  //
-	  //     this.responseList.forEach(function(resp, index, responseList){
-	  //       if(resp.hasOwnProperty(httpCode)){
-	  //         response = resp;
-	  //         return;
-	  //       }
-	  //     });
-	  //
-	  //     return angular.copy(response);*/
-	  //     if(this.hasOwnProperty(httpCode))
-	  //       return this[httpCode];
-	  //     else
-	  //       return null;
-	  //
-	  //   },
-	  //
-	  //   /**
-	  //     Check to see if a response exists in the list
-	  //   */
-	  //   responseExists: function(httpCode){
-	  //     //var exists = false;
-	  //
-	  //     //this.responseList.forEach(function(response, index, responseList){
-	  //     console.log("RESPONSE EXISTS FUNCTION");
-	  //     console.log(httpCode);
-	  //     console.log(this.responseList);
-	  //       if(this.hasOwnProperty(httpCode)){
-	  //         return true;
-	  //         //return;
-	  //       }else {
-	  //         return false;
-	  //       }
-	  //     //});
-	  //
-	  //     //return exists;
-	  //   },
-	  //
-	  // };
-	  //
-	  // /**
-	  //   Response Object
-	  // */
-	  // function Response(descrip){
-	  //
-	  //
-	  //
-	  //   //return this[httpCode];
-	  // }
+	  function newResponses() {
+	    return Object.create(Responses);
+	  }
+	
+	  function newParameter(name, inLocation) {
+	    var temp = Object.create(Parameter);
+	    temp.init(name, inLocation);
+	    return temp;
+	  }
+	
+	  function newOperation() {
+	    var temp = Object.create(Operation);
+	    temp.init();
+	    return temp;
+	  }
 	
 	  return {
-	    newResponses: function newResponses() {
-	      return Object.create(Responses);
-	      //return new Responses();
-	    },
-	
-	    newResponse: function newResponse(httpCode, description) {
-	      var response = null;
-	      var temp = null;
-	
-	      if (!httpCode) throw "To create a response code please pass a http code status";else if (!description) throw "A description is required to create a response";else return new Response(httpCode, description);
-	
-	      //response = temp[httpCode];
-	
-	      //return response;
-	    },
-	    hasResponse: function hasResponse(pathName, operation, httpCode) {}
+	    newOperation: newOperation,
+	    newParameter: newParameter,
+	    newResponses: newResponses
 	  };
 	}
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31371,7 +31224,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _capitalize = __webpack_require__(45);
+	var _capitalize = __webpack_require__(46);
 	
 	var _capitalize2 = _interopRequireDefault(_capitalize);
 	
@@ -31382,7 +31235,7 @@
 	exports.default = filters;
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31398,55 +31251,6 @@
 	    return input.substring(0, 1).toUpperCase() + input.substring(1);
 	  };
 	}
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	var _main = __webpack_require__(47);
-	
-	var _main2 = _interopRequireDefault(_main);
-	
-	var _modals = __webpack_require__(60);
-	
-	var _modals2 = _interopRequireDefault(_modals);
-	
-	var _info = __webpack_require__(85);
-	
-	var _info2 = _interopRequireDefault(_info);
-	
-	var _paths = __webpack_require__(89);
-	
-	var _paths2 = _interopRequireDefault(_paths);
-	
-	var _parameter = __webpack_require__(93);
-	
-	var _parameter2 = _interopRequireDefault(_parameter);
-	
-	var _response = __webpack_require__(97);
-	
-	var _response2 = _interopRequireDefault(_response);
-	
-	var _definitions = __webpack_require__(101);
-	
-	var _definitions2 = _interopRequireDefault(_definitions);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var componentModule = _angular2.default.module('app.components', [_main2.default.name, _modals2.default.name, _info2.default.name, _paths2.default.name, _parameter2.default.name, _response2.default.name, _definitions2.default.name]);
-	//}
-	
-	exports.default = componentModule;
 
 /***/ },
 /* 47 */
@@ -31466,13 +31270,36 @@
 	
 	var _main2 = _interopRequireDefault(_main);
 	
+	var _modals = __webpack_require__(61);
+	
+	var _modals2 = _interopRequireDefault(_modals);
+	
+	var _info = __webpack_require__(86);
+	
+	var _info2 = _interopRequireDefault(_info);
+	
+	var _paths = __webpack_require__(90);
+	
+	var _paths2 = _interopRequireDefault(_paths);
+	
+	var _parameter = __webpack_require__(94);
+	
+	var _parameter2 = _interopRequireDefault(_parameter);
+	
+	var _response = __webpack_require__(98);
+	
+	var _response2 = _interopRequireDefault(_response);
+	
+	var _definitions = __webpack_require__(102);
+	
+	var _definitions2 = _interopRequireDefault(_definitions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	'use strict';
+	var componentModule = _angular2.default.module('app.components', [_main2.default.name, _modals2.default.name, _info2.default.name, _paths2.default.name, _parameter2.default.name, _response2.default.name, _definitions2.default.name]);
+	//}
 	
-	var mainModule = _angular2.default.module("mainModule", []).directive('sgMain', _main2.default);
-	
-	exports.default = mainModule;
+	exports.default = componentModule;
 
 /***/ },
 /* 48 */
@@ -31484,11 +31311,37 @@
 	  value: true
 	});
 	
+	var _angular = __webpack_require__(2);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
 	var _main = __webpack_require__(49);
 	
 	var _main2 = _interopRequireDefault(_main);
 	
-	var _main3 = __webpack_require__(50);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	'use strict';
+	
+	var mainModule = _angular2.default.module("mainModule", []).directive('sgMain', _main2.default);
+	
+	exports.default = mainModule;
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _main = __webpack_require__(50);
+	
+	var _main2 = _interopRequireDefault(_main);
+	
+	var _main3 = __webpack_require__(51);
 	
 	var _main4 = _interopRequireDefault(_main3);
 	
@@ -31513,13 +31366,13 @@
 	exports.default = mainComponent;
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = "<!--main ng-controller=\"CompilerController as compilerController\"-->\n<main >\n    <!--div\n      class=\"fixed-action-btn\" style=\"bottom: 45px; right: 24px;\">\n      <a class=\"btn-floating btn-large red\">\n      <i class=\"large material-icons\">mode_edit</i>\n      </a>\n      <ul>\n        <li><a class=\"btn-floating red\"><i class=\"material-icons\">insert_chart</i></i></a></li>\n          <li><a class=\"btn-floating yellow darken-1\"><i class=\"material-icons\">format_quote</i></a></li>\n          <li><a class=\"btn-floating green\"><i class=\"material-icons\">publish</i></a></li>>\n        <li><a ng-click=\"compilerController.download(compilerController.compiledDocument)\"\n          class=\"btn-floating blue\">\n          <i class=\"material-icons\">attach_file</i>\n          </a>\n        </li>\n        <li><a ng-click=\"compilerController.recompile()\"\n          class=\"btn-floating green\">\n          <i class=\"material-icons\">publish</i></a>\n        </li>\n      </ul>\n    </div-->\n\n    <sg-info></sg-info>\n    <sg-path></sg-path>\n    <sg-definitions></sg-defintions>\n\n</main>\n"
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31532,7 +31385,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _angularFileSaver = __webpack_require__(51);
+	var _angularFileSaver = __webpack_require__(52);
 	
 	var _angularFileSaver2 = _interopRequireDefault(_angularFileSaver);
 	
@@ -31578,7 +31431,7 @@
 	}
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31594,14 +31447,14 @@
 	*/
 	
 	angular.module('ngFileSaver', [])
-	  .factory('FileSaver', ['Blob', 'SaveAs', 'FileSaverUtils', __webpack_require__(52)])
-	  .factory('FileSaverUtils', [__webpack_require__(53)])
-	  .factory('Blob', ['$window', __webpack_require__(54)])
-	  .factory('SaveAs', [__webpack_require__(56)]);
+	  .factory('FileSaver', ['Blob', 'SaveAs', 'FileSaverUtils', __webpack_require__(53)])
+	  .factory('FileSaverUtils', [__webpack_require__(54)])
+	  .factory('Blob', ['$window', __webpack_require__(55)])
+	  .factory('SaveAs', [__webpack_require__(57)]);
 
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31649,7 +31502,7 @@
 
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31673,12 +31526,12 @@
 
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(55);
+	__webpack_require__(56);
 	
 	module.exports = function Blob($window) {
 	  return $window.Blob;
@@ -31686,7 +31539,7 @@
 
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports) {
 
 	/* Blob.js
@@ -31903,18 +31756,18 @@
 
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	module.exports = function SaveAs() {
-	  return __webpack_require__(57).saveAs || function() {};
+	  return __webpack_require__(58).saveAs || function() {};
 	};
 
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* FileSaver.js
@@ -32182,7 +32035,7 @@
 	
 	if (typeof module !== "undefined" && module.exports) {
 	  module.exports.saveAs = saveAs;
-	} else if (("function" !== "undefined" && __webpack_require__(58) !== null) && (__webpack_require__(59) != null)) {
+	} else if (("function" !== "undefined" && __webpack_require__(59) !== null) && (__webpack_require__(60) != null)) {
 	  !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
 	    return saveAs;
 	  }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -32190,14 +32043,14 @@
 
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports) {
 
 	module.exports = function() { throw new Error("define cannot be used indirect"); };
 
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -32205,7 +32058,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32218,7 +32071,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _services = __webpack_require__(61);
+	var _services = __webpack_require__(62);
 	
 	var _services2 = _interopRequireDefault(_services);
 	
@@ -32238,7 +32091,7 @@
 	
 	var _parameterEditor2 = _interopRequireDefault(_parameterEditor);
 	
-	var _responseEditor = __webpack_require__(81);
+	var _responseEditor = __webpack_require__(82);
 	
 	var _responseEditor2 = _interopRequireDefault(_responseEditor);
 	
@@ -32249,7 +32102,7 @@
 	exports.default = ModalsModule;
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32262,13 +32115,9 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _definitionEditor = __webpack_require__(62);
+	var _definitionEditor = __webpack_require__(63);
 	
 	var _definitionEditor2 = _interopRequireDefault(_definitionEditor);
-	
-	var _parameterEditor = __webpack_require__(63);
-	
-	var _parameterEditor2 = _interopRequireDefault(_parameterEditor);
 	
 	var _responseEditor = __webpack_require__(64);
 	
@@ -32276,12 +32125,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ModalServiceModule = _angular2.default.module('modalServices', []).factory('DefinitionEditorModalService', _definitionEditor2.default).factory('ParameterModalService', _parameterEditor2.default).factory('ResponseModalService', _responseEditor2.default);
+	var ModalServiceModule = _angular2.default.module('modalServices', []).factory('DefinitionEditorModalService', _definitionEditor2.default).factory('ResponseModalService', _responseEditor2.default);
+	//import ParameterEditorService from './parameterEditor.service';
 	
 	exports.default = ModalServiceModule;
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32319,45 +32169,6 @@
 	  };
 	
 	  return dems;
-	}
-
-/***/ },
-/* 63 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = ParameterModalService;
-	function ParameterModalService() {
-	
-	  var pms = {};
-	
-	  pms.currentParameter = {
-	    pathName: null,
-	    operation: null,
-	    parameter: null
-	  };
-	
-	  pms.parameterToUpdate = function (pathName, operation, parameter) {
-	    console.log("updaiting parameter");
-	    console.log(parameter);
-	
-	    pms.currentParameter.pathName = pathName;
-	    pms.currentParameter.operation = operation;
-	    pms.currentParameter.parameter = angular.copy(parameter);
-	
-	    //console.log(pms.currentParameter);
-	    //console.log("Done updating parameter");
-	  };
-	
-	  pms.getCurrentParameter = function () {
-	    return pms.currentParameter;
-	  };
-	
-	  return pms;
 	}
 
 /***/ },
@@ -32823,9 +32634,13 @@
 	
 	var _parameterEditor2 = _interopRequireDefault(_parameterEditor);
 	
+	var _parameterEditor3 = __webpack_require__(81);
+	
+	var _parameterEditor4 = _interopRequireDefault(_parameterEditor3);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ParameterEditorModule = _angular2.default.module('ParameterEditorModule', []).directive('sgParameterEditorModal', _parameterEditor2.default);
+	var ParameterEditorModule = _angular2.default.module('ParameterEditorModule', []).directive('sgParameterEditorModal', _parameterEditor2.default).factory('ParameterModalService', _parameterEditor4.default);
 	
 	exports.default = ParameterEditorModule;
 
@@ -32864,7 +32679,7 @@
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"param-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\">\n  <form ng-submit=\"paramModalControl.updateParameter()\">\n    <div class=\"modal-content white-text\">\n      {{paramModalControl.tempParam}}\n      {{paramModalControl.currentParam}}\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Parameter Options</h4>\n        </div>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <div class=\"input-field col s3 valign\">\n          <input id=\"newParamUtil\" ng-model=\"paramModalControl.tempParam.name\" type=\"text\" required=\"\" aria-required=\"true\"/>\n          <label for=\"newParamUtil\">Parameter Name</label>\n        </div>\n        <div class=\"input-field col s3 valign\" >\n          <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam.inLocation\" ng-change=\"paramModalControl.setParamInModal(paramModalControl.tempParam.inLocation)\" >\n            <option value=\"\" disabled selected>Parameter Location</option>\n            <option value=\"path\" id=\"path\">Path</option>\n            <option value=\"query\" id=\"query\">Query</option>\n            <option value=\"header\" id=\"header\">Header</option>\n            <option value=\"body\" id=\"body\">Body</option>\n            <option value=\"formData\" id=\"formData\">Form Data</option>\n          </select>\n          <!--label>In</label-->\n        </div>\n        <div class=\"col s3 valign\" ng-if=\"paramModalControl.tempParam.inLocation !== 'path'\">\n          <p >\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.required\" id=\"required\" />\n            <label for=\"required\">required</label>\n          </p>\n        </div>\n        <div class=\" col s3 valign\" >\n          <p>\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.allowEmptyValue\" id=\"allowEmptyValue\" />\n            <label for=\"allowEmptyValue\">Allow Empty Value</label>\n          </p>\n        </div>\n      </div>\n      <div ng-if=\"paramModalControl.tempParam.inLocation !== 'body'\" class=\"row\">\n        <div class=\"input-field col s12\">\n          <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-description\">Description</label>\n        </div>\n        <div class=\"input-field col s4 valign\"\n              ng-repeat=\"(optionTypeName, optionTypeValue) in paramModalControl.paramOptions\">\n          <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam[optionTypeName]\" >\n            <option value=\"\" selected>Parameter {{ optionTypeName | capitalize }}</option>\n            <option ng-repeat=\"type in optionTypeValue\"\n                    ng-if=\"(collection === 'multi' && (paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData')) || collection !== 'multi' \"\n                    ng-attr-value=\"{{ type }}\"\n                    ng-attr-id=\"{{ type }}\">{{ type }}</option>\n          </select>\n        </div>\n        <div class=\"input-field col s12 valign\" >\n          <div ng-if=\"paramModalControl.tempParam.type === 'array'\">\n            <textarea id=\"param-items\" ng-model=\"paramModalControl.tempParam.items\" class=\"materialize-textarea\" required=\"\" aria-required=\"true\"></textarea>\n            <label for=\"param-items\">Items</label>\n          </div>\n        </div>\n        <div  class=\"input-field col s12 l6\">\n          <textarea id=\"param-extra\" ng-model=\"paramModalControl.tempParam.extra\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-extra\">Extra values</label>\n        </div>\n      </div>\n      <div  ng-if=\"paramModalControl.tempParam.inLocation === 'body'\" class=\"row\">\n        <div class=\"input-field col s12 l6\">\n          <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-description\">Description</label>\n        </div>\n        <div class=\"input-field col s12 l6\">\n          <textarea id=\"param-schema\" ng-model=\"paramModalControl.tempParam.schema\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-schema\">Schema</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Parameter\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Parameter\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
+	module.exports = "<div id=\"param-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\">\n  <form name=\"editParam\" novalidate ng-submit=\"paramModalControl.updateParameter()\">\n    <div class=\"modal-content white-text\">\n      {{paramModalControl.tempParam}}\n      {{paramModalControl.currentParam}}\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Parameter Options</h4>\n        </div>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <div class=\"input-field col s3 valign\">\n          <input id=\"newParamUtil\" name\"paramName\" ng-model=\"paramModalControl.tempParam.name\" type=\"text\" required=\"\" aria-required=\"true\"/>\n          <label for=\"newParamUtil\">Parameter Name</label>\n        </div>\n        <div class=\"input-field col s3 valign\" >\n          <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam.inLocation\" ng-change=\"paramModalControl.setParamInModal(paramModalControl.tempParam.inLocation)\" >\n            <option value=\"\" disabled selected>Parameter Location</option>\n            <option value=\"path\" id=\"path\">Path</option>\n            <option value=\"query\" id=\"query\">Query</option>\n            <option value=\"header\" id=\"header\">Header</option>\n            <option value=\"body\" id=\"body\">Body</option>\n            <option value=\"formData\" id=\"formData\">Form Data</option>\n          </select>\n          <!--label>In</label-->\n        </div>\n        <div class=\"col s3 valign\" ng-if=\"paramModalControl.tempParam.inLocation !== 'path'\">\n          <p >\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.required\" id=\"required\" />\n            <label for=\"required\">required</label>\n          </p>\n        </div>\n        <div class=\" col s3 valign\" >\n          <p>\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.allowEmptyValue\" id=\"allowEmptyValue\" />\n            <label for=\"allowEmptyValue\">Allow Empty Value</label>\n          </p>\n        </div>\n      </div>\n      <div ng-if=\"paramModalControl.tempParam.inLocation !== 'body'\" class=\"row\">\n        <div class=\"input-field col s12\">\n          <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-description\">Description</label>\n        </div>\n        <div class=\"input-field col s4 valign\"\n              ng-repeat=\"(optionTypeName, optionTypeValue) in paramModalControl.paramOptions\">\n          <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam[optionTypeName]\" >\n            <option value=\"\" selected>Parameter {{ optionTypeName | capitalize }}</option>\n            <option ng-repeat=\"type in optionTypeValue\"\n                    ng-if=\"(collection === 'multi' && (paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData')) || collection !== 'multi' \"\n                    ng-attr-value=\"{{ type }}\"\n                    ng-attr-id=\"{{ type }}\">{{ type }}</option>\n          </select>\n        </div>\n        <div class=\"input-field col s12 valign\" >\n          <div ng-if=\"paramModalControl.tempParam.type === 'array'\">\n            <textarea id=\"param-items\" ng-model=\"paramModalControl.tempParam.items\" class=\"materialize-textarea\" required=\"\" aria-required=\"true\"></textarea>\n            <label for=\"param-items\">Items</label>\n          </div>\n        </div>\n        <div  class=\"input-field col s12 l6\">\n          <textarea id=\"param-extra\" ng-model=\"paramModalControl.tempParam.extra\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-extra\">Extra values</label>\n        </div>\n      </div>\n      <div  ng-if=\"paramModalControl.tempParam.inLocation === 'body'\" class=\"row\">\n        <div class=\"input-field col s12 l6\">\n          <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-description\">Description</label>\n        </div>\n        <div class=\"input-field col s12 l6\">\n          <textarea id=\"param-schema\" ng-model=\"paramModalControl.tempParam.schema\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-schema\">Schema</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Parameter\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Parameter\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
 /* 80 */
@@ -32881,50 +32696,68 @@
 	
 	function ParameterModalCtrl($scope, swaggerPaths, pms) {
 	
-	  var vm = this;
-	
 	  this.tempParam = {};
-	  this.currentParam = {};
+	  //this.currentParam = {};
 	
-	  var originalParamData = {
-	    pathName: null,
+	  var originalParamContext = {
 	    operation: null,
 	    parameter: null
 	  };
 	
 	  this.paramOptions = {
 	    format: ['int32', 'int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'],
-	
 	    type: ['string', 'number', 'integer', 'boolean', 'array', 'file'],
-	
 	    collectionFormat: ['csv', 'ssv', 'tsv', 'pipes', 'multi']
 	  };
 	
+	  // $scope.$watch("this.tempParam.name",
+	  //   function(newVal, oldVal){
+	  //     if(newVal){
+	  //       console.log("new tmep nameem;alfjasfa");
+	  //       setTimeout(function(){
+	  //         if(this.tempParam.Operation.hasParameter(newVal, this.tempParam.inLocation))
+	  //           $scope.editParam.$setValidity($scope.editParam.paramName, false);
+	  //
+	  //       }.bind(this), 1000);
+	  //     }
+	  //   }.bind(this)
+	  // )
+	
 	  $scope.$watch(function () {
-	    return pms.currentParameter;
+	    return pms.parameterContext;
 	  }, onModalInit.bind(this), true);
 	
 	  function onModalInit(newVal, oldVal) {
 	
 	    if (newVal.parameter) {
-	      this.currentParam = pms.currentParameter;
+	      // this.currentParam = pms.currentParameter;
+	      //
+	      // var currentParam = newVal;
+	      // originalParamData.pathName = currentParam.pathName;
+	      // originalParamData.operation = currentParam.operation;
+	      // originalParamData.parameter = currentParam.parameter;
+	      //
+	      // this.tempParam = angular.copy(currentParam.parameter);
+	      // this.tempParam.Operation = currentParameter.Operation;
+	      //
+	      // if(this.tempParam.schema){
+	      //   this.tempParam.schema = JSON.stringify(this.tempParam.schema);
+	      // }
 	
-	      var currentParam = newVal;
-	      originalParamData.pathName = currentParam.pathName;
-	      originalParamData.operation = currentParam.operation;
-	      originalParamData.parameter = currentParam.parameter;
+	      debugger;
+	      originalParamContext = pms.parameterContext;
 	
-	      this.tempParam = angular.copy(currentParam.parameter);
-	
-	      if (this.tempParam.schema) {
-	        this.tempParam.schema = JSON.stringify(this.tempParam.schema);
-	      }
+	      this.tempParam = angular.copy(originalParamContext.parameter);
 	    }
 	  }
 	
 	  this.updateParameter = function () {
 	    try {
-	      swaggerPaths.updateParameter(originalParamData, this.tempParam);
+	      //swaggerPaths.updateParameter(originalParamData, this.tempParam);
+	
+	      //this.tempParam.Original
+	      debugger;
+	      originalParamContext.operation.updateParameter(originalParamContext.parameter, this.tempParam);
 	    } catch (e) {
 	      console.log(e);
 	      Materialize.toast("Parameter name/query combo' already exists", 3000);
@@ -32942,6 +32775,56 @@
 
 /***/ },
 /* 81 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = ParameterModalService;
+	function ParameterModalService() {
+	
+	  var pms = {};
+	
+	  pms.currentParameter = {
+	    operation: null,
+	    parameter: null
+	  };
+	
+	  pms.parameterContext = {
+	    operation: null,
+	    parameter: null
+	  };
+	
+	  pms.parameterToUpdate = function (pathName, operation, parameter) {
+	    console.log("updaiting parameter");
+	    console.log(parameter);
+	
+	    pms.currentParameter.pathName = pathName;
+	    pms.currentParameter.operation = operation;
+	    pms.currentParameter.parameter = angular.copy(parameter);
+	  };
+	
+	  pms.initParameter = function (operation, parameter) {
+	    // debugger;
+	    //console.log(operation);
+	    ///console.log(parameterName);
+	    //console.log(inLocation);
+	
+	    pms.parameterContext.operation = operation;
+	    pms.parameterContext.parameter = parameter;
+	  };
+	
+	  pms.getCurrentParameter = function () {
+	    return pms.currentParameter;
+	  };
+	
+	  return pms;
+	}
+
+/***/ },
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32954,7 +32837,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _responseEditor = __webpack_require__(82);
+	var _responseEditor = __webpack_require__(83);
 	
 	var _responseEditor2 = _interopRequireDefault(_responseEditor);
 	
@@ -32965,7 +32848,7 @@
 	exports.default = ResponseEditorModule;
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32974,11 +32857,11 @@
 	  value: true
 	});
 	
-	var _responseEditor = __webpack_require__(83);
+	var _responseEditor = __webpack_require__(84);
 	
 	var _responseEditor2 = _interopRequireDefault(_responseEditor);
 	
-	var _responseEditor3 = __webpack_require__(84);
+	var _responseEditor3 = __webpack_require__(85);
 	
 	var _responseEditor4 = _interopRequireDefault(_responseEditor3);
 	
@@ -32996,13 +32879,13 @@
 	}
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"response-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\">\n  <form ng-submit=\"rmControl.updateResponse(rmControl.originalResponseData, rmControl.tempResponseData)\">\n    <div class=\"modal-content white-text\">\n      {{rmControl.tempResponseData}}\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Response Options</h4>\n        </div>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <input id=\"response-modal-name\" ng-model=\"rmControl.tempResponseData.httpCode\" type=\"text\" required=\"\" aria-required=\"true\"/>\n        <label for=\"response-modal-name\">Response Name</label>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <textarea id=\"response-modal-description\" ng-model=\"rmControl.tempResponseData.response.description\" class=\"materialize-textarea\"></textarea>\n        <label for=\"response-modal-description\">Description</label>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <div class=\"input-field col s12 valign\"\n          ng-repeat=\"(key, value) in rmControl.tempResponseData.response\"\n          ng-if=\"key !== 'description'\">\n          <textarea ng-attr-id=\"response-modal-{{key}}\" ng-model=\"rmControl.tempResponseData.response[key]\" class=\"materialize-textarea\"></textarea>\n          <label ng-attr-for=\"response-modal-{{key}}\">{{ key | capitalize}}</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Response\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Response\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -33073,7 +32956,7 @@
 	}
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33086,7 +32969,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _info = __webpack_require__(86);
+	var _info = __webpack_require__(87);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
@@ -33099,7 +32982,7 @@
 	exports.default = infoModule;
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33108,11 +32991,11 @@
 	  value: true
 	});
 	
-	var _info = __webpack_require__(87);
+	var _info = __webpack_require__(88);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
-	var _info3 = __webpack_require__(88);
+	var _info3 = __webpack_require__(89);
 	
 	var _info4 = _interopRequireDefault(_info3);
 	
@@ -33137,13 +33020,13 @@
 	exports.default = infoComponent;
 
 /***/ },
-/* 87 */
+/* 88 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"container\" ng-cloak>\n{{basicInfo.sgBase}}\n  <div class=\"row\">\n    <form name=\"infoForm\" novalidate ng-submit=\"infoForm.$valid\">\n      <div class=\"col s12\">\n        <div class=\"card blue-grey darken-1\">\n          <div class=\"card-content white-text\">\n            <h3>{{ basicInfo.sgBase.info.title + ' API' }}</h3>\n            <p>Start building your Swagger definition by describing some basic info. Watch out some\n              fields are required to enter, but don't worry we will prompt you if anything is missing.\n            </p>\n            <div class=\"section\">\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Info</span>\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <div class=\"row\">\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"title\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.title\"\n                          name=\"apiName\"\n                          required=\"\" >\n                        <label for=\"title\">Title</label>\n                        <div class=\"error\" ng-show=\"infoForm.apiName.$dirty && infoForm.apiName.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.apiName.$error.required\">\n                            The API name is required.\n                          </small>\n                        </div>\n                      </div>\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"version\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.version\"\n                          ng-pattern=\"/^([v]?)([0-9]+)((\\.([0-9]+))*)?$/\"\n                          name=\"version\"\n                          required=\"\" >\n                        <label for=\"version\">Version</label>\n                        <div class=\"error\" ng-show=\"infoForm.version.$dirty && infoForm.version.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.required\">\n                            The version is required.\n                          </small>\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <sg-textarea class=\"input-field col s12\" sg-unique-input sg-label=\"Description\" ng-model=\"basicInfo.sgBase.info.description\"></sg-textarea>\n                    </div>\n                    <div class=\"row\">\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Host\" ng-model=\"basicInfo.sgBase.info.host\"> </sg-text-input>\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Base Path\" ng-model=\"basicInfo.sgBase.info.basePath\"> </sg-text-input>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Contact</span>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.contact.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.contact.url\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Email\" ng-model=\"basicInfo.sgBase.info.contact.email\"> </sg-text-input>\n                </div>\n                <span class=\"card-title\">License</span>\n                <div class=\"row\">\n                  <sg-text-input ng-if=\"basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\" required=\"true\"> </sg-text-input>\n                  <sg-text-input ng-if=\"!basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.license.url\"> </sg-text-input>\n                </div>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 \" unique-input sg-label=\"Terms Of Service\" ng-model=\"basicInfo.sgBase.info.termsOfService\"> </sg-text-input>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col s12\">\n                <span class=\"card-title\">Types</span>\n                <div class=\"section col s12\">\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Produces: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"col m10 valign\"> {{produce}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('produces', produce);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Consumes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"col m10 valign\"> {{consume}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('consumes', consume);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Schemes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <div class=\"col m10 valign\"> {{scheme}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.removeType('schemes', scheme);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n"
 
 /***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -33204,7 +33087,7 @@
 	}
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33217,7 +33100,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _paths = __webpack_require__(90);
+	var _paths = __webpack_require__(91);
 	
 	var _paths2 = _interopRequireDefault(_paths);
 	
@@ -33230,7 +33113,7 @@
 	exports.default = pathModule;
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33239,11 +33122,11 @@
 	  value: true
 	});
 	
-	var _paths = __webpack_require__(91);
+	var _paths = __webpack_require__(92);
 	
 	var _paths2 = _interopRequireDefault(_paths);
 	
-	var _paths3 = __webpack_require__(92);
+	var _paths3 = __webpack_require__(93);
 	
 	var _paths4 = _interopRequireDefault(_paths3);
 	
@@ -33268,13 +33151,13 @@
 	}
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\" ng-cloak>\n  {{pathCtl.paths}}\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s3 m2 l2 valign\">\n              <h3>Paths</h3>\n            </div>\n            <div class=\"col s3 m8 l8\">\n              <a class=\"btn-flat\" ng-click=\"togglePaths()\">\n              <i class=\"large material-icons\">swap_vert</i>\n              </a>\n            </div>\n            <div class=\"col s6 m2 l2 valign right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n              <div class=\"col s12 l6\">\n                <div class=\"row\" >\n                  <div class=\"col\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'\" ng-hide=\"pathCtl.paths[pathName][operation]\">\n                    <a ng-class=\"{'blue': '{{operation}}' == 'get',\n                      'orange': '{{operation}}' === 'put',\n                      'green': '{{operation}}' === 'post',\n                      'red': '{{operation}}' === 'delete', }\"\n                      class=\"waves-effect waves-light btn\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                    {{operation | uppercase}}\n                    </a>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\" class=\"valign-wrapper\">\n                <div class=\"col s11 valign\">\n                  <ul class=\"collapsible blue-grey darken-2\" init-collapse data-collapsible=\"accordion\">\n                    <li>\n                      <div ng-class=\"{'blue': '{{operation}}' == 'get',\n                        'orange': '{{operation}}' === 'put',\n                        'green': '{{operation}}' === 'post',\n                        'red': '{{operation}}' === 'delete', }\"\n                        class=\"collapsible-header \"><i class=\"material-icons\">filter_drama</i>{{ operation | uppercase }}   {{ \" \" + path.currentName}}</div>\n                      <div class=\"collapsible-body \">\n                        <div class=\"section\">\n                          <div class=\"\">\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <input id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].summary\"\n                                ng-model=\"pathCtl.paths[pathName][operation].summary\"\n                                maxlength=\"150\" type=\"text\"/>\n                              <label id=\"label\"  for=\"label\">Summary</label>\n                            </div>\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <textarea id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].description\"\n                                ng-model=\"pathCtl.paths[pathName][operation].description\"\n                                class=\"materialize-textarea\"></textarea>\n                              <label id=\"label\" for=\"label\">Description</label>\n                            </div>\n                          </div>\n                        </div>\n                        <div class=\"Section\" ng-if=\"pathCtl.paths[pathName][operation]\">\n                          <sg-parameter></sg-parameter>\n\n                        </div>\n                        <sg-response sg-context=\"pathCtl.paths[pathName][operation]\"></sg-response>\n                      </div>\n                    </li>\n                  </ul>\n                </div>\n                <div class=\"col s1 valign\" >\n                  <button class=\"btn-flat\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deleteOperation(pathName, operation)\">\n                  <i class=\"material-icons\">delete</i>\n                  </button>\n                </div>\n              </div>\n              {{path}}\n            </div>\n          </div>\n          {{paths}}\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
+	module.exports = "<div class=\"container\" ng-cloak>\n  {{pathCtl.paths}}\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s3 m2 l2 valign\">\n              <h3>Paths</h3>\n            </div>\n            <div class=\"col s3 m8 l8\">\n              <a class=\"btn-flat\" ng-click=\"togglePaths()\">\n              <i class=\"large material-icons\">swap_vert</i>\n              </a>\n            </div>\n            <div class=\"col s6 m2 l2 valign right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n              <div class=\"col s12 l6\">\n                <div class=\"row\" >\n                  <div class=\"col\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'\" ng-hide=\"pathCtl.paths[pathName][operation]\">\n                    <a ng-class=\"{'blue': '{{operation}}' == 'get',\n                      'orange': '{{operation}}' === 'put',\n                      'green': '{{operation}}' === 'post',\n                      'red': '{{operation}}' === 'delete', }\"\n                      class=\"waves-effect waves-light btn\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                    {{operation | uppercase}}\n                    </a>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\" class=\"valign-wrapper\">\n                <div class=\"col s11 valign\">\n                  <ul class=\"collapsible blue-grey darken-2\" init-collapse data-collapsible=\"accordion\">\n                    <li>\n                      <div ng-class=\"{'blue': '{{operation}}' == 'get',\n                        'orange': '{{operation}}' === 'put',\n                        'green': '{{operation}}' === 'post',\n                        'red': '{{operation}}' === 'delete', }\"\n                        class=\"collapsible-header \"><i class=\"material-icons\">filter_drama</i>{{ operation | uppercase }}   {{ \" \" + path.currentName}}</div>\n                      <div class=\"collapsible-body \">\n                        <div class=\"section\">\n                          <div class=\"\">\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <input id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].summary\"\n                                ng-model=\"pathCtl.paths[pathName][operation].summary\"\n                                maxlength=\"150\" type=\"text\"/>\n                              <label id=\"label\"  for=\"label\">Summary</label>\n                            </div>\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <textarea id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].description\"\n                                ng-model=\"pathCtl.paths[pathName][operation].description\"\n                                class=\"materialize-textarea\"></textarea>\n                              <label id=\"label\" for=\"label\">Description</label>\n                            </div>\n                          </div>\n                        </div>\n                        <!-- <div class=\"Section\" ng-if=\"pathCtl.paths[pathName][operation]\"> -->\n                          <sg-parameter sg-context=\"pathCtl.paths[pathName][operation]\"></sg-parameter>\n\n                        <!-- </div> -->\n                        <sg-response sg-context=\"pathCtl.paths[pathName][operation]\"></sg-response>\n                      </div>\n                    </li>\n                  </ul>\n                </div>\n                <div class=\"col s1 valign\" >\n                  <button class=\"btn-flat\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deleteOperation(pathName, operation)\">\n                  <i class=\"material-icons\">delete</i>\n                  </button>\n                </div>\n              </div>\n              {{path}}\n            </div>\n          </div>\n          {{paths}}\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
 
 /***/ },
-/* 92 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33378,7 +33261,7 @@
 	}
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33391,7 +33274,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _parameter = __webpack_require__(94);
+	var _parameter = __webpack_require__(95);
 	
 	var _parameter2 = _interopRequireDefault(_parameter);
 	
@@ -33404,7 +33287,7 @@
 	exports.default = ParameterModule;
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33413,11 +33296,11 @@
 	  value: true
 	});
 	
-	var _parameter = __webpack_require__(95);
+	var _parameter = __webpack_require__(96);
 	
 	var _parameter2 = _interopRequireDefault(_parameter);
 	
-	var _parameter3 = __webpack_require__(96);
+	var _parameter3 = __webpack_require__(97);
 	
 	var _parameter4 = _interopRequireDefault(_parameter3);
 	
@@ -33435,6 +33318,10 @@
 	  return {
 	    template: _parameter2.default,
 	    restrict: 'E',
+	    scope: {},
+	    bindToController: {
+	      sgContext: '='
+	    },
 	    //    replace: true,
 	    controller: _parameter4.default,
 	    controllerAs: 'paramControl'
@@ -33442,13 +33329,13 @@
 	}
 
 /***/ },
-/* 95 */
+/* 96 */
 /***/ function(module, exports) {
 
-	module.exports = "<h5>Parameters</h5>\n<table ng-if=\"pathCtl.paths[pathName][operation].parameters.length > 0;\" class=\" section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"name\">Name</th>\n      <th data-field=\"in\">Located In</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"required\">Required</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"param in pathCtl.paths[pathName][operation].parameters | orderBy:'name'\">\n      <div >\n        <td class=\"white-text\">{{param.name}}</td>\n        <td class=\"white-text\">{{param.inLocation}}</td>\n        <td class=\"shrink white-text\">{{param.description}}</td>\n        <td class=\"white-text\">{{param.required}}</td>\n        <td class=\"shrink\">{{param.schema}}</td>\n        <td class=\"white-text\">\n          <a class=\"disabled\" href=\"#param-modal\" modal ng-click=\"paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addParameter\" novalidate ng-submit=\"addParameter.name.$valid && paramControl.addParam(pathName, operation, paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)\">\n  <div class=\"valign-wrapper\">\n    <div sg-unique-input class=\"input-field col s4 valign\">\n      <input id=\"input\" name=\"name\" ng-model=\"paramControl.newParamData[operation].name\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Parameter Name</label>\n      <div  class=\"error\"\n            ng-show=\"addParameter.name.$dirty && addParameter.name.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addParameter.name.$error.required\">\n          Parameter name is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"input-field col s4 valign\" >\n      <select class=\"browser-default\" ng-model=\"paramControl.newParamData[operation].inLocation\" style=\"background-color: #455a64;\">\n        <option  value=\"\" disabled selected>Choose your Parameter Location</option>\n        <option value=\"path\">Path</option>\n        <option value=\"query\">Query</option>\n        <option value=\"header\">Header</option>\n        <option value=\"body\">Body</option>\n        <option value=\"formData\">Form Data</option>\n      </select>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\" ng-class=\"{ 'disabled': addParameter.name.$invalid }\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n</form>\n{{paramControl.paths}}\n"
+	module.exports = "<h5>Parameters</h5>\n<table ng-if=\"paramControl.sgContext.parameters.length > 0;\" class=\" section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"name\">Name</th>\n      <th data-field=\"in\">Located In</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"required\">Required</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"param in paramControl.sgContext.parameters | orderBy:'name'\">\n      <div >\n        <td class=\"white-text\">{{param.name}}</td>\n        <td class=\"white-text\">{{param.inLocation}}</td>\n        <td class=\"shrink white-text\">{{param.description}}</td>\n        <td class=\"white-text\">{{param.required}}</td>\n        <td class=\"shrink\">{{param.schema}}</td>\n        <td class=\"white-text\">\n          <a class=\"disabled\" href=\"#param-modal\" modal ng-click=\"paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addParameter\" novalidate ng-submit=\"addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[operation].name, paramControl.newParamData[operation].inLocation)\">\n  <div class=\"valign-wrapper\">\n    <div sg-unique-input class=\"input-field col s4 valign\">\n      <input id=\"input\" name=\"name\" ng-model=\"paramControl.newParamData[operation].name\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Parameter Name</label>\n      <div  class=\"error\"\n            ng-show=\"addParameter.name.$dirty && addParameter.name.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addParameter.name.$error.required\">\n          Parameter name is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"input-field col s4 valign\" >\n      <select class=\"browser-default\" ng-model=\"paramControl.newParamData[operation].inLocation\" style=\"background-color: #455a64;\">\n        <option  value=\"\" disabled selected>Choose your Parameter Location</option>\n        <option value=\"path\">Path</option>\n        <option value=\"query\">Query</option>\n        <option value=\"header\">Header</option>\n        <option value=\"body\">Body</option>\n        <option value=\"formData\">Form Data</option>\n      </select>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\" ng-class=\"{ 'disabled': addParameter.name.$invalid }\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n</form>\n{{paramControl.paths}}\n"
 
 /***/ },
-/* 96 */
+/* 97 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33456,11 +33343,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var ParameterController = ['$scope', '$log', 'PathService', "ParameterModalService", ParameterCtrl];
+	var ParameterController = ['$scope', 'PathService', "ParameterModalService", ParameterCtrl];
 	
 	exports.default = ParameterController;
 	
-	function ParameterCtrl($scope, log, swaggerPaths, pms) {
+	function ParameterCtrl($scope, swaggerPaths, pms) {
 	
 	  var paramControl = this;
 	
@@ -33492,40 +33379,38 @@
 	    }
 	  };
 	
+	  this.pLength = null;
+	
 	  //Param methods
-	  this.addParam = function (pathName, operation, paramName, paramInLocation) {
+	  this.addParam = function (paramName, paramInLocation) {
 	
 	    try {
-	      swaggerPaths.addNewParam(pathName, operation, paramName, paramInLocation);
-	      //$scope.parametersList = swaggerPaths.getParamList;
-	      //updateParamList(pathName, operation);
+	      swaggerPaths.addNewParam(this.sgContext, paramName, paramInLocation);
 	    } catch (e) {
 	      console.log(e);
-	      //paramControl.toastUser("Not a unique parameter/query combo.");
 	      Materialize.toast("Parameter name/query combo' already exists", 3000);
 	    }
 	
-	    //path.pathDefinition[pathName][operation].parameters = swaggerPaths.getParamList(pathName, operation);
-	
 	    paramControl.newParamData[operation].name = "";
+	
+	    this.pLength = this.sgContext.parameters.length;
 	  };
 	
 	  paramControl.editParamData = function (pathName, operation, paramName, paramInLocation, index) {
 	
-	    console.log(index);
+	    var param = this.sgContext.getParameter(paramName, paramInLocation);
 	
-	    var params = swaggerPaths.getParamList(pathName, operation);
-	    var temp = params[index];
+	    debugger;
+	    //pms.initParameter(this.sgContext, paramName, paramInLocation);
 	
-	    console.log(params);
-	    console.log(temp);
+	    pms.initParameter(this.sgContext, param);
 	
-	    pms.parameterToUpdate(pathName, operation, temp);
+	    pms.parameterToUpdate(pathName, operation, param);
 	  };
 	}
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33538,7 +33423,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _response = __webpack_require__(98);
+	var _response = __webpack_require__(99);
 	
 	var _response2 = _interopRequireDefault(_response);
 	
@@ -33551,7 +33436,7 @@
 	exports.default = ResponseModule;
 
 /***/ },
-/* 98 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33560,11 +33445,11 @@
 	  value: true
 	});
 	
-	var _response = __webpack_require__(99);
+	var _response = __webpack_require__(100);
 	
 	var _response2 = _interopRequireDefault(_response);
 	
-	var _response3 = __webpack_require__(100);
+	var _response3 = __webpack_require__(101);
 	
 	var _response4 = _interopRequireDefault(_response3);
 	
@@ -33593,13 +33478,13 @@
 	}
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports) {
 
 	module.exports = "<h5>Response</h5>\n<table ng-if=\"responseControl.rKeys > 0;\" class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext.responses | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseData(pathName, operation, responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].httpCode\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n      <div  class=\"error\"\n            ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          <!-- Response code is required. -->\n        </small>\n      </div>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n      <div class=\"error\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          <!-- Response description is required. -->\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n</form>\n"
 
 /***/ },
-/* 100 */
+/* 101 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -33656,10 +33541,6 @@
 	  this.addResponse = function (pathName, operation, httpCode, description) {
 	    console.log("RESPONSE CONTROLLER - ADD RESPONSE");
 	
-	    console.log(this.sgContext);
-	
-	    //   debugger;
-	
 	    try {
 	      this.sgContext.responses.addResponse(httpCode, description);
 	      //PathService.addResponse(pathName, operation, httpCode, description);
@@ -33672,7 +33553,7 @@
 	    //    httpCode:null,
 	    //    description:null,
 	    //  }
-	    debugger;
+	    //debugger;
 	    $scope.addResponse.$setPristine();
 	    console.log($scope);
 	
@@ -33681,7 +33562,7 @@
 	}
 
 /***/ },
-/* 101 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33694,11 +33575,11 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _angularMaterialize = __webpack_require__(102);
+	var _angularMaterialize = __webpack_require__(103);
 	
 	var _angularMaterialize2 = _interopRequireDefault(_angularMaterialize);
 	
-	var _definitions = __webpack_require__(104);
+	var _definitions = __webpack_require__(105);
 	
 	var _definitions2 = _interopRequireDefault(_definitions);
 	
@@ -33711,15 +33592,15 @@
 	exports.default = DefinitionsModule;
 
 /***/ },
-/* 102 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(103);
+	__webpack_require__(104);
 	module.exports = 'ui.materialize';
 
 
 /***/ },
-/* 103 */
+/* 104 */
 /***/ function(module, exports) {
 
 	(function (angular) {
@@ -34628,7 +34509,7 @@
 
 
 /***/ },
-/* 104 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34637,11 +34518,11 @@
 	  value: true
 	});
 	
-	var _definitions = __webpack_require__(105);
+	var _definitions = __webpack_require__(106);
 	
 	var _definitions2 = _interopRequireDefault(_definitions);
 	
-	var _definitions3 = __webpack_require__(106);
+	var _definitions3 = __webpack_require__(107);
 	
 	var _definitions4 = _interopRequireDefault(_definitions3);
 	
@@ -34659,13 +34540,13 @@
 	}
 
 /***/ },
-/* 105 */
+/* 106 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"container\" ng-cloak>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s6 m8 l10 valign\">\n              <h3>Definitions</h3>\n            </div>\n            <div class=\"col s6 m4 l2 valign right-align\">\n              <a ng-click=\"openFocusDefinitionModal()\"\n                  class=\"btn-floating btn-large waves-effect waves-light purple accent-4\" href=\"#definition-creation-modal\" modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n          <ul ng-repeat=\"(definition, defValue) in defControl.definitions\"\n            class=\"collapsible blue-grey darken-2\"\n            init-collapse\n            data-collapsible=\"accordion\">\n            <li>\n              <div class=\"collapsible-header blue-grey\">\n                {{definition}}\n              </div>\n              <div class=\"collapsible-body\">\n                <div class=\"section\">\n                  <span class=\"card-title col s12\">Attributes</span>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\"\n                      type=\"text\"\n                      placeholder=\"Some information about the Definition\"\n                      ng-model=\"defValue.description\"\n                      disabled>\n                    <label class=\"white-text active\">Description</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" ng-model=\"defValue.type\" disabled>\n                    <label class=\"white-text\">Type</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" placeholder=\"\" ng-model=\"defValue.required\" disabled>\n                    <label class=\"white-text\">Required</label>\n                  </div>\n                </div>\n                <div class=\"section\">\n                  <span class=\"card-title\">Properties</span>\n                  <table class=\"section bordered responsive-table\">\n                    <thead>\n                      <tr>\n                        <th ng-repeat=\"header in defControl.headers\"\n                          ng-attr-data-field=\"{{header}}\">{{header}}</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr ng-repeat=\"(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'\">\n                        <td class=\"white-text\">{{propertyName}}</td>\n                        <td class=\"white-text shrink\">{{propertyValue.description}}</td>\n                        <td class=\"white-text\">{{propertyValue.type}}</td>\n                        <td class=\"white-text\"\n                          ng-if=\"defValue.required.includes(propertyName);\">true</td>\n                        <td class=\"white-text\"\n                          ng-if=\"!defValue.required.includes(propertyName);\">false</td>\n                        <td class=\"white-text\">{{propertyValue.enum}}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col s6\">\n                    <button tooltipped\n                      class=\"btn-flat\"\n                      data-position=\"top\"\n                      data-delay=\"50\"\n                      data-tooltip=\"Delete Definition\"\n                      ng-click=\"defControl.deleteDefinition(definition);\">\n                    <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div class=\"col s6 \">\n                    <button class=\"btn-flat\"\n                      href=\"#definition-editor-modal\"\n                      ng-click=\"defControl.initDefinitionEditorModal(definition, defValue)\"\n                      modal>\n                    <i class=\"material-icons\">settings</i>\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </li>\n          </ul>\n          <sg-definition-creator-modal></sg-definition-creator-modal>\n          <sg-definition-editor-modal></sg-definition-editor-modal>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
-/* 106 */
+/* 107 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -34747,7 +34628,7 @@
 	}
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34756,7 +34637,7 @@
 	  value: true
 	});
 	
-	var _app = __webpack_require__(108);
+	var _app = __webpack_require__(109);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
@@ -34778,7 +34659,7 @@
 	exports.default = appComponent;
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\n  <sg-header></sg-header>\n  <sg-main></sg-main>\n  <sg-footer></sg-footer>\n</div>\n"

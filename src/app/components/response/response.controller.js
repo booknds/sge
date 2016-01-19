@@ -43,19 +43,10 @@ function ResponseCtrl($scope, PathService, rms){
      Materialize.toast(e, 3000);
      return;
    }
-
-
-
- }
+ };
 
  this.addResponse = function(pathName, operation, httpCode, description){
    console.log("RESPONSE CONTROLLER - ADD RESPONSE");
-
-
-   console.log(this.sgContext);
-
-
-//   debugger;
 
    try{
      this.sgContext.responses.addResponse(httpCode, description);
@@ -69,13 +60,13 @@ function ResponseCtrl($scope, PathService, rms){
   //    httpCode:null,
   //    description:null,
   //  }
-  debugger;
+  //debugger;
   $scope.addResponse.$setPristine();
   console.log($scope);
 
    this.rKeys= Object.keys(this.sgContext.responses).length;
 
- }
+ };
 
 
 }

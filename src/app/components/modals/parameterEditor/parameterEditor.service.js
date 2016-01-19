@@ -3,10 +3,14 @@ export default function ParameterModalService(){
   var pms = {};
 
   pms.currentParameter = {
-    pathName:null,
     operation:null,
-    parameter:null,
+    parameter:null
   };
+
+  pms.parameterContext = {
+    operation:null,
+    parameter:null
+  }
 
   pms.parameterToUpdate = function(pathName, operation, parameter){
     console.log("updaiting parameter");
@@ -16,13 +20,21 @@ export default function ParameterModalService(){
     pms.currentParameter.operation = operation;
     pms.currentParameter.parameter = angular.copy(parameter);
 
-    //console.log(pms.currentParameter);
-    //console.log("Done updating parameter");
-  }
+  };
+
+  pms.initParameter = function(operation, parameter){
+    // debugger;
+    //console.log(operation);
+    ///console.log(parameterName);
+    //console.log(inLocation);
+
+    pms.parameterContext.operation = operation;
+    pms.parameterContext.parameter = parameter;
+  };
 
   pms.getCurrentParameter = function(){
     return pms.currentParameter;
-  }
+  };
 
   return pms;
 

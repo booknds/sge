@@ -84,10 +84,10 @@
                             </div>
                           </div>
                         </div>
-                        <div class="Section" ng-if="pathCtl.paths[pathName][operation]">
-                          <sg-parameter></sg-parameter>
+                        <!-- <div class="Section" ng-if="pathCtl.paths[pathName][operation]"> -->
+                          <sg-parameter sg-context="pathCtl.paths[pathName][operation]"></sg-parameter>
 
-                        </div>
+                        <!-- </div> -->
                         <sg-response sg-context="pathCtl.paths[pathName][operation]"></sg-response>
                       </div>
                     </li>
