@@ -1,49 +1,18 @@
+"use strict";
 import angular from 'angular';
 
-let path = ['OperationService', "ParameterService", PathService];
+let path = ['ObjectFactory', PathService];
 
 export default path;
 
-function PathService(OperationService, ParameterService){
-    "use strict";
+function PathService(ObjectFactory){
 
-    var self = this;
+  var paths = {}
 
-    var debug = true;
-
-    //var paths = [];
-
-    var paths = {};
-
-    self.paths = paths;
+    this.paths = paths;
 
 /************** PATH FUNCTIONS START *******************/
-    function Path(){
-      this.get = null;
-      this.post = null;
-      this.put = null;
-      this.delete = null;
-      /** TODO future attributes
-      this.options
-      this.head
-      this.patch
-      this.parameters
-      */
-    }
-
-    Path.prototype = {
-      addOperation: function(operation){
-        debugger;
-        this[operation] = OperationService.newOperation();
-      },
-
-      removeOperation: function(operation){
-        delete this[operation];
-        this[operation] = null;
-      }
-    }
-
-    self.setPaths= function(newPaths){
+    this.setPaths= function(newPaths){
       paths = newPaths;
         console.log('updatePaths from paths service');
         console.log('\t current paths');
@@ -54,38 +23,38 @@ function PathService(OperationService, ParameterService){
         //only store path definition of the path
         var defArray = {};
         for(var path in paths){
-            //only update the document if the path is unique
-            if(path.isUnique){
-                currentPath = paths[path];
+          //only update the document if the path is unique
+          if(path.isUnique){
+            currentPath = paths[path];
 
-                defArray[currentPath.currentName] = currentPath.pathDefinition[currentPath.currentName];
+            defArray[currentPath.currentName] = currentPath.pathDefinition[currentPath.currentName];
 
-                }
+          }
         }
         console.info(defArray);
         //swaggerCompiler.updatePaths(defArray);
         console.log('------------------------------------');
     };
 
-    self.addPath = function(pathName, operations){
-      if(pathExists(pathName)){
+    this.addPath = function(pathName, operations){
+      if(hasPath(pathName)){
         throw "Path name already exsists, could not add"
       }else
-        paths[pathName] = new Path();
+        paths[pathName] = ObjectFactory.newPath();
     };
 
-    self.removePath = function(pathName){
-      if(pathExists(pathName))
+    this.removePath = function(pathName){
+      if(hasPath(pathName))
         delete paths[pathName];
       else
         throw "Not a valid path to delete"
 
     };
 
-    self.updatePathName = function(oldPathName, newPathName){
+    this.updatePathName = function(oldPathName, newPathName){
       if(oldPathName === newPathName) return;
 
-      if(pathExists(oldPathName)){
+      if(hasPath(oldPathName)){
         paths[newPathName] = angular.copy(paths[oldPathName]);
         delete paths[oldPathName];
       }else
@@ -93,7 +62,7 @@ function PathService(OperationService, ParameterService){
 
     };
 
-    function pathExists(pathName){
+    function hasPath(pathName){
       if(paths.hasOwnProperty(pathName))
         return true;
       else
@@ -105,41 +74,40 @@ function PathService(OperationService, ParameterService){
 /************** OPERATION FUNCTIONS START *******************/
 
     /* make a separate Operations class */
-    self.addOperation = function(pathName, operation){
+    this.addOperation = function(pathName, operation){
 
         console.log("PATH SERVICE: adding operation");
 
-        if(pathExists(pathName)){
+        if(hasPath(pathName)){
         //  debugger;
-          paths[pathName][operation] = OperationService.newOperation();
+          paths[pathName].addOperation(operation);
         }else {
           throw "Cannot add Operation, path does not exist"
         }
-
-
     }
 
     /*
         Deletes an operation from a given service.
     */
-    self.removeOperation = function(pathName, operation){
+    this.removeOperation = function(pathName, operation){
       //reset the operation by deleteing it then adding it back as null
-        delete paths[pathName][operation];
-        paths[pathName][operation]=null;
+        // delete paths[pathName][operation];
+        // paths[pathName][operation]=null;
+        paths[pathName].removeOperation(operation);
 
     }
 
-    self.operationExists = function(pathName, operation){
-      if(paths[pathName][operation]){
-        return false;
-      }else{
-        return true;
-      }
-    }
+    // this.operationExists = function(pathName, operation){
+    //   if(paths[pathName][operation]){
+    //     return false;
+    //   }else{
+    //     return true;
+    //   }
+    // }
 
-    self.updateOperationInformation = function(pathName, operation, key, value){
-      paths[pathName][operation][key] = value;
-    }
+    // this.updateOperationInformation = function(pathName, operation, key, value){
+    //   paths[pathName][operation][key] = value;
+    // }
 
 /************** OPERATION FUNCTIONS END *******************/
 
@@ -161,7 +129,7 @@ function PathService(OperationService, ParameterService){
     /*
         This
     */
-    // self.getParamList = function(pathName, operation){
+    // this.getParamList = function(pathName, operation){
     //
     //     var currentPath = paths[pathName][operation];
     //
@@ -172,7 +140,7 @@ function PathService(OperationService, ParameterService){
     /*
 
     */
-    // self.getParam = function(pathName, operation, paramName, paramIn){
+    // this.getParam = function(pathName, operation, paramName, paramIn){
     //     console.log("------------------\nGETTING PARAM NAME");
     //     console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
     //     var parameter;// = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
@@ -234,61 +202,61 @@ function PathService(OperationService, ParameterService){
     /**
      *
      */
-    self.updateParameter = function(originalParameterData, newParameter){
-      // if(debug){
-      //   console.log("START Swagger Paths -> updating the Parameter Model");
-      //   //console.log(originalParameterData);
-      // }
-
-      var pathName = originalParameterData.pathName;
-      var operation = originalParameterData.operation;
-
-      var oParamName = originalParameterData.parameter.name;
-      var oParamIn = originalParameterData.parameter.inLocation;
-
-      var newParamName = newParameter.name;
-      var newParamIn = newParameter.inLocation;
-
-
-      //validate new param
-      //check to see if the name - inLocation pair of the parameter was changed
-      if(oParamName !== newParamName || oParamIn !== newParamIn){
-
-        //if they have been changed check if the new combo is unique
-        if(!validateParam(pathName, operation, newParamName, newParamIn)){
-          throw "Invalid Parameter Name-in combination, must be unique."
-        }
-      }
-
-        //set a reference to the actual parameter so to later manipulate
-        var originalParam = self.getParam(pathName, operation, oParamName, oParamIn);
-
-        //update the original parameter with the new parameter's data
-        for(var key in newParameter){
-          if(newParameter.hasOwnProperty(key) && key !== "schema"){
-            originalParam[key] = newParameter[key];
-          }
-          //handle schema as a special case;
-          if(key === "schema"){
-            //if the schema was updated, convert the JSON to an object
-            if(newParameter[key] instanceof Object)
-              originalParam[key] = newParameter[key];
-            else
-              originalParam[key] = JSON.parse(newParameter[key]);
-          }
-        }
-
-        if(debug){
-          console.log("FINISHED Swagger Paths -> updating the Parameter Model");
-          //console.log(originalParameterData);
-        }
-
-    }
+    // this.updateParameter = function(originalParameterData, newParameter){
+    //   // if(debug){
+    //   //   console.log("START Swagger Paths -> updating the Parameter Model");
+    //   //   //console.log(originalParameterData);
+    //   // }
+    //
+    //   var pathName = originalParameterData.pathName;
+    //   var operation = originalParameterData.operation;
+    //
+    //   var oParamName = originalParameterData.parameter.name;
+    //   var oParamIn = originalParameterData.parameter.inLocation;
+    //
+    //   var newParamName = newParameter.name;
+    //   var newParamIn = newParameter.inLocation;
+    //
+    //
+    //   //validate new param
+    //   //check to see if the name - inLocation pair of the parameter was changed
+    //   if(oParamName !== newParamName || oParamIn !== newParamIn){
+    //
+    //     //if they have been changed check if the new combo is unique
+    //     if(!validateParam(pathName, operation, newParamName, newParamIn)){
+    //       throw "Invalid Parameter Name-in combination, must be unique."
+    //     }
+    //   }
+    //
+    //     //set a reference to the actual parameter so to later manipulate
+    //     var originalParam = this.getParam(pathName, operation, oParamName, oParamIn);
+    //
+    //     //update the original parameter with the new parameter's data
+    //     for(var key in newParameter){
+    //       if(newParameter.hasOwnProperty(key) && key !== "schema"){
+    //         originalParam[key] = newParameter[key];
+    //       }
+    //       //handle schema as a special case;
+    //       if(key === "schema"){
+    //         //if the schema was updated, convert the JSON to an object
+    //         if(newParameter[key] instanceof Object)
+    //           originalParam[key] = newParameter[key];
+    //         else
+    //           originalParam[key] = JSON.parse(newParameter[key]);
+    //       }
+    //     }
+    //
+    //     if(debug){
+    //       console.log("FINISHED Swagger Paths -> updating the Parameter Model");
+    //       //console.log(originalParameterData);
+    //     }
+    //
+    // }
 
 /************** PARAMETERS FUNCTIONS END*******************/
 
 /************** RESPONSE FUNCTIONS START*******************/
-  // self.addResponse = function(pathName, operation, httpCode, description){
+  // this.addResponse = function(pathName, operation, httpCode, description){
   //   if(debug){
   //     console.log("ADD RESPONSE - START");
   //   }
@@ -310,8 +278,8 @@ function PathService(OperationService, ParameterService){
   //   }
   // }
 
-  self.getResponse = function(pathName, operation, httpCode){
-
+  this.getResponse = function(pathName, operation, httpCode){
+    debugger;
     console.log(pathName + ", " + operation + ", " + httpCode);
     var response = paths[pathName][operation].responses.getResponse(httpCode);
     if(response){
@@ -321,15 +289,14 @@ function PathService(OperationService, ParameterService){
     }
   }
 
-  self.removeResponse = function (pathName, operation, httpCode){
+  this.removeResponse = function (pathName, operation, httpCode){
+    debugger;
     delete paths[pathName][operation].responses[httpCode];
   }
 
-  self.updateResponse = function(originalResponseData, newResponse){
-    if(debug){
-      console.log("START Swagger Paths -> updating the Response Model");
-      //console.log(originalParameterData);
-    }
+  this.updateResponse = function(originalResponseData, newResponse){
+
+    debugger;
     console.log(originalResponseData);
     console.log(newResponse);
     var pathName = originalResponseData.pathName;
@@ -344,10 +311,10 @@ function PathService(OperationService, ParameterService){
       if(hasResponse(pathName, operation, newHttpCode)){
         throw "Invalid Parameter Name-in combination, must be unique."
       }else{
-        self.removeResponse(pathName, operation, oHttpCode);
+        this.removeResponse(pathName, operation, oHttpCode);
 
-        self.addResponse(pathName, operation, newHttpCode, newResponse.response.description);
-        var newlyAddedResponse = self.getResponse(pathName, operation, newHttpCode);
+        this.addResponse(pathName, operation, newHttpCode, newResponse.response.description);
+        var newlyAddedResponse = this.getResponse(pathName, operation, newHttpCode);
 
         for(var key in newlyAddedResponse){
           if(key !== 'description'){
@@ -361,7 +328,7 @@ function PathService(OperationService, ParameterService){
 
     }else{
 
-      var originalResponse = self.getResponse(pathName, operation, oHttpCode);
+      var originalResponse = this.getResponse(pathName, operation, oHttpCode);
       console.log("Httpcodes match");
       console.log(originalResponse);
 
@@ -374,37 +341,19 @@ function PathService(OperationService, ParameterService){
 
       }
     }
-
-
-      if(debug){
-        console.log("FINISHED Swagger Paths -> updating the Parameter Model");
-        //console.log(originalParameterData);
-      }
-
   };
 
   function hasResponse(pathName, operation, httpCode){
-    if(debug){
-      console.log("HAS RESPONSE - START");
-    }
-
+    debugger;
     var path = paths[pathName][operation];
 
     if(path.responses.responseExists(httpCode)){
-        if(debug)
-            console.log("\t Same Response found");
-
         return true;
     }else{
-        if(debug)
-            console.log("\t Response NOT found");
 
         return false;
     }
 
-    if(debug){
-      console.log("HAS RESPONSE - END");
-    }
   }
 /************** RESPONSE FUNCTIONS END*******************/
 }

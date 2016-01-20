@@ -2,25 +2,25 @@ export default function ParameterModalService(){
 
   var pms = {};
 
-  pms.currentParameter = {
-    operation:null,
-    parameter:null
-  };
+  // pms.currentParameter = {
+  //   operation:null,
+  //   parameter:null
+  // };
 
   pms.parameterContext = {
     operation:null,
     parameter:null
   }
 
-  pms.parameterToUpdate = function(pathName, operation, parameter){
-    console.log("updaiting parameter");
-    console.log(parameter);
-
-    pms.currentParameter.pathName = pathName;
-    pms.currentParameter.operation = operation;
-    pms.currentParameter.parameter = angular.copy(parameter);
-
-  };
+  // pms.parameterToUpdate = function(pathName, operation, parameter){
+  //   console.log("updaiting parameter");
+  //   console.log(parameter);
+  //
+  //   pms.currentParameter.pathName = pathName;
+  //   pms.currentParameter.operation = operation;
+  //   pms.currentParameter.parameter = angular.copy(parameter);
+  //
+  // };
 
   pms.initParameter = function(operation, parameter){
     // debugger;
@@ -32,9 +32,9 @@ export default function ParameterModalService(){
     pms.parameterContext.parameter = parameter;
   };
 
-  pms.getCurrentParameter = function(){
-    return pms.currentParameter;
-  };
+  // pms.getCurrentParameter = function(){
+  //   return pms.currentParameter;
+  // };
 
   return pms;
 

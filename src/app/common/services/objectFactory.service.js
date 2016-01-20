@@ -2,6 +2,29 @@ export default ObjectFactory;
 
 function ObjectFactory(){
 
+  let Path ={
+    init:function(){
+      this.get = null;
+      this.post = null;
+      this.put = null;
+      this.delete = null;
+      /** TODO future attributes
+      this.options
+      this.head
+      this.patch
+      this.parameters
+      */
+    },
+    addOperation: function(operation){
+      debugger;
+      this[operation] = newOperation();
+    },
+
+    removeOperation: function(operation){
+      delete this[operation];
+      this[operation] = null;
+    },
+  };
 
   let Operation = {
     init: function(){
@@ -13,15 +36,52 @@ function ObjectFactory(){
       this.consumes = null;
       this.produces = null;
       this.parameters = new Array();
-      this.responses = ResponseService.newResponses();
+      this.responses = newResponses();
       this.schemes = null;
       this.deprecated = false;
       this.security = new Object();
     },
-    addParameter: function(paramName, paramIn){
 
-        //if(hasParameter.call(this, paramName, paramIn))
-      this.parameters.push(ParameterService.newParameter(paramName, paramIn));
+    addParameter: function(paramName, paramIn){
+      this.parameters.push(newParameter(paramName, paramIn));
+    },
+
+    getParameter: function(name, inLoc){
+      var parameter = null;
+        this.parameters.forEach(
+          function(element, index, array){
+            console.log(element);
+            if(element.name === name && element.inLocation === inLoc){
+              parameter = element;
+              return;
+            }
+          }
+        );
+
+      return parameter;
+    },
+
+    hasParameter: function (name, inLoc){
+      let found = false
+
+      this.parameters.forEach(function(element, index, array){
+        if(element.name === name && element.inLocation === inLoc)
+          found = true;
+      });
+
+      if(found)
+        return true;
+      else
+        return false;
+    },
+
+    updateParameter: function(oldParameter, newParameter){
+
+      let original = this.getParameter(oldParameter.name, oldParameter.inLocation);
+
+      for(let key in newParameter){
+        original[key] = newParameter[key];
+      }
 
     },
 
@@ -40,20 +100,8 @@ function ObjectFactory(){
         return operationJSON;
 
     },
-    hasParameter: function (name, inLoc){
-      let found = false
 
-      this.parameters.forEach(function(element, index, array){
-        if(element.name === name && element.in === inLoc)
-          found = true;
-      });
-
-      if(found)
-        return true;
-      else
-        return false;
-    },
-  }
+  };
 
   let Parameter = {
     init: function(name, inLocation){
@@ -166,6 +214,12 @@ function ObjectFactory(){
     }
   };
 
+  function newPath(){
+    let temp = Object.create(Path);
+    temp.init();
+    return temp;
+  }
+
   function newResponses(){
      return Object.create(Responses);
   }
@@ -183,6 +237,7 @@ function ObjectFactory(){
   }
 
   return {
+    newPath,
     newOperation,
     newParameter,
     newResponses

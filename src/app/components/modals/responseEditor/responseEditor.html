@@ -1,25 +1,25 @@
 <div id="response-modal" class="modal blue-grey darken-1 modal-fixed-footer">
-  <form ng-submit="rmControl.updateResponse(rmControl.originalResponseData, rmControl.tempResponseData)">
+  <form ng-submit="rmControl.updateResponse(rmControl.originalResponseData, rmControl.tempResponse)">
     <div class="modal-content white-text">
-      {{rmControl.tempResponseData}}
+      {{rmControl.tempResponse}}
       <div class="row">
         <div class="left-align col s12">
           <h4>Response Options</h4>
         </div>
       </div>
       <div class="input-field col s12 valign">
-        <input id="response-modal-name" ng-model="rmControl.tempResponseData.httpCode" type="text" required="" aria-required="true"/>
+        <input id="response-modal-name" ng-model="rmControl.tempResponse.httpCode" type="text" required="" aria-required="true"/>
         <label for="response-modal-name">Response Name</label>
       </div>
       <div class="input-field col s12 valign">
-        <textarea id="response-modal-description" ng-model="rmControl.tempResponseData.response.description" class="materialize-textarea"></textarea>
+        <textarea id="response-modal-description" ng-model="rmControl.tempResponse.response.description" class="materialize-textarea"></textarea>
         <label for="response-modal-description">Description</label>
       </div>
       <div class="row valign-wrapper">
         <div class="input-field col s12 valign"
-          ng-repeat="(key, value) in rmControl.tempResponseData.response"
+          ng-repeat="(key, value) in rmControl.tempResponse.response"
           ng-if="key !== 'description'">
-          <textarea ng-attr-id="response-modal-{{key}}" ng-model="rmControl.tempResponseData.response[key]" class="materialize-textarea"></textarea>
+          <textarea ng-attr-id="response-modal-{{key}}" ng-model="rmControl.tempResponse.response[key]" class="materialize-textarea"></textarea>
           <label ng-attr-for="response-modal-{{key}}">{{ key | capitalize}}</label>
         </div>
       </div>

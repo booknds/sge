@@ -18,21 +18,6 @@ function ParameterModalCtrl($scope, swaggerPaths, pms){
     collectionFormat : ['csv', 'ssv', 'tsv', 'pipes', 'multi'],
   }
 
-
-
-  // $scope.$watch("this.tempParam.name",
-  //   function(newVal, oldVal){
-  //     if(newVal){
-  //       console.log("new tmep nameem;alfjasfa");
-  //       setTimeout(function(){
-  //         if(this.tempParam.Operation.hasParameter(newVal, this.tempParam.inLocation))
-  //           $scope.editParam.$setValidity($scope.editParam.paramName, false);
-  //
-  //       }.bind(this), 1000);
-  //     }
-  //   }.bind(this)
-  // )
-
   $scope.$watch(function(){return pms.parameterContext;}, onModalInit.bind(this), true);
 
   function onModalInit(newVal, oldVal){
@@ -52,7 +37,7 @@ function ParameterModalCtrl($scope, swaggerPaths, pms){
       //   this.tempParam.schema = JSON.stringify(this.tempParam.schema);
       // }
 
-      debugger;
+      //debugger;
       originalParamContext = pms.parameterContext;
 
       this.tempParam = angular.copy(originalParamContext.parameter);
@@ -63,9 +48,7 @@ function ParameterModalCtrl($scope, swaggerPaths, pms){
 
   this.updateParameter = function(){
     try{
-      //swaggerPaths.updateParameter(originalParamData, this.tempParam);
 
-      //this.tempParam.Original
       debugger;
       originalParamContext.operation.updateParameter(originalParamContext.parameter, this.tempParam);
 

@@ -9,5 +9,8 @@ function ParameterEditorComponent(){
     template,
     controller,
     controllerAs:'paramModalControl',
+    link: function(scope){
+
+    }
   }
 }
