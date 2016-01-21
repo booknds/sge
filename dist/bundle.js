@@ -32376,22 +32376,7 @@
 	  function onModalInit(newVal) {
 	
 	    if (newVal.responses) {
-	      // console.log("hit current response updated");
-	      // var currentResponse = newVal;
-	      // this.originalResponseData = currentResponse;
-	      //
-	      // this.tempResponseData.response = angular.copy(currentResponse.response);
-	      // this.tempResponseData.httpCode = this.originalResponseData.httpCode;
-	      //
-	      // if(this.tempResponseData.response.schema instanceof Object){
-	      //   this.tempResponseData.response.schema = JSON.stringify(this.tempResponseData.response.schema);
-	      // }
-	      // if(this.tempResponseData.response.headers instanceof Object){
-	      //   this.tempResponseData.response.headers = JSON.stringify(this.tempResponseData.response.headers);
-	      // }
-	      // if(this.tempResponseData.response.examples instanceof Object){
-	      //   this.tempResponseData.response.examples = JSON.stringify(this.tempResponseData.response.examples);
-	      // }
+	
 	      debugger;
 	      originalResponse = newVal;
 	      this.tempResponse.httpCode = newVal.httpCode;
@@ -32409,13 +32394,14 @@
 	    }
 	  };
 	
-	  this.setResponseInModal = function (inLocation) {
-	    console.log("setting response modal");
-	    if (inLocation === 'path') {
-	      this.tempResponse.required = true;
-	      console.log(this.tempResponse);
-	    }
-	  };
+	  // this.setResponseInModal = function(inLocation){
+	  //   console.log("setting response modal");
+	  //   if(inLocation === 'path'){
+	  //     this.tempResponse.required = true;
+	  //     console.log(this.tempResponse);
+	  //   }
+	  //
+	  // }
 	}
 
 /***/ },
@@ -32975,7 +32961,7 @@
 /* 97 */
 /***/ function(module, exports) {
 
-	module.exports = "<h5>Response</h5>\n<table ng-if=\"responseControl.rKeys > 0;\" class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseData(pathName, operation, responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].httpCode\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n      <div  class=\"error\"\n            ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          <!-- Response code is required. -->\n        </small>\n      </div>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n      <div class=\"error\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          <!-- Response description is required. -->\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n</form>\n"
+	module.exports = "<h5>Response</h5>\n<table ng-if=\"responseControl.rKeys > 0;\" class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseData(pathName, operation, responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].httpCode\"\n              ng-pattern=\"/^(Default|default)?([0-9]+)?$/\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n      <div  class=\"error\"\n            ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          <!-- Response code is required. -->\n        </small>\n      </div>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n      <div class=\"error\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          <!-- Response description is required. -->\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n</form>\n"
 
 /***/ },
 /* 98 */

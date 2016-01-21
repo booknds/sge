@@ -26,7 +26,8 @@
 <form name="addResponse" novalidate ng-submit="addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)">
   <div class="valign-wrapper">
     <div unique-checkbox class="input-field col s4 valign">
-      <input id="input" ng-model="responseControl.newResponseData[operation].httpCode" name="code" type="text" required=""/>
+      <input id="input" ng-model="responseControl.newResponseData[operation].httpCode"
+              ng-pattern="/^(Default|default)?([0-9]+)?$/" name="code" type="text" required=""/>
       <label id="label" for="label">Response Code</label>
       <div  class="error"
             ng-show="addResponse.code.$dirty && addResponse.code.$invalid">
