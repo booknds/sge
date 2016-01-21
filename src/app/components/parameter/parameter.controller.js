@@ -2,20 +2,14 @@ let ParameterController = ['$scope', 'PathService', "ParameterModalService", Par
 
 export default ParameterController;
 
-function ParameterCtrl($scope, swaggerPaths, pms){
+function ParameterCtrl($scope, PathService, pms){
 
-  var paramControl = this;
-
-  //paramControl.am = {};
-
-  paramControl.path = {
+  this.path = {
     name: null,
     operation: null,
-  }
+  };
 
-  paramControl.parametersList = null;
-
-  paramControl.newParamData = {
+  this.newParamData = {
     post:{
       name:null,
       inLocation:null,
@@ -34,25 +28,27 @@ function ParameterCtrl($scope, swaggerPaths, pms){
     },
   };
 
+  this.inLocationList = ["path", "query", "header", "body", "formData"];
+
   this.pLength = null;
 
   //Param methods
   this.addParam = function(paramName, paramInLocation){
 
       try{
-          swaggerPaths.addNewParam(this.sgContext, paramName, paramInLocation)
+          PathService.addNewParam(this.sgContext, paramName, paramInLocation)
       }catch(e){
           console.log(e);
           Materialize.toast("Parameter name/query combo' already exists", 3000);
       }
 
-      paramControl.newParamData[operation].name = "";
+      this.newParamData[operation].name = "";
 
       this.pLength = this.sgContext.parameters.length;
 
   }
 
-  paramControl.editParamData = function(pathName, operation, paramName, paramInLocation, index){
+  this.editParamData = function(pathName, operation, paramName, paramInLocation, index){
 
     var param = this.sgContext.getParameter(paramName, paramInLocation);
 

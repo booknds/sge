@@ -15,6 +15,7 @@ function responseComponent(){
     scope:{},
     bindToController:{
       sgContext: '=',
+      sgThisOperation: '@',
     },
     restrict: 'E',
 //    replace: true,

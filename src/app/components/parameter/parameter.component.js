@@ -16,6 +16,7 @@ function parameterComponent(){
     scope:{},
     bindToController:{
       sgContext: '=',
+      sgThisOperation: '@',
     },
 //    replace: true,
     controller,

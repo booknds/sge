@@ -1,5 +1,5 @@
 <select select-value >
-  <option value="" selected></option>
+  <option value="" selected>{{dropdown.sgDefaultOption}}</option>
   <option ng-repeat="choice in dropdown.sgChoices" ng-attr-value="{{ choice }}" ng-attr-id="{{ choice }}">
     {{ choice }}
   </option>

@@ -12,6 +12,7 @@ function DropdownComponent(){
     bindToController:{
       ngModel: '=',
       sgChoices: '=',
+      sgDefaultOption: '@',
     },
     controller,
     controllerAs: 'dropdown',

@@ -1,73 +1,79 @@
+"use strict";
+
 let ResponseController = ["$scope", "PathService", "ResponseModalService", ResponseCtrl];
 
 export default ResponseController;
 
 function ResponseCtrl($scope, PathService, rms){
 
- this.prevent = {
-   responseUpdate: false
- }
+  /**
+    * @name newResponseData
+    * @desc Holds the state of the inputs. Only manipulated in the DOM
+    * @type {Object}
+   **/
+  this.newResponseData[this.sgThisOperation] = {
+    httpCode: null,
+    description: null,
+  }
 
- this.newResponseData = {
-   post:{
-     httpCode:null,
-     description:null,
-   },
-   get:{
-     httpCode:null,
-     description:null,
-   },
-   put:{
-     httpCode:null,
-     description:null,
-   },
-   delete:{
-     httpCode:null,
-     description:null,
-   },
- }
-
- this.rKeys = null;
+  /**
+    * @name rKeys
+    * @desc Holds how many 'keys' are on sgContext which is a passed value and
+    *        is a reference to the 'responses' object
+    * @type {Object}
+   **/
+  this.rKeys = null;
 
 
- this.initResponseData = function(pathName, operation, httpCode){
+  /**
+    * @name initResponseModal
+    * @desc Sends the chosen response code and 'responses' object to the
+    *        ResponseModalService to be processed.
+    * @type {Function}
+   **/
+  this.initResponseModal = function(httpCode){
+    try{
+      rms.responseToUpdate(httpCode, this.sgContext);
+    }catch(e){
+      console.log(e);
+      Materialize.toast(e, 3000);
+      return;
+    }
+  };
 
-   console.log("initResponseData");
-   try{
-     //var currentResponse = PathService.getResponse(pathName, operation, httpCode);
-     let currentResponse = this.sgContext.getResponse(httpCode);
-     console.log(currentResponse);
-     console.log(httpCode);
-     rms.responseToUpdate(httpCode, this.sgContext);
-   }catch(e){
-     console.log(e);
-     Materialize.toast(e, 3000);
-     return;
-   }
- };
+  /**
+    * @name addResponse
+    * @desc adds a new 'response' object to the 'responses' object. 'responses'
+    *        holds the state of all current response objects.
+    * @type {Function}
+   **/
+  this.addResponse = function(httpCode, description){
+    try{
+      this.sgContext.addResponse(httpCode, description);
+    }catch(e){
+      console.log(e);
+      Materialize.toast(e, 3000);
+    }
 
- this.addResponse = function(pathName, operation, httpCode, description){
-   console.log("RESPONSE CONTROLLER - ADD RESPONSE");
+    //reset input fields
+    $scope.addResponse.$setPristine();
+    resetNewResponseData.call(this, this.sgThisOperation);
 
-   try{
-     this.sgContext.addResponse(httpCode, description);
-     //PathService.addResponse(pathName, operation, httpCode, description);
-   }catch(e){
-     console.log(e);
-     Materialize.toast(e, 3000);
-   }
+    this.rKeys= Object.keys(this.sgContext).length;
 
-  //  this.newResponseData[operation]= {
-  //    httpCode:null,
-  //    description:null,
-  //  }
-  //debugger;
-  $scope.addResponse.$setPristine();
-  console.log($scope);
+  };
 
-   this.rKeys= Object.keys(this.sgContext).length;
-
- };
+  /**
+    * @name resetNewResponseData
+    * @desc a helper function to reset the data of the intputs
+    * @type {Function}
+   **/
+  function resetNewResponseData(operation){
+    this.newResponseData[operation] = {
+      httpCode: null,
+      description: null,
+    }
+  }
 
 
 }

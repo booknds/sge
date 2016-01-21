@@ -15,7 +15,7 @@
         <td class="shrink">{{response.description}}</td>
         <td class="shrink">{{response.schema}}</td>
         <td>
-          <a class="disabled" href="#response-modal" modal ng-click="responseControl.initResponseData(pathName, operation, responseCode)">
+          <a class="disabled" href="#response-modal" modal ng-click="responseControl.initResponseModal(responseCode)">
           <i class="material-icons">settings</i>
           </a>
         </td>
@@ -23,15 +23,15 @@
     </tr>
   </tbody>
 </table>
-<form name="addResponse" novalidate ng-submit="addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)">
+<form name="addResponse" novalidate ng-submit="addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)">
   <div class="valign-wrapper">
     <div unique-checkbox class="input-field col s4 valign">
-      <input id="input" ng-model="responseControl.newResponseData[operation].httpCode"
+      <input id="input" ng-model="responseControl.newResponseData[responseControl.sgThisOperation].httpCode"
               ng-pattern="/^(Default|default)?([0-9]+)?$/" name="code" type="text" required=""/>
       <label id="label" for="label">Response Code</label>
     </div>
     <div unique-checkbox class="input-field col s4 valign">
-      <input id="input" ng-model="responseControl.newResponseData[operation].description" name="description" type="text" required="" />
+      <input id="input" ng-model="responseControl.newResponseData[responseControl.sgThisOperation].description" name="description" type="text" required="" />
       <label id="label" for="label">Response Description</label>
     </div>
     <div class="col s4 valign">
