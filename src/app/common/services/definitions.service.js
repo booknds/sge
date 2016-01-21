@@ -1,40 +1,13 @@
-let definitions = ['$window', DefinitionsService];
+let definitions = ["ObjectFactory", DefinitionsService];
 
 export default definitions;
 
-function DefinitionsService($window){
+function DefinitionsService(ObjectFactory){
 
   var ds = this;
 
-  function Schema(title, description, type){
-    this.$ref = null;
-    this.format = null;
-    this.title = title || "";
-    this.description = description || "";
-    this.required = new Array();
-    this.enum = null;
-    this.type = type || "Object";
-    this.properties = {};
-  }
 
-  //Schema.prototype = {};
 
-  let Definitions = {
-    addDefinition:function(definitionName, description, type){
-      this[definitionName] = new Schema(definitionName, description, type);
-    },
-
-    hasDefinition: function(definitionName){
-      if(this.hasOwnProperty(definitionName))
-        return true;
-      else
-        return false;
-    },
-
-    getDefinition: function(definitionName){
-      return this[definitionName];
-    },
-  }
 
 
 
@@ -68,7 +41,8 @@ function DefinitionsService($window){
       throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
 
     }else {
-        definitions[definitionName].properties[propertyName] = new Schema();
+
+        definitions[definitionName].properties[propertyName] = ObjectFactory.newSchema();
         definitions[definitionName].properties[propertyName].type = null;
     }
 
@@ -121,14 +95,17 @@ function DefinitionsService($window){
   }
 
   ds.newSchema = function(title, description, type){
-    return new Schema(title, description, type);
-  }
+    // let temp = Object.create(Schema);
+    // temp.init(title, description, type);
+    // return temp;
+    return ObjectFactory.newSchema(title, description, type);
+  };
 
   ds.deleteDefinition = function(definitionName){
     delete ds.definitions[definitionName];
   }
 
-  var definitions = Object.create(Definitions);
+  var definitions = ObjectFactory.newDefinitions();
 
   ds.definitions = definitions;
   //console.log(definitions);

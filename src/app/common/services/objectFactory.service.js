@@ -25,6 +25,25 @@ function ObjectFactory(){
     },
   };
 
+  let Definitions = {
+    addDefinition:function(definitionName, description, type){
+      let temp = Object.create(Schema);
+      temp.init(definitionName, description, type);
+      this[definitionName] = temp;
+    },
+
+    hasDefinition: function(definitionName){
+      if(this.hasOwnProperty(definitionName))
+        return true;
+      else
+        return false;
+    },
+
+    getDefinition: function(definitionName){
+      return this[definitionName];
+    },
+  };
+
   let Operation = {
     init: function(){
       this.tags = null;
@@ -201,6 +220,29 @@ function ObjectFactory(){
     }
   };
 
+  let Schema = {
+    init:function(title, description, type){
+      this.$ref = null;
+      this.format = null;
+      this.title = title || "";
+      this.description = description || "";
+      this.required = new Array();
+      this.enum = null;
+      this.type = type || "Object";
+      this.properties = {};
+    }
+  };
+
+  function newDefinitions(){
+    return Object.create(Definitions);
+  }
+
+  function newSchema(title, description, type){
+    let temp = Object.create(Schema);
+    temp.init(title, description, type);
+    return temp;
+  }
+
   function newPath(){
     let temp = Object.create(Path);
     temp.init();
@@ -227,6 +269,8 @@ function ObjectFactory(){
     newPath,
     newOperation,
     newParameter,
-    newResponses
+    newResponses,
+    newSchema,
+    newDefinitions,
   }
 }

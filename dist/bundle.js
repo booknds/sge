@@ -30404,40 +30404,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var definitions = ['$window', DefinitionsService];
+	var definitions = ["ObjectFactory", DefinitionsService];
 	
 	exports.default = definitions;
 	
-	function DefinitionsService($window) {
+	function DefinitionsService(ObjectFactory) {
 	
 	  var ds = this;
-	
-	  function Schema(title, description, type) {
-	    this.$ref = null;
-	    this.format = null;
-	    this.title = title || "";
-	    this.description = description || "";
-	    this.required = new Array();
-	    this.enum = null;
-	    this.type = type || "Object";
-	    this.properties = {};
-	  }
-	
-	  //Schema.prototype = {};
-	
-	  var Definitions = {
-	    addDefinition: function addDefinition(definitionName, description, type) {
-	      this[definitionName] = new Schema(definitionName, description, type);
-	    },
-	
-	    hasDefinition: function hasDefinition(definitionName) {
-	      if (this.hasOwnProperty(definitionName)) return true;else return false;
-	    },
-	
-	    getDefinition: function getDefinition(definitionName) {
-	      return this[definitionName];
-	    }
-	  };
 	
 	  ds.addDefinition = function (definitionName, description, type) {
 	    if (hasDefinition(definitionName)) throw "Cannot Add, Definition Already Exists";else {
@@ -30463,7 +30436,8 @@
 	    if (hasProperty(definitionName, propertyName)) {
 	      throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
 	    } else {
-	      definitions[definitionName].properties[propertyName] = new Schema();
+	
+	      definitions[definitionName].properties[propertyName] = ObjectFactory.newSchema();
 	      definitions[definitionName].properties[propertyName].type = null;
 	    }
 	  };
@@ -30508,14 +30482,17 @@
 	  };
 	
 	  ds.newSchema = function (title, description, type) {
-	    return new Schema(title, description, type);
+	    // let temp = Object.create(Schema);
+	    // temp.init(title, description, type);
+	    // return temp;
+	    return ObjectFactory.newSchema(title, description, type);
 	  };
 	
 	  ds.deleteDefinition = function (definitionName) {
 	    delete ds.definitions[definitionName];
 	  };
 	
-	  var definitions = Object.create(Definitions);
+	  var definitions = ObjectFactory.newDefinitions();
 	
 	  ds.definitions = definitions;
 	  //console.log(definitions);
@@ -30556,6 +30533,22 @@
 	    removeOperation: function removeOperation(operation) {
 	      delete this[operation];
 	      this[operation] = null;
+	    }
+	  };
+	
+	  var Definitions = {
+	    addDefinition: function addDefinition(definitionName, description, type) {
+	      var temp = Object.create(Schema);
+	      temp.init(definitionName, description, type);
+	      this[definitionName] = temp;
+	    },
+	
+	    hasDefinition: function hasDefinition(definitionName) {
+	      if (this.hasOwnProperty(definitionName)) return true;else return false;
+	    },
+	
+	    getDefinition: function getDefinition(definitionName) {
+	      return this[definitionName];
 	    }
 	  };
 	
@@ -30716,6 +30709,29 @@
 	    }
 	  };
 	
+	  var Schema = {
+	    init: function init(title, description, type) {
+	      this.$ref = null;
+	      this.format = null;
+	      this.title = title || "";
+	      this.description = description || "";
+	      this.required = new Array();
+	      this.enum = null;
+	      this.type = type || "Object";
+	      this.properties = {};
+	    }
+	  };
+	
+	  function newDefinitions() {
+	    return Object.create(Definitions);
+	  }
+	
+	  function newSchema(title, description, type) {
+	    var temp = Object.create(Schema);
+	    temp.init(title, description, type);
+	    return temp;
+	  }
+	
 	  function newPath() {
 	    var temp = Object.create(Path);
 	    temp.init();
@@ -30742,7 +30758,9 @@
 	    newPath: newPath,
 	    newOperation: newOperation,
 	    newParameter: newParameter,
-	    newResponses: newResponses
+	    newResponses: newResponses,
+	    newSchema: newSchema,
+	    newDefinitions: newDefinitions
 	  };
 	}
 
@@ -32933,7 +32951,7 @@
 /* 96 */
 /***/ function(module, exports) {
 
-	module.exports = "<h5>Response</h5>\n<table ng-if=\"responseControl.rKeys > 0;\" class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseData(pathName, operation, responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].httpCode\"\n              ng-pattern=\"/^(Default|default)?([0-9]+)?$/\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n      <div  class=\"error\"\n            ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          <!-- Response code is required. -->\n        </small>\n      </div>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n      <div class=\"error\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          <!-- Response description is required. -->\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n</form>\n"
+	module.exports = "<h5>Response</h5>\n<table ng-if=\"responseControl.rKeys > 0;\" class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseData(pathName, operation, responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(pathName, operation, responseControl.newResponseData[operation].httpCode, responseControl.newResponseData[operation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].httpCode\"\n              ng-pattern=\"/^(Default|default)?([0-9]+)?$/\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[operation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n  <div class=\"valign-wrapper\">\n    <div class=\"col s4\">\n      <div  class=\"error valign\" ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          Response code is required.\n        </small>\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.pattern\">\n          Response code can either be a number or set to 'default'\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\">\n      <div class=\"error valign\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          Response description is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\"></div>\n  </div>\n  <div class=\"row\"></div>\n</form>\n"
 
 /***/ },
 /* 97 */
