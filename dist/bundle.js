@@ -30323,7 +30323,7 @@
 	  };
 	
 	  function hasPath(pathName) {
-	    if (paths.hasOwnProperty(pathName)) return true;else return false;
+	    return paths.hasOwnProperty(pathName);
 	  };
 	
 	  /************** PATH FUNCTIONS END*******************/
@@ -30347,23 +30347,9 @@
 	      Deletes an operation from a given service.
 	  */
 	  this.removeOperation = function (pathName, operation) {
-	    //reset the operation by deleteing it then adding it back as null
-	    // delete paths[pathName][operation];
-	    // paths[pathName][operation]=null;
+	
 	    paths[pathName].removeOperation(operation);
 	  };
-	
-	  // this.operationExists = function(pathName, operation){
-	  //   if(paths[pathName][operation]){
-	  //     return false;
-	  //   }else{
-	  //     return true;
-	  //   }
-	  // }
-	
-	  // this.updateOperationInformation = function(pathName, operation, key, value){
-	  //   paths[pathName][operation][key] = value;
-	  // }
 	
 	  /************** OPERATION FUNCTIONS END *******************/
 	
@@ -30382,225 +30368,30 @@
 	    }
 	  };
 	
-	  /*
-	      This
-	  */
-	  // this.getParamList = function(pathName, operation){
-	  //
-	  //     var currentPath = paths[pathName][operation];
-	  //
-	  //     return currentPath.parameters;
-	  //
-	  // }
-	
-	  /*
-	   */
-	  // this.getParam = function(pathName, operation, paramName, paramIn){
-	  //     console.log("------------------\nGETTING PARAM NAME");
-	  //     console.log(pathName + ", " + operation + ", " + paramName + ", " + paramIn);
-	  //     var parameter;// = paths[pathName][operation].parameters.getParameter(paramName, paramIn);
-	  //     paths[pathName][operation].parameters.forEach(function loop(element, index, array){
-	  //       if(element.name === paramName && element.inLocation === paramIn){
-	  //         parameter = element;
-	  //       }
-	  //
-	  //     })
-	  //
-	  //     // for(var param in paths[pathName][operation].parameters){
-	  //     //   if(param.name === paramName && param.inLocation === paramIn){
-	  //     //     parameter = param;
-	  //     //   }
-	  //     // }
-	  //     debugger;
-	  //     //console.log(paramObject);
-	  //     console.log("------------------");
-	  //     return parameter;
-	  // };
-	
-	  /*
-	      Checks to see if the given param name is valid for the given path.
-	  */
-	  // function validateParam (pathName, operation, paramName, paramIn){
-	  //     if(debug)
-	  //         console.log("PATH SERVICE: Validating Param: " + paramName + ", " + paramIn + ", " + pathName + ", " + operation);
-	  //
-	  //     var path = paths[pathName][operation];
-	  //
-	  //     if(hasParameter.call(path, paramName, paramIn)){
-	  //         if(debug)
-	  //             console.log("\t Same Parameter found, returning false!");
-	  //
-	  //         return false;
-	  //     }else{
-	  //         if(debug)
-	  //             console.log("\t Parameter NOT found, returning true!");
-	  //
-	  //         return true;
-	  //     }
-	  // }
-	
-	  // function hasParameter(name, inLoc){
-	  //   var found = false
-	  //
-	  //   this.parameters.forEach(function(element, index, array){
-	  //     if(element.name === name && element.inLocation === inLoc)
-	  //       found = true;
-	  //
-	  //   });
-	  //
-	  //   if(found)
-	  //     return true;
-	  //   else
-	  //     return false;
-	  // }
-	
-	  /**
-	   *
-	   */
-	  // this.updateParameter = function(originalParameterData, newParameter){
-	  //   // if(debug){
-	  //   //   console.log("START Swagger Paths -> updating the Parameter Model");
-	  //   //   //console.log(originalParameterData);
-	  //   // }
-	  //
-	  //   var pathName = originalParameterData.pathName;
-	  //   var operation = originalParameterData.operation;
-	  //
-	  //   var oParamName = originalParameterData.parameter.name;
-	  //   var oParamIn = originalParameterData.parameter.inLocation;
-	  //
-	  //   var newParamName = newParameter.name;
-	  //   var newParamIn = newParameter.inLocation;
-	  //
-	  //
-	  //   //validate new param
-	  //   //check to see if the name - inLocation pair of the parameter was changed
-	  //   if(oParamName !== newParamName || oParamIn !== newParamIn){
-	  //
-	  //     //if they have been changed check if the new combo is unique
-	  //     if(!validateParam(pathName, operation, newParamName, newParamIn)){
-	  //       throw "Invalid Parameter Name-in combination, must be unique."
-	  //     }
-	  //   }
-	  //
-	  //     //set a reference to the actual parameter so to later manipulate
-	  //     var originalParam = this.getParam(pathName, operation, oParamName, oParamIn);
-	  //
-	  //     //update the original parameter with the new parameter's data
-	  //     for(var key in newParameter){
-	  //       if(newParameter.hasOwnProperty(key) && key !== "schema"){
-	  //         originalParam[key] = newParameter[key];
-	  //       }
-	  //       //handle schema as a special case;
-	  //       if(key === "schema"){
-	  //         //if the schema was updated, convert the JSON to an object
-	  //         if(newParameter[key] instanceof Object)
-	  //           originalParam[key] = newParameter[key];
-	  //         else
-	  //           originalParam[key] = JSON.parse(newParameter[key]);
-	  //       }
-	  //     }
-	  //
-	  //     if(debug){
-	  //       console.log("FINISHED Swagger Paths -> updating the Parameter Model");
-	  //       //console.log(originalParameterData);
-	  //     }
-	  //
-	  // }
-	
 	  /************** PARAMETERS FUNCTIONS END*******************/
 	
 	  /************** RESPONSE FUNCTIONS START*******************/
-	  // this.addResponse = function(pathName, operation, httpCode, description){
-	  //   if(debug){
-	  //     console.log("ADD RESPONSE - START");
-	  //   }
-	  //
-	  //   if(!description){
-	  //     throw "Description needs to be filled out"
-	  //   }
-	  //
-	  //   var path = paths[pathName][operation];
-	  //
-	  //   if(hasResponse(pathName, operation, httpCode)){
-	  //     throw "Http Code already exists"
-	  //   }else{
-	  //     path.responses.addResponse(httpCode, description);
-	  //   }
-	  //
-	  //   if(debug){
-	  //     console.log("ADD RESPONSE - END");
-	  //   }
-	  // }
-	
-	  this.getResponse = function (pathName, operation, httpCode) {
-	    debugger;
-	    console.log(pathName + ", " + operation + ", " + httpCode);
-	    var response = paths[pathName][operation].responses.getResponse(httpCode);
-	    if (response) {
-	      return response;
-	    } else {
-	      throw "The Response Code could not be found";
-	    }
-	  };
 	
 	  this.removeResponse = function (pathName, operation, httpCode) {
 	    debugger;
 	    delete paths[pathName][operation].responses[httpCode];
 	  };
 	
-	  this.updateResponse = function (originalResponseData, newResponse) {
+	  this.updateResponse = function (originalData, newData) {
 	
 	    debugger;
-	    console.log(originalResponseData);
-	    console.log(newResponse);
-	    var pathName = originalResponseData.pathName;
-	    var operation = originalResponseData.operation;
 	
-	    var oHttpCode = originalResponseData.httpCode;
-	    var newHttpCode = newResponse.httpCode;
-	
-	    if (oHttpCode !== newHttpCode) {
-	
-	      //if they have been changed check if the new combo is unique
-	      if (hasResponse(pathName, operation, newHttpCode)) {
-	        throw "Invalid Parameter Name-in combination, must be unique.";
-	      } else {
-	        this.removeResponse(pathName, operation, oHttpCode);
-	
-	        this.addResponse(pathName, operation, newHttpCode, newResponse.response.description);
-	        var newlyAddedResponse = this.getResponse(pathName, operation, newHttpCode);
-	
-	        for (var key in newlyAddedResponse) {
-	          if (key !== 'description') {
-	            if (newlyAddedResponse[key] instanceof Object) newlyAddedResponse[key] = newResponse.response[key];else newlyAddedResponse[key] = JSON.parse(newResponse.response[key]);
-	          }
-	        }
-	      }
+	    if (originalData.httpCode !== newData.httpCode) {
+	      if (originalData.responses.hasResponse(newData.httpCode)) throw "Http Code already exists";
 	    } else {
+	      var responseList = originalData.responses;
+	      var originalResponse = responseList.getResponse(originalData.httpCode);
+	      var newResponse = newData.response;
 	
-	      var originalResponse = this.getResponse(pathName, operation, oHttpCode);
-	      console.log("Httpcodes match");
-	      console.log(originalResponse);
-	
-	      for (var key in originalResponse) {
-	
-	        if (originalResponse[key] instanceof Object || key === 'description') originalResponse[key] = newResponse.response[key];else originalResponse[key] = JSON.parse(newResponse.response[key]);
-	      }
+	      responseList.updateResponse(originalResponse, newResponse);
 	    }
 	  };
 	
-	  function hasResponse(pathName, operation, httpCode) {
-	    debugger;
-	    var path = paths[pathName][operation];
-	
-	    if (path.responses.responseExists(httpCode)) {
-	      return true;
-	    } else {
-	
-	      return false;
-	    }
-	  }
 	  /************** RESPONSE FUNCTIONS END*******************/
 	}
 
@@ -30632,18 +30423,9 @@
 	    this.properties = {};
 	  }
 	
-	  Schema.prototype = {};
+	  //Schema.prototype = {};
 	
-	  function Definitions() {
-	    //this[objectName] = new Schema();
-	
-	    //return this[objectName];
-	    //return new Object();
-	    //this.poop = "poop";
-	  }
-	
-	  Definitions.prototype = {
-	
+	  var Definitions = {
 	    addDefinition: function addDefinition(definitionName, description, type) {
 	      this[definitionName] = new Schema(definitionName, description, type);
 	    },
@@ -30733,7 +30515,7 @@
 	    delete ds.definitions[definitionName];
 	  };
 	
-	  var definitions = new Definitions();
+	  var definitions = Object.create(Definitions);
 	
 	  ds.definitions = definitions;
 	  //console.log(definitions);
@@ -30768,7 +30550,6 @@
 	      */
 	    },
 	    addOperation: function addOperation(operation) {
-	      debugger;
 	      this[operation] = newOperation();
 	    },
 	
@@ -30906,36 +30687,25 @@
 	    /**
 	    */
 	    getResponse: function getResponse(httpCode) {
-	      /*var response = null;
-	       this.responseList.forEach(function(resp, index, responseList){
-	        if(resp.hasOwnProperty(httpCode)){
-	          response = resp;
-	          return;
-	        }
-	      });
-	       return angular.copy(response);*/
+	
 	      if (this.hasOwnProperty(httpCode)) return this[httpCode];else return null;
+	    },
+	    updateResponse: function updateResponse(oldResponse, newResponse) {
+	
+	      for (var key in newResponse) {
+	        oldResponse[key] = newResponse[key];
+	      }
 	    },
 	
 	    /**
 	      Check to see if a response exists in the list
 	    */
-	    responseExists: function responseExists(httpCode) {
+	    hasResponse: function hasResponse(httpCode) {
 	      //var exists = false;
 	
 	      //this.responseList.forEach(function(response, index, responseList){
-	      console.log("RESPONSE EXISTS FUNCTION");
-	      console.log(httpCode);
-	      console.log(this.responseList);
-	      if (this.hasOwnProperty(httpCode)) {
-	        return true;
-	        //return;
-	      } else {
-	          return false;
-	        }
-	      //});
 	
-	      //return exists;
+	      return this.hasOwnProperty(httpCode);
 	    }
 	
 	  };
@@ -31905,15 +31675,15 @@
 	  value: true
 	});
 	exports.default = DefinitionEditorModalService;
-	function DefinitionEditorModalService() {
-	  var dems = this;
 	
-	  dems.currentDefinition = {
+	function DefinitionEditorModalService() {
+	
+	  this.currentDefinition = {
 	    name: null,
 	    value: null
 	  };
 	
-	  dems.definitionToUpdate = function (definitionName, definitionValue) {
+	  this.definitionToUpdate = function (definitionName, definitionValue) {
 	    //console.log("updaiting parameter");
 	    //console.log(parameter);
 	
@@ -31921,19 +31691,19 @@
 	    //rms.currentResponse.operation = operation;
 	    //rms.currentResponse.httpCode = httpCode;
 	    //rms.currentResponse.response = angular.copy(response);
-	    dems.currentDefinition.name = definitionName;
-	    dems.currentDefinition.value = definitionValue;
+	    this.currentDefinition.name = definitionName;
+	    this.currentDefinition.value = definitionValue;
 	    console.log("updated current definition");
-	    console.log(dems.currentDefinition);
+	    console.log(this.currentDefinition);
 	    //console.log(pms.currentParameter);
 	    //console.log("Done updating parameter");
 	  };
 	
-	  dems.getCurrentDefinition = function () {
-	    return dems.currentDefinition;
+	  this.getCurrentDefinition = function () {
+	    return this.currentDefinition;
 	  };
 	
-	  return dems;
+	  return this;
 	}
 
 /***/ },
@@ -32493,45 +32263,20 @@
 	  value: true
 	});
 	exports.default = ParameterModalService;
+	
 	function ParameterModalService() {
 	
-	  var pms = {};
-	
-	  // pms.currentParameter = {
-	  //   operation:null,
-	  //   parameter:null
-	  // };
-	
-	  pms.parameterContext = {
+	  this.parameterContext = {
 	    operation: null,
 	    parameter: null
 	  };
 	
-	  // pms.parameterToUpdate = function(pathName, operation, parameter){
-	  //   console.log("updaiting parameter");
-	  //   console.log(parameter);
-	  //
-	  //   pms.currentParameter.pathName = pathName;
-	  //   pms.currentParameter.operation = operation;
-	  //   pms.currentParameter.parameter = angular.copy(parameter);
-	  //
-	  // };
-	
-	  pms.initParameter = function (operation, parameter) {
-	    // debugger;
-	    //console.log(operation);
-	    ///console.log(parameterName);
-	    //console.log(inLocation);
-	
-	    pms.parameterContext.operation = operation;
-	    pms.parameterContext.parameter = parameter;
+	  this.initParameter = function (operation, parameter) {
+	    this.parameterContext.operation = operation;
+	    this.parameterContext.parameter = parameter;
 	  };
 	
-	  // pms.getCurrentParameter = function(){
-	  //   return pms.currentParameter;
-	  // };
-	
-	  return pms;
+	  return this;
 	}
 
 /***/ },
@@ -32597,7 +32342,7 @@
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"response-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\">\n  <form ng-submit=\"rmControl.updateResponse(rmControl.originalResponseData, rmControl.tempResponse)\">\n    <div class=\"modal-content white-text\">\n      {{rmControl.tempResponse}}\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Response Options</h4>\n        </div>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <input id=\"response-modal-name\" ng-model=\"rmControl.tempResponse.httpCode\" type=\"text\" required=\"\" aria-required=\"true\"/>\n        <label for=\"response-modal-name\">Response Name</label>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <textarea id=\"response-modal-description\" ng-model=\"rmControl.tempResponse.response.description\" class=\"materialize-textarea\"></textarea>\n        <label for=\"response-modal-description\">Description</label>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <div class=\"input-field col s12 valign\"\n          ng-repeat=\"(key, value) in rmControl.tempResponse.response\"\n          ng-if=\"key !== 'description'\">\n          <textarea ng-attr-id=\"response-modal-{{key}}\" ng-model=\"rmControl.tempResponse.response[key]\" class=\"materialize-textarea\"></textarea>\n          <label ng-attr-for=\"response-modal-{{key}}\">{{ key | capitalize}}</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Response\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Response\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
+	module.exports = "<div id=\"response-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\">\n  <form ng-submit=\"rmControl.updateResponse(rmControl.tempResponse)\">\n    <div class=\"modal-content white-text\">\n      {{rmControl.tempResponse}}\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Response Options</h4>\n        </div>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <input id=\"response-modal-name\" ng-model=\"rmControl.tempResponse.httpCode\" type=\"text\" required=\"\" aria-required=\"true\"/>\n        <label for=\"response-modal-name\">Response Name</label>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <textarea id=\"response-modal-description\" ng-model=\"rmControl.tempResponse.response.description\" class=\"materialize-textarea\"></textarea>\n        <label for=\"response-modal-description\">Description</label>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <div class=\"input-field col s12 valign\"\n          ng-repeat=\"(key, value) in rmControl.tempResponse.response\"\n          ng-if=\"key !== 'description'\">\n          <textarea ng-attr-id=\"response-modal-{{key}}\" ng-model=\"rmControl.tempResponse.response[key]\" class=\"materialize-textarea\"></textarea>\n          <label ng-attr-for=\"response-modal-{{key}}\">{{ key | capitalize}}</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Response\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Response\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
 /* 81 */
@@ -32618,13 +32363,6 @@
 	    httpCode: null,
 	    response: null
 	  };
-	
-	  // var originalResponseData = {
-	  //   pathName:null,
-	  //   operation:null,
-	  //   httpCode:null,
-	  //   response:null,
-	  // };
 	
 	  var originalResponse = {
 	    responses: null,
@@ -32656,12 +32394,12 @@
 	      // }
 	      debugger;
 	      originalResponse = newVal;
-	      this.tempResponse.httpCode = angular.copy(newValue.httpCode);
-	      this.tempResponse.response = angular.copy(newVal.getResponse(httpcode));
+	      this.tempResponse.httpCode = newVal.httpCode;
+	      this.tempResponse.response = angular.copy(newVal.responses.getResponse(newVal.httpCode));
 	    }
 	  }
 	
-	  this.updateResponse = function (originalResponse, newResponse) {
+	  this.updateResponse = function (newResponse) {
 	    try {
 	      //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
 	      PathService.updateResponse(originalResponse, newResponse);
@@ -32690,43 +32428,25 @@
 	  value: true
 	});
 	exports.default = ResponseModalService;
+	
 	function ResponseModalService() {
-	  var rms = this;
 	
-	  rms.currentResponse = {
-	    pathName: null,
-	    operation: null,
-	    httpCode: null,
-	    response: null
-	  };
-	
-	  rms.responseContext = {
+	  this.responseContext = {
 	    responses: null,
 	    httpCode: null
 	  };
 	
-	  rms.responseToUpdate = function (httpCode, responses) {
-	    //console.log("updaiting parameter");
-	    //console.log(parameter);
-	
-	    // rms.currentResponse.pathName = pathName;
-	    // rms.currentResponse.operation = operation;
-	    // rms.currentResponse.httpCode = httpCode;
-	    // rms.currentResponse.response = angular.copy(response);
-	    // console.log("updated current response");
-	    // console.log(rms.currentResponse);
-	    //console.log(pms.currentParameter);
-	    //console.log("Done updating parameter");
+	  this.responseToUpdate = function initilizer(httpCode, responses) {
 	    debugger;
-	    rms.responseContext.httpCode = httpCode;
-	    rms.responseContext.responses = responses;
+	    this.responseContext.httpCode = httpCode;
+	    this.responseContext.responses = responses;
 	  };
 	
-	  rms.getCurrentParameter = function () {
-	    return rms.currentResponse;
+	  this.getCurrentParameter = function () {
+	    return this.currentResponse;
 	  };
 	
-	  return rms;
+	  return this;
 	}
 
 /***/ },

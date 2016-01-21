@@ -17,18 +17,9 @@ function DefinitionsService($window){
     this.properties = {};
   }
 
-  Schema.prototype = {};
+  //Schema.prototype = {};
 
-  function Definitions(){
-    //this[objectName] = new Schema();
-
-    //return this[objectName];
-    //return new Object();
-    //this.poop = "poop";
-  }
-
-  Definitions.prototype = {
-
+  let Definitions = {
     addDefinition:function(definitionName, description, type){
       this[definitionName] = new Schema(definitionName, description, type);
     },
@@ -44,6 +35,7 @@ function DefinitionsService($window){
       return this[definitionName];
     },
   }
+
 
 
   ds.addDefinition = function(definitionName, description, type){
@@ -136,7 +128,7 @@ function DefinitionsService($window){
     delete ds.definitions[definitionName];
   }
 
-  var definitions = new Definitions();
+  var definitions = Object.create(Definitions);
 
   ds.definitions = definitions;
   //console.log(definitions);

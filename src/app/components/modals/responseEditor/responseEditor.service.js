@@ -1,40 +1,23 @@
-export default function ResponseModalService(){
-    var rms = this;
+"use strict";
 
-    rms.currentResponse = {
-      pathName:null,
-      operation:null,
-      httpCode:null,
-      response:null,
-    };
+export default ResponseModalService;
 
-    rms.responseContext = {
-      responses:null,
-      httpCode:null
-    }
+function ResponseModalService(){
 
-    rms.responseToUpdate = function(httpCode, responses){
-      //console.log("updaiting parameter");
-      //console.log(parameter);
+  this.responseContext = {
+    responses:null,
+    httpCode:null
+  };
 
-      // rms.currentResponse.pathName = pathName;
-      // rms.currentResponse.operation = operation;
-      // rms.currentResponse.httpCode = httpCode;
-      // rms.currentResponse.response = angular.copy(response);
-      // console.log("updated current response");
-      // console.log(rms.currentResponse);
-      //console.log(pms.currentParameter);
-      //console.log("Done updating parameter");
-      debugger;
-      rms.responseContext.httpCode = httpCode;
-      rms.responseContext.responses = responses;
-    }
+  this.responseToUpdate = function initilizer(httpCode, responses){
+    debugger;
+    this.responseContext.httpCode = httpCode;
+    this.responseContext.responses = responses;
+  };
 
-    rms.getCurrentParameter = function(){
-      return rms.currentResponse;
-    }
+  this.getCurrentParameter = function(){
+    return this.currentResponse;
+  };
 
-    return rms;
-
-
+  return this;
 }

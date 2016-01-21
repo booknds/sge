@@ -1,41 +1,19 @@
-export default function ParameterModalService(){
+"use strict";
 
-  var pms = {};
+export default ParameterModalService;
 
-  // pms.currentParameter = {
-  //   operation:null,
-  //   parameter:null
-  // };
+function ParameterModalService(){
 
-  pms.parameterContext = {
+  this.parameterContext = {
     operation:null,
     parameter:null
   }
 
-  // pms.parameterToUpdate = function(pathName, operation, parameter){
-  //   console.log("updaiting parameter");
-  //   console.log(parameter);
-  //
-  //   pms.currentParameter.pathName = pathName;
-  //   pms.currentParameter.operation = operation;
-  //   pms.currentParameter.parameter = angular.copy(parameter);
-  //
-  // };
-
-  pms.initParameter = function(operation, parameter){
-    // debugger;
-    //console.log(operation);
-    ///console.log(parameterName);
-    //console.log(inLocation);
-
-    pms.parameterContext.operation = operation;
-    pms.parameterContext.parameter = parameter;
+  this.initParameter = function(operation, parameter){
+    this.parameterContext.operation = operation;
+    this.parameterContext.parameter = parameter;
   };
 
-  // pms.getCurrentParameter = function(){
-  //   return pms.currentParameter;
-  // };
-
-  return pms;
+  return this;
 
 }

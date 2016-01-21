@@ -9,13 +9,6 @@ function ResponseModalCtrl(rms, PathService, $scope){
     response:null,
   };
 
-  // var originalResponseData = {
-  //   pathName:null,
-  //   operation:null,
-  //   httpCode:null,
-  //   response:null,
-  // };
-
   let originalResponse = {
     responses:null,
     httpCode:null
@@ -44,13 +37,13 @@ function ResponseModalCtrl(rms, PathService, $scope){
       // }
       debugger;
       originalResponse = newVal;
-      this.tempResponse.httpCode = angular.copy(newValue.httpCode);
-      this.tempResponse.response = angular.copy(newVal.getResponse(httpcode));
+      this.tempResponse.httpCode = newVal.httpCode;
+      this.tempResponse.response = angular.copy(newVal.responses.getResponse(newVal.httpCode));
     }
 
   }
 
-  this.updateResponse = function(originalResponse, newResponse){
+  this.updateResponse = function(newResponse){
     try{
       //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
       PathService.updateResponse(originalResponse, newResponse);

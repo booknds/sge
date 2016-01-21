@@ -1,33 +1,35 @@
+"use strict";
 
-export default function DefinitionEditorModalService(){
-    var dems = this;
+export default DefinitionEditorModalService;
 
-    dems.currentDefinition = {
-      name:null,
-      value:null,
-    };
+function DefinitionEditorModalService(){
 
-    dems.definitionToUpdate = function(definitionName, definitionValue){
-      //console.log("updaiting parameter");
-      //console.log(parameter);
+  this.currentDefinition = {
+    name:null,
+    value:null,
+  };
 
-      //rms.currentResponse.pathName = pathName;
-      //rms.currentResponse.operation = operation;
-      //rms.currentResponse.httpCode = httpCode;
-      //rms.currentResponse.response = angular.copy(response);
-      dems.currentDefinition.name = definitionName;
-      dems.currentDefinition.value = definitionValue;
-      console.log("updated current definition");
-      console.log(dems.currentDefinition);
-      //console.log(pms.currentParameter);
-      //console.log("Done updating parameter");
-    }
+  this.definitionToUpdate = function(definitionName, definitionValue){
+    //console.log("updaiting parameter");
+    //console.log(parameter);
 
-    dems.getCurrentDefinition = function(){
-      return dems.currentDefinition;
-    }
+    //rms.currentResponse.pathName = pathName;
+    //rms.currentResponse.operation = operation;
+    //rms.currentResponse.httpCode = httpCode;
+    //rms.currentResponse.response = angular.copy(response);
+    this.currentDefinition.name = definitionName;
+    this.currentDefinition.value = definitionValue;
+    console.log("updated current definition");
+    console.log(this.currentDefinition);
+    //console.log(pms.currentParameter);
+    //console.log("Done updating parameter");
+  }
 
-    return dems;
+  this.getCurrentDefinition = function(){
+    return this.currentDefinition;
+  }
+
+  return this;
 
 
 }

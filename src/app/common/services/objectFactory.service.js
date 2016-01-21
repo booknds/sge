@@ -16,7 +16,6 @@ function ObjectFactory(){
       */
     },
     addOperation: function(operation){
-      debugger;
       this[operation] = newOperation();
     },
 
@@ -165,42 +164,30 @@ function ObjectFactory(){
     /**
     */
     getResponse: function(httpCode){
-      /*var response = null;
 
-      this.responseList.forEach(function(resp, index, responseList){
-        if(resp.hasOwnProperty(httpCode)){
-          response = resp;
-          return;
-        }
-      });
-
-      return angular.copy(response);*/
       if(this.hasOwnProperty(httpCode))
         return this[httpCode];
       else
         return null;
 
     },
+    updateResponse: function(oldResponse, newResponse){
+
+      for(let key in newResponse){
+        oldResponse[key] = newResponse[key];
+      }
+
+    },
 
     /**
       Check to see if a response exists in the list
     */
-    responseExists: function(httpCode){
+    hasResponse: function(httpCode){
       //var exists = false;
 
       //this.responseList.forEach(function(response, index, responseList){
-      console.log("RESPONSE EXISTS FUNCTION");
-      console.log(httpCode);
-      console.log(this.responseList);
-        if(this.hasOwnProperty(httpCode)){
-          return true;
-          //return;
-        }else {
-          return false;
-        }
-      //});
 
-      //return exists;
+        return this.hasOwnProperty(httpCode)
     },
 
   };
