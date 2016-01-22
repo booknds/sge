@@ -48,8 +48,14 @@
                       <sg-textarea class="input-field col s12" sg-unique-input sg-label="Description" ng-model="basicInfo.sgBase.info.description"></sg-textarea>
                     </div>
                     <div class="row">
-                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="Host" ng-model="basicInfo.sgBase.info.host"> </sg-text-input>
-                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="Base Path" ng-model="basicInfo.sgBase.info.basePath"> </sg-text-input>
+                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="Host"  ng-model="basicInfo.sgBase.host"></sg-text-input>
+                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="BasePath" ng-model="basicInfo.sgBase.basePath">
+                        <div class="error" ng-show="infoForm.BasePath.$dirty && infoForm.BasePath.$invalid">
+                          <small class="error" ng-show="infoForm.BasePath.$error.pattern">
+                            Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
+                          </small>
+                        </div>
+                     </sg-text-input>
                     </div>
                   </div>
                 </div>

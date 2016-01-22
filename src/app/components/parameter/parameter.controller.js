@@ -1,38 +1,15 @@
-let ParameterController = ['$scope', 'PathService', "ParameterModalService", ParameterCtrl];
+"use strict";
+
+let ParameterController = ['$scope','PathService', "ParameterModalService", ParameterCtrl];
 
 export default ParameterController;
 
 function ParameterCtrl($scope, PathService, pms){
 
-  this.path = {
-    name: null,
-    operation: null,
-  };
-
-  this.newParamData = {
-    post:{
-      name:null,
-      inLocation:null,
-    },
-    get:{
-      name:null,
-      inLocation:null,
-    },
-    put:{
-      name:null,
-      inLocation:null,
-    },
-    delete:{
-      name:null,
-      inLocation:null,
-    },
-  };
-
   this.inLocationList = ["path", "query", "header", "body", "formData"];
 
   this.pLength = null;
 
-  //Param methods
   this.addParam = function(paramName, paramInLocation){
 
       try{
@@ -42,10 +19,11 @@ function ParameterCtrl($scope, PathService, pms){
           Materialize.toast("Parameter name/query combo' already exists", 3000);
       }
 
-      this.newParamData[operation].name = "";
+      //reset input data
+      $scope.addParameter.$setPristine();
+      resetNewParamData.call(this, this.sgThisOperation);
 
       this.pLength = this.sgContext.parameters.length;
-
   }
 
   this.editParamData = function(pathName, operation, paramName, paramInLocation, index){
@@ -60,6 +38,19 @@ function ParameterCtrl($scope, PathService, pms){
     pms.parameterToUpdate(pathName, operation, param);
 
   };
+
+  /**
+    * @name resetNewParamData
+    * @desc a helper function to reset the data of the intputs
+    * @type {Function}
+   **/
+  function resetNewParamData(operation){
+    debugger;
+    this.newParamData[operation] = {
+      name: null,
+      inLocation: null,
+    }
+  }
 
 
 }

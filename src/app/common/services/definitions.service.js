@@ -4,14 +4,7 @@ export default definitions;
 
 function DefinitionsService(ObjectFactory){
 
-  var ds = this;
-
-
-
-
-
-
-  ds.addDefinition = function(definitionName, description, type){
+  this.addDefinition = function(definitionName, description, type){
     if(hasDefinition(definitionName))
       throw "Cannot Add, Definition Already Exists"
     else{
@@ -19,9 +12,9 @@ function DefinitionsService(ObjectFactory){
       //definitions[definitionName] = {
       //  poop:'hi'
       //}
-      ds.definitions.addDefinition(definitionName, description, type);
+      this.definitions.addDefinition(definitionName, description, 'object');
       console.log(definitions);
-      console.log(ds.definitions);
+      console.log(this.definitions);
     }
   }
 
@@ -32,9 +25,9 @@ function DefinitionsService(ObjectFactory){
       return false;
   }
 
-  ds.addProperty = function(definitionName, propertyName){
+  this.addProperty = function(definitionName, propertyName){
 
-    console.log("DS add property");
+    console.log("this add property");
     console.log(definitionName, propertyName);
 
     if(hasProperty(definitionName, propertyName)){
@@ -57,7 +50,7 @@ function DefinitionsService(ObjectFactory){
       return false;
   }
 
-  ds.updateDefinition = function(originalDefinition, updatedDefinition){
+  this.updateDefinition = function(originalDefinition, updatedDefinition){
     console.log("SERVICE - update definition");
     var oName = originalDefinition.name,
         oValue = originalDefinition.value,
@@ -79,7 +72,7 @@ function DefinitionsService(ObjectFactory){
 
       }else{
 
-        ds.addDefinition(uName);
+        this.addDefinition(uName);
 
         var currentDefinition = definitions[uName];
 
@@ -94,22 +87,22 @@ function DefinitionsService(ObjectFactory){
 
   }
 
-  ds.newSchema = function(title, description, type){
+  this.newSchema = function(title, description, type){
     // let temp = Object.create(Schema);
     // temp.init(title, description, type);
     // return temp;
     return ObjectFactory.newSchema(title, description, type);
   };
 
-  ds.deleteDefinition = function(definitionName){
-    delete ds.definitions[definitionName];
+  this.deleteDefinition = function(definitionName){
+    delete this.definitions[definitionName];
   }
 
   var definitions = ObjectFactory.newDefinitions();
 
-  ds.definitions = definitions;
+  this.definitions = definitions;
   //console.log(definitions);
 
-  return ds;
+  return this.definitions;
 
 }

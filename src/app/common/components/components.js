@@ -8,6 +8,7 @@ import Focus from './focusOnClick/focusOnClick';
 import TextField from './textInputField/textInputField';
 import Dropdown from './dropdown/dropdown';
 import TextArea from './textareaInput/textareaInput';
+import SchemaEditor from './schemaEditor/schemaEditor';
 
 let CommonComponents =
   angular.module('common.components',
@@ -20,7 +21,8 @@ let CommonComponents =
       Focus.name,
       TextField.name,
       Dropdown.name,
-      TextArea.name
+      TextArea.name,
+      SchemaEditor.name
     ]);
 
 export default CommonComponents;

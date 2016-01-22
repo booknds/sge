@@ -61,19 +61,19 @@
 	
 	var _common2 = _interopRequireDefault(_common);
 	
-	var _components = __webpack_require__(44);
+	var _components = __webpack_require__(48);
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _app = __webpack_require__(104);
+	var _app = __webpack_require__(108);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _angularMaterialize = __webpack_require__(99);
+	var _angularMaterialize = __webpack_require__(103);
 	
 	var _angularMaterialize2 = _interopRequireDefault(_angularMaterialize);
 	
-	var _angularFileSaver = __webpack_require__(49);
+	var _angularFileSaver = __webpack_require__(53);
 	
 	var _angularFileSaver2 = _interopRequireDefault(_angularFileSaver);
 	
@@ -29136,11 +29136,11 @@
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _services = __webpack_require__(36);
+	var _services = __webpack_require__(40);
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _filters = __webpack_require__(42);
+	var _filters = __webpack_require__(46);
 	
 	var _filters2 = _interopRequireDefault(_filters);
 	
@@ -29200,9 +29200,13 @@
 	
 	var _textareaInput2 = _interopRequireDefault(_textareaInput);
 	
+	var _schemaEditor = __webpack_require__(36);
+	
+	var _schemaEditor2 = _interopRequireDefault(_schemaEditor);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var CommonComponents = _angular2.default.module('common.components', [_header2.default.name, _footer2.default.name, _sidenav2.default.name, _uniqueInput2.default.name, _modalCloser2.default.name, _focusOnClick2.default.name, _textInputField2.default.name, _dropdown2.default.name, _textareaInput2.default.name]);
+	var CommonComponents = _angular2.default.module('common.components', [_header2.default.name, _footer2.default.name, _sidenav2.default.name, _uniqueInput2.default.name, _modalCloser2.default.name, _focusOnClick2.default.name, _textInputField2.default.name, _dropdown2.default.name, _textareaInput2.default.name, _schemaEditor2.default.name]);
 	
 	exports.default = CommonComponents;
 
@@ -29814,7 +29818,7 @@
 	      ngModel: '=',
 	      sgLabel: '@',
 	      required: '=?',
-	      ngPattern: '=?'
+	      ngPattern: '@?'
 	    },
 	    controller: _textInputField4.default,
 	    controllerAs: 'textInputCtrl',
@@ -29826,7 +29830,7 @@
 /* 26 */
 /***/ function(module, exports) {
 
-	module.exports = "<input ng-if=\"textInputCtrl.required\" id=\"input\" type=\"text\" ng-model=\"textInputCtrl.ngModel\" required=\"\"/>\n<input ng-if=\"!textInputCtrl.required\" id=\"input\" type=\"text\" ng-model=\"textInputCtrl.ngModel\"/>\n<label id=\"label\" >{{textInputCtrl.sgLabel}}</label>\n<ng-transclude></ng-transclude>\n"
+	module.exports = "<input ng-if=\"textInputCtrl.required\" id=\"input\" type=\"text\" name=\"{{textInputCtrl.sgLabel}}\" ng-model=\"textInputCtrl.ngModel\" ng-pattern=\"textInputCtrl.ngPattern\"required=\"\"/>\n<input ng-if=\"!textInputCtrl.required\" id=\"input\" type=\"text\" name=\"{{textInputCtrl.sgLabel}}\" ng-model=\"textInputCtrl.ngModel\" ng-pattern=\"textInputCtrl.ngPattern\"/>\n<label id=\"label\" >{{textInputCtrl.sgLabel}}</label>\n<ng-transclude></ng-transclude>\n"
 
 /***/ },
 /* 27 */
@@ -30022,6 +30026,150 @@
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	      value: true
+	});
+	
+	var _angular = __webpack_require__(2);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _schemaEditor = __webpack_require__(37);
+	
+	var _schemaEditor2 = _interopRequireDefault(_schemaEditor);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var schemaEditorModule = _angular2.default.module("schemaEditor", []).directive("sgSchemaEditor", _schemaEditor2.default);
+	
+	exports.default = schemaEditorModule;
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _schemaEditor = __webpack_require__(38);
+	
+	var _schemaEditor2 = _interopRequireDefault(_schemaEditor);
+	
+	var _schemaEditor3 = __webpack_require__(39);
+	
+	var _schemaEditor4 = _interopRequireDefault(_schemaEditor3);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = schemaEditorComponent;
+	
+	// angular 1.5 syntax for .component();
+	// let appComponent = {
+	//   template,
+	//   restrict: 'E'
+	// }
+	
+	function schemaEditorComponent() {
+	  return {
+	    template: _schemaEditor2.default,
+	    restrict: 'E',
+	    scope: {},
+	    bindToController: {
+	      sgContext: '=', //passed in schema object to manipulate
+	      sgRestrictToObject: '@?' },
+	    //used when creating a definition to restrict the type to an object
+	    //    replace: true,
+	    controller: _schemaEditor4.default,
+	    controllerAs: 'schema'
+	  };
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+	module.exports = "<form name=\"editSchema\" ng-submit=\"\" novalidate>\n  {{schema}}\n  <div class=\"row\">\n    <div class=\"input-field col s12\">\n      <textarea id=\"sgContext-description\" ng-model=\"schema.sgContext.description\" class=\"materialize-textarea\"></textarea>\n      <label for=\"sgContext-description\">Description</label>\n    </div>\n      <sg-text-input class=\"input-field col col s4\" sg-unique-input sg-label=\"$ref\" ng-model=\"schema.sgContext.$ref\"></sg-text-input>\n    <!-- <div class=\"input-field col s4\">\n      <input id=\"sgContext-ref\" type=\"text\" ng-model=\"schema.sgContext.$ref\" >\n      <label for=\"sgContext-ref\">$ref</label>\n    </div> -->\n    <!-- <sg-text-input class=\"input-field col col s4\" sg-unique-input sg-label=\"Type\" ng-model=\"schema.sgContext.type\"></sg-text-input> -->\n    <div ng-show=\"schema.sgRestrictToObject === 'true'\" class=\"input-field col s4\">\n      <input id=\"sgContext-type\" type=\"text\"\n              ng-model=\"schema.sgContext.type\"\n              disabled>\n      <label for=\"sgContext-type\">Type</label>\n    </div>\n    <sg-text-input ng-hide=\"schema.sgRestrictToObject === 'true'\" class=\"input-field col col s4\" sg-unique-input sg-label=\"Type\" ng-model=\"schema.sgContext.type\"></sg-text-input>\n    <div class=\"input-field col s4\">\n      <input id=\"sgContext-enum\" type=\"text\" disabled value=\"\" ng-model=\"schema.sgContext.required\">\n      <label class=\"active\" for=\"sgContext-enum\">Required</label>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <h5>Properties</h5>\n    </div>\n    <div class=\"col s12\">\n      <form ng-submit=\"\" novalidate>\n        <sg-text-input class=\"input-field col col s6\" sg-unique-input sg-label=\"Property Name\" ng-model=\"schema.newProperty.name\" required=\"true\"></sg-text-input>\n        <!-- <div class=\"input-field col s6\">\n          <input id=\"new-property-name\" type=\"text\" ng-model=\"schema.newProperty.name\" required aria-required=\"true\">\n          <label for=\"new-property-name\">Property Name</label>\n        </div> -->\n        <div class=\"input-field col s6\">\n          <button type=\"submit\"\n            ng-if=\"!schema.newProperty.name\"\n            ng-click=\"schema.toast('Name cannot be empty')\"\n            class=\" waves-effect waves-green btn disabled\">\n            <i class=\"material-icons\">add</i>\n          </button>\n          <button\n            ng-if=\"schema.newProperty.name\"\n            ng-class=\"{'disabled': !schema.newProperty.name}\"\n            ng-click=\"schema.addProperty(schema.sgContext.name, schema.newProperty.name);\"\n            class=\" waves-effect waves-green btn\">\n            <i class=\"material-icons\">add</i>\n          </button>\n        </div>\n      </form>\n    </div>\n  </div>\n  <ul ng-repeat=\"(property, pValue) in schema.sgContext.properties | orderBy:'property'\"\n      class=\"collapsible blue-grey darken-2\"\n      init-collapse\n      data-collapsible=\"accordion\">\n    <li>\n      <div class=\"collapsible-header blue-grey\">\n        {{property}}\n      </div>\n      <div class=\"collapsible-body \">\n        <div class=\" valign-wrapper section\">\n          <sg-text-input class=\"input-field col col s3 valign\" sg-unique-input sg-label=\"Description\" ng-model=\"pValue.description\" required=\"true\"></sg-text-input>\n          <!-- <div class=\"input-field col s3 valign\">\n            <input id=\"new-property-name\" type=\"text\" ng-model=\"pValue.description\" required aria-required=\"true\">\n            <label for=\"new-property-name\">Description</label>\n          </div> -->\n          <div class=\"input-field col s2 valign\">\n            <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"pValue.type\" sg-choices=\"schema.types\" sg-default-option=\"Choose a Type\"></sg-dropdown>\n            <!-- <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value\n                    ng-model=\"pValue.type\">\n              <option value=\"\" selected>Choose a Type</option>\n              <option ng-repeat=\"type in schema.types\"\n                      ng-attr-value=\"{{ type }}\"\n                      ng-attr-id=\"{{ type }}\">{{ type }}</option>\n            </select> -->\n          </div>\n          <div class=\"input-field col s2 valign\">\n            <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"pValue.format\" sg-choices=\"schema.formats\" sg-default-option=\"Property Format\"></sg-dropdown>\n            <!-- <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"pValue.format\">\n              <option value=\"\" selected>Property Format</option>\n              <option ng-repeat=\"format in schema.formats\"\n                      ng-attr-value=\"{{ format }}\"\n                      ng-attr-id=\"{{ format }}\">{{ format }}</option>\n            </select> -->\n          </div>\n          <div class=\"input-field col s4 valign\">\n            <input id=\"property-enum\" type=\"text\" placeholder=\"value,must,be,comma,separated\" value=\"\"\n            ng-model=\"pValue.enum\">\n            <label class=\"active\" for=\"property-enum\">Enum</label>\n          </div>\n          <div class=\"input-field col s2 valign valign-wrapper\">\n            <p sg-unique-input class=\"valign\">\n              <input type=\"checkbox\" id=\"input\" ng-model=\"schema[property].required\" ng-click=\"schema.toggleRequired(property, schema[property].required)\"/>\n              <label id=\"label\" for=\"label\">Required</label>\n            </p>\n          </div>\n        </div>\n        <div class=\"valign-wrapper section\" >\n          <div class=\"input-field col s1 offset-s11 valign\">\n            <button tooltipped\n                    class=\"btn col \"\n                    data-position=\"top\"\n                    data-delay=\"50\"\n                    data-tooltip=\"Delete Property\"\n                    ng-click=\"schema.deleteProperty(property)\">\n            <i class=\"material-icons\">delete</i>\n            </button>\n          </div>\n          <!--div class=\"input-field col s1 valign\">\n            <button tooltipped\n                    class=\"btn col \"\n                    data-position=\"top\"\n                    data-delay=\"50\"\n                    data-tooltip=\"Update Property Data\">\n            <i class=\"material-icons\">done</i>\n            </button>\n          </div-->\n        </div>\n      </div>\n    </li>\n  </ul>\n</form>\n"
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var schemaEditorController = ["$scope", "$window", "PathService", "ObjectFactory", schemaEditorCtrl];
+	
+	exports.default = schemaEditorController;
+	
+	function schemaEditorCtrl($scope, $window, PathService, ObjectFactory) {
+	
+	  /**
+	    * @name newResponseData
+	    * @desc Holds the state of the inputs. Only manipulated in the DOM
+	    * @type {Object}
+	   **/
+	  this.schema = {
+	    definition: this.sgContext
+	  };
+	
+	  this.formats = ['int32', 'int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
+	  this.types = ['integer', 'number', 'string', 'boolean'];
+	
+	  this.toggleRequired = function (propertyName, isRequired) {
+	    debugger;
+	    console.log("TOGGLE PROPERTY REQUIRED");
+	    console.log(propertyName, isRequired);
+	    if (isRequired) {
+	      this.sgContext.required.push(propertyName);
+	    } else {
+	      for (var i = 0; i < this.sgContext.required.length; i++) {
+	        if (this.sgContext.required[i] === propertyName) {
+	          this.sgContext.required.splice(i, 1);
+	          return;
+	        }
+	      }
+	    }
+	  };
+	
+	  this.toast = function (msg) {
+	    var message = msg || "No toast supplied, but hello!!";
+	    Materialize.toast(msg, 2000);
+	  };
+	
+	  this.addProperty = function (definitionName, propertyName) {
+	    debugger;
+	    if (this.sgContext.properties.hasOwnProperty(propertyName)) {
+	      Materialize.toast('Property already exists on this definition.');
+	    } else {
+	      this.sgContext.properties[propertyName] = ObjectFactory.newSchema();
+	      //this.sgContext.properties[propertyName].type = null;
+	    }
+	
+	    //if(tempDefniition.properties.hasOwnProperty)
+	
+	    this.newProperty.name = "";
+	  };
+	
+	  this.deleteProperty = function (propertyName) {
+	    if ($window.confirm('Are you sure you want to delete the property?')) {
+	      delete this.sgContext.properties[propertyName];
+	    } else {
+	      console.log("Don't delete property");
+	    }
+	  };
+	}
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -30032,23 +30180,23 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _compiler = __webpack_require__(37);
+	var _compiler = __webpack_require__(41);
 	
 	var _compiler2 = _interopRequireDefault(_compiler);
 	
-	var _info = __webpack_require__(38);
+	var _info = __webpack_require__(42);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
-	var _path = __webpack_require__(39);
+	var _path = __webpack_require__(43);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _definitions = __webpack_require__(40);
+	var _definitions = __webpack_require__(44);
 	
 	var _definitions2 = _interopRequireDefault(_definitions);
 	
-	var _objectFactory = __webpack_require__(41);
+	var _objectFactory = __webpack_require__(45);
 	
 	var _objectFactory2 = _interopRequireDefault(_objectFactory);
 	
@@ -30059,7 +30207,7 @@
 	exports.default = compilerModule;
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30144,7 +30292,7 @@
 	}
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30255,7 +30403,7 @@
 	}
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30397,7 +30545,7 @@
 	}
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30411,17 +30559,15 @@
 	
 	function DefinitionsService(ObjectFactory) {
 	
-	  var ds = this;
-	
-	  ds.addDefinition = function (definitionName, description, type) {
+	  this.addDefinition = function (definitionName, description, type) {
 	    if (hasDefinition(definitionName)) throw "Cannot Add, Definition Already Exists";else {
 	      console.log('adding definitiion');
 	      //definitions[definitionName] = {
 	      //  poop:'hi'
 	      //}
-	      ds.definitions.addDefinition(definitionName, description, type);
+	      this.definitions.addDefinition(definitionName, description, 'object');
 	      console.log(definitions);
-	      console.log(ds.definitions);
+	      console.log(this.definitions);
 	    }
 	  };
 	
@@ -30429,9 +30575,9 @@
 	    if (definitions.hasOwnProperty(definitionName)) return true;else return false;
 	  }
 	
-	  ds.addProperty = function (definitionName, propertyName) {
+	  this.addProperty = function (definitionName, propertyName) {
 	
-	    console.log("DS add property");
+	    console.log("this add property");
 	    console.log(definitionName, propertyName);
 	
 	    if (hasProperty(definitionName, propertyName)) {
@@ -30449,7 +30595,7 @@
 	    if (definitions[definitionName].properties.hasOwnProperty(propertyName)) return true;else return false;
 	  }
 	
-	  ds.updateDefinition = function (originalDefinition, updatedDefinition) {
+	  this.updateDefinition = function (originalDefinition, updatedDefinition) {
 	    console.log("SERVICE - update definition");
 	    var oName = originalDefinition.name,
 	        oValue = originalDefinition.value,
@@ -30469,7 +30615,7 @@
 	        throw "Definition already exists, cannot change definition name.";
 	      } else {
 	
-	        ds.addDefinition(uName);
+	        this.addDefinition(uName);
 	
 	        var currentDefinition = definitions[uName];
 	
@@ -30482,27 +30628,27 @@
 	    }
 	  };
 	
-	  ds.newSchema = function (title, description, type) {
+	  this.newSchema = function (title, description, type) {
 	    // let temp = Object.create(Schema);
 	    // temp.init(title, description, type);
 	    // return temp;
 	    return ObjectFactory.newSchema(title, description, type);
 	  };
 	
-	  ds.deleteDefinition = function (definitionName) {
-	    delete ds.definitions[definitionName];
+	  this.deleteDefinition = function (definitionName) {
+	    delete this.definitions[definitionName];
 	  };
 	
 	  var definitions = ObjectFactory.newDefinitions();
 	
-	  ds.definitions = definitions;
+	  this.definitions = definitions;
 	  //console.log(definitions);
 	
-	  return ds;
+	  return this.definitions;
 	}
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30718,7 +30864,7 @@
 	      this.description = description || "";
 	      this.required = new Array();
 	      this.enum = null;
-	      this.type = type || "Object";
+	      this.type = type || "";
 	      this.properties = {};
 	    }
 	  };
@@ -30766,7 +30912,7 @@
 	}
 
 /***/ },
-/* 42 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30779,7 +30925,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _capitalize = __webpack_require__(43);
+	var _capitalize = __webpack_require__(47);
 	
 	var _capitalize2 = _interopRequireDefault(_capitalize);
 	
@@ -30790,7 +30936,7 @@
 	exports.default = filters;
 
 /***/ },
-/* 43 */
+/* 47 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30808,7 +30954,7 @@
 	}
 
 /***/ },
-/* 44 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30821,31 +30967,31 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _main = __webpack_require__(45);
+	var _main = __webpack_require__(49);
 	
 	var _main2 = _interopRequireDefault(_main);
 	
-	var _modals = __webpack_require__(58);
+	var _modals = __webpack_require__(62);
 	
 	var _modals2 = _interopRequireDefault(_modals);
 	
-	var _info = __webpack_require__(82);
+	var _info = __webpack_require__(86);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
-	var _paths = __webpack_require__(86);
+	var _paths = __webpack_require__(90);
 	
 	var _paths2 = _interopRequireDefault(_paths);
 	
-	var _parameter = __webpack_require__(90);
+	var _parameter = __webpack_require__(94);
 	
 	var _parameter2 = _interopRequireDefault(_parameter);
 	
-	var _response = __webpack_require__(94);
+	var _response = __webpack_require__(98);
 	
 	var _response2 = _interopRequireDefault(_response);
 	
-	var _definitions = __webpack_require__(98);
+	var _definitions = __webpack_require__(102);
 	
 	var _definitions2 = _interopRequireDefault(_definitions);
 	
@@ -30857,7 +31003,7 @@
 	exports.default = componentModule;
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30870,7 +31016,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _main = __webpack_require__(46);
+	var _main = __webpack_require__(50);
 	
 	var _main2 = _interopRequireDefault(_main);
 	
@@ -30883,7 +31029,7 @@
 	exports.default = mainModule;
 
 /***/ },
-/* 46 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30892,11 +31038,11 @@
 	  value: true
 	});
 	
-	var _main = __webpack_require__(47);
+	var _main = __webpack_require__(51);
 	
 	var _main2 = _interopRequireDefault(_main);
 	
-	var _main3 = __webpack_require__(48);
+	var _main3 = __webpack_require__(52);
 	
 	var _main4 = _interopRequireDefault(_main3);
 	
@@ -30921,13 +31067,13 @@
 	exports.default = mainComponent;
 
 /***/ },
-/* 47 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = "<!--main ng-controller=\"CompilerController as compilerController\"-->\n<main >\n    <!--div\n      class=\"fixed-action-btn\" style=\"bottom: 45px; right: 24px;\">\n      <a class=\"btn-floating btn-large red\">\n      <i class=\"large material-icons\">mode_edit</i>\n      </a>\n      <ul>\n        <li><a class=\"btn-floating red\"><i class=\"material-icons\">insert_chart</i></i></a></li>\n          <li><a class=\"btn-floating yellow darken-1\"><i class=\"material-icons\">format_quote</i></a></li>\n          <li><a class=\"btn-floating green\"><i class=\"material-icons\">publish</i></a></li>>\n        <li><a ng-click=\"compilerController.download(compilerController.compiledDocument)\"\n          class=\"btn-floating blue\">\n          <i class=\"material-icons\">attach_file</i>\n          </a>\n        </li>\n        <li><a ng-click=\"compilerController.recompile()\"\n          class=\"btn-floating green\">\n          <i class=\"material-icons\">publish</i></a>\n        </li>\n      </ul>\n    </div-->\n\n    <sg-info></sg-info>\n    <sg-path></sg-path>\n    <sg-definitions></sg-defintions>\n\n</main>\n"
 
 /***/ },
-/* 48 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30940,7 +31086,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _angularFileSaver = __webpack_require__(49);
+	var _angularFileSaver = __webpack_require__(53);
 	
 	var _angularFileSaver2 = _interopRequireDefault(_angularFileSaver);
 	
@@ -30986,7 +31132,7 @@
 	}
 
 /***/ },
-/* 49 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31002,14 +31148,14 @@
 	*/
 	
 	angular.module('ngFileSaver', [])
-	  .factory('FileSaver', ['Blob', 'SaveAs', 'FileSaverUtils', __webpack_require__(50)])
-	  .factory('FileSaverUtils', [__webpack_require__(51)])
-	  .factory('Blob', ['$window', __webpack_require__(52)])
-	  .factory('SaveAs', [__webpack_require__(54)]);
+	  .factory('FileSaver', ['Blob', 'SaveAs', 'FileSaverUtils', __webpack_require__(54)])
+	  .factory('FileSaverUtils', [__webpack_require__(55)])
+	  .factory('Blob', ['$window', __webpack_require__(56)])
+	  .factory('SaveAs', [__webpack_require__(58)]);
 
 
 /***/ },
-/* 50 */
+/* 54 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31057,7 +31203,7 @@
 
 
 /***/ },
-/* 51 */
+/* 55 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31081,12 +31227,12 @@
 
 
 /***/ },
-/* 52 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(53);
+	__webpack_require__(57);
 	
 	module.exports = function Blob($window) {
 	  return $window.Blob;
@@ -31094,7 +31240,7 @@
 
 
 /***/ },
-/* 53 */
+/* 57 */
 /***/ function(module, exports) {
 
 	/* Blob.js
@@ -31311,18 +31457,18 @@
 
 
 /***/ },
-/* 54 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	module.exports = function SaveAs() {
-	  return __webpack_require__(55).saveAs || function() {};
+	  return __webpack_require__(59).saveAs || function() {};
 	};
 
 
 /***/ },
-/* 55 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* FileSaver.js
@@ -31590,7 +31736,7 @@
 	
 	if (typeof module !== "undefined" && module.exports) {
 	  module.exports.saveAs = saveAs;
-	} else if (("function" !== "undefined" && __webpack_require__(56) !== null) && (__webpack_require__(57) != null)) {
+	} else if (("function" !== "undefined" && __webpack_require__(60) !== null) && (__webpack_require__(61) != null)) {
 	  !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
 	    return saveAs;
 	  }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -31598,14 +31744,14 @@
 
 
 /***/ },
-/* 56 */
+/* 60 */
 /***/ function(module, exports) {
 
 	module.exports = function() { throw new Error("define cannot be used indirect"); };
 
 
 /***/ },
-/* 57 */
+/* 61 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -31613,7 +31759,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 58 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31626,23 +31772,23 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _definitionCreator = __webpack_require__(59);
+	var _definitionCreator = __webpack_require__(63);
 	
 	var _definitionCreator2 = _interopRequireDefault(_definitionCreator);
 	
-	var _definitionEditor = __webpack_require__(63);
+	var _definitionEditor = __webpack_require__(67);
 	
 	var _definitionEditor2 = _interopRequireDefault(_definitionEditor);
 	
-	var _pathCreator = __webpack_require__(68);
+	var _pathCreator = __webpack_require__(72);
 	
 	var _pathCreator2 = _interopRequireDefault(_pathCreator);
 	
-	var _parameterEditor = __webpack_require__(72);
+	var _parameterEditor = __webpack_require__(76);
 	
 	var _parameterEditor2 = _interopRequireDefault(_parameterEditor);
 	
-	var _responseEditor = __webpack_require__(77);
+	var _responseEditor = __webpack_require__(81);
 	
 	var _responseEditor2 = _interopRequireDefault(_responseEditor);
 	
@@ -31653,7 +31799,7 @@
 	exports.default = ModalsModule;
 
 /***/ },
-/* 59 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31666,7 +31812,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _definitionCreator = __webpack_require__(60);
+	var _definitionCreator = __webpack_require__(64);
 	
 	var _definitionCreator2 = _interopRequireDefault(_definitionCreator);
 	
@@ -31677,7 +31823,7 @@
 	exports.default = DefinitionCreatorModule;
 
 /***/ },
-/* 60 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31686,11 +31832,11 @@
 	  value: true
 	});
 	
-	var _definitionCreator = __webpack_require__(61);
+	var _definitionCreator = __webpack_require__(65);
 	
 	var _definitionCreator2 = _interopRequireDefault(_definitionCreator);
 	
-	var _definitionCreator3 = __webpack_require__(62);
+	var _definitionCreator3 = __webpack_require__(66);
 	
 	var _definitionCreator4 = _interopRequireDefault(_definitionCreator3);
 	
@@ -31708,13 +31854,13 @@
 	}
 
 /***/ },
-/* 61 */
+/* 65 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"definition-creation-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\"\n      sg-modal-closer ng-model=\"definitionCreation.closeModal\" modal-id=\"definition-creation-modal\">\n  <form name=\"createDefinition\" ng-submit=\"definitionCreation.addDefinition(definitionCreation.newDefinition.name, definitionCreation.newDefinition.description);\" >\n    <div class=\"modal-content\">\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Create New Definition</h4>\n        </div>\n        <div class=\"input-field col s12 \">\n          <input id=\"definition-name\"\n                  type=\"text\"\n                  ng-model=\"definitionCreation.newDefinition.name\"\n                  focus-me=\"focusDefinitionModal\"\n                  required=\"\" aria-required=\"true\">\n          <label for=\"definition-name\">Definition Name</label>\n        </div>\n        <div class=\"input-field col s12 \">\n          <textarea id=\"definition-description\" ng-model=\"definitionCreation.newDefinition.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"definition-description\">Description</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <div>\n        <button type=\"submit\"\n          close-definition-creation-modal\n          ng-class=\"{'disabled': !definitionCreation.newDefinition.name}\"\n          class=\" waves-effect waves-green btn\">\n        Create\n        </button>\n      </div>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
-/* 62 */
+/* 66 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31755,7 +31901,7 @@
 	}
 
 /***/ },
-/* 63 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31768,11 +31914,11 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _definitionEditor = __webpack_require__(64);
+	var _definitionEditor = __webpack_require__(68);
 	
 	var _definitionEditor2 = _interopRequireDefault(_definitionEditor);
 	
-	var _definitionEditor3 = __webpack_require__(67);
+	var _definitionEditor3 = __webpack_require__(71);
 	
 	var _definitionEditor4 = _interopRequireDefault(_definitionEditor3);
 	
@@ -31783,7 +31929,7 @@
 	exports.default = DefinitionEditorModule;
 
 /***/ },
-/* 64 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31792,11 +31938,11 @@
 	  value: true
 	});
 	
-	var _definitionEditor = __webpack_require__(65);
+	var _definitionEditor = __webpack_require__(69);
 	
 	var _definitionEditor2 = _interopRequireDefault(_definitionEditor);
 	
-	var _definitionEditor3 = __webpack_require__(66);
+	var _definitionEditor3 = __webpack_require__(70);
 	
 	var _definitionEditor4 = _interopRequireDefault(_definitionEditor3);
 	
@@ -31814,13 +31960,13 @@
 	}
 
 /***/ },
-/* 65 */
+/* 69 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"definition-editor-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\"\n      sg-modal-closer ng-model=\"definitionEditor.closeModal\" modal-id=\"definition-editor-modal\">\n\n  <form name=\"createDefinition\"\n        ng-submit=\"\"\n        novalidate>\n    <div class=\"modal-content\">\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Edit Definition</h4>]\n        </div>\n        <div class=\"input-field col s12 \">\n          <input id=\"definition-name\" type=\"text\" ng-model=\"definitionEditor.tempDefinition.name\" required=\"\" aria-required=\"true\">\n          <label for=\"definition-name\">Definition Name</label>\n        </div>\n        <div class=\"input-field col s12\">\n          <textarea id=\"definition-description\" ng-model=\"definitionEditor.tempDefinition.value.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"definition-description\">Description</label>\n        </div>\n        <div class=\"input-field col s4\">\n          <input id=\"definition-ref\" type=\"text\" ng-model=\"definitionEditor.tempDefinition.value.$ref\" >\n          <label for=\"definition-ref\">$ref</label>\n        </div>\n        <div class=\"input-field col s4\">\n          <input id=\"definition-type\" type=\"text\"\n                  ng-model=\"definitionEditor.tempDefinition.value.type\"\n                  disabled>\n          <label for=\"definition-type\">Type</label>\n        </div>\n        <div class=\"input-field col s4\">\n          <input id=\"definition-enum\" type=\"text\" disabled value=\"\" ng-model=\"definitionEditor.tempDefinition.value.required\">\n          <label class=\"active\" for=\"definition-enum\">Required</label>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col s12\">\n          <h5>Properties</h5>\n        </div>\n        <div class=\"col s12\">\n          <form ng-submit=\"\" novalidate>\n            <div class=\"input-field col s6\">\n              <input id=\"new-property-name\" type=\"text\" ng-model=\"definitionEditor.newProperty.name\" required aria-required=\"true\">\n              <label for=\"new-property-name\">Property Name</label>\n            </div>\n            <div class=\"input-field col s6\">\n              <button type=\"submit\"\n                ng-if=\"!definitionEditor.newProperty.name\"\n                ng-click=\"definitionEditor.toast('Name cannot be empty')\"\n                class=\" waves-effect waves-green btn disabled\">\n                <i class=\"material-icons\">add</i>\n              </button>\n              <button\n                ng-if=\"definitionEditor.newProperty.name\"\n                ng-class=\"{'disabled': !definitionEditor.newProperty.name}\"\n                ng-click=\"definitionEditor.addProperty(definitionEditor.tempDefinition.name, definitionEditor.newProperty.name);\"\n                class=\" waves-effect waves-green btn\">\n                <i class=\"material-icons\">add</i>\n              </button>\n            </div>\n          </form>\n        </div>\n\n      </div>\n      <ul ng-repeat=\"(property, pValue) in definitionEditor.tempDefinition.value.properties | orderBy:'property'\"\n          class=\"collapsible blue-grey darken-2\"\n          init-collapse\n          data-collapsible=\"accordion\">\n        <li>\n          <div class=\"collapsible-header blue-grey\">\n            {{property}}\n          </div>\n          <div class=\"collapsible-body \">\n            <div class=\" valign-wrapper section\">\n              <div class=\"input-field col s3 valign\">\n                <input id=\"new-property-name\" type=\"text\" ng-model=\"pValue.description\" required aria-required=\"true\">\n                <label for=\"new-property-name\">Description</label>\n              </div>\n              <div class=\"input-field col s2 valign\">\n                <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value\n                        ng-model=\"pValue.type\">\n                  <option value=\"\" selected>Choose a Type</option>\n                  <option ng-repeat=\"type in definitionEditor.types\"\n                          ng-attr-value=\"{{ type }}\"\n                          ng-attr-id=\"{{ type }}\">{{ type }}</option>\n                </select>\n              </div>\n              <div class=\"input-field col s2 valign\">\n                <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"pValue.format\">\n                  <option value=\"\" selected>Property Format</option>\n                  <option ng-repeat=\"format in definitionEditor.formats\"\n                          ng-attr-value=\"{{ format }}\"\n                          ng-attr-id=\"{{ format }}\">{{ format }}</option>\n                </select>\n              </div>\n              <div class=\"input-field col s4 valign\">\n                <input id=\"property-enum\" type=\"text\" placeholder=\"value,must,be,comma,separated\" value=\"\"\n                ng-model=\"pValue.enum\">\n                <label class=\"active\" for=\"property-enum\">Enum</label>\n              </div>\n              <div class=\"input-field col s2 valign valign-wrapper\">\n                <p sg-unique-input class=\"valign\">\n                  <input type=\"checkbox\" id=\"input\" ng-model=\"definitionEditor[property].required\" ng-click=\"definitionEditor.togglePropertyRequired(property, definitionEditor[property].required)\"/>\n                  <label id=\"label\" for=\"label\">Required</label>\n                </p>\n              </div>\n            </div>\n            <div class=\"valign-wrapper section\" >\n              <div class=\"input-field col s1 offset-s11 valign\">\n                <button tooltipped\n                        class=\"btn col \"\n                        data-position=\"top\"\n                        data-delay=\"50\"\n                        data-tooltip=\"Delete Property\"\n                        ng-click=\"definitionEditor.deleteProperty(property)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n              <!--div class=\"input-field col s1 valign\">\n                <button tooltipped\n                        class=\"btn col \"\n                        data-position=\"top\"\n                        data-delay=\"50\"\n                        data-tooltip=\"Update Property Data\">\n                <i class=\"material-icons\">done</i>\n                </button>\n              </div-->\n            </div>\n          </div>\n        </li>\n      </ul>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <div>\n        <button ng-if=\"!definitionEditor.tempDefinition.name\"\n          class=\" waves-effect waves-green btn disabled\">\n        Update Definition\n        </button>\n        <button class=\"waves-effect waves-green btn modal-action modal-close\"\n                ng-if=\"definitionEditor.tempDefinition.name\"\n                ng-click=\"definitionEditor.updateDefinition(definitionEditor.originalDefinition, definitionEditor.tempDefinition)\">\n          Update Definition\n        </button>\n      </div>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
+	module.exports = "<div id=\"definition-editor-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\"\n      sg-modal-closer ng-model=\"definitionEditor.closeModal\" modal-id=\"definition-editor-modal\">\n\n    <div class=\"modal-content\">\n      <sg-schema-editor sg-context=\"definitionEditor.tempDefinition.value\" sg-restrict-to-object=\"true\"></sg-schema-editor>\n      <!-- <form name=\"createDefinition\"\n            ng-submit=\"\"\n            novalidate>\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Edit Definition</h4>\n        </div>\n        <div class=\"input-field col s12 \">\n          <input id=\"definition-name\" type=\"text\" ng-model=\"definitionEditor.tempDefinition.name\" required=\"\" aria-required=\"true\">\n          <label for=\"definition-name\">Name</label>\n        </div>\n        <div class=\"input-field col s12\">\n          <textarea id=\"definition-description\" ng-model=\"definitionEditor.tempDefinition.value.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"definition-description\">Description</label>\n        </div>\n        <div class=\"input-field col s4\">\n          <input id=\"definition-ref\" type=\"text\" ng-model=\"definitionEditor.tempDefinition.value.$ref\" >\n          <label for=\"definition-ref\">$ref</label>\n        </div>\n        <div class=\"input-field col s4\">\n          <input id=\"definition-type\" type=\"text\"\n                  ng-model=\"definitionEditor.tempDefinition.value.type\"\n                  disabled>\n          <label for=\"definition-type\">Type</label>\n        </div>\n        <div class=\"input-field col s4\">\n          <input id=\"definition-enum\" type=\"text\" disabled value=\"\" ng-model=\"definitionEditor.tempDefinition.value.required\">\n          <label class=\"active\" for=\"definition-enum\">Required</label>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col s12\">\n          <h5>Properties</h5>\n        </div>\n        <div class=\"col s12\">\n          <form ng-submit=\"\" novalidate>\n            <div class=\"input-field col s6\">\n              <input id=\"new-property-name\" type=\"text\" ng-model=\"definitionEditor.newProperty.name\" required aria-required=\"true\">\n              <label for=\"new-property-name\">Property Name</label>\n            </div>\n            <div class=\"input-field col s6\">\n              <button type=\"submit\"\n                ng-if=\"!definitionEditor.newProperty.name\"\n                ng-click=\"definitionEditor.toast('Name cannot be empty')\"\n                class=\" waves-effect waves-green btn disabled\">\n                <i class=\"material-icons\">add</i>\n              </button>\n              <button\n                ng-if=\"definitionEditor.newProperty.name\"\n                ng-class=\"{'disabled': !definitionEditor.newProperty.name}\"\n                ng-click=\"definitionEditor.addProperty(definitionEditor.tempDefinition.name, definitionEditor.newProperty.name);\"\n                class=\" waves-effect waves-green btn\">\n                <i class=\"material-icons\">add</i>\n              </button>\n            </div>\n          </form>\n        </div>\n\n      </div>\n      <ul ng-repeat=\"(property, pValue) in definitionEditor.tempDefinition.value.properties | orderBy:'property'\"\n          class=\"collapsible blue-grey darken-2\"\n          init-collapse\n          data-collapsible=\"accordion\">\n        <li>\n          <div class=\"collapsible-header blue-grey\">\n            {{property}}\n          </div>\n          <div class=\"collapsible-body \">\n            <div class=\" valign-wrapper section\">\n              <div class=\"input-field col s3 valign\">\n                <input id=\"new-property-name\" type=\"text\" ng-model=\"pValue.description\" required aria-required=\"true\">\n                <label for=\"new-property-name\">Description</label>\n              </div>\n              <div class=\"input-field col s2 valign\">\n                <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value\n                        ng-model=\"pValue.type\">\n                  <option value=\"\" selected>Choose a Type</option>\n                  <option ng-repeat=\"type in definitionEditor.types\"\n                          ng-attr-value=\"{{ type }}\"\n                          ng-attr-id=\"{{ type }}\">{{ type }}</option>\n                </select>\n              </div>\n              <div class=\"input-field col s2 valign\">\n                <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"pValue.format\">\n                  <option value=\"\" selected>Property Format</option>\n                  <option ng-repeat=\"format in definitionEditor.formats\"\n                          ng-attr-value=\"{{ format }}\"\n                          ng-attr-id=\"{{ format }}\">{{ format }}</option>\n                </select>\n              </div>\n              <div class=\"input-field col s4 valign\">\n                <input id=\"property-enum\" type=\"text\" placeholder=\"value,must,be,comma,separated\" value=\"\"\n                ng-model=\"pValue.enum\">\n                <label class=\"active\" for=\"property-enum\">Enum</label>\n              </div>\n              <div class=\"input-field col s2 valign valign-wrapper\">\n                <p sg-unique-input class=\"valign\">\n                  <input type=\"checkbox\" id=\"input\" ng-model=\"definitionEditor[property].required\" ng-click=\"definitionEditor.togglePropertyRequired(property, definitionEditor[property].required)\"/>\n                  <label id=\"label\" for=\"label\">Required</label>\n                </p>\n              </div>\n            </div>\n            <div class=\"valign-wrapper section\" >\n              <div class=\"input-field col s1 offset-s11 valign\">\n                <button tooltipped\n                        class=\"btn col \"\n                        data-position=\"top\"\n                        data-delay=\"50\"\n                        data-tooltip=\"Delete Property\"\n                        ng-click=\"definitionEditor.deleteProperty(property)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n\n            </div>\n          </div>\n        </li>\n      </ul>\n      </form> -->\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <div>\n        <button ng-if=\"!definitionEditor.tempDefinition.name\"\n          class=\" waves-effect waves-green btn disabled\">\n        Update Definition\n        </button>\n        <button class=\"waves-effect waves-green btn modal-action modal-close\"\n                ng-if=\"definitionEditor.tempDefinition.name\"\n                ng-click=\"definitionEditor.updateDefinition(definitionEditor.originalDefinition, definitionEditor.tempDefinition)\">\n          Update Definition\n        </button>\n      </div>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n\n</div>\n"
 
 /***/ },
-/* 66 */
+/* 70 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31846,52 +31992,54 @@
 	    name: null
 	  };
 	
-	  vm.formats = ['int32', 'int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
-	  vm.types = ['integer', 'number', 'string', 'boolean'];
+	  // vm.formats = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
+	  // vm.types = ['integer', 'number', 'string', 'boolean'];
 	
 	  this.closeModal = false;
 	
-	  vm.toast = function (msg) {
-	    var message = msg || "No toast supplied, but hello!!";
-	    Materialize.toast(msg, 2000);
-	  };
+	  // vm.toast = function(msg){
+	  //   var message = msg || "No toast supplied, but hello!!";
+	  //   Materialize.toast(msg, 2000);
+	  // }
+	  //
+	  // vm.addProperty = function(definitionName, propertyName){
+	  //   /*
+	  //   try{
+	  //     ds.addProperty(definitionName, propertyName);
+	  //   }catch(e){
+	  //       console.log(e);
+	  //       Materialize.toast(e, 3000);
+	  //   }
+	  //   */
+	  //
+	  //   if(vm.tempDefinition.value.properties.hasOwnProperty(propertyName)){
+	  //     Materialize.toast('Property already exists on this definition.');
+	  //   }else{
+	  //     vm.tempDefinition.value.properties[propertyName] =  ds.newSchema();
+	  //     vm.tempDefinition.value.properties[propertyName].type = null;
+	  //   }
+	  //
+	  //   //if(tempDefniition.value.properties.hasOwnProperty)
+	  //
+	  //   vm.newProperty.name = "";
+	  //
+	  // }
 	
-	  vm.addProperty = function (definitionName, propertyName) {
-	    /*
-	    try{
-	      ds.addProperty(definitionName, propertyName);
-	    }catch(e){
-	        console.log(e);
-	        Materialize.toast(e, 3000);
-	    }
-	    */
-	
-	    if (vm.tempDefinition.value.properties.hasOwnProperty(propertyName)) {
-	      Materialize.toast('Property already exists on this definition.');
-	    } else {
-	      vm.tempDefinition.value.properties[propertyName] = ds.newSchema();
-	      vm.tempDefinition.value.properties[propertyName].type = null;
-	    }
-	
-	    //if(tempDefniition.value.properties.hasOwnProperty)
-	
-	    vm.newProperty.name = "";
-	  };
-	
-	  vm.togglePropertyRequired = function (propertyName, isRequired) {
-	    console.log("TOGGLE PROPERTY REQUIRED");
-	    console.log(propertyName, isRequired);
-	    if (isRequired) {
-	      vm.tempDefinition.value.required.push(propertyName);
-	    } else {
-	      for (var i = 0; i < vm.tempDefinition.value.required.length; i++) {
-	        if (vm.tempDefinition.value.required[i] === propertyName) {
-	          vm.tempDefinition.value.required.splice(i, 1);
-	          return;
-	        }
-	      }
-	    }
-	  };
+	  // vm.togglePropertyRequired = function(propertyName, isRequired){
+	  //   console.log("TOGGLE PROPERTY REQUIRED");
+	  //   console.log(propertyName, isRequired);
+	  //   if(isRequired){
+	  //     vm.tempDefinition.value.required.push(propertyName);
+	  //   }else{
+	  //     for(var i = 0; i < vm.tempDefinition.value.required.length; i++){
+	  //       if(vm.tempDefinition.value.required[i] === propertyName){
+	  //         vm.tempDefinition.value.required.splice(i, 1);
+	  //         return;
+	  //       }
+	  //
+	  //     }
+	  //   }
+	  // }
 	
 	  vm.updateDefinition = function (originalDefinition, newDefinition) {
 	    console.log("CONTROLLER - Update definition");
@@ -31904,13 +32052,13 @@
 	    }
 	  };
 	
-	  vm.deleteProperty = function (propertyName) {
-	    if ($window.confirm('Are you sure you want to delete the property?')) {
-	      delete vm.tempDefinition.value.properties[propertyName];
-	    } else {
-	      console.log("Don't delete property");
-	    }
-	  };
+	  // vm.deleteProperty = function(propertyName){
+	  //   if($window.confirm('Are you sure you want to delete the property?')){
+	  //     delete vm.tempDefinition.value.properties[propertyName];
+	  //   }else{
+	  //     console.log("Don't delete property")
+	  //   }
+	  // }
 	
 	  $scope.$watch(function () {
 	    return dems.currentDefinition;
@@ -31928,7 +32076,7 @@
 	}
 
 /***/ },
-/* 67 */
+/* 71 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31969,7 +32117,7 @@
 	}
 
 /***/ },
-/* 68 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31982,7 +32130,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _pathCreator = __webpack_require__(69);
+	var _pathCreator = __webpack_require__(73);
 	
 	var _pathCreator2 = _interopRequireDefault(_pathCreator);
 	
@@ -31993,7 +32141,7 @@
 	exports.default = PathCreatorModule;
 
 /***/ },
-/* 69 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32002,11 +32150,11 @@
 	  value: true
 	});
 	
-	var _pathCreator = __webpack_require__(70);
+	var _pathCreator = __webpack_require__(74);
 	
 	var _pathCreator2 = _interopRequireDefault(_pathCreator);
 	
-	var _pathCreator3 = __webpack_require__(71);
+	var _pathCreator3 = __webpack_require__(75);
 	
 	var _pathCreator4 = _interopRequireDefault(_pathCreator3);
 	
@@ -32024,13 +32172,13 @@
 	}
 
 /***/ },
-/* 70 */
+/* 74 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"path-creation-modal\" class=\"modal blue-grey darken-1 white-text modal-fixed-footer\"\n      sg-modal-closer ng-model=\"pathModal.closeModal\" modal-id=\"path-creation-modal\">\n  <form name=\"addPathForm\" novalidate ng-submit=\"addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)\" >\n    <div class=\"modal-content\">\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Create New Path</h4>\n        </div>\n        <div class=\"input-field col s12 \">\n          <input id=\"path-name\" type=\"text\"\n                  name=\"pathName\"\n                  ng-model=\"pathModal.newPath.name\"\n                  ng-pattern=\"/^\\/[0-9a-zA-Z\\/\\.\\_\\-\\{\\}]*$/\"\n                  ng-minlength=3\n                  ng-maxlength=45\n                  required=\"\"\n\n                  focus-me=\"focusPathModal\">\n          <label for=\"path-name\">Path Name</label>\n          <div class=\"error\"\n               ng-show=\"addPathForm.pathName.$dirty && addPathForm.pathName.$invalid\">\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.required\">\n                    The Path name is required.\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.pattern\">\n                    The Path must start with a '/' (forward slash).\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.minlength\">\n                    The Path name is required to be at least 3 characters\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.maxlength\">\n              The Path name cannot be longer than 45 characters\n            </small>\n          </div>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n        <div class=\"col s12 l6\">\n          <div class=\"row\">\n            <div ng-repeat=\"(operation, value) in pathModal.newPath.operations\" class=\"col s3\" >\n              <p sg-unique-input>\n                <input type=\"checkbox\" id=\"input\" ng-model=\"pathModal.newPath.operations[operation]\"/>\n                <label for=\"label\">{{operation | uppercase}}</label>\n              </p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <div>\n        <button type=\"submit\" name=\"action\" close-path-modal ng-class=\"{'disabled': addPathForm.$invalid}\"\n          class=\" waves-effect waves-green btn\">\n        Create\n        </button>\n      </div>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
-/* 71 */
+/* 75 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32102,7 +32250,7 @@
 	}
 
 /***/ },
-/* 72 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32115,11 +32263,11 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _parameterEditor = __webpack_require__(73);
+	var _parameterEditor = __webpack_require__(77);
 	
 	var _parameterEditor2 = _interopRequireDefault(_parameterEditor);
 	
-	var _parameterEditor3 = __webpack_require__(76);
+	var _parameterEditor3 = __webpack_require__(80);
 	
 	var _parameterEditor4 = _interopRequireDefault(_parameterEditor3);
 	
@@ -32130,7 +32278,7 @@
 	exports.default = ParameterEditorModule;
 
 /***/ },
-/* 73 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32139,11 +32287,11 @@
 	  value: true
 	});
 	
-	var _parameterEditor = __webpack_require__(74);
+	var _parameterEditor = __webpack_require__(78);
 	
 	var _parameterEditor2 = _interopRequireDefault(_parameterEditor);
 	
-	var _parameterEditor3 = __webpack_require__(75);
+	var _parameterEditor3 = __webpack_require__(79);
 	
 	var _parameterEditor4 = _interopRequireDefault(_parameterEditor3);
 	
@@ -32162,13 +32310,13 @@
 	}
 
 /***/ },
-/* 74 */
+/* 78 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"param-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\">\n  <form name=\"editParam\" novalidate ng-submit=\"paramModalControl.updateParameter()\">\n    <div class=\"modal-content white-text\">\n      {{paramModalControl.tempParam}}\n      {{paramModalControl.currentParam}}\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Parameter Options</h4>\n        </div>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <div class=\"input-field col s3 valign\">\n          <input id=\"newParamUtil\" name\"paramName\" ng-model=\"paramModalControl.tempParam.name\" type=\"text\" required=\"\" aria-required=\"true\"/>\n          <label for=\"newParamUtil\">Parameter Name</label>\n        </div>\n        <div class=\"input-field col s3 valign\" >\n          <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam.inLocation\" ng-change=\"paramModalControl.setParamInModal(paramModalControl.tempParam.inLocation)\" >\n            <option value=\"\" disabled selected>Parameter Location</option>\n            <option value=\"path\" id=\"path\">Path</option>\n            <option value=\"query\" id=\"query\">Query</option>\n            <option value=\"header\" id=\"header\">Header</option>\n            <option value=\"body\" id=\"body\">Body</option>\n            <option value=\"formData\" id=\"formData\">Form Data</option>\n          </select>\n          <!--label>In</label-->\n        </div>\n        <div class=\"col s3 valign\" ng-if=\"paramModalControl.tempParam.inLocation !== 'path'\">\n          <p >\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.required\" id=\"required\" />\n            <label for=\"required\">required</label>\n          </p>\n        </div>\n        <div class=\" col s3 valign\" >\n          <p>\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.allowEmptyValue\" id=\"allowEmptyValue\" />\n            <label for=\"allowEmptyValue\">Allow Empty Value</label>\n          </p>\n        </div>\n      </div>\n      <div ng-if=\"paramModalControl.tempParam.inLocation !== 'body'\" class=\"row\">\n        <div class=\"input-field col s12\">\n          <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-description\">Description</label>\n        </div>\n        <div class=\"input-field col s4 valign\"\n              ng-repeat=\"(optionTypeName, optionTypeValue) in paramModalControl.paramOptions\">\n          <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam[optionTypeName]\" >\n            <option value=\"\" selected>Parameter {{ optionTypeName | capitalize }}</option>\n            <option ng-repeat=\"type in optionTypeValue\"\n                    ng-if=\"(collection === 'multi' && (paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData')) || collection !== 'multi' \"\n                    ng-attr-value=\"{{ type }}\"\n                    ng-attr-id=\"{{ type }}\">{{ type }}</option>\n          </select>\n        </div>\n        <div class=\"input-field col s12 valign\" >\n          <div ng-if=\"paramModalControl.tempParam.type === 'array'\">\n            <textarea id=\"param-items\" ng-model=\"paramModalControl.tempParam.items\" class=\"materialize-textarea\" required=\"\" aria-required=\"true\"></textarea>\n            <label for=\"param-items\">Items</label>\n          </div>\n        </div>\n        <div  class=\"input-field col s12 l6\">\n          <textarea id=\"param-extra\" ng-model=\"paramModalControl.tempParam.extra\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-extra\">Extra values</label>\n        </div>\n      </div>\n      <div  ng-if=\"paramModalControl.tempParam.inLocation === 'body'\" class=\"row\">\n        <div class=\"input-field col s12 l6\">\n          <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-description\">Description</label>\n        </div>\n        <div class=\"input-field col s12 l6\">\n          <textarea id=\"param-schema\" ng-model=\"paramModalControl.tempParam.schema\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-schema\">Schema</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Parameter\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Parameter\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
-/* 75 */
+/* 79 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32245,7 +32393,7 @@
 	}
 
 /***/ },
-/* 76 */
+/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32271,7 +32419,7 @@
 	}
 
 /***/ },
-/* 77 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32284,11 +32432,11 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _responseEditor = __webpack_require__(78);
+	var _responseEditor = __webpack_require__(82);
 	
 	var _responseEditor2 = _interopRequireDefault(_responseEditor);
 	
-	var _responseEditor3 = __webpack_require__(81);
+	var _responseEditor3 = __webpack_require__(85);
 	
 	var _responseEditor4 = _interopRequireDefault(_responseEditor3);
 	
@@ -32299,7 +32447,7 @@
 	exports.default = ResponseEditorModule;
 
 /***/ },
-/* 78 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32308,11 +32456,11 @@
 	  value: true
 	});
 	
-	var _responseEditor = __webpack_require__(79);
+	var _responseEditor = __webpack_require__(83);
 	
 	var _responseEditor2 = _interopRequireDefault(_responseEditor);
 	
-	var _responseEditor3 = __webpack_require__(80);
+	var _responseEditor3 = __webpack_require__(84);
 	
 	var _responseEditor4 = _interopRequireDefault(_responseEditor3);
 	
@@ -32330,13 +32478,13 @@
 	}
 
 /***/ },
-/* 79 */
+/* 83 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"response-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\">\n  <form ng-submit=\"rmControl.updateResponse(rmControl.tempResponse)\">\n    <div class=\"modal-content white-text\">\n      {{rmControl.tempResponse}}\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Response Options</h4>\n        </div>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <input id=\"response-modal-name\" ng-model=\"rmControl.tempResponse.httpCode\" type=\"text\" required=\"\" aria-required=\"true\"/>\n        <label for=\"response-modal-name\">Response Name</label>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <textarea id=\"response-modal-description\" ng-model=\"rmControl.tempResponse.response.description\" class=\"materialize-textarea\"></textarea>\n        <label for=\"response-modal-description\">Description</label>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <div class=\"input-field col s12 valign\"\n          ng-repeat=\"(key, value) in rmControl.tempResponse.response\"\n          ng-if=\"key !== 'description'\">\n          <textarea ng-attr-id=\"response-modal-{{key}}\" ng-model=\"rmControl.tempResponse.response[key]\" class=\"materialize-textarea\"></textarea>\n          <label ng-attr-for=\"response-modal-{{key}}\">{{ key | capitalize}}</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Response\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Response\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
-/* 80 */
+/* 84 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32396,7 +32544,7 @@
 	}
 
 /***/ },
-/* 81 */
+/* 85 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32427,7 +32575,7 @@
 	}
 
 /***/ },
-/* 82 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32440,7 +32588,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _info = __webpack_require__(83);
+	var _info = __webpack_require__(87);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
@@ -32453,7 +32601,7 @@
 	exports.default = infoModule;
 
 /***/ },
-/* 83 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32462,11 +32610,11 @@
 	  value: true
 	});
 	
-	var _info = __webpack_require__(84);
+	var _info = __webpack_require__(88);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
-	var _info3 = __webpack_require__(85);
+	var _info3 = __webpack_require__(89);
 	
 	var _info4 = _interopRequireDefault(_info3);
 	
@@ -32491,13 +32639,13 @@
 	exports.default = infoComponent;
 
 /***/ },
-/* 84 */
+/* 88 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\" ng-cloak>\n{{basicInfo.sgBase}}\n  <div class=\"row\">\n    <form name=\"infoForm\" novalidate ng-submit=\"infoForm.$valid\">\n      <div class=\"col s12\">\n        <div class=\"card blue-grey darken-1\">\n          <div class=\"card-content white-text\">\n            <h3>{{ basicInfo.sgBase.info.title + ' API' }}</h3>\n            <p>Start building your Swagger definition by describing some basic info. Watch out some\n              fields are required to enter, but don't worry we will prompt you if anything is missing.\n            </p>\n            <div class=\"section\">\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Info</span>\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <div class=\"row\">\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"title\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.title\"\n                          name=\"apiName\"\n                          required=\"\" >\n                        <label for=\"title\">Title</label>\n                        <div class=\"error\" ng-show=\"infoForm.apiName.$dirty && infoForm.apiName.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.apiName.$error.required\">\n                            The API name is required.\n                          </small>\n                        </div>\n                      </div>\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"version\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.version\"\n                          ng-pattern=\"/^([v]?)([0-9]+)((\\.([0-9]+))*)?$/\"\n                          name=\"version\"\n                          required=\"\" >\n                        <label for=\"version\">Version</label>\n                        <div class=\"error\" ng-show=\"infoForm.version.$dirty && infoForm.version.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.required\">\n                            The version is required.\n                          </small>\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <sg-textarea class=\"input-field col s12\" sg-unique-input sg-label=\"Description\" ng-model=\"basicInfo.sgBase.info.description\"></sg-textarea>\n                    </div>\n                    <div class=\"row\">\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Host\" ng-model=\"basicInfo.sgBase.info.host\"> </sg-text-input>\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Base Path\" ng-model=\"basicInfo.sgBase.info.basePath\"> </sg-text-input>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Contact</span>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.contact.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.contact.url\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Email\" ng-model=\"basicInfo.sgBase.info.contact.email\"> </sg-text-input>\n                </div>\n                <span class=\"card-title\">License</span>\n                <div class=\"row\">\n                  <sg-text-input ng-if=\"basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\" required=\"true\"> </sg-text-input>\n                  <sg-text-input ng-if=\"!basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.license.url\"> </sg-text-input>\n                </div>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 \" unique-input sg-label=\"Terms Of Service\" ng-model=\"basicInfo.sgBase.info.termsOfService\"> </sg-text-input>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col s12\">\n                <span class=\"card-title\">Types</span>\n                <div class=\"section col s12\">\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Produces: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"col m10 valign\"> {{produce}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('produces', produce);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Consumes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"col m10 valign\"> {{consume}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('consumes', consume);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Schemes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <div class=\"col m10 valign\"> {{scheme}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.removeType('schemes', scheme);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n"
+	module.exports = "<div class=\"container\" ng-cloak>\n{{basicInfo.sgBase}}\n  <div class=\"row\">\n    <form name=\"infoForm\" novalidate ng-submit=\"infoForm.$valid\">\n      <div class=\"col s12\">\n        <div class=\"card blue-grey darken-1\">\n          <div class=\"card-content white-text\">\n            <h3>{{ basicInfo.sgBase.info.title + ' API' }}</h3>\n            <p>Start building your Swagger definition by describing some basic info. Watch out some\n              fields are required to enter, but don't worry we will prompt you if anything is missing.\n            </p>\n            <div class=\"section\">\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Info</span>\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <div class=\"row\">\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"title\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.title\"\n                          name=\"apiName\"\n                          required=\"\" >\n                        <label for=\"title\">Title</label>\n                        <div class=\"error\" ng-show=\"infoForm.apiName.$dirty && infoForm.apiName.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.apiName.$error.required\">\n                            The API name is required.\n                          </small>\n                        </div>\n                      </div>\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"version\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.version\"\n                          ng-pattern=\"/^([v]?)([0-9]+)((\\.([0-9]+))*)?$/\"\n                          name=\"version\"\n                          required=\"\" >\n                        <label for=\"version\">Version</label>\n                        <div class=\"error\" ng-show=\"infoForm.version.$dirty && infoForm.version.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.required\">\n                            The version is required.\n                          </small>\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <sg-textarea class=\"input-field col s12\" sg-unique-input sg-label=\"Description\" ng-model=\"basicInfo.sgBase.info.description\"></sg-textarea>\n                    </div>\n                    <div class=\"row\">\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Host\"  ng-model=\"basicInfo.sgBase.host\"></sg-text-input>\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"BasePath\" ng-model=\"basicInfo.sgBase.basePath\">\n                        <div class=\"error\" ng-show=\"infoForm.BasePath.$dirty && infoForm.BasePath.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.BasePath.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                     </sg-text-input>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Contact</span>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.contact.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.contact.url\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Email\" ng-model=\"basicInfo.sgBase.info.contact.email\"> </sg-text-input>\n                </div>\n                <span class=\"card-title\">License</span>\n                <div class=\"row\">\n                  <sg-text-input ng-if=\"basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\" required=\"true\"> </sg-text-input>\n                  <sg-text-input ng-if=\"!basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.info.license.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.license.url\"> </sg-text-input>\n                </div>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 \" unique-input sg-label=\"Terms Of Service\" ng-model=\"basicInfo.sgBase.info.termsOfService\"> </sg-text-input>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col s12\">\n                <span class=\"card-title\">Types</span>\n                <div class=\"section col s12\">\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Produces: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"col m10 valign\"> {{produce}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('produces', produce);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Consumes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"col m10 valign\"> {{consume}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('consumes', consume);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Schemes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <div class=\"col m10 valign\"> {{scheme}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.removeType('schemes', scheme);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n"
 
 /***/ },
-/* 85 */
+/* 89 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32558,7 +32706,7 @@
 	}
 
 /***/ },
-/* 86 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32571,7 +32719,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _paths = __webpack_require__(87);
+	var _paths = __webpack_require__(91);
 	
 	var _paths2 = _interopRequireDefault(_paths);
 	
@@ -32584,7 +32732,7 @@
 	exports.default = pathModule;
 
 /***/ },
-/* 87 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32593,11 +32741,11 @@
 	  value: true
 	});
 	
-	var _paths = __webpack_require__(88);
+	var _paths = __webpack_require__(92);
 	
 	var _paths2 = _interopRequireDefault(_paths);
 	
-	var _paths3 = __webpack_require__(89);
+	var _paths3 = __webpack_require__(93);
 	
 	var _paths4 = _interopRequireDefault(_paths3);
 	
@@ -32622,13 +32770,13 @@
 	}
 
 /***/ },
-/* 88 */
+/* 92 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\" ng-cloak>\n  {{pathCtl.paths}}\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s3 m2 l2 valign\">\n              <h3>Paths</h3>\n            </div>\n            <div class=\"col s3 m8 l8\">\n              <a class=\"btn-flat\" ng-click=\"togglePaths()\">\n              <i class=\"large material-icons\">swap_vert</i>\n              </a>\n            </div>\n            <div class=\"col s6 m2 l2 valign right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n              <div class=\"col s12 l6\">\n                <div class=\"row\" >\n                  <div class=\"col\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'\" ng-hide=\"pathCtl.paths[pathName][operation]\">\n                    <a ng-class=\"{'blue': '{{operation}}' == 'get',\n                      'orange': '{{operation}}' === 'put',\n                      'green': '{{operation}}' === 'post',\n                      'red': '{{operation}}' === 'delete', }\"\n                      class=\"waves-effect waves-light btn\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                    {{operation | uppercase}}\n                    </a>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\" class=\"valign-wrapper\">\n                <div class=\"col s11 valign\">\n                  <ul class=\"collapsible blue-grey darken-2\" init-collapse data-collapsible=\"accordion\">\n                    <li>\n                      <div ng-class=\"{'blue': '{{operation}}' == 'get',\n                        'orange': '{{operation}}' === 'put',\n                        'green': '{{operation}}' === 'post',\n                        'red': '{{operation}}' === 'delete', }\"\n                        class=\"collapsible-header \"><i class=\"material-icons\">filter_drama</i>{{ operation | uppercase }}   {{ \" \" + path.currentName}}</div>\n                      <div class=\"collapsible-body \">\n                        <div class=\"section\">\n                          <div class=\"\">\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <input id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].summary\"\n                                ng-model=\"pathCtl.paths[pathName][operation].summary\"\n                                maxlength=\"150\" type=\"text\"/>\n                              <label id=\"label\"  for=\"label\">Summary</label>\n                            </div>\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <textarea id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].description\"\n                                ng-model=\"pathCtl.paths[pathName][operation].description\"\n                                class=\"materialize-textarea\"></textarea>\n                              <label id=\"label\" for=\"label\">Description</label>\n                            </div>\n                          </div>\n                        </div>\n                        <!-- <div class=\"Section\" ng-if=\"pathCtl.paths[pathName][operation]\"> -->\n                        <sg-parameter sg-this-operation=\"{{operation}}\" sg-context=\"pathCtl.paths[pathName][operation]\"></sg-parameter>\n                        <!-- </div> -->\n                        <sg-response sg-this-operation=\"{{operation}}\" sg-context=\"pathCtl.paths[pathName][operation].responses\"></sg-response>\n                      </div>\n                    </li>\n                  </ul>\n                </div>\n                <div class=\"col s1 valign\" >\n                  <button class=\"btn-flat\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deleteOperation(pathName, operation)\">\n                  <i class=\"material-icons\">delete</i>\n                  </button>\n                </div>\n              </div>\n              {{path}}\n            </div>\n          </div>\n          {{paths}}\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
+	module.exports = "<div class=\"container\" ng-cloak>\n  {{pathCtl.paths}}\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s3 m2 l2 valign\">\n              <h3>Paths</h3>\n            </div>\n            <div class=\"col s3 m8 l8\">\n              <a class=\"btn-flat\" ng-click=\"togglePaths()\">\n              <i class=\"large material-icons\">swap_vert</i>\n              </a>\n            </div>\n            <div class=\"col s6 m2 l2 valign right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n              <div class=\"col s12 l6\">\n                <div class=\"row\" >\n                  <div class=\"col\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'\" ng-hide=\"pathCtl.paths[pathName][operation]\">\n                    <a ng-class=\"{'blue': '{{operation}}' == 'get',\n                      'orange': '{{operation}}' === 'put',\n                      'green': '{{operation}}' === 'post',\n                      'red': '{{operation}}' === 'delete', }\"\n                      class=\"waves-effect waves-light btn\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                    {{operation | uppercase}}\n                    </a>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\" class=\"valign-wrapper\">\n                <div class=\"col s11 valign\">\n                  <ul class=\"collapsible blue-grey darken-2\" init-collapse data-collapsible=\"accordion\">\n                    <li>\n                      <div ng-class=\"{'blue': '{{operation}}' == 'get',\n                        'orange': '{{operation}}' === 'put',\n                        'green': '{{operation}}' === 'post',\n                        'red': '{{operation}}' === 'delete', }\"\n                        class=\"collapsible-header \"><i class=\"material-icons\">filter_drama</i>{{ operation | uppercase }}   {{ \" \" + path.currentName}}</div>\n                      <div class=\"collapsible-body \">\n                        <div class=\"section\">\n                          <div class=\"\">\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <input id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].summary\"\n                                ng-model=\"pathCtl.paths[pathName][operation].summary\"\n                                maxlength=\"150\" type=\"text\"/>\n                              <label id=\"label\"  for=\"label\">Summary</label>\n                            </div>\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <textarea id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].description\"\n                                ng-model=\"pathCtl.paths[pathName][operation].description\"\n                                class=\"materialize-textarea\"></textarea>\n                              <label id=\"label\" for=\"label\">Description</label>\n                            </div>\n                          </div>\n                        </div>\n                        <div class=\"Section\" ng-if=\"pathCtl.paths[pathName][operation]\">\n                          <sg-parameter sg-this-operation=\"{{operation}}\" sg-context=\"pathCtl.paths[pathName][operation]\"></sg-parameter>\n                          <sg-response sg-this-operation=\"{{operation}}\" sg-context=\"pathCtl.paths[pathName][operation].responses\"></sg-response>\n                        </div>\n\n                      </div>\n                    </li>\n                  </ul>\n                </div>\n                <div class=\"col s1 valign\" >\n                  <button class=\"btn-flat\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deleteOperation(pathName, operation)\">\n                  <i class=\"material-icons\">delete</i>\n                  </button>\n                </div>\n              </div>\n              {{path}}\n            </div>\n          </div>\n          {{paths}}\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
 
 /***/ },
-/* 89 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32732,7 +32880,7 @@
 	}
 
 /***/ },
-/* 90 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32745,7 +32893,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _parameter = __webpack_require__(91);
+	var _parameter = __webpack_require__(95);
 	
 	var _parameter2 = _interopRequireDefault(_parameter);
 	
@@ -32758,7 +32906,7 @@
 	exports.default = ParameterModule;
 
 /***/ },
-/* 91 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32767,11 +32915,11 @@
 	  value: true
 	});
 	
-	var _parameter = __webpack_require__(92);
+	var _parameter = __webpack_require__(96);
 	
 	var _parameter2 = _interopRequireDefault(_parameter);
 	
-	var _parameter3 = __webpack_require__(93);
+	var _parameter3 = __webpack_require__(97);
 	
 	var _parameter4 = _interopRequireDefault(_parameter3);
 	
@@ -32801,16 +32949,16 @@
 	}
 
 /***/ },
-/* 92 */
+/* 96 */
 /***/ function(module, exports) {
 
 	module.exports = "<h5>Parameters</h5>\n<table ng-if=\"paramControl.sgContext.parameters.length > 0;\" class=\" section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"name\">Name</th>\n      <th data-field=\"in\">Located In</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"required\">Required</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"param in paramControl.sgContext.parameters | orderBy:'name'\">\n      <div >\n        <td class=\"white-text shrink\">{{param.name}}</td>\n        <td class=\"white-text\">{{param.inLocation}}</td>\n        <td class=\"shrink white-text\">{{param.description}}</td>\n        <td class=\"white-text\">{{param.required}}</td>\n        <td class=\"shrink\">{{param.schema}}</td>\n        <td class=\"white-text\">\n          <a class=\"disabled\" href=\"#param-modal\" modal ng-click=\"paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addParameter\" novalidate ng-submit=\"addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation)\">\n  <div class=\"valign-wrapper\">\n    <div sg-unique-input class=\"input-field col s4 valign\">\n      <input id=\"input\" name=\"name\" ng-model=\"paramControl.newParamData[paramControl.sgThisOperation].name\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Parameter Name</label>\n    </div>\n    <div class=\"input-field col s4 valign\" >\n      <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"paramControl.newParamData[paramControl.sgThisOperation].inLocation\" sg-default-option=\"Choose Parameter Location\" sg-choices=\"paramControl.inLocationList\"></sg-dropdown>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\" ng-class=\"{ 'disabled': addParameter.name.$invalid }\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n  <div class=\"valign-wrapper\">\n    <div class=\"col s4 valign\">\n      <div  class=\"error\"\n            ng-show=\"addParameter.name.$dirty && addParameter.name.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addParameter.name.$error.required\">\n          Parameter name is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\"></div>\n    <div class=\"col s4\">\n    </div>\n  </div>\n</form>\n{{paramControl.paths}}\n"
 
 /***/ },
-/* 93 */
+/* 97 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -32821,35 +32969,10 @@
 	
 	function ParameterCtrl($scope, PathService, pms) {
 	
-	  this.path = {
-	    name: null,
-	    operation: null
-	  };
-	
-	  this.newParamData = {
-	    post: {
-	      name: null,
-	      inLocation: null
-	    },
-	    get: {
-	      name: null,
-	      inLocation: null
-	    },
-	    put: {
-	      name: null,
-	      inLocation: null
-	    },
-	    delete: {
-	      name: null,
-	      inLocation: null
-	    }
-	  };
-	
 	  this.inLocationList = ["path", "query", "header", "body", "formData"];
 	
 	  this.pLength = null;
 	
-	  //Param methods
 	  this.addParam = function (paramName, paramInLocation) {
 	
 	    try {
@@ -32859,7 +32982,9 @@
 	      Materialize.toast("Parameter name/query combo' already exists", 3000);
 	    }
 	
-	    this.newParamData[operation].name = "";
+	    //reset input data
+	    $scope.addParameter.$setPristine();
+	    resetNewParamData.call(this, this.sgThisOperation);
 	
 	    this.pLength = this.sgContext.parameters.length;
 	  };
@@ -32875,10 +33000,23 @@
 	
 	    pms.parameterToUpdate(pathName, operation, param);
 	  };
+	
+	  /**
+	    * @name resetNewParamData
+	    * @desc a helper function to reset the data of the intputs
+	    * @type {Function}
+	   **/
+	  function resetNewParamData(operation) {
+	    debugger;
+	    this.newParamData[operation] = {
+	      name: null,
+	      inLocation: null
+	    };
+	  }
 	}
 
 /***/ },
-/* 94 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32891,7 +33029,7 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _response = __webpack_require__(95);
+	var _response = __webpack_require__(99);
 	
 	var _response2 = _interopRequireDefault(_response);
 	
@@ -32904,7 +33042,7 @@
 	exports.default = ResponseModule;
 
 /***/ },
-/* 95 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32913,11 +33051,11 @@
 	  value: true
 	});
 	
-	var _response = __webpack_require__(96);
+	var _response = __webpack_require__(100);
 	
 	var _response2 = _interopRequireDefault(_response);
 	
-	var _response3 = __webpack_require__(97);
+	var _response3 = __webpack_require__(101);
 	
 	var _response4 = _interopRequireDefault(_response3);
 	
@@ -32947,13 +33085,13 @@
 	}
 
 /***/ },
-/* 96 */
+/* 100 */
 /***/ function(module, exports) {
 
 	module.exports = "<h5>Response</h5>\n<table ng-if=\"responseControl.rKeys > 0;\" class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseModal(responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[responseControl.sgThisOperation].httpCode\"\n              ng-pattern=\"/^(Default|default)?([0-9]+)?$/\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[responseControl.sgThisOperation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n  <div class=\"valign-wrapper\">\n    <div class=\"col s4\">\n      <div  class=\"error valign\" ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          Response code is required.\n        </small>\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.pattern\">\n          Response code can either be a number or set to 'default'\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\">\n      <div class=\"error valign\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          Response description is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\"></div>\n  </div>\n  <div class=\"row\"></div>\n</form>\n"
 
 /***/ },
-/* 97 */
+/* 101 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32966,16 +33104,19 @@
 	exports.default = ResponseController;
 	
 	function ResponseCtrl($scope, PathService, rms) {
-	
+	  debugger;
 	  /**
 	    * @name newResponseData
 	    * @desc Holds the state of the inputs. Only manipulated in the DOM
 	    * @type {Object}
 	   **/
-	  this.newResponseData[this.sgThisOperation] = {
-	    httpCode: null,
-	    description: null
-	  };
+	  // this.newResponseData = {
+	  //
+	  // }
+	  // this.newResponseData[this.sgThisOperation] = {
+	  //   httpCode: null,
+	  //   description: null
+	  // }
 	
 	  /**
 	    * @name rKeys
@@ -33017,6 +33158,7 @@
 	
 	    //reset input fields
 	    $scope.addResponse.$setPristine();
+	    debugger;
 	    resetNewResponseData.call(this, this.sgThisOperation);
 	
 	    this.rKeys = Object.keys(this.sgContext).length;
@@ -33036,7 +33178,7 @@
 	}
 
 /***/ },
-/* 98 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33049,11 +33191,11 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _angularMaterialize = __webpack_require__(99);
+	var _angularMaterialize = __webpack_require__(103);
 	
 	var _angularMaterialize2 = _interopRequireDefault(_angularMaterialize);
 	
-	var _definitions = __webpack_require__(101);
+	var _definitions = __webpack_require__(105);
 	
 	var _definitions2 = _interopRequireDefault(_definitions);
 	
@@ -33066,15 +33208,15 @@
 	exports.default = DefinitionsModule;
 
 /***/ },
-/* 99 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(100);
+	__webpack_require__(104);
 	module.exports = 'ui.materialize';
 
 
 /***/ },
-/* 100 */
+/* 104 */
 /***/ function(module, exports) {
 
 	(function (angular) {
@@ -33983,7 +34125,7 @@
 
 
 /***/ },
-/* 101 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33992,11 +34134,11 @@
 	  value: true
 	});
 	
-	var _definitions = __webpack_require__(102);
+	var _definitions = __webpack_require__(106);
 	
 	var _definitions2 = _interopRequireDefault(_definitions);
 	
-	var _definitions3 = __webpack_require__(103);
+	var _definitions3 = __webpack_require__(107);
 	
 	var _definitions4 = _interopRequireDefault(_definitions3);
 	
@@ -34014,13 +34156,13 @@
 	}
 
 /***/ },
-/* 102 */
+/* 106 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"container\" ng-cloak>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s6 m8 l10 valign\">\n              <h3>Definitions</h3>\n            </div>\n            <div class=\"col s6 m4 l2 valign right-align\">\n              <a ng-click=\"openFocusDefinitionModal()\"\n                  class=\"btn-floating btn-large waves-effect waves-light purple accent-4\" href=\"#definition-creation-modal\" modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n          <ul ng-repeat=\"(definition, defValue) in defControl.definitions\"\n            class=\"collapsible blue-grey darken-2\"\n            init-collapse\n            data-collapsible=\"accordion\">\n            <li>\n              <div class=\"collapsible-header blue-grey\">\n                {{definition}}\n              </div>\n              <div class=\"collapsible-body\">\n                <div class=\"section\">\n                  <span class=\"card-title col s12\">Attributes</span>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\"\n                      type=\"text\"\n                      placeholder=\"Some information about the Definition\"\n                      ng-model=\"defValue.description\"\n                      disabled>\n                    <label class=\"white-text active\">Description</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" ng-model=\"defValue.type\" disabled>\n                    <label class=\"white-text\">Type</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" placeholder=\"\" ng-model=\"defValue.required\" disabled>\n                    <label class=\"white-text\">Required</label>\n                  </div>\n                </div>\n                <div class=\"section\">\n                  <span class=\"card-title\">Properties</span>\n                  <table class=\"section bordered responsive-table\">\n                    <thead>\n                      <tr>\n                        <th ng-repeat=\"header in defControl.headers\"\n                          ng-attr-data-field=\"{{header}}\">{{header}}</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr ng-repeat=\"(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'\">\n                        <td class=\"white-text\">{{propertyName}}</td>\n                        <td class=\"white-text shrink\">{{propertyValue.description}}</td>\n                        <td class=\"white-text\">{{propertyValue.type}}</td>\n                        <td class=\"white-text\"\n                          ng-if=\"defValue.required.includes(propertyName);\">true</td>\n                        <td class=\"white-text\"\n                          ng-if=\"!defValue.required.includes(propertyName);\">false</td>\n                        <td class=\"white-text\">{{propertyValue.enum}}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col s6\">\n                    <button tooltipped\n                      class=\"btn-flat\"\n                      data-position=\"top\"\n                      data-delay=\"50\"\n                      data-tooltip=\"Delete Definition\"\n                      ng-click=\"defControl.deleteDefinition(definition);\">\n                    <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div class=\"col s6 \">\n                    <button class=\"btn-flat\"\n                      href=\"#definition-editor-modal\"\n                      ng-click=\"defControl.initDefinitionEditorModal(definition, defValue)\"\n                      modal>\n                    <i class=\"material-icons\">settings</i>\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </li>\n          </ul>\n          <sg-definition-creator-modal></sg-definition-creator-modal>\n          <sg-definition-editor-modal></sg-definition-editor-modal>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
-/* 103 */
+/* 107 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -34102,7 +34244,7 @@
 	}
 
 /***/ },
-/* 104 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34111,7 +34253,7 @@
 	  value: true
 	});
 	
-	var _app = __webpack_require__(105);
+	var _app = __webpack_require__(109);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
@@ -34133,7 +34275,7 @@
 	exports.default = appComponent;
 
 /***/ },
-/* 105 */
+/* 109 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\n  <sg-header></sg-header>\n  <sg-main></sg-main>\n  <sg-footer></sg-footer>\n</div>\n"

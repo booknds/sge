@@ -228,7 +228,7 @@ function ObjectFactory(){
       this.description = description || "";
       this.required = new Array();
       this.enum = null;
-      this.type = type || "Object";
+      this.type = type || "";
       this.properties = {};
     }
   };

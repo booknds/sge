@@ -16,54 +16,54 @@ function DefinitionEditorCtrl($scope, $window, ds, dems){
     name: null,
   };
 
-  vm.formats = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
-  vm.types = ['integer', 'number', 'string', 'boolean'];
+  // vm.formats = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
+  // vm.types = ['integer', 'number', 'string', 'boolean'];
 
   this.closeModal = false;
 
-  vm.toast = function(msg){
-    var message = msg || "No toast supplied, but hello!!";
-    Materialize.toast(msg, 2000);
-  }
+  // vm.toast = function(msg){
+  //   var message = msg || "No toast supplied, but hello!!";
+  //   Materialize.toast(msg, 2000);
+  // }
+  //
+  // vm.addProperty = function(definitionName, propertyName){
+  //   /*
+  //   try{
+  //     ds.addProperty(definitionName, propertyName);
+  //   }catch(e){
+  //       console.log(e);
+  //       Materialize.toast(e, 3000);
+  //   }
+  //   */
+  //
+  //   if(vm.tempDefinition.value.properties.hasOwnProperty(propertyName)){
+  //     Materialize.toast('Property already exists on this definition.');
+  //   }else{
+  //     vm.tempDefinition.value.properties[propertyName] =  ds.newSchema();
+  //     vm.tempDefinition.value.properties[propertyName].type = null;
+  //   }
+  //
+  //   //if(tempDefniition.value.properties.hasOwnProperty)
+  //
+  //   vm.newProperty.name = "";
+  //
+  // }
 
-  vm.addProperty = function(definitionName, propertyName){
-    /*
-    try{
-      ds.addProperty(definitionName, propertyName);
-    }catch(e){
-        console.log(e);
-        Materialize.toast(e, 3000);
-    }
-    */
-
-    if(vm.tempDefinition.value.properties.hasOwnProperty(propertyName)){
-      Materialize.toast('Property already exists on this definition.');
-    }else{
-      vm.tempDefinition.value.properties[propertyName] =  ds.newSchema();
-      vm.tempDefinition.value.properties[propertyName].type = null;
-    }
-
-    //if(tempDefniition.value.properties.hasOwnProperty)
-
-    vm.newProperty.name = "";
-
-  }
-
-  vm.togglePropertyRequired = function(propertyName, isRequired){
-    console.log("TOGGLE PROPERTY REQUIRED");
-    console.log(propertyName, isRequired);
-    if(isRequired){
-      vm.tempDefinition.value.required.push(propertyName);
-    }else{
-      for(var i = 0; i < vm.tempDefinition.value.required.length; i++){
-        if(vm.tempDefinition.value.required[i] === propertyName){
-          vm.tempDefinition.value.required.splice(i, 1);
-          return;
-        }
-
-      }
-    }
-  }
+  // vm.togglePropertyRequired = function(propertyName, isRequired){
+  //   console.log("TOGGLE PROPERTY REQUIRED");
+  //   console.log(propertyName, isRequired);
+  //   if(isRequired){
+  //     vm.tempDefinition.value.required.push(propertyName);
+  //   }else{
+  //     for(var i = 0; i < vm.tempDefinition.value.required.length; i++){
+  //       if(vm.tempDefinition.value.required[i] === propertyName){
+  //         vm.tempDefinition.value.required.splice(i, 1);
+  //         return;
+  //       }
+  //
+  //     }
+  //   }
+  // }
 
   vm.updateDefinition = function(originalDefinition, newDefinition){
     console.log("CONTROLLER - Update definition");
@@ -76,13 +76,13 @@ function DefinitionEditorCtrl($scope, $window, ds, dems){
     }
   }
 
-  vm.deleteProperty = function(propertyName){
-    if($window.confirm('Are you sure you want to delete the property?')){
-      delete vm.tempDefinition.value.properties[propertyName];
-    }else{
-      console.log("Don't delete property")
-    }
-  }
+  // vm.deleteProperty = function(propertyName){
+  //   if($window.confirm('Are you sure you want to delete the property?')){
+  //     delete vm.tempDefinition.value.properties[propertyName];
+  //   }else{
+  //     console.log("Don't delete property")
+  //   }
+  // }
 
   $scope.$watch(function(){return dems.currentDefinition;}, function(newVal){
 

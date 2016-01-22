@@ -5,16 +5,19 @@ let ResponseController = ["$scope", "PathService", "ResponseModalService", Respo
 export default ResponseController;
 
 function ResponseCtrl($scope, PathService, rms){
-
+  debugger;
   /**
     * @name newResponseData
     * @desc Holds the state of the inputs. Only manipulated in the DOM
     * @type {Object}
    **/
-  this.newResponseData[this.sgThisOperation] = {
-    httpCode: null,
-    description: null,
-  }
+  // this.newResponseData = {
+  //
+  // }
+  // this.newResponseData[this.sgThisOperation] = {
+  //   httpCode: null,
+  //   description: null
+  // }
 
   /**
     * @name rKeys
@@ -57,6 +60,7 @@ function ResponseCtrl($scope, PathService, rms){
 
     //reset input fields
     $scope.addResponse.$setPristine();
+    debugger;
     resetNewResponseData.call(this, this.sgThisOperation);
 
     this.rKeys= Object.keys(this.sgContext).length;

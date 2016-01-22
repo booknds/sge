@@ -1,17 +1,18 @@
 <div id="definition-editor-modal" class="modal blue-grey darken-1 modal-fixed-footer"
       sg-modal-closer ng-model="definitionEditor.closeModal" modal-id="definition-editor-modal">
 
-  <form name="createDefinition"
-        ng-submit=""
-        novalidate>
     <div class="modal-content">
+      <sg-schema-editor sg-context="definitionEditor.tempDefinition.value" sg-restrict-to-object="true"></sg-schema-editor>
+      <!-- <form name="createDefinition"
+            ng-submit=""
+            novalidate>
       <div class="row">
         <div class="left-align col s12">
-          <h4>Edit Definition</h4>]
+          <h4>Edit Definition</h4>
         </div>
         <div class="input-field col s12 ">
           <input id="definition-name" type="text" ng-model="definitionEditor.tempDefinition.name" required="" aria-required="true">
-          <label for="definition-name">Definition Name</label>
+          <label for="definition-name">Name</label>
         </div>
         <div class="input-field col s12">
           <textarea id="definition-description" ng-model="definitionEditor.tempDefinition.value.description" class="materialize-textarea"></textarea>
@@ -115,19 +116,12 @@
                 <i class="material-icons">delete</i>
                 </button>
               </div>
-              <!--div class="input-field col s1 valign">
-                <button tooltipped
-                        class="btn col "
-                        data-position="top"
-                        data-delay="50"
-                        data-tooltip="Update Property Data">
-                <i class="material-icons">done</i>
-                </button>
-              </div-->
+
             </div>
           </div>
         </li>
       </ul>
+      </form> -->
     </div>
     <div class="modal-footer blue-grey darken-1 ">
       <div>
@@ -147,5 +141,5 @@
         </button>
       </div>
     </div>
-  </form>
+
 </div>

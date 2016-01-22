@@ -12,7 +12,7 @@ function TextInputComponent(){
       ngModel: '=',
       sgLabel: '@',
       required: '=?',
-      ngPattern: '=?',
+      ngPattern: '@?',
     },
     controller,
     controllerAs: 'textInputCtrl',

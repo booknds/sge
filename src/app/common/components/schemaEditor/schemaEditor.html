@@ -1,0 +1,125 @@
+<form name="editSchema" ng-submit="" novalidate>
+  {{schema}}
+  <div class="row">
+    <div class="input-field col s12">
+      <textarea id="sgContext-description" ng-model="schema.sgContext.description" class="materialize-textarea"></textarea>
+      <label for="sgContext-description">Description</label>
+    </div>
+      <sg-text-input class="input-field col col s4" sg-unique-input sg-label="$ref" ng-model="schema.sgContext.$ref"></sg-text-input>
+    <!-- <div class="input-field col s4">
+      <input id="sgContext-ref" type="text" ng-model="schema.sgContext.$ref" >
+      <label for="sgContext-ref">$ref</label>
+    </div> -->
+    <!-- <sg-text-input class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgContext.type"></sg-text-input> -->
+    <div ng-show="schema.sgRestrictToObject === 'true'" class="input-field col s4">
+      <input id="sgContext-type" type="text"
+              ng-model="schema.sgContext.type"
+              disabled>
+      <label for="sgContext-type">Type</label>
+    </div>
+    <sg-text-input ng-hide="schema.sgRestrictToObject === 'true'" class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgContext.type"></sg-text-input>
+    <div class="input-field col s4">
+      <input id="sgContext-enum" type="text" disabled value="" ng-model="schema.sgContext.required">
+      <label class="active" for="sgContext-enum">Required</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <h5>Properties</h5>
+    </div>
+    <div class="col s12">
+      <form ng-submit="" novalidate>
+        <sg-text-input class="input-field col col s6" sg-unique-input sg-label="Property Name" ng-model="schema.newProperty.name" required="true"></sg-text-input>
+        <!-- <div class="input-field col s6">
+          <input id="new-property-name" type="text" ng-model="schema.newProperty.name" required aria-required="true">
+          <label for="new-property-name">Property Name</label>
+        </div> -->
+        <div class="input-field col s6">
+          <button type="submit"
+            ng-if="!schema.newProperty.name"
+            ng-click="schema.toast('Name cannot be empty')"
+            class=" waves-effect waves-green btn disabled">
+            <i class="material-icons">add</i>
+          </button>
+          <button
+            ng-if="schema.newProperty.name"
+            ng-class="{'disabled': !schema.newProperty.name}"
+            ng-click="schema.addProperty(schema.sgContext.name, schema.newProperty.name);"
+            class=" waves-effect waves-green btn">
+            <i class="material-icons">add</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ul ng-repeat="(property, pValue) in schema.sgContext.properties | orderBy:'property'"
+      class="collapsible blue-grey darken-2"
+      init-collapse
+      data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header blue-grey">
+        {{property}}
+      </div>
+      <div class="collapsible-body ">
+        <div class=" valign-wrapper section">
+          <sg-text-input class="input-field col col s3 valign" sg-unique-input sg-label="Description" ng-model="pValue.description" required="true"></sg-text-input>
+          <!-- <div class="input-field col s3 valign">
+            <input id="new-property-name" type="text" ng-model="pValue.description" required aria-required="true">
+            <label for="new-property-name">Description</label>
+          </div> -->
+          <div class="input-field col s2 valign">
+            <sg-dropdown class="browser-default" style="background-color: #455a64;" ng-model="pValue.type" sg-choices="schema.types" sg-default-option="Choose a Type"></sg-dropdown>
+            <!-- <select class="browser-default" style="background-color: #455a64;" select-value
+                    ng-model="pValue.type">
+              <option value="" selected>Choose a Type</option>
+              <option ng-repeat="type in schema.types"
+                      ng-attr-value="{{ type }}"
+                      ng-attr-id="{{ type }}">{{ type }}</option>
+            </select> -->
+          </div>
+          <div class="input-field col s2 valign">
+            <sg-dropdown class="browser-default" style="background-color: #455a64;" ng-model="pValue.format" sg-choices="schema.formats" sg-default-option="Property Format"></sg-dropdown>
+            <!-- <select class="browser-default" style="background-color: #455a64;" select-value ng-model="pValue.format">
+              <option value="" selected>Property Format</option>
+              <option ng-repeat="format in schema.formats"
+                      ng-attr-value="{{ format }}"
+                      ng-attr-id="{{ format }}">{{ format }}</option>
+            </select> -->
+          </div>
+          <div class="input-field col s4 valign">
+            <input id="property-enum" type="text" placeholder="value,must,be,comma,separated" value=""
+            ng-model="pValue.enum">
+            <label class="active" for="property-enum">Enum</label>
+          </div>
+          <div class="input-field col s2 valign valign-wrapper">
+            <p sg-unique-input class="valign">
+              <input type="checkbox" id="input" ng-model="schema[property].required" ng-click="schema.toggleRequired(property, schema[property].required)"/>
+              <label id="label" for="label">Required</label>
+            </p>
+          </div>
+        </div>
+        <div class="valign-wrapper section" >
+          <div class="input-field col s1 offset-s11 valign">
+            <button tooltipped
+                    class="btn col "
+                    data-position="top"
+                    data-delay="50"
+                    data-tooltip="Delete Property"
+                    ng-click="schema.deleteProperty(property)">
+            <i class="material-icons">delete</i>
+            </button>
+          </div>
+          <!--div class="input-field col s1 valign">
+            <button tooltipped
+                    class="btn col "
+                    data-position="top"
+                    data-delay="50"
+                    data-tooltip="Update Property Data">
+            <i class="material-icons">done</i>
+            </button>
+          </div-->
+        </div>
+      </div>
+    </li>
+  </ul>
+</form>
