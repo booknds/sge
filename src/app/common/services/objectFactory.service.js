@@ -127,7 +127,7 @@ function ObjectFactory(){
       this.inLocation = inLocation || "query";
       this.description = null;
       this.required = (this.inLocation === "path") ? true : false;
-      this.schema = new Object();
+      this.schema = newSchema();
       this.type = "";
       this.format ="";
       this.allowEmptyValue = false;
@@ -214,7 +214,7 @@ function ObjectFactory(){
   let Response = {
     init: function(descrip){
       this.description = descrip,
-      this.schema = new Object(),
+      this.schema = newSchema(),
       this.headers = new Object(),
       this.examples = new Object()
     }
@@ -230,7 +230,10 @@ function ObjectFactory(){
       this.enum = null;
       this.type = type || "";
       this.properties = {};
-    }
+    },
+
+
+
   };
 
   function newDefinitions(){

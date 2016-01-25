@@ -12,7 +12,7 @@ function schemaEditorCtrl($scope, $window, PathService, ObjectFactory){
     * @type {Object}
    **/
   this.schema = {
-    definition: this.sgContext,
+    definition: this.sgSchemaObject,
   };
 
   this.formats = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
@@ -23,11 +23,11 @@ function schemaEditorCtrl($scope, $window, PathService, ObjectFactory){
     console.log("TOGGLE PROPERTY REQUIRED");
     console.log(propertyName, isRequired);
     if(isRequired){
-      this.sgContext.required.push(propertyName);
+      this.sgSchemaObject.required.push(propertyName);
     }else{
-      for(var i = 0; i < this.sgContext.required.length; i++){
-        if(this.sgContext.required[i] === propertyName){
-          this.sgContext.required.splice(i, 1);
+      for(var i = 0; i < this.sgSchemaObject.required.length; i++){
+        if(this.sgSchemaObject.required[i] === propertyName){
+          this.sgSchemaObject.required.splice(i, 1);
           return;
         }
       }
@@ -41,11 +41,11 @@ function schemaEditorCtrl($scope, $window, PathService, ObjectFactory){
 
   this.addProperty = function(definitionName, propertyName){
     debugger;
-    if(this.sgContext.properties.hasOwnProperty(propertyName)){
+    if(this.sgSchemaObject.properties.hasOwnProperty(propertyName)){
       Materialize.toast('Property already exists on this definition.');
     }else{
-      this.sgContext.properties[propertyName] =  ObjectFactory.newSchema();
-      //this.sgContext.properties[propertyName].type = null;
+      this.sgSchemaObject.properties[propertyName] =  ObjectFactory.newSchema();
+      //this.sgSchemaObject.properties[propertyName].type = null;
     }
 
     //if(tempDefniition.properties.hasOwnProperty)
@@ -56,7 +56,7 @@ function schemaEditorCtrl($scope, $window, PathService, ObjectFactory){
 
   this.deleteProperty = function(propertyName){
     if($window.confirm('Are you sure you want to delete the property?')){
-      delete this.sgContext.properties[propertyName];
+      delete this.sgSchemaObject.properties[propertyName];
     }else{
       console.log("Don't delete property")
     }

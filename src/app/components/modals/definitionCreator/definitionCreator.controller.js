@@ -16,7 +16,8 @@ function DefinitionCreationCtrl($scope, ds){
   vm.addDefinition = function(definitionName, description){
 
     try{
-      ds.addDefinition(definitionName, description);
+      debugger;
+      ds.addDefinition.call(ds, definitionName, description, 'object');
     }catch(e){
       console.log(e);
       Materialize.toast(e, 3000);

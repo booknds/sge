@@ -5,7 +5,7 @@ let ResponseController = ["$scope", "PathService", "ResponseModalService", Respo
 export default ResponseController;
 
 function ResponseCtrl($scope, PathService, rms){
-  debugger;
+  //debugger;
   /**
     * @name newResponseData
     * @desc Holds the state of the inputs. Only manipulated in the DOM

@@ -7,7 +7,11 @@ function DefinitionsCtrl($scope, $window, ds, dems){
 
   var vm = this;
 
+  // debugger;
+
   vm.definitions = ds.definitions;
+  vm.headers = ['Name', 'Description', 'Type', 'Required', 'Enum'];
+  vm.Types = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'];
 
   $scope.focusDefinitionModal = false;
 
@@ -17,35 +21,34 @@ function DefinitionsCtrl($scope, $window, ds, dems){
     //$scope.focusPathModal = !$scope.focusPathModal;
   }
 
-  $scope.$watch(function(){return ds.definitions;}, function(newVal){
-    console.log("DEFINITIONS HIT");
-    if(newVal){
-      console.log(newVal);
-      console.log("DEFINITIONS CHANGED");
-      vm.definitions = ds.definitions;
-    }
-  }, true);
+  // $scope.$watch(function(){return ds;}, function(newVal){
+  //   console.log("DEFINITIONS HIT");
+  //   debugger;
+  //   if(newVal){
+  //     console.log(newVal);
+  //     console.log("DEFINITIONS CHANGED");
+  //     vm.definitions = ds;
+  //     console.log(ds)
+  //   }
+  // }, true);
 
-  vm.headers = ['Name', 'Description', 'Type', 'Required', 'Enum'];
-  vm.Types = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'];
-
-  vm.showDefinitionProperty = function show(def, prop){
-    var allowedProperties = ['name', 'description', 'type', 'required', 'enum'];
-
-    console.log(def, prop);
-
-    var show = false;
-
-    if(!def[prop]){
-      for(var i = 0; i < allowedProperties.length; i++){
-        if(prop === allowedProperties)
-          show = true;
-      }
-    }
-
-    console.log("returning " + show);
-    return show;
-  }
+  // vm.showDefinitionProperty = function show(def, prop){
+  //   var allowedProperties = ['name', 'description', 'type', 'required', 'enum'];
+  //
+  //   console.log(def, prop);
+  //
+  //   var show = false;
+  //
+  //   if(!def[prop]){
+  //     for(var i = 0; i < allowedProperties.length; i++){
+  //       if(prop === allowedProperties)
+  //         show = true;
+  //     }
+  //   }
+  //
+  //   console.log("returning " + show);
+  //   return show;
+  // }
 
   vm.initDefinitionEditorModal = function(definitionName, definitionValue){
     console.log("initDefinitionEditorModal");

@@ -5,6 +5,7 @@ export default definitions;
 function DefinitionsService(ObjectFactory){
 
   this.addDefinition = function(definitionName, description, type){
+    debugger;
     if(hasDefinition(definitionName))
       throw "Cannot Add, Definition Already Exists"
     else{
@@ -12,9 +13,9 @@ function DefinitionsService(ObjectFactory){
       //definitions[definitionName] = {
       //  poop:'hi'
       //}
-      this.definitions.addDefinition(definitionName, description, 'object');
-      console.log(definitions);
-      console.log(this.definitions);
+      this.definitions.addDefinition(definitionName, description, type);
+      // console.log(definitions);
+      // console.log(this.definitions);
     }
   }
 
@@ -27,8 +28,8 @@ function DefinitionsService(ObjectFactory){
 
   this.addProperty = function(definitionName, propertyName){
 
-    console.log("this add property");
-    console.log(definitionName, propertyName);
+    // console.log("this add property");
+    // console.log(definitionName, propertyName);
 
     if(hasProperty(definitionName, propertyName)){
       throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
@@ -36,7 +37,7 @@ function DefinitionsService(ObjectFactory){
     }else {
 
         definitions[definitionName].properties[propertyName] = ObjectFactory.newSchema();
-        definitions[definitionName].properties[propertyName].type = null;
+        //definitions[definitionName].properties[propertyName].type = null;
     }
 
   };
@@ -103,6 +104,8 @@ function DefinitionsService(ObjectFactory){
   this.definitions = definitions;
   //console.log(definitions);
 
-  return this.definitions;
+  //debugger;
+
+  return this;
 
 }

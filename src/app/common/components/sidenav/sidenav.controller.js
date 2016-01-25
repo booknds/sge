@@ -34,7 +34,7 @@ function SidenavCtrl($scope, $element, $attrs, cs, FileSaver, Blob){
       return;
     }
 
-    var data = new Blob([JSON.stringify(text)], { type: 'application/json' });
+    var data = new Blob([JSON.stringify(text, null, '\t')], { type: 'application/json' });
     FileSaver.saveAs(data, 'swagger.json');
   }
 

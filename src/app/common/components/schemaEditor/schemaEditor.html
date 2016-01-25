@@ -1,26 +1,27 @@
-<form name="editSchema" ng-submit="" novalidate>
+<!-- <form name="editSchema" ng-submit="" novalidate> -->
+<!-- <div ng-init="scope."> -->
   {{schema}}
   <div class="row">
     <div class="input-field col s12">
-      <textarea id="sgContext-description" ng-model="schema.sgContext.description" class="materialize-textarea"></textarea>
-      <label for="sgContext-description">Description</label>
+      <textarea id="sgSchemaObject-description" ng-model="schema.sgSchemaObject.description" class="materialize-textarea"></textarea>
+      <label for="sgSchemaObject-description">Description</label>
     </div>
-      <sg-text-input class="input-field col col s4" sg-unique-input sg-label="$ref" ng-model="schema.sgContext.$ref"></sg-text-input>
+      <sg-text-input class="input-field col col s4" sg-unique-input sg-label="$ref" ng-model="schema.sgSchemaObject.$ref"></sg-text-input>
     <!-- <div class="input-field col s4">
-      <input id="sgContext-ref" type="text" ng-model="schema.sgContext.$ref" >
-      <label for="sgContext-ref">$ref</label>
+      <input id="sgSchemaObject-ref" type="text" ng-model="schema.sgSchemaObject.$ref" >
+      <label for="sgSchemaObject-ref">$ref</label>
     </div> -->
-    <!-- <sg-text-input class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgContext.type"></sg-text-input> -->
-    <div ng-show="schema.sgRestrictToObject === 'true'" class="input-field col s4">
-      <input id="sgContext-type" type="text"
-              ng-model="schema.sgContext.type"
+    <!-- <sg-text-input class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgSchemaObject.type"></sg-text-input> -->
+    <div ng-show="schema.sgRestrictTypeToObject === 'true'" class="input-field col s4">
+      <input id="sgSchemaObject-type" type="text"
+              ng-model="schema.sgSchemaObject.type"
               disabled>
-      <label for="sgContext-type">Type</label>
+      <label for="sgSchemaObject-type">Type</label>
     </div>
-    <sg-text-input ng-hide="schema.sgRestrictToObject === 'true'" class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgContext.type"></sg-text-input>
+    <sg-text-input ng-hide="schema.sgRestrictTypeToObject === 'true'" class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgSchemaObject.type"></sg-text-input>
     <div class="input-field col s4">
-      <input id="sgContext-enum" type="text" disabled value="" ng-model="schema.sgContext.required">
-      <label class="active" for="sgContext-enum">Required</label>
+      <input id="sgSchemaObject-enum" type="text" disabled value="" ng-model="schema.sgSchemaObject.required">
+      <label class="active" for="sgSchemaObject-enum">Required</label>
     </div>
   </div>
   <div class="row">
@@ -28,13 +29,18 @@
       <h5>Properties</h5>
     </div>
     <div class="col s12">
-      <form ng-submit="" novalidate>
+      <form name="propertyCreator" ng-submit="propertyCreator.$valid && schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);" novalidate>
         <sg-text-input class="input-field col col s6" sg-unique-input sg-label="Property Name" ng-model="schema.newProperty.name" required="true"></sg-text-input>
         <!-- <div class="input-field col s6">
           <input id="new-property-name" type="text" ng-model="schema.newProperty.name" required aria-required="true">
           <label for="new-property-name">Property Name</label>
         </div> -->
+        {{propertyCreator}}
         <div class="input-field col s6">
+          <!-- <button type="submit" name="action" close-path-modal ng-class="{'disabled': propertyCreator.$invalid}"
+            class=" waves-effect waves-green btn">
+            Create
+          </button> -->
           <button type="submit"
             ng-if="!schema.newProperty.name"
             ng-click="schema.toast('Name cannot be empty')"
@@ -44,7 +50,7 @@
           <button
             ng-if="schema.newProperty.name"
             ng-class="{'disabled': !schema.newProperty.name}"
-            ng-click="schema.addProperty(schema.sgContext.name, schema.newProperty.name);"
+            ng-click="schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);"
             class=" waves-effect waves-green btn">
             <i class="material-icons">add</i>
           </button>
@@ -52,7 +58,7 @@
       </form>
     </div>
   </div>
-  <ul ng-repeat="(property, pValue) in schema.sgContext.properties | orderBy:'property'"
+  <ul ng-repeat="(property, pValue) in schema.sgSchemaObject.properties | orderBy:'property'"
       class="collapsible blue-grey darken-2"
       init-collapse
       data-collapsible="accordion">
@@ -122,4 +128,4 @@
       </div>
     </li>
   </ul>
-</form>
+<!-- </form> -->

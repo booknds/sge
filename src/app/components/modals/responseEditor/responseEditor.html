@@ -16,12 +16,19 @@
         <label for="response-modal-description">Description</label>
       </div>
       <div class="row valign-wrapper">
-        <div class="input-field col s12 valign"
+        TODO ADD HEADERS AND EXAMPLES TEXT AREAS
+        <!-- <div class="input-field col s12 valign"
           ng-repeat="(key, value) in rmControl.tempResponse.response"
           ng-if="key !== 'description'">
           <textarea ng-attr-id="response-modal-{{key}}" ng-model="rmControl.tempResponse.response[key]" class="materialize-textarea"></textarea>
           <label ng-attr-for="response-modal-{{key}}">{{ key | capitalize}}</label>
+        </div> -->
+      </div>
+      <div class="section">
+        <div>
+          <h5>Schema</h5>
         </div>
+        <sg-schema-editor sg-schema-object="rmControl.tempResponse.response.schema" sg-restrict-type-to-object="false"></sg-schema-editor>
       </div>
     </div>
     <div class="modal-footer blue-grey darken-1 ">

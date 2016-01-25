@@ -30,7 +30,7 @@ function ParameterCtrl($scope, PathService, pms){
 
     var param = this.sgContext.getParameter(paramName, paramInLocation);
 
-    debugger;
+    //debugger;
     //pms.initParameter(this.sgContext, paramName, paramInLocation);
 
     pms.initParameter(this.sgContext, param);
@@ -45,7 +45,7 @@ function ParameterCtrl($scope, PathService, pms){
     * @type {Function}
    **/
   function resetNewParamData(operation){
-    debugger;
+    //debugger;
     this.newParamData[operation] = {
       name: null,
       inLocation: null,
