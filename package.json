@@ -9,8 +9,11 @@
   "author": "",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "angular": "~1.4.8",
+    "angular": "^1.4.9",
+    "angular-animate": "^1.4.9",
+    "angular-aria": "^1.4.9",
     "angular-file-saver": "~1.0.2",
+    "angular-material": "^1.0.2",
     "angular-materialize": "~0.1.2",
     "babel-core": "~6.4.0",
     "babel-loader": "~6.2.1",
@@ -30,7 +33,7 @@
     "webpack": "~1.12.10"
   },
   "dependencies": {
-    "angular": "~1.4.8",
+    "angular": "^1.4.9",
     "jquery": "~2.2.0"
   }
 }
