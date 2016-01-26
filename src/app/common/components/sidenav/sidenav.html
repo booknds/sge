@@ -71,7 +71,12 @@
                   <span>From Local</span>
                 </label>
               </md-button>
-              <input style="display:none; " id="file-input" type="file">
+              <input file-change="sidenav.onChange()" ng-model="this.fileUpload" style="display:none;" id="file-input" type="file">
+            </li>
+            <li>
+              {{files}}
+              {{sidenav}}
+
             </li>
           </ul>
         </div>

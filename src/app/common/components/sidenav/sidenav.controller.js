@@ -1,18 +1,74 @@
-let sideNavArray = ["$scope", '$element', '$attrs', "CompilerService", 'FileSaver', 'Blob', SidenavCtrl];
+let sideNavArray = ["$scope", '$http', "CompilerService", 'FileSaver', 'Blob', SidenavCtrl];
 
 export default sideNavArray;
 
-function SidenavCtrl($scope, $element, $attrs, cs, FileSaver, Blob){
+function SidenavCtrl($scope, $http, cs, FileSaver, Blob){
   //var vm =  this;
 
   this.compiledDocument = cs.compiled;
 
-  console.log($element);
-  console.log($attrs);
+  this.pickedFile = "";
+  $scope.files = "poop";
 
+  // $scope.$watch(function(){return this.pickedFile}.bind(this), function(newVal){
+  //   if(newVal){
+  //     debugger;
+  //     console.log(newVal);
+  //     this.pickedFile = JSON.parse(newVal);
+  //   }
+  // }.bind(this));
 
+  this.onChange = function onChange_handler(event) {
+    debugger;
+    let file = event.target.files[0];
+    let reader = new FileReader();
+
+    //set up the onload property to fire when readAsText() below is compeleted;
+    reader.onload = function __handler__(event){
+      debugger;
+      console.log(reader);
+      $scope.$apply(function __handler__(){
+        this.pickedFile = angular.copy(reader.result);
+        this.pickedFile = JSON.parse(this.pickedFile);
+      }.bind(this));
+      //$scope.files = reader.result;
+    }.bind(this);
+
+    reader.readAsText(file);
+  }
+
+  // $scope.$on("fileSelected", function (event, args) {
+  //       $scope.$apply(function () {
+  //           //add the file object to the scope's files collection
+  //           debugger;
+  //
+  //           // if (!f.type.match('image.*')) {
+  //           //   continue;
+  //           // }
+  //
+  //           let reader = new FileReader();
+  //
+  //
+  //           //set up the onload property to fire when readAsText() below is compeleted;
+  //           reader.onload = function __handler__(event){
+  //             debugger;
+  //             console.log(reader);
+  //             $scope.$apply(function __handler__(){
+  //               this.pickedFile = angular.copy(reader.result);
+  //               this.pickedFile = JSON.parse(this.pickedFile);
+  //             }.bind(this));
+  //             //$scope.files = reader.result;
+  //           }.bind(this);
+  //
+  //           reader.readAsText(args.file);
+  //
+  //
+  //       }.bind(this));
+  //   }.bind(this));
 
   // console.log($element(".button-collapse"))
+
+
 
   /*
   *

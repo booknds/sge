@@ -9,6 +9,7 @@ import TextField from './textInputField/textInputField';
 import Dropdown from './dropdown/dropdown';
 import TextArea from './textareaInput/textareaInput';
 import SchemaEditor from './schemaEditor/schemaEditor';
+import FileUpload from './fileUpload/fileUpload'
 
 let CommonComponents =
   angular.module('common.components',
@@ -22,7 +23,8 @@ let CommonComponents =
       TextField.name,
       Dropdown.name,
       TextArea.name,
-      SchemaEditor.name
+      SchemaEditor.name,
+      FileUpload.name
     ]);
 
 export default CommonComponents;
