@@ -30080,13 +30080,13 @@
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<!--<ul id=\"nav-mobile\" class=\"side-nav fixed hide-on-small-only\" style=\"width:240px; background-color:#512DA8\">\n  <li class=\"search\" style=\"position: absolute; left: 0; right: 0; top: 120px; margin-top: 1px; padding: 1px 0 0 0; z-index: 2;\">\n    <div class=\"search-wrapper card\" style=\"margin: 0 12px; -webkit-transition: margin .25s ease; -moz-transition: margin .25s ease; -o-transition: margin .25s ease; -ms-transition: margin .25s ease; transition: margin .25s ease;\">\n      <input id=\"search\" style=\"    display: block; font-size: 16px; font-weight: 300; width: 100%; height: 45px; padding: 0 45px 0 15px; border: 0;\">\n      <i class=\"material-icons\" style=\"position: absolute; top: 10px; right: 10px; cursor: pointer;\">search</i>\n      <div class=\"search-results\" style=\"margin: 0; border-top: 1px solid #e9e9e9; background-color: #fff;\"></div>\n    </div>\n  </li>\n  <li class=\"no-padding\">\n    <ul class=\"collapsible collapsible-accordion\">\n      <li class=\"bold\">\n        <a class=\"collapsible-header  waves-effect waves-teal\">APIs</a>\n        <div class=\"collapsible-body\" style=\"\">\n          <ul>\n            <li><a href=\"color.html\">Color</a></li>\n            <li><a href=\"grid.html\">Grid</a></li>\n            <li><a href=\"helpers.html\">Helpers</a></li>\n            <li><a href=\"media-css.html\">Media</a></li>\n            <li><a href=\"sass.html\">Sass</a></li>\n            <li><a href=\"shadow.html\">Shadow</a></li>\n            <li><a href=\"table.html\">Table</a></li>\n            <li><a href=\"typography.html\">Typography</a></li>\n          </ul>\n        </div>\n      </li>\n    </ul>\n  </li>\n</ul>\n<a href=\"#\" class=\"button-collapse\" data-activates=\"nav-mobile\" data-sidenav=\"left\" data-menuwidth=\"500\" data-closeonclick=\"false\">\n    Show side-nav\n</a>-->\n<ul id=\"nav-mobile\" class=\"side-nav fixed\">\n  <div style=\"background-color: #3F1C3E;padding-top:10px;padding-bottom:0px;\">\n    <li class=\"logo center-align\" style=\"background-color: #3F1C3E;\">\n      <a id=\"logo-container\" href=\"http://www.booknds.com/\" style=\"background-color: #3F1C3E;\" class=\"brand-logo\">\n        <h3 class=\"white-text\" style=\"background-color: #3F1C3E;\">\n          Booknds\n        </h3>\n      </a>\n    </li>\n  </div>\n  <!--li class=\"search\">\n    <div class=\"search-wrapper card\">\n      <input id=\"search\"><i class=\"material-icons\">search</i>\n      <div class=\"search-results\"></div>\n    </div>\n  </li-->\n  <li class=\"no-padding white-text\">\n    <ul class=\"collapsible collapsible-accordion\">\n      <li>\n        <a class=\"collapsible-header\">Save<i class=\"mdi-navigation-arrow-drop-down\"></i></a>\n        <div class=\"collapsible-body\">\n          <ul>\n            <li><a href=\"#!\">To SwaggerHub</a></li>\n            <li><a href=\"\" ng-click=\"sidenav.download();\">To Local</a></li>\n          </ul>\n        </div>\n      </li>\n    </ul>\n  </li>\n  <li class=\"no-padding\">\n    <ul class=\"collapsible collapsible-accordion\">\n      <li>\n        <a class=\"collapsible-header\">Open<i class=\"mdi-navigation-arrow-drop-down\"></i></a>\n        <div class=\"collapsible-body\">\n          <ul>\n            <li><a href=\"#!\">From SwaggerHub</a></li>\n            <li>\n              <md-button style=\"margin: 0 1rem 0 2rem; display: block; padding: 0 15px; -webkit-tap-highlight-color: transparent; background-color: transparent; border:0; text-decoration: none; font-size: 1rem; height: 64px; line-height: 64px; color: #444;\">\n                <label  style=\"color:#444; display:block; text-transform:none; font-weight:normal; font-size: 1rem;\"for=\"file-input\">\n                  <span>From Local</span>\n                </label>\n              </md-button>\n              <input file-change=\"sidenav.onChange()\" ng-model=\"this.fileUpload\" style=\"display:none;\" id=\"file-input\" type=\"file\">\n            </li>\n            <li>\n              {{files}}\n              {{sidenav}}\n\n            </li>\n          </ul>\n        </div>\n      </li>\n    </ul>\n  </li>\n\n</ul>\n"
+	module.exports = "<!--<ul id=\"nav-mobile\" class=\"side-nav fixed hide-on-small-only\" style=\"width:240px; background-color:#512DA8\">\n  <li class=\"search\" style=\"position: absolute; left: 0; right: 0; top: 120px; margin-top: 1px; padding: 1px 0 0 0; z-index: 2;\">\n    <div class=\"search-wrapper card\" style=\"margin: 0 12px; -webkit-transition: margin .25s ease; -moz-transition: margin .25s ease; -o-transition: margin .25s ease; -ms-transition: margin .25s ease; transition: margin .25s ease;\">\n      <input id=\"search\" style=\"    display: block; font-size: 16px; font-weight: 300; width: 100%; height: 45px; padding: 0 45px 0 15px; border: 0;\">\n      <i class=\"material-icons\" style=\"position: absolute; top: 10px; right: 10px; cursor: pointer;\">search</i>\n      <div class=\"search-results\" style=\"margin: 0; border-top: 1px solid #e9e9e9; background-color: #fff;\"></div>\n    </div>\n  </li>\n  <li class=\"no-padding\">\n    <ul class=\"collapsible collapsible-accordion\">\n      <li class=\"bold\">\n        <a class=\"collapsible-header  waves-effect waves-teal\">APIs</a>\n        <div class=\"collapsible-body\" style=\"\">\n          <ul>\n            <li><a href=\"color.html\">Color</a></li>\n            <li><a href=\"grid.html\">Grid</a></li>\n            <li><a href=\"helpers.html\">Helpers</a></li>\n            <li><a href=\"media-css.html\">Media</a></li>\n            <li><a href=\"sass.html\">Sass</a></li>\n            <li><a href=\"shadow.html\">Shadow</a></li>\n            <li><a href=\"table.html\">Table</a></li>\n            <li><a href=\"typography.html\">Typography</a></li>\n          </ul>\n        </div>\n      </li>\n    </ul>\n  </li>\n</ul>\n<a href=\"#\" class=\"button-collapse\" data-activates=\"nav-mobile\" data-sidenav=\"left\" data-menuwidth=\"500\" data-closeonclick=\"false\">\n    Show side-nav\n</a>-->\n<ul id=\"nav-mobile\" class=\"side-nav fixed\">\n  <div style=\"background-color: #3F1C3E;padding-top:10px;padding-bottom:0px;\">\n    <li class=\"logo center-align\" style=\"background-color: #3F1C3E;\">\n      <a id=\"logo-container\" href=\"http://www.booknds.com/\" style=\"background-color: #3F1C3E;\" class=\"brand-logo\">\n        <h3 class=\"white-text\" style=\"background-color: #3F1C3E;\">\n          Booknds\n        </h3>\n      </a>\n    </li>\n  </div>\n  <!--li class=\"search\">\n    <div class=\"search-wrapper card\">\n      <input id=\"search\"><i class=\"material-icons\">search</i>\n      <div class=\"search-results\"></div>\n    </div>\n  </li-->\n  <li class=\"no-padding white-text\">\n    <ul class=\"collapsible collapsible-accordion\">\n      <li>\n        <a class=\"collapsible-header\">Save<i class=\"mdi-navigation-arrow-drop-down\"></i></a>\n        <div class=\"collapsible-body\">\n          <ul>\n            <li><a href=\"#!\">To SwaggerHub</a></li>\n            <li><a href=\"\" ng-click=\"sidenav.download();\">To Local</a></li>\n          </ul>\n        </div>\n      </li>\n    </ul>\n  </li>\n  <li class=\"no-padding\">\n    <ul class=\"collapsible collapsible-accordion\">\n      <li>\n        <a class=\"collapsible-header\">Open<i class=\"mdi-navigation-arrow-drop-down\"></i></a>\n        <div class=\"collapsible-body\">\n          <ul>\n            <li><a href=\"#!\">From SwaggerHub</a></li>\n            <li>\n              <md-button style=\"margin: 0 1rem 0 2rem; display: block; padding: 0 15px; -webkit-tap-highlight-color: transparent; background-color: transparent; border:0; text-decoration: none; font-size: 1rem; height: 64px; line-height: 64px; color: #444;\">\n                <label  style=\"color:#444; display:block; text-transform:none; font-weight:normal; font-size: 1rem;\"for=\"file-input\">\n                  <span>From Local</span>\n                </label>\n              </md-button>\n              <input custom-on-change=\"sidenav.onChange\" style=\"display:none;\" id=\"file-input\" type=\"file\">\n            </li>\n            <li>\n              {{files}}\n              {{sidenav}}\n\n            </li>\n          </ul>\n        </div>\n      </li>\n    </ul>\n  </li>\n\n</ul>\n"
 
 /***/ },
 /* 15 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -30096,80 +30096,45 @@
 	exports.default = sideNavArray;
 	
 	function SidenavCtrl($scope, $http, cs, FileSaver, Blob) {
-	  //var vm =  this;
 	
 	  this.compiledDocument = cs.compiled;
 	
 	  this.pickedFile = "";
-	  $scope.files = "poop";
-	
-	  // $scope.$watch(function(){return this.pickedFile}.bind(this), function(newVal){
-	  //   if(newVal){
-	  //     debugger;
-	  //     console.log(newVal);
-	  //     this.pickedFile = JSON.parse(newVal);
-	  //   }
-	  // }.bind(this));
 	
 	  this.onChange = function onChange_handler(event) {
+	    //return if the even is unidentified or null
+	    if (!event) {
+	      return;
+	    }
+	
 	    debugger;
 	    var file = event.target.files[0];
 	    var reader = new FileReader();
 	
 	    //set up the onload property to fire when readAsText() below is compeleted;
-	    reader.onload = function __handler__(event) {
+	    reader.onload = function __onload_handler__(event) {
 	      debugger;
-	      console.log(reader);
-	      $scope.$apply(function __handler__() {
-	        this.pickedFile = angular.copy(reader.result);
-	        this.pickedFile = JSON.parse(this.pickedFile);
+	
+	      $scope.$apply(function __apply_handler__() {
+	        //use $apply() to fire manual watchers to this.pickedFile
+	        var file_content = angular.copy(reader.result);
+	        this.pickedFile = JSON.parse(file_content);
 	      }.bind(this));
-	      //$scope.files = reader.result;
 	    }.bind(this);
 	
+	    //read in the file as a string -> sets of reader.onload() when complete.
 	    reader.readAsText(file);
-	  };
-	
-	  // $scope.$on("fileSelected", function (event, args) {
-	  //       $scope.$apply(function () {
-	  //           //add the file object to the scope's files collection
-	  //           debugger;
-	  //
-	  //           // if (!f.type.match('image.*')) {
-	  //           //   continue;
-	  //           // }
-	  //
-	  //           let reader = new FileReader();
-	  //
-	  //
-	  //           //set up the onload property to fire when readAsText() below is compeleted;
-	  //           reader.onload = function __handler__(event){
-	  //             debugger;
-	  //             console.log(reader);
-	  //             $scope.$apply(function __handler__(){
-	  //               this.pickedFile = angular.copy(reader.result);
-	  //               this.pickedFile = JSON.parse(this.pickedFile);
-	  //             }.bind(this));
-	  //             //$scope.files = reader.result;
-	  //           }.bind(this);
-	  //
-	  //           reader.readAsText(args.file);
-	  //
-	  //
-	  //       }.bind(this));
-	  //   }.bind(this));
-	
-	  // console.log($element(".button-collapse"))
+	  }.bind(this);
 	
 	  /*
 	  *
 	  *
 	  */
-	  this.recompile = function () {
+	  this.recompile = function recompile() {
 	    cs.recompile();
 	  };
 	
-	  this.download = function (text) {
+	  this.download = function download(text) {
 	    this.compiledDocument = cs.compiled;
 	    this.recompile();
 	    text = cs.compiled;
@@ -30184,15 +30149,6 @@
 	    var data = new Blob([JSON.stringify(text, null, '\t')], { type: 'application/json' });
 	    FileSaver.saveAs(data, 'swagger.json');
 	  };
-	
-	  /*$scope.$watch(function(){return cs.compiled;}, function(newVal){
-	    console.log("COMPILKED CHANGED");
-	    console.log(newVal)
-	    if(newVal){
-	      vm.compiledDocument = cs.compiled;
-	      //vm.definitions = ds.definitions;
-	    }
-	  }, true);*/
 	}
 
 /***/ },
@@ -30904,7 +30860,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var FileUploadModule = _angular2.default.module('FileUploadModule', []).directive('fileChange', _fileUpload2.default);
+	var FileUploadModule = _angular2.default.module('FileUploadModule', []).directive('customOnChange', _fileUpload2.default);
 	
 	exports.default = FileUploadModule;
 
@@ -30915,69 +30871,24 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	exports.default = FileUploadComponent;
 	
 	function FileUploadComponent() {
-	    return {
-	        scope: true, //create a new scope
-	        link: function link(scope, el, attrs) {
-	            el.bind('change', function (event) {
-	                var files = event.target.files;
-	                //iterate files since 'multiple' may be specified on the element
-	                for (var i = 0; i < files.length; i++) {
-	                    //emit event upward
-	                    scope.$emit("fileSelected", { file: files[i] });
-	                    debugger;
-	                    console.log(event);
-	                }
-	            });
-	        }
-	    };
-	};
-	/**
-	restrict: 'A',
-	require: 'ngModel',
-	scope: {
-	  fileChange: '&',
-	  objectToHoldUpload: '='
-	},
-	link: function link(scope, element, attrs, ctrl) {
-	  element.on('change', onChange);
-
-	  scope.$on('destroy', function () {
-	    element.off('change', onChange);
-	  });
-
-	  function onChange() {
-
-	    attrs.multiple ? ctrl.$setViewValue(element[0].files) : ctrl.$setViewValue(element[0].files[0]);
-	    scope.$apply(function () {
+	  return {
+	    restrict: 'A',
+	    link: function link(scope, element, attrs) {
 	      debugger;
-	      scope.fileChange();
-	    });
-	  }
-	}
-	**/
-	//
-	// function FileUploadComponent() {
-	//     return {
-	//         scope: true,        //create a new scope
-	//         link: function (scope, el, attrs) {
-	//             el.bind('change', function (event) {
-	//                 var files = event.target.files;
-	//                 //iterate files since 'multiple' may be specified on the element
-	//                 for (var i = 0;i<files.length;i++) {
-	//                     //emit event upward
-	//                     scope.$emit("fileSelected", { file: files[i] });
-	//                     debugger;
-	//                     console.log(event);
-	//                 }
-	//             });
-	//         }
-	//     };
-	// };
+	      //need to evaluate the attribute so it manually creates a reference to
+	      //the passed function
+	      var onChangeHandler = scope.$eval(attrs.customOnChange);
+	
+	      //bind the onChangeHandler function to the change even on the element
+	      element.bind('change', onChangeHandler);
+	    }
+	  };
+	};
 
 /***/ },
 /* 42 */

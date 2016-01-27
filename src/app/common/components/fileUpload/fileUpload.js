@@ -4,6 +4,6 @@ import FileUploadComponent from './fileUpload.component';
 
 let FileUploadModule =
     angular.module('FileUploadModule', [])
-            .directive('fileChange', FileUploadComponent);
+            .directive('customOnChange', FileUploadComponent);
 
 export default FileUploadModule;

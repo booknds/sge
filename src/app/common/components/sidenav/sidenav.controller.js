@@ -1,84 +1,49 @@
+'use strict';
 let sideNavArray = ["$scope", '$http', "CompilerService", 'FileSaver', 'Blob', SidenavCtrl];
 
 export default sideNavArray;
 
 function SidenavCtrl($scope, $http, cs, FileSaver, Blob){
-  //var vm =  this;
 
   this.compiledDocument = cs.compiled;
 
   this.pickedFile = "";
-  $scope.files = "poop";
-
-  // $scope.$watch(function(){return this.pickedFile}.bind(this), function(newVal){
-  //   if(newVal){
-  //     debugger;
-  //     console.log(newVal);
-  //     this.pickedFile = JSON.parse(newVal);
-  //   }
-  // }.bind(this));
 
   this.onChange = function onChange_handler(event) {
+    //return if the even is unidentified or null
+    if(!event){ return; }
+
     debugger;
     let file = event.target.files[0];
     let reader = new FileReader();
 
     //set up the onload property to fire when readAsText() below is compeleted;
-    reader.onload = function __handler__(event){
+    reader.onload = function __onload_handler__(event){
       debugger;
-      console.log(reader);
-      $scope.$apply(function __handler__(){
-        this.pickedFile = angular.copy(reader.result);
-        this.pickedFile = JSON.parse(this.pickedFile);
+
+      $scope.$apply(function __apply_handler__(){
+        //use $apply() to fire manual watchers to this.pickedFile
+        let file_content = angular.copy(reader.result);
+        this.pickedFile = JSON.parse(file_content);
+
       }.bind(this));
-      //$scope.files = reader.result;
+
     }.bind(this);
 
+    //read in the file as a string -> sets of reader.onload() when complete.
     reader.readAsText(file);
-  }
 
-  // $scope.$on("fileSelected", function (event, args) {
-  //       $scope.$apply(function () {
-  //           //add the file object to the scope's files collection
-  //           debugger;
-  //
-  //           // if (!f.type.match('image.*')) {
-  //           //   continue;
-  //           // }
-  //
-  //           let reader = new FileReader();
-  //
-  //
-  //           //set up the onload property to fire when readAsText() below is compeleted;
-  //           reader.onload = function __handler__(event){
-  //             debugger;
-  //             console.log(reader);
-  //             $scope.$apply(function __handler__(){
-  //               this.pickedFile = angular.copy(reader.result);
-  //               this.pickedFile = JSON.parse(this.pickedFile);
-  //             }.bind(this));
-  //             //$scope.files = reader.result;
-  //           }.bind(this);
-  //
-  //           reader.readAsText(args.file);
-  //
-  //
-  //       }.bind(this));
-  //   }.bind(this));
-
-  // console.log($element(".button-collapse"))
-
-
+  }.bind(this);
 
   /*
   *
   *
   */
-  this.recompile = function(){
+  this.recompile = function recompile(){
     cs.recompile();
   };
 
-  this.download = function(text){
+  this.download = function download(text){
     this.compiledDocument = cs.compiled;
     this.recompile();
     text = cs.compiled;
@@ -94,13 +59,5 @@ function SidenavCtrl($scope, $http, cs, FileSaver, Blob){
     FileSaver.saveAs(data, 'swagger.json');
   }
 
-  /*$scope.$watch(function(){return cs.compiled;}, function(newVal){
-    console.log("COMPILKED CHANGED");
-    console.log(newVal)
-    if(newVal){
-      vm.compiledDocument = cs.compiled;
-      //vm.definitions = ds.definitions;
-    }
-  }, true);*/
 
 }
