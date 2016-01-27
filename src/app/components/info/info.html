@@ -1,15 +1,25 @@
-<div class="container" ng-cloak>
-{{basicInfo.sgBase}}
+<div class="section" ng-cloak>
+
   <div class="row">
     <form name="infoForm" novalidate ng-submit="infoForm.$valid">
-      <div class="col s12">
-        <div class="card blue-grey darken-1">
-          <div class="card-content white-text">
-            <h3>{{ basicInfo.sgBase.info.title + ' API' }}</h3>
-            <p>Start building your Swagger definition by describing some basic info. Watch out some
-              fields are required to enter, but don't worry we will prompt you if anything is missing.
-            </p>
+      <div class="col s12 m7">
+        
+        <div class="card ">
+          <md-toolbar style="background-color:#3F1C3E;">
+            <div class="md-toolbar-tools">
+              <h2>
+                <span>{{ basicInfo.sgBase.info.title + ' API'}}</span>
+              </h2>
+
+            </div>
+          </md-toolbar>
+          <div class="card-content">
             <div class="section">
+              <div class="section">
+                <p>Start building your Swagger definition by describing some basic info. Watch out some
+                  fields are required to enter, but don't worry we will prompt you if anything is missing.
+                </p>
+              </div>
               <div class="col s12 m6">
                 <span class="card-title">Info</span>
                 <div class="row">

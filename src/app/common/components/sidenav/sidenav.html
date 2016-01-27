@@ -1,35 +1,4 @@
-<!--<ul id="nav-mobile" class="side-nav fixed hide-on-small-only" style="width:240px; background-color:#512DA8">
-  <li class="search" style="position: absolute; left: 0; right: 0; top: 120px; margin-top: 1px; padding: 1px 0 0 0; z-index: 2;">
-    <div class="search-wrapper card" style="margin: 0 12px; -webkit-transition: margin .25s ease; -moz-transition: margin .25s ease; -o-transition: margin .25s ease; -ms-transition: margin .25s ease; transition: margin .25s ease;">
-      <input id="search" style="    display: block; font-size: 16px; font-weight: 300; width: 100%; height: 45px; padding: 0 45px 0 15px; border: 0;">
-      <i class="material-icons" style="position: absolute; top: 10px; right: 10px; cursor: pointer;">search</i>
-      <div class="search-results" style="margin: 0; border-top: 1px solid #e9e9e9; background-color: #fff;"></div>
-    </div>
-  </li>
-  <li class="no-padding">
-    <ul class="collapsible collapsible-accordion">
-      <li class="bold">
-        <a class="collapsible-header  waves-effect waves-teal">APIs</a>
-        <div class="collapsible-body" style="">
-          <ul>
-            <li><a href="color.html">Color</a></li>
-            <li><a href="grid.html">Grid</a></li>
-            <li><a href="helpers.html">Helpers</a></li>
-            <li><a href="media-css.html">Media</a></li>
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="shadow.html">Shadow</a></li>
-            <li><a href="table.html">Table</a></li>
-            <li><a href="typography.html">Typography</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </li>
-</ul>
-<a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="500" data-closeonclick="false">
-    Show side-nav
-</a>-->
-<ul id="nav-mobile" class="side-nav fixed">
+<ul id="nav-mobile" style="background-color: #3F1C3E;" class="side-nav fixed">
   <div style="background-color: #3F1C3E;padding-top:10px;padding-bottom:0px;">
     <li class="logo center-align" style="background-color: #3F1C3E;">
       <a id="logo-container" href="http://www.booknds.com/" style="background-color: #3F1C3E;" class="brand-logo">
@@ -39,16 +8,10 @@
       </a>
     </li>
   </div>
-  <!--li class="search">
-    <div class="search-wrapper card">
-      <input id="search"><i class="material-icons">search</i>
-      <div class="search-results"></div>
-    </div>
-  </li-->
-  <li class="no-padding white-text">
+  <li class="no-padding white-text" style="border-top: solid 1px;">
     <ul class="collapsible collapsible-accordion">
       <li>
-        <a class="collapsible-header">Save<i class="mdi-navigation-arrow-drop-down"></i></a>
+        <a class="collapsible-header white-text">Save<i class="mdi-navigation-arrow-drop-down"></i></a>
         <div class="collapsible-body">
           <ul>
             <li><a href="#!">To SwaggerHub</a></li>
@@ -58,10 +21,10 @@
       </li>
     </ul>
   </li>
-  <li class="no-padding">
+  <li class="no-padding  white-text" style="border-top: solid 1px;">
     <ul class="collapsible collapsible-accordion">
-      <li>
-        <a class="collapsible-header">Open<i class="mdi-navigation-arrow-drop-down"></i></a>
+      <li >
+        <a class="collapsible-header white-text">Open<i class="mdi-navigation-arrow-drop-down"></i></a>
         <div class="collapsible-body">
           <ul>
             <li><a href="#!">From SwaggerHub</a></li>
@@ -72,11 +35,6 @@
                 </label>
               </md-button>
               <input custom-on-change="sidenav.onChange" style="display:none;" id="file-input" type="file">
-            </li>
-            <li>
-              {{files}}
-              {{sidenav}}
-
             </li>
           </ul>
         </div>

@@ -13,13 +13,13 @@ function SidenavCtrl($scope, $http, cs, FileSaver, Blob){
     //return if the even is unidentified or null
     if(!event){ return; }
 
-    debugger;
+    //debugger;
     let file = event.target.files[0];
     let reader = new FileReader();
 
     //set up the onload property to fire when readAsText() below is compeleted;
     reader.onload = function __onload_handler__(event){
-      debugger;
+      //debugger;
 
       $scope.$apply(function __apply_handler__(){
         //use $apply() to fire manual watchers to this.pickedFile

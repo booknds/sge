@@ -103,7 +103,7 @@ header, main, footer {
 }
 
 .input-field label {
-    color: white;
+    /*color: white;*/
     position: absolute;
     top: 0.8rem;
     left: 0.75rem;
