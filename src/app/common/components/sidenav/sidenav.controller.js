@@ -25,6 +25,9 @@ function SidenavCtrl($scope, $http, cs, FileSaver, Blob){
         //use $apply() to fire manual watchers to this.pickedFile
         let file_content = angular.copy(reader.result);
         this.pickedFile = JSON.parse(file_content);
+        let parsed_file_content = JSON.parse(file_content);
+
+        cs.distributeImportedDefinitionToServices(parsed_file_content);
 
       }.bind(this));
 

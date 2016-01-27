@@ -39,6 +39,18 @@ function ObjectFactory(){
         return false;
     },
 
+    clearDefinitions: function(){
+      for(var key in this){
+        delete this[key];
+      }
+    },
+
+    setDefinitions: function(newDefinitions){
+      for(var key in newDefinitions){
+        this[key] = newDefinitions[key];
+      }
+    },
+
     getDefinition: function(definitionName){
       return this[definitionName];
     },

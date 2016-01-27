@@ -30119,6 +30119,9 @@
 	        //use $apply() to fire manual watchers to this.pickedFile
 	        var file_content = angular.copy(reader.result);
 	        this.pickedFile = JSON.parse(file_content);
+	        var parsed_file_content = JSON.parse(file_content);
+	
+	        cs.distributeImportedDefinitionToServices(parsed_file_content);
 	      }.bind(this));
 	    }.bind(this);
 	
@@ -30880,8 +30883,8 @@
 	    restrict: 'A',
 	    link: function link(scope, element, attrs) {
 	      debugger;
-	      //need to evaluate the attribute so it manually creates a reference to
-	      //the passed function
+	      //need to evaluate the attribute so it manually creates a reference
+	      //  from the onChangeHandler variable to the passed function
 	      var onChangeHandler = scope.$eval(attrs.customOnChange);
 	
 	      //bind the onChangeHandler function to the change even on the element
@@ -30967,18 +30970,24 @@
 	    cs.compiled.paths = _angular2.default.copy(paths);
 	    cs.compiled.definitions = _angular2.default.copy(definitions);
 	
-	    console.log("recompile- before clean");
-	    console.log(cs.compiled);
-	
+	    //remove any null or empty properties
 	    cleanDocument(cs.compiled);
+	  };
 	
-	    console.log("recompile- after clean");
-	    console.log(cs.compiled);
+	  cs.distributeImportedDefinitionToServices = function distributeImportedDefinitionToServices(swaggerDefinition) {
+	    //debugger;
+	    //reset paths by deleting old ones, set the new paths, then delete them from the new object
+	    PathsService.clearPaths();
+	    PathsService.setPaths(swaggerDefinition.paths);
+	    delete swaggerDefinition.paths;
 	
-	    //cleanDocument(cs.compiled);
+	    //reset definitions by deleting old ones, set the new definitions, then delete them from the new object
+	    DefinitionsService.clearDefinitions();
+	    DefinitionsService.setDefinitions(swaggerDefinition.definitions);
+	    delete swaggerDefinition.definitions;
 	
-	    //console.log("recompile- after 2nd clean");
-	    //console.log(cs.compiled);
+	    //the rest of the properties should belong to the infoService,
+	    infoService.setBaseInfo(swaggerDefinition);
 	  };
 	
 	  /**
@@ -31111,6 +31120,22 @@
 	  }
 	
 	  /**
+	    * @name setBaseInfo
+	    * @desc sets the swaggerInfo object to a copy of the passed new swaggerInfo object
+	    * @type {Function}
+	   **/
+	  function setBaseInfo(newSwaggerInfo) {
+	    debugger;
+	    //swaggerInfo = angular.copy(newSwaggerInfo);
+	    //console.log(swaggerInfo);
+	    for (var key in newSwaggerInfo) {
+	      if (swaggerInfo.hasOwnProperty(key)) {
+	        swaggerInfo[key] = newSwaggerInfo[key];
+	      }
+	    }
+	  }
+	
+	  /**
 	    * @name validList
 	    * @desc helper function that checks if the passed list name is valid as per the definition
 	    * @type {Function}
@@ -31121,6 +31146,7 @@
 	
 	  return {
 	    getBaseInfo: getBaseInfo,
+	    setBaseInfo: setBaseInfo,
 	    addType: addType,
 	    removeType: removeType
 	  };
@@ -31154,26 +31180,19 @@
 	
 	  /************** PATH FUNCTIONS START *******************/
 	  this.setPaths = function (newPaths) {
-	    paths = newPaths;
-	    console.log('updatePaths from paths service');
-	    console.log('\t current paths');
-	    console.log(paths);
+	    debugger;
+	    //paths = angular.copy(newPaths);
+	    //this.paths = paths;
 	    //console.log(paths);
-	    //var i = 0;
-	
-	    //only store path definition of the path
-	    var defArray = {};
-	    for (var path in paths) {
-	      //only update the document if the path is unique
-	      if (path.isUnique) {
-	        currentPath = paths[path];
-	
-	        defArray[currentPath.currentName] = currentPath.pathDefinition[currentPath.currentName];
-	      }
+	    for (var key in newPaths) {
+	      paths[key] = newPaths[key];
 	    }
-	    console.info(defArray);
-	    //swaggerCompiler.updatePaths(defArray);
-	    console.log('------------------------------------');
+	  };
+	
+	  this.clearPaths = function clearPaths() {
+	    for (var key in paths) {
+	      delete paths[key];
+	    }
 	  };
 	
 	  this.addPath = function (pathName, operations) {
@@ -31294,6 +31313,15 @@
 	      // console.log(definitions);
 	      // console.log(this.definitions);
 	    }
+	  };
+	
+	  this.setDefinitions = function setDefinitions(newDefinitions) {
+	    debugger;
+	    this.definitions.setDefinitions(newDefinitions);
+	  };
+	
+	  this.clearDefinitions = function clearDefinitions() {
+	    this.definitions.clearDefinitions();
 	  };
 	
 	  function hasDefinition(definitionName) {
@@ -31419,6 +31447,18 @@
 	
 	    hasDefinition: function hasDefinition(definitionName) {
 	      if (this.hasOwnProperty(definitionName)) return true;else return false;
+	    },
+	
+	    clearDefinitions: function clearDefinitions() {
+	      for (var key in this) {
+	        delete this[key];
+	      }
+	    },
+	
+	    setDefinitions: function setDefinitions(newDefinitions) {
+	      for (var key in newDefinitions) {
+	        this[key] = newDefinitions[key];
+	      }
 	    },
 	
 	    getDefinition: function getDefinition(definitionName) {
@@ -33394,6 +33434,14 @@
 	    * @type {Function}
 	   **/
 	  this.sgBase = InfoService.getBaseInfo();
+	
+	  // $scope.$watch(InfoService.getBaseInfo, function(newVal) {
+	  //   if(newVal){
+	  //     debugger;
+	  //     console.log(newVal);
+	  //     this.sgBase = InfoService.getBaseInfo();
+	  //   }
+	  // }, true)
 	
 	  /**
 	    * @name types

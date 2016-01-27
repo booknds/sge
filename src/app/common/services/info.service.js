@@ -88,6 +88,22 @@ function InfoService(){
     }
 
     /**
+      * @name setBaseInfo
+      * @desc sets the swaggerInfo object to a copy of the passed new swaggerInfo object
+      * @type {Function}
+     **/
+    function setBaseInfo(newSwaggerInfo){
+      debugger;
+      //swaggerInfo = angular.copy(newSwaggerInfo);
+      //console.log(swaggerInfo);
+      for(var key in newSwaggerInfo){
+        if(swaggerInfo.hasOwnProperty(key)){
+          swaggerInfo[key] = newSwaggerInfo[key];
+        }
+      }
+    }
+
+    /**
       * @name validList
       * @desc helper function that checks if the passed list name is valid as per the definition
       * @type {Function}
@@ -101,6 +117,7 @@ function InfoService(){
 
   return {
       getBaseInfo,
+      setBaseInfo,
       addType,
       removeType,
   };

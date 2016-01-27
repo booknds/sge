@@ -19,6 +19,15 @@ function DefinitionsService(ObjectFactory){
     }
   }
 
+  this.setDefinitions = function setDefinitions(newDefinitions){
+    debugger;
+    this.definitions.setDefinitions(newDefinitions);
+  };
+
+  this.clearDefinitions = function clearDefinitions(){
+    this.definitions.clearDefinitions();
+  };
+
   function hasDefinition(definitionName){
     if(definitions.hasOwnProperty(definitionName))
       return true;

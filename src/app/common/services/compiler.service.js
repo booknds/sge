@@ -21,18 +21,26 @@ function CompilerService(PathsService, infoService, DefinitionsService){
     cs.compiled.paths = angular.copy(paths);
     cs.compiled.definitions = angular.copy(definitions);
 
-    console.log("recompile- before clean");
-    console.log(cs.compiled);
 
+    //remove any null or empty properties 
     cleanDocument(cs.compiled);
 
-    console.log("recompile- after clean");
-    console.log(cs.compiled);
+  }
 
-    //cleanDocument(cs.compiled);
+  cs.distributeImportedDefinitionToServices = function distributeImportedDefinitionToServices(swaggerDefinition){
+    //debugger;
+    //reset paths by deleting old ones, set the new paths, then delete them from the new object
+    PathsService.clearPaths();
+    PathsService.setPaths(swaggerDefinition.paths);
+    delete swaggerDefinition.paths;
 
-    //console.log("recompile- after 2nd clean");
-    //console.log(cs.compiled);
+    //reset definitions by deleting old ones, set the new definitions, then delete them from the new object
+    DefinitionsService.clearDefinitions();
+    DefinitionsService.setDefinitions(swaggerDefinition.definitions);
+    delete swaggerDefinition.definitions;
+
+    //the rest of the properties should belong to the infoService,
+    infoService.setBaseInfo(swaggerDefinition);
   }
 
   /**

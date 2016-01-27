@@ -13,27 +13,19 @@ function PathService(ObjectFactory){
 
 /************** PATH FUNCTIONS START *******************/
   this.setPaths= function(newPaths){
-    paths = newPaths;
-      console.log('updatePaths from paths service');
-      console.log('\t current paths');
-      console.log(paths);
-      //console.log(paths);
-      //var i = 0;
+    debugger;
+    //paths = angular.copy(newPaths);
+    //this.paths = paths;
+    //console.log(paths);
+    for(var key in newPaths){
+      paths[key] = newPaths[key];
+    }
+  };
 
-      //only store path definition of the path
-      var defArray = {};
-      for(var path in paths){
-        //only update the document if the path is unique
-        if(path.isUnique){
-          currentPath = paths[path];
-
-          defArray[currentPath.currentName] = currentPath.pathDefinition[currentPath.currentName];
-
-        }
-      }
-      console.info(defArray);
-      //swaggerCompiler.updatePaths(defArray);
-      console.log('------------------------------------');
+  this.clearPaths = function clearPaths(){
+    for(var key in paths){
+      delete paths[key];
+    }
   };
 
   this.addPath = function(pathName, operations){
