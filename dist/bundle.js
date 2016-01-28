@@ -89,21 +89,28 @@
 	
 	var _angularAria2 = _interopRequireDefault(_angularAria);
 	
-	__webpack_require__(118);
+	var _angularMessages = __webpack_require__(118);
+	
+	var _angularMessages2 = _interopRequireDefault(_angularMessages);
+	
+	__webpack_require__(120);
+	
+	__webpack_require__(124);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	'use strict';
 	
 	console.log(_angularMaterial2.default);
+	console.log(_angularAria2.default);
 	
 	_angular2.default.module("SwaggerGraphicalEditor", [
 	// 'ui.materialize',
-	_angularMaterialize2.default, 'ngFileSaver', _common2.default.name, _components2.default.name, _angularMaterial2.default, _angularAnimate2.default, _angularAria2.default]).
+	_angularMaterialize2.default, 'ngFileSaver', _common2.default.name, _components2.default.name, _angularMaterial2.default, _angularAnimate2.default, _angularAria2.default, _angularMessages2.default
 	// 'ngMaterial',
 	// 'ngAnimate',
 	// 'ngAria'
-	directive('app', _app2.default);
+	]).directive('app', _app2.default);
 
 /***/ },
 /* 2 */
@@ -30002,7 +30009,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "<footer class=\"page-footer\" style=\"background-color:#3F1C3E;\">\n  <div class=\"container\" style=\"background-color:#3F1C3E;\">\n    <div class=\"row\">\n      <div class=\"col l6 s12\">\n        <h5 class=\"white-text\">Footer Content</h5>\n        <p class=\"grey-text text-lighten-4\">You can use rows and columns here to organize your footer content.</p>\n      </div>\n      <div class=\"col l4 offset-l2 s12\">\n        <h5 class=\"white-text\">Links</h5>\n        <ul>\n          <li><a class=\"grey-text text-lighten-3\" href=\"#!\">Link 1</a></li>\n          <li><a class=\"grey-text text-lighten-3\" href=\"#!\">Link 2</a></li>\n          <li><a class=\"grey-text text-lighten-3\" href=\"#!\">Link 3</a></li>\n          <li><a class=\"grey-text text-lighten-3\" href=\"#!\">Link 4</a></li>\n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"footer-copyright\" style=\"background-color:#3F1C3E;\">\n    <div class=\"container\">\n      © 2014 Copyright Text\n      <a class=\"grey-text text-lighten-4 right\" href=\"#!\">More Links</a>\n    </div>\n  </div>\n</footer>\n"
+	module.exports = "<!-- <footer class=\"page-footer\" style=\"background-color:#3F1C3E;\">\n  <div class=\"container\" style=\"background-color:#3F1C3E;\">\n    <div class=\"row\">\n      <div class=\"col l6 s12\">\n        <h5 class=\"white-text\">Footer Content</h5>\n        <p class=\"grey-text text-lighten-4\">You can use rows and columns here to organize your footer content.</p>\n      </div>\n      <div class=\"col l4 offset-l2 s12\">\n        <h5 class=\"white-text\">Links</h5>\n        <ul>\n          <li><a class=\"grey-text text-lighten-3\" href=\"#!\">Link 1</a></li>\n          <li><a class=\"grey-text text-lighten-3\" href=\"#!\">Link 2</a></li>\n          <li><a class=\"grey-text text-lighten-3\" href=\"#!\">Link 3</a></li>\n          <li><a class=\"grey-text text-lighten-3\" href=\"#!\">Link 4</a></li>\n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"footer-copyright\" style=\"background-color:#3F1C3E;\">\n    <div class=\"container\">\n      © 2014 Copyright Text\n      <a class=\"grey-text text-lighten-4 right\" href=\"#!\">More Links</a>\n    </div>\n  </div>\n</footer> -->\n<footer class=\"page-footer white\">\n\n</footer>\n"
 
 /***/ },
 /* 12 */
@@ -30582,7 +30589,8 @@
 	    bindToController: {
 	      ngModel: '=',
 	      sgChoices: '=',
-	      sgDefaultOption: '@'
+	      sgDefaultOption: '@',
+	      sgLabel: '@'
 	    },
 	    controller: _dropdown4.default,
 	    controllerAs: 'dropdown'
@@ -30593,7 +30601,7 @@
 /* 30 */
 /***/ function(module, exports) {
 
-	module.exports = "<select select-value >\n  <option value=\"\" selected>{{dropdown.sgDefaultOption}}</option>\n  <option ng-repeat=\"choice in dropdown.sgChoices\" ng-attr-value=\"{{ choice }}\" ng-attr-id=\"{{ choice }}\">\n    {{ choice }}\n  </option>\n</select>\n"
+	module.exports = "\n<md-input-container class=\"md-block\" flex-gt-sm>\n  <label>{{dropdown.sgLabel}}</label>\n  <md-select ng-model=\"dropdown.ngModel\">\n    <md-option ng-repeat=\"choice in dropdown.sgChoices\" value=\"{{ choice }}\">{{ choice }}</md-option>\n  </md-select>\n  <!-- <select class=\"\"  material-select watch>\n    <option value=\"\" selected>{{dropdown.sgLabel}}</option>\n    <option ng-repeat=\"choice in dropdown.sgChoices\">{{choice}}</option>\n    <select select-value >\n      <option value=\"\" selected>{{dropdown.sgDefaultOption}}</option>\n      <option ng-repeat=\"choice in dropdown.sgChoices\" ng-attr-value=\"{{ choice }}\" ng-attr-id=\"{{ choice }}\">\n        {{ choice }}\n      </option>\n\n\n    </select>\n  </select> -->\n</md-input-container>\n"
 
 /***/ },
 /* 31 */
@@ -33411,7 +33419,7 @@
 /* 90 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"section\" ng-cloak>\n\n  <div class=\"row\">\n    <form name=\"infoForm\" novalidate ng-submit=\"infoForm.$valid\">\n      <div class=\"col s12 m7\">\n        \n        <div class=\"card \">\n          <md-toolbar style=\"background-color:#3F1C3E;\">\n            <div class=\"md-toolbar-tools\">\n              <h2>\n                <span>{{ basicInfo.sgBase.info.title + ' API'}}</span>\n              </h2>\n\n            </div>\n          </md-toolbar>\n          <div class=\"card-content\">\n            <div class=\"section\">\n              <div class=\"section\">\n                <p>Start building your Swagger definition by describing some basic info. Watch out some\n                  fields are required to enter, but don't worry we will prompt you if anything is missing.\n                </p>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Info</span>\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <div class=\"row\">\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"title\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.title\"\n                          name=\"apiName\"\n                          required=\"\" >\n                        <label for=\"title\">Title</label>\n                        <div class=\"error\" ng-show=\"infoForm.apiName.$dirty && infoForm.apiName.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.apiName.$error.required\">\n                            The API name is required.\n                          </small>\n                        </div>\n                      </div>\n                      <!-- <div>\n                        <md-button>\n                          <label for=\"file-input\">Select</label>\n                        </md-button>\n                        <input style=\"display:none;\" id=\"file-input\" type=\"file\">\n                      </div> -->\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"version\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.version\"\n                          ng-pattern=\"/^([v]?)([0-9]+)((\\.([0-9]+))*)?$/\"\n                          name=\"version\"\n                          required=\"\" >\n                        <label for=\"version\">Version</label>\n                        <div class=\"error\" ng-show=\"infoForm.version.$dirty && infoForm.version.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.required\">\n                            The version is required.\n                          </small>\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <sg-textarea class=\"input-field col s12\" sg-unique-input sg-label=\"Description\" ng-model=\"basicInfo.sgBase.info.description\"></sg-textarea>\n                    </div>\n                    <div class=\"row\">\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Host\"  ng-model=\"basicInfo.sgBase.host\"></sg-text-input>\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"BasePath\" ng-model=\"basicInfo.sgBase.basePath\">\n                        <div class=\"error\" ng-show=\"infoForm.BasePath.$dirty && infoForm.BasePath.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.BasePath.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                     </sg-text-input>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Contact</span>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.contact.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.contact.url\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Email\" ng-model=\"basicInfo.sgBase.info.contact.email\"> </sg-text-input>\n                </div>\n                <span class=\"card-title\">License</span>\n                <div class=\"row\">\n                  <sg-text-input ng-if=\"basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.license.name\" required=\"true\"> </sg-text-input>\n                  <sg-text-input ng-if=\"!basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.license.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.license.url\"> </sg-text-input>\n                </div>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 \" unique-input sg-label=\"Terms Of Service\" ng-model=\"basicInfo.sgBase.info.termsOfService\"> </sg-text-input>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col s12\">\n                <span class=\"card-title\">Types</span>\n                <div class=\"section col s12\">\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Produces: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"col m10 valign\"> {{produce}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('produces', produce);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Consumes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"col m10 valign\"> {{consume}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" ng-click=\"basicInfo.removeType('consumes', consume);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Schemes: </div>\n                    <sg-dropdown class=\"browser-default col s10\" style=\"background-color: #455a64;\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <div class=\"col m10 valign\"> {{scheme}} </div>\n                        <button class=\"btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.removeType('schemes', scheme);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n</div>\n"
+	module.exports = "<div class=\"section\" ng-cloak>\n  <div class=\"row\">\n    <form name=\"infoForm\" novalidate ng-submit=\"infoForm.$valid\">\n      <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n        <div class=\"card \">\n          <md-toolbar style=\"background-color:#3F1C3E;\">\n            <div class=\"md-toolbar-tools\">\n              <h2>\n                <span>{{ basicInfo.sgBase.info.title + ' API'}}</span>\n              </h2>\n\n            </div>\n          </md-toolbar>\n          <div class=\"card-content\">\n            <div class=\"section\">\n              <div class=\"section\">\n                <p>Start building your Swagger definition by describing some basic info. Watch out some\n                  fields are required to enter, but don't worry we will prompt you if anything is missing.\n                </p>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Info</span>\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <div class=\"row\">\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"title\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.title\"\n                          name=\"apiName\"\n                          required=\"\" >\n                        <label for=\"title\">Title</label>\n                        <div class=\"error\" ng-show=\"infoForm.apiName.$dirty && infoForm.apiName.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.apiName.$error.required\">\n                            The API name is required.\n                          </small>\n                        </div>\n                      </div>\n                      <!-- <div>\n                        <md-button>\n                          <label for=\"file-input\">Select</label>\n                        </md-button>\n                        <input style=\"display:none;\" id=\"file-input\" type=\"file\">\n                      </div> -->\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"version\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.version\"\n                          ng-pattern=\"/^([v]?)([0-9]+)((\\.([0-9]+))*)?$/\"\n                          name=\"version\"\n                          required=\"\" >\n                        <label for=\"version\">Version</label>\n                        <div class=\"error\" ng-show=\"infoForm.version.$dirty && infoForm.version.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.required\">\n                            The version is required.\n                          </small>\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <sg-textarea class=\"input-field col s12\" sg-unique-input sg-label=\"Description\" ng-model=\"basicInfo.sgBase.info.description\"></sg-textarea>\n                    </div>\n                    <div class=\"row\">\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Host\"  ng-model=\"basicInfo.sgBase.host\"></sg-text-input>\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"BasePath\" ng-model=\"basicInfo.sgBase.basePath\">\n                        <div class=\"error\" ng-show=\"infoForm.BasePath.$dirty && infoForm.BasePath.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.BasePath.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                     </sg-text-input>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Contact</span>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.contact.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.contact.url\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Email\" ng-model=\"basicInfo.sgBase.info.contact.email\"> </sg-text-input>\n                </div>\n                <span class=\"card-title\">License</span>\n                <div class=\"row\">\n                  <sg-text-input ng-if=\"basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.license.name\" required=\"true\"> </sg-text-input>\n                  <sg-text-input ng-if=\"!basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.license.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.license.url\"> </sg-text-input>\n                </div>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 \" unique-input sg-label=\"Terms Of Service\" ng-model=\"basicInfo.sgBase.info.termsOfService\"> </sg-text-input>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col s12\">\n                <span class=\"card-title\">Types</span>\n                <div style=\"display:flex; flex-direction:column; justify-content:space-between;\" >\n                  <div style=\"display:flex; flex-direction:row;\" >\n                    <sg-dropdown sg-label=\"Produces\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button  class=\"btn-flat waves-effect waves-white white valign\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <button class=\"btn-flat waves-effect waves-white white \" ng-click=\"basicInfo.removeType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div ng-if=\"basicInfo.sgBase.produces.length > 0;\" style=\"display:flex; flex-direction:row;\">\n                    <div style=\"display:flex; flex-direction:column; justify-content:flex-start\" >\n                      <div ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <span> {{ '\\t\\t - ' + produce}} </span>\n                      </div>\n                    </div>\n                  </div>\n                  <!-- <div ng-if=\"basicInfo.sgBase.produces.length > 0;\" style=\"display:flex; flex-direction:row; justify-content:space-around;\">\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"valign\"> {{produce}} </div>\n                      </li>\n                    </ul>\n                  </div> -->\n                  <div style=\"display:flex; flex-direction:row;\">\n                    <sg-dropdown sg-label=\"Consumes\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-white white\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <button class=\"btn-flat waves-effect waves-white white \" ng-click=\"basicInfo.removeType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div ng-if=\"basicInfo.sgBase.consumes.length > 0;\" style=\"display:flex; flex-direction:row;\">\n                    <div style=\"display:flex; flex-direction:column; justify-content:flex-start\" >\n                      <div ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <span> {{ '\\t\\t - ' + consume}} </span>\n                      </div>\n                    </div>\n                  </div>\n                  <!-- <div ng-if=\"basicInfo.sgBase.consumes.length > 0;\" style=\"display:flex; flex-direction:row; \">\n                    <ul class=\"\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"valign\"> {{consume}} </div>\n                      </li>\n                    </ul>\n                  </div> -->\n                  <div style=\"display:flex; flex-direction:row;\">\n                    <sg-dropdown sg-label=\"Schemes\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-white white\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\" >add</i>\n                    </button>\n                    <button class=\"btn-flat waves-effect waves-white white \" ng-click=\"basicInfo.removeType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div ng-if=\"basicInfo.sgBase.schemes.length > 0;\" style=\"display:flex; flex-direction:row;\">\n                    <div style=\"display:flex; flex-direction:column; justify-content:flex-start\" >\n                      <div ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <span> {{ '\\t\\t - ' + scheme}} </span>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                  <!-- <div class=\"input-field col s12 m4 l4 \">\n                    <div class=\"valign-wrapper\">\n                      <button class=\"btn-flat waves-effect waves-white white col s2\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                        <i class=\"material-icons\">add</i>\n                      </button>\n                      <sg-dropdown class=\"col s10\" sg-label=\"Produces\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    </div>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"col m10 valign\"> {{produce}} </div>\n                        <button class=\"btn-flat waves-effect waves-white  col m2 valign\" ng-click=\"basicInfo.removeType('produces', produce);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div flex class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Consumes: </div>\n                    <div class=\"valign-wrapper\">\n                      <button class=\"btn-flat waves-effect waves-white valign col m2\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                        <i class=\"material-icons\">add</i>\n                      </button>\n                      <sg-dropdown class=\" browser-default col s10 valign\" sg-label=\"Consumes\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n\n                    </div>\n                    <ul class=\"row\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"col m10 valign \">\n                          <p class=\"shrink\">{{consume}}</p>\n                        </div>\n                        <button class=\"btn-flat waves-effect waves-white  col m2 valign\" ng-click=\"basicInfo.removeType('consumes', consume);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div layout=\"row\" class=\"valign-wrapper\">\n                      <sg-dropdown class=\"col s10 valign\" sg-label=\"Schemes\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                      <button class=\"btn-flat waves-effect waves-white valign col m2 \" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                        <i class=\"material-icons\" >add</i>\n                      </button>\n                    </div>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <div class=\"col s10 valign\">\n                          <p>{{scheme}}</p>\n                         </div>\n                        <button class=\"btn-flat waves-white col s2 valign\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.removeType('schemes', scheme);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n    </form>\n  </div>\n</div>\n"
 
 /***/ },
 /* 91 */
@@ -33550,7 +33558,7 @@
 /* 94 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\" ng-cloak>\n  {{pathCtl.paths}}\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s3 m2 l2 valign\">\n              <h3>Paths</h3>\n            </div>\n            <div class=\"col s3 m8 l8\">\n              <a class=\"btn-flat\" ng-click=\"togglePaths()\">\n              <i class=\"large material-icons\">swap_vert</i>\n              </a>\n            </div>\n            <div class=\"col s6 m2 l2 valign right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div class=\"left-align\" style=\"padding-left:15px;\">Add Operations </div>\n              <div class=\"col s12 l6\">\n                <div class=\"row\" >\n                  <div class=\"col\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'\" ng-hide=\"pathCtl.paths[pathName][operation]\">\n                    <a ng-class=\"{'blue': '{{operation}}' == 'get',\n                      'orange': '{{operation}}' === 'put',\n                      'green': '{{operation}}' === 'post',\n                      'red': '{{operation}}' === 'delete', }\"\n                      class=\"waves-effect waves-light btn\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                    {{operation | uppercase}}\n                    </a>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <div ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\" class=\"valign-wrapper\">\n                <div class=\"col s11 valign\">\n                  <ul class=\"collapsible blue-grey darken-2\" init-collapse data-collapsible=\"accordion\">\n                    <li>\n                      <div ng-class=\"{'blue': '{{operation}}' == 'get',\n                        'orange': '{{operation}}' === 'put',\n                        'green': '{{operation}}' === 'post',\n                        'red': '{{operation}}' === 'delete', }\"\n                        class=\"collapsible-header \"><i class=\"material-icons\">filter_drama</i>{{ operation | uppercase }}   {{ \" \" + path.currentName}}</div>\n                      <div class=\"collapsible-body \">\n                        <div class=\"section\">\n                          <div class=\"\">\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <input id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].summary\"\n                                ng-model=\"pathCtl.paths[pathName][operation].summary\"\n                                maxlength=\"150\" type=\"text\"/>\n                              <label id=\"label\"  for=\"label\">Summary</label>\n                            </div>\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <textarea id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].description\"\n                                ng-model=\"pathCtl.paths[pathName][operation].description\"\n                                class=\"materialize-textarea\"></textarea>\n                              <label id=\"label\" for=\"label\">Description</label>\n                            </div>\n                          </div>\n                        </div>\n                        <div class=\"Section\" ng-if=\"pathCtl.paths[pathName][operation]\">\n                          <sg-parameter sg-this-operation=\"{{operation}}\" sg-context=\"pathCtl.paths[pathName][operation]\"></sg-parameter>\n                          <sg-response sg-this-operation=\"{{operation}}\" sg-context=\"pathCtl.paths[pathName][operation].responses\"></sg-response>\n                        </div>\n\n                      </div>\n                    </li>\n                  </ul>\n                </div>\n                <div class=\"col s1 valign\" >\n                  <button class=\"btn-flat\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deleteOperation(pathName, operation)\">\n                  <i class=\"material-icons\">delete</i>\n                  </button>\n                </div>\n              </div>\n              {{path}}\n            </div>\n          </div>\n          {{paths}}\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
+	module.exports = "<div class=\"section\" ng-cloak>\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      {{pathCtl.paths}}\n      <div class=\"card \">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Paths</span>\n            </h2>\n            <div style=\"padding-top:6%\" class=\"right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div>\n              <div style=\"display:flex; flex-direction:row; justify-content:flex-start;\">\n                <div>Operations:</div>\n                <a ng-repeat=\"(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'\"\n                    style=\"margin-left:2%;\"\n                     ng-hide=\"pathCtl.paths[pathName][operation]\"\n                  ng-class=\"{'blue': '{{operation}}' == 'get',\n                  'orange': '{{operation}}' === 'put',\n                  'green': '{{operation}}' === 'post',\n                  'red': '{{operation}}' === 'delete', }\"\n                  class=\"waves-effect waves-light btn white-text\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                {{operation | uppercase}}\n                </a>\n              </div>\n            </div>\n            <div class=\"row\" >\n              <ul class=\"collapsible popout col s12\" data-collapsible=\"accordion\" watch>\n                  <li class=\"\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\">\n                    <div ng-class=\"{'blue': '{{operation}}' == 'get',\n                      'orange': '{{operation}}' === 'put',\n                      'green': '{{operation}}' === 'post',\n                      'red': '{{operation}}' === 'delete', }\"\n                      class=\"collapsible-header white-text\"><i class=\"material-icons\">filter_drama</i>{{ operation | uppercase }}   {{ \" \" + path.currentName}}</div>\n                      <div class=\"collapsible-body\">\n                        <div class=\"section\">\n                          <div class=\"\">\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <input id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].summary\"\n                                ng-model=\"pathCtl.paths[pathName][operation].summary\"\n                                maxlength=\"150\" type=\"text\"/>\n                              <label id=\"label\"  for=\"label\">Summary</label>\n                            </div>\n                            <div sg-unique-input class=\"input-field col s12\">\n                              <textarea id=\"input\"\n                                ng-attr-placeholder=\"pathCtl.paths[pathName][operation].description\"\n                                ng-model=\"pathCtl.paths[pathName][operation].description\"\n                                class=\"materialize-textarea\"></textarea>\n                              <label id=\"label\" for=\"label\">Description</label>\n                            </div>\n                          </div>\n                        </div>\n                        <div class=\"Section\" ng-if=\"pathCtl.paths[pathName][operation]\">\n                          <sg-parameter sg-this-operation=\"{{operation}}\" sg-context=\"pathCtl.paths[pathName][operation]\"></sg-parameter>\n                          <sg-response sg-this-operation=\"{{operation}}\" sg-context=\"pathCtl.paths[pathName][operation].responses\"></sg-response>\n                        </div>\n\n                    </div>\n                  </li>\n                </ul>\n\n              {{path}}\n            </div>\n          </div>\n          {{paths}}\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
 
 /***/ },
 /* 95 */
@@ -33729,7 +33737,7 @@
 /* 98 */
 /***/ function(module, exports) {
 
-	module.exports = "<h5>Parameters</h5>\n<table ng-if=\"paramControl.sgContext.parameters.length > 0;\" class=\" section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"name\">Name</th>\n      <th data-field=\"in\">Located In</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"required\">Required</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"param in paramControl.sgContext.parameters | orderBy:'name'\">\n      <div >\n        <td class=\"white-text shrink\">{{param.name}}</td>\n        <td class=\"white-text\">{{param.inLocation}}</td>\n        <td class=\"shrink white-text\">{{param.description}}</td>\n        <td class=\"white-text\">{{param.required}}</td>\n        <td class=\"shrink\">{{param.schema}}</td>\n        <td class=\"white-text\">\n          <a class=\"disabled\" href=\"#param-modal\" modal ng-click=\"paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addParameter\" novalidate ng-submit=\"addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation)\">\n  <div class=\"valign-wrapper\">\n    <div sg-unique-input class=\"input-field col s4 valign\">\n      <input id=\"input\" name=\"name\" ng-model=\"paramControl.newParamData[paramControl.sgThisOperation].name\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Parameter Name</label>\n    </div>\n    <div class=\"input-field col s4 valign\" >\n      <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"paramControl.newParamData[paramControl.sgThisOperation].inLocation\" sg-default-option=\"Choose Parameter Location\" sg-choices=\"paramControl.inLocationList\"></sg-dropdown>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\" ng-class=\"{ 'disabled': addParameter.name.$invalid }\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n  <div class=\"valign-wrapper\">\n    <div class=\"col s4 valign\">\n      <div  class=\"error\"\n            ng-show=\"addParameter.name.$dirty && addParameter.name.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addParameter.name.$error.required\">\n          Parameter name is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\"></div>\n    <div class=\"col s4\">\n    </div>\n  </div>\n</form>\n{{paramControl.paths}}\n"
+	module.exports = "<h5>Parameters</h5>\n<table ng-if=\"paramControl.sgContext.parameters.length > 0;\" class=\" section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"name\">Name</th>\n      <th data-field=\"in\">Located In</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"required\">Required</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"param in paramControl.sgContext.parameters | orderBy:'name'\">\n      <div >\n        <td class=\" shrink\">{{param.name}}</td>\n        <td class=\"\">{{param.inLocation}}</td>\n        <td class=\"shrink \">{{param.description}}</td>\n        <td class=\"\">{{param.required}}</td>\n        <td class=\"shrink\">{{param.schema}}</td>\n        <td class=\"\">\n          <a class=\"disabled\" href=\"#param-modal\" modal ng-click=\"paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addParameter\" novalidate ng-submit=\"addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation)\">\n  <div class=\"valign-wrapper\">\n    <div sg-unique-input class=\"input-field col s4 valign\">\n      <input id=\"input\" name=\"name\" ng-model=\"paramControl.newParamData[paramControl.sgThisOperation].name\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Parameter Name</label>\n    </div>\n    <div class=\"input-field col s4 valign\" >\n      <sg-dropdown sg-label=\"In Location\" ng-model=\"paramControl.newParamData[paramControl.sgThisOperation].inLocation\" sg-default-option=\"Choose Parameter Location\" sg-choices=\"paramControl.inLocationList\"></sg-dropdown>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\" ng-class=\"{ 'disabled': addParameter.name.$invalid }\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n  <div class=\"valign-wrapper\">\n    <div class=\"col s4 valign\">\n      <div  class=\"error\"\n            ng-show=\"addParameter.name.$dirty && addParameter.name.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addParameter.name.$error.required\">\n          Parameter name is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\"></div>\n    <div class=\"col s4\">\n    </div>\n  </div>\n</form>\n{{paramControl.paths}}\n"
 
 /***/ },
 /* 99 */
@@ -34936,7 +34944,7 @@
 /* 108 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\" ng-cloak>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <div class=\"card blue-grey darken-1\">\n        <div class=\"card-content white-text\">\n          <div class=\"row valign-wrapper\">\n            <div class=\"col s6 m8 l10 valign\">\n              <h3>Definitions</h3>\n            </div>\n            <div class=\"col s6 m4 l2 valign right-align\">\n              <a ng-click=\"openFocusDefinitionModal()\"\n                  class=\"btn-floating btn-large waves-effect waves-light purple accent-4\" href=\"#definition-creation-modal\" modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n          {{defControl}}\n          <ul ng-repeat=\"(definition, defValue) in defControl.definitions\"\n            class=\"collapsible blue-grey darken-2\"\n            init-collapse\n            data-collapsible=\"accordion\">\n            <li>\n              <div class=\"collapsible-header blue-grey\">\n                {{definition}}\n              </div>\n              <div class=\"collapsible-body\">\n                <div class=\"section\">\n                  <span class=\"card-title col s12\">Attributes</span>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\"\n                      type=\"text\"\n                      placeholder=\"Some information about the Definition\"\n                      ng-model=\"defValue.description\"\n                      disabled>\n                    <label class=\"white-text active\">Description</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" ng-model=\"defValue.type\" disabled>\n                    <label class=\"white-text\">Type</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" placeholder=\"\" ng-model=\"defValue.required\" disabled>\n                    <label class=\"white-text\">Required</label>\n                  </div>\n                </div>\n                <div class=\"section\">\n                  <span class=\"card-title\">Properties</span>\n                  <table class=\"section bordered responsive-table\">\n                    <thead>\n                      <tr>\n                        <th ng-repeat=\"header in defControl.headers\"\n                          ng-attr-data-field=\"{{header}}\">{{header}}</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr ng-repeat=\"(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'\">\n                        <td class=\"white-text\">{{propertyName}}</td>\n                        <td class=\"white-text shrink\">{{propertyValue.description}}</td>\n                        <td class=\"white-text\">{{propertyValue.type}}</td>\n                        <td class=\"white-text\"\n                          ng-if=\"defValue.required.includes(propertyName);\">true</td>\n                        <td class=\"white-text\"\n                          ng-if=\"!defValue.required.includes(propertyName);\">false</td>\n                        <td class=\"white-text\">{{propertyValue.enum}}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col s6\">\n                    <button tooltipped\n                      class=\"btn-flat\"\n                      data-position=\"top\"\n                      data-delay=\"50\"\n                      data-tooltip=\"Delete Definition\"\n                      ng-click=\"defControl.deleteDefinition(definition);\">\n                    <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div class=\"col s6 \">\n                    <button class=\"btn-flat\"\n                      href=\"#definition-editor-modal\"\n                      ng-click=\"defControl.initDefinitionEditorModal(definition, defValue)\"\n                      modal>\n                    <i class=\"material-icons\">settings</i>\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </li>\n          </ul>\n          <sg-definition-creator-modal></sg-definition-creator-modal>\n          <sg-definition-editor-modal></sg-definition-editor-modal>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+	module.exports = "<div class=\"section\" ng-cloak>\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      {{defControl}}\n      <div class=\"card\">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Definitions</span>\n            </h2>\n            <div style=\"padding-top:6%\" class=\"right-align\">\n              <a ng-click=\"openFocusDefinitionModal()\"\n                  class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                  href=\"#definition-creation-modal\" modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div class=\"row \">\n            <ul class=\"collapsible popout col s12\" data-collapsible=\"accordion\" watch>\n                <li class=\"\" ng-repeat=\"(definition, defValue) in defControl.definitions\" >\n                  <div class=\"collapsible-header \">\n                    {{definition}}\n                  </div>\n                    <div class=\"collapsible-body\">\n                      <div class=\"section\">\n                        <span class=\"card-title col s12\">Attributes</span>\n                        <div class=\"input-field col s4 \">\n                          <input class=\"\"\n                            type=\"text\"\n                            placeholder=\"Some information about the Definition\"\n                            ng-model=\"defValue.description\"\n                            disabled>\n                          <label class=\" active\">Description</label>\n                        </div>\n                        <div class=\"input-field col s4 \">\n                          <input class=\"\" type=\"text\" ng-model=\"defValue.type\" disabled>\n                          <label class=\"\">Type</label>\n                        </div>\n                        <div class=\"input-field col s4 \">\n                          <input class=\"\" type=\"text\" placeholder=\"\" ng-model=\"defValue.required\" disabled>\n                          <label class=\"\">Required</label>\n                        </div>\n                      </div>\n                      <div class=\"section\">\n                        <span class=\"card-title\">Properties</span>\n                        <table class=\"section bordered responsive-table\">\n                          <thead>\n                            <tr>\n                              <th ng-repeat=\"header in defControl.headers\"\n                                ng-attr-data-field=\"{{header}}\">{{header}}</th>\n                            </tr>\n                          </thead>\n                          <tbody>\n                            <tr ng-repeat=\"(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'\">\n                              <td class=\"\">{{propertyName}}</td>\n                              <td class=\" shrink\">{{propertyValue.description}}</td>\n                              <td class=\"\">{{propertyValue.type}}</td>\n                              <td class=\"\"\n                                ng-if=\"defValue.required.includes(propertyName);\">true</td>\n                              <td class=\"\"\n                                ng-if=\"!defValue.required.includes(propertyName);\">false</td>\n                              <td class=\"\">{{propertyValue.enum}}</td>\n                            </tr>\n                          </tbody>\n                        </table>\n                      </div>\n                      <div class=\"row\">\n                        <div class=\"col s6\">\n                          <button tooltipped\n                            class=\"btn-flat\"\n                            data-position=\"top\"\n                            data-delay=\"50\"\n                            data-tooltip=\"Delete Definition\"\n                            ng-click=\"defControl.deleteDefinition(definition);\">\n                          <i class=\"material-icons\">delete</i>\n                          </button>\n                        </div>\n                        <div class=\"col s6 \">\n                          <button class=\"btn-flat\"\n                            href=\"#definition-editor-modal\"\n                            ng-click=\"defControl.initDefinitionEditorModal(definition, defValue)\"\n                            modal>\n                          <i class=\"material-icons\">settings</i>\n                          </button>\n                        </div>\n                      </div>\n                  </div>\n                </li>\n              </ul>\n\n          <!-- <ul ng-repeat=\"(definition, defValue) in defControl.definitions\"\n            class=\"collapsible blue-grey darken-2\"\n            init-collapse\n            data-collapsible=\"accordion\">\n            <li>\n              <div class=\"collapsible-header blue-grey\">\n                {{definition}}\n              </div>\n              <div class=\"collapsible-body\">\n                <div class=\"section\">\n                  <span class=\"card-title col s12\">Attributes</span>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\"\n                      type=\"text\"\n                      placeholder=\"Some information about the Definition\"\n                      ng-model=\"defValue.description\"\n                      disabled>\n                    <label class=\"white-text active\">Description</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" ng-model=\"defValue.type\" disabled>\n                    <label class=\"white-text\">Type</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" placeholder=\"\" ng-model=\"defValue.required\" disabled>\n                    <label class=\"white-text\">Required</label>\n                  </div>\n                </div>\n                <div class=\"section\">\n                  <span class=\"card-title\">Properties</span>\n                  <table class=\"section bordered responsive-table\">\n                    <thead>\n                      <tr>\n                        <th ng-repeat=\"header in defControl.headers\"\n                          ng-attr-data-field=\"{{header}}\">{{header}}</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr ng-repeat=\"(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'\">\n                        <td class=\"white-text\">{{propertyName}}</td>\n                        <td class=\"white-text shrink\">{{propertyValue.description}}</td>\n                        <td class=\"white-text\">{{propertyValue.type}}</td>\n                        <td class=\"white-text\"\n                          ng-if=\"defValue.required.includes(propertyName);\">true</td>\n                        <td class=\"white-text\"\n                          ng-if=\"!defValue.required.includes(propertyName);\">false</td>\n                        <td class=\"white-text\">{{propertyValue.enum}}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col s6\">\n                    <button tooltipped\n                      class=\"btn-flat\"\n                      data-position=\"top\"\n                      data-delay=\"50\"\n                      data-tooltip=\"Delete Definition\"\n                      ng-click=\"defControl.deleteDefinition(definition);\">\n                    <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div class=\"col s6 \">\n                    <button class=\"btn-flat\"\n                      href=\"#definition-editor-modal\"\n                      ng-click=\"defControl.initDefinitionEditorModal(definition, defValue)\"\n                      modal>\n                    <i class=\"material-icons\">settings</i>\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </li>\n          </ul> -->\n          <sg-definition-creator-modal></sg-definition-creator-modal>\n          <sg-definition-editor-modal></sg-definition-editor-modal>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
 /* 109 */
@@ -63633,13 +63641,712 @@
 /* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(119);
+	module.exports = 'ngMessages';
+
+
+/***/ },
+/* 119 */
+/***/ function(module, exports) {
+
+	/**
+	 * @license AngularJS v1.4.9
+	 * (c) 2010-2015 Google, Inc. http://angularjs.org
+	 * License: MIT
+	 */
+	(function(window, angular, undefined) {'use strict';
+	
+	/* jshint ignore:start */
+	// this code is in the core, but not in angular-messages.js
+	var isArray = angular.isArray;
+	var forEach = angular.forEach;
+	var isString = angular.isString;
+	var jqLite = angular.element;
+	/* jshint ignore:end */
+	
+	/**
+	 * @ngdoc module
+	 * @name ngMessages
+	 * @description
+	 *
+	 * The `ngMessages` module provides enhanced support for displaying messages within templates
+	 * (typically within forms or when rendering message objects that return key/value data).
+	 * Instead of relying on JavaScript code and/or complex ng-if statements within your form template to
+	 * show and hide error messages specific to the state of an input field, the `ngMessages` and
+	 * `ngMessage` directives are designed to handle the complexity, inheritance and priority
+	 * sequencing based on the order of how the messages are defined in the template.
+	 *
+	 * Currently, the ngMessages module only contains the code for the `ngMessages`, `ngMessagesInclude`
+	 * `ngMessage` and `ngMessageExp` directives.
+	 *
+	 * # Usage
+	 * The `ngMessages` directive listens on a key/value collection which is set on the ngMessages attribute.
+	 * Since the {@link ngModel ngModel} directive exposes an `$error` object, this error object can be
+	 * used with `ngMessages` to display control error messages in an easier way than with just regular angular
+	 * template directives.
+	 *
+	 * ```html
+	 * <form name="myForm">
+	 *   <label>
+	 *     Enter text:
+	 *     <input type="text" ng-model="field" name="myField" required minlength="5" />
+	 *   </label>
+	 *   <div ng-messages="myForm.myField.$error" role="alert">
+	 *     <div ng-message="required">You did not enter a field</div>
+	 *     <div ng-message="minlength, maxlength">
+	 *       Your email must be between 5 and 100 characters long
+	 *     </div>
+	 *   </div>
+	 * </form>
+	 * ```
+	 *
+	 * Now whatever key/value entries are present within the provided object (in this case `$error`) then
+	 * the ngMessages directive will render the inner first ngMessage directive (depending if the key values
+	 * match the attribute value present on each ngMessage directive). In other words, if your errors
+	 * object contains the following data:
+	 *
+	 * ```javascript
+	 * <!-- keep in mind that ngModel automatically sets these error flags -->
+	 * myField.$error = { minlength : true, required : true };
+	 * ```
+	 *
+	 * Then the `required` message will be displayed first. When required is false then the `minlength` message
+	 * will be displayed right after (since these messages are ordered this way in the template HTML code).
+	 * The prioritization of each message is determined by what order they're present in the DOM.
+	 * Therefore, instead of having custom JavaScript code determine the priority of what errors are
+	 * present before others, the presentation of the errors are handled within the template.
+	 *
+	 * By default, ngMessages will only display one error at a time. However, if you wish to display all
+	 * messages then the `ng-messages-multiple` attribute flag can be used on the element containing the
+	 * ngMessages directive to make this happen.
+	 *
+	 * ```html
+	 * <!-- attribute-style usage -->
+	 * <div ng-messages="myForm.myField.$error" ng-messages-multiple>...</div>
+	 *
+	 * <!-- element-style usage -->
+	 * <ng-messages for="myForm.myField.$error" multiple>...</ng-messages>
+	 * ```
+	 *
+	 * ## Reusing and Overriding Messages
+	 * In addition to prioritization, ngMessages also allows for including messages from a remote or an inline
+	 * template. This allows for generic collection of messages to be reused across multiple parts of an
+	 * application.
+	 *
+	 * ```html
+	 * <script type="text/ng-template" id="error-messages">
+	 *   <div ng-message="required">This field is required</div>
+	 *   <div ng-message="minlength">This field is too short</div>
+	 * </script>
+	 *
+	 * <div ng-messages="myForm.myField.$error" role="alert">
+	 *   <div ng-messages-include="error-messages"></div>
+	 * </div>
+	 * ```
+	 *
+	 * However, including generic messages may not be useful enough to match all input fields, therefore,
+	 * `ngMessages` provides the ability to override messages defined in the remote template by redefining
+	 * them within the directive container.
+	 *
+	 * ```html
+	 * <!-- a generic template of error messages known as "my-custom-messages" -->
+	 * <script type="text/ng-template" id="my-custom-messages">
+	 *   <div ng-message="required">This field is required</div>
+	 *   <div ng-message="minlength">This field is too short</div>
+	 * </script>
+	 *
+	 * <form name="myForm">
+	 *   <label>
+	 *     Email address
+	 *     <input type="email"
+	 *            id="email"
+	 *            name="myEmail"
+	 *            ng-model="email"
+	 *            minlength="5"
+	 *            required />
+	 *   </label>
+	 *   <!-- any ng-message elements that appear BEFORE the ng-messages-include will
+	 *        override the messages present in the ng-messages-include template -->
+	 *   <div ng-messages="myForm.myEmail.$error" role="alert">
+	 *     <!-- this required message has overridden the template message -->
+	 *     <div ng-message="required">You did not enter your email address</div>
+	 *
+	 *     <!-- this is a brand new message and will appear last in the prioritization -->
+	 *     <div ng-message="email">Your email address is invalid</div>
+	 *
+	 *     <!-- and here are the generic error messages -->
+	 *     <div ng-messages-include="my-custom-messages"></div>
+	 *   </div>
+	 * </form>
+	 * ```
+	 *
+	 * In the example HTML code above the message that is set on required will override the corresponding
+	 * required message defined within the remote template. Therefore, with particular input fields (such
+	 * email addresses, date fields, autocomplete inputs, etc...), specialized error messages can be applied
+	 * while more generic messages can be used to handle other, more general input errors.
+	 *
+	 * ## Dynamic Messaging
+	 * ngMessages also supports using expressions to dynamically change key values. Using arrays and
+	 * repeaters to list messages is also supported. This means that the code below will be able to
+	 * fully adapt itself and display the appropriate message when any of the expression data changes:
+	 *
+	 * ```html
+	 * <form name="myForm">
+	 *   <label>
+	 *     Email address
+	 *     <input type="email"
+	 *            name="myEmail"
+	 *            ng-model="email"
+	 *            minlength="5"
+	 *            required />
+	 *   </label>
+	 *   <div ng-messages="myForm.myEmail.$error" role="alert">
+	 *     <div ng-message="required">You did not enter your email address</div>
+	 *     <div ng-repeat="errorMessage in errorMessages">
+	 *       <!-- use ng-message-exp for a message whose key is given by an expression -->
+	 *       <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+	 *     </div>
+	 *   </div>
+	 * </form>
+	 * ```
+	 *
+	 * The `errorMessage.type` expression can be a string value or it can be an array so
+	 * that multiple errors can be associated with a single error message:
+	 *
+	 * ```html
+	 *   <label>
+	 *     Email address
+	 *     <input type="email"
+	 *            ng-model="data.email"
+	 *            name="myEmail"
+	 *            ng-minlength="5"
+	 *            ng-maxlength="100"
+	 *            required />
+	 *   </label>
+	 *   <div ng-messages="myForm.myEmail.$error" role="alert">
+	 *     <div ng-message-exp="'required'">You did not enter your email address</div>
+	 *     <div ng-message-exp="['minlength', 'maxlength']">
+	 *       Your email must be between 5 and 100 characters long
+	 *     </div>
+	 *   </div>
+	 * ```
+	 *
+	 * Feel free to use other structural directives such as ng-if and ng-switch to further control
+	 * what messages are active and when. Be careful, if you place ng-message on the same element
+	 * as these structural directives, Angular may not be able to determine if a message is active
+	 * or not. Therefore it is best to place the ng-message on a child element of the structural
+	 * directive.
+	 *
+	 * ```html
+	 * <div ng-messages="myForm.myEmail.$error" role="alert">
+	 *   <div ng-if="showRequiredError">
+	 *     <div ng-message="required">Please enter something</div>
+	 *   </div>
+	 * </div>
+	 * ```
+	 *
+	 * ## Animations
+	 * If the `ngAnimate` module is active within the application then the `ngMessages`, `ngMessage` and
+	 * `ngMessageExp` directives will trigger animations whenever any messages are added and removed from
+	 * the DOM by the `ngMessages` directive.
+	 *
+	 * Whenever the `ngMessages` directive contains one or more visible messages then the `.ng-active` CSS
+	 * class will be added to the element. The `.ng-inactive` CSS class will be applied when there are no
+	 * messages present. Therefore, CSS transitions and keyframes as well as JavaScript animations can
+	 * hook into the animations whenever these classes are added/removed.
+	 *
+	 * Let's say that our HTML code for our messages container looks like so:
+	 *
+	 * ```html
+	 * <div ng-messages="myMessages" class="my-messages" role="alert">
+	 *   <div ng-message="alert" class="some-message">...</div>
+	 *   <div ng-message="fail" class="some-message">...</div>
+	 * </div>
+	 * ```
+	 *
+	 * Then the CSS animation code for the message container looks like so:
+	 *
+	 * ```css
+	 * .my-messages {
+	 *   transition:1s linear all;
+	 * }
+	 * .my-messages.ng-active {
+	 *   // messages are visible
+	 * }
+	 * .my-messages.ng-inactive {
+	 *   // messages are hidden
+	 * }
+	 * ```
+	 *
+	 * Whenever an inner message is attached (becomes visible) or removed (becomes hidden) then the enter
+	 * and leave animation is triggered for each particular element bound to the `ngMessage` directive.
+	 *
+	 * Therefore, the CSS code for the inner messages looks like so:
+	 *
+	 * ```css
+	 * .some-message {
+	 *   transition:1s linear all;
+	 * }
+	 *
+	 * .some-message.ng-enter {}
+	 * .some-message.ng-enter.ng-enter-active {}
+	 *
+	 * .some-message.ng-leave {}
+	 * .some-message.ng-leave.ng-leave-active {}
+	 * ```
+	 *
+	 * {@link ngAnimate Click here} to learn how to use JavaScript animations or to learn more about ngAnimate.
+	 */
+	angular.module('ngMessages', [])
+	
+	   /**
+	    * @ngdoc directive
+	    * @module ngMessages
+	    * @name ngMessages
+	    * @restrict AE
+	    *
+	    * @description
+	    * `ngMessages` is a directive that is designed to show and hide messages based on the state
+	    * of a key/value object that it listens on. The directive itself complements error message
+	    * reporting with the `ngModel` $error object (which stores a key/value state of validation errors).
+	    *
+	    * `ngMessages` manages the state of internal messages within its container element. The internal
+	    * messages use the `ngMessage` directive and will be inserted/removed from the page depending
+	    * on if they're present within the key/value object. By default, only one message will be displayed
+	    * at a time and this depends on the prioritization of the messages within the template. (This can
+	    * be changed by using the `ng-messages-multiple` or `multiple` attribute on the directive container.)
+	    *
+	    * A remote template can also be used to promote message reusability and messages can also be
+	    * overridden.
+	    *
+	    * {@link module:ngMessages Click here} to learn more about `ngMessages` and `ngMessage`.
+	    *
+	    * @usage
+	    * ```html
+	    * <!-- using attribute directives -->
+	    * <ANY ng-messages="expression" role="alert">
+	    *   <ANY ng-message="stringValue">...</ANY>
+	    *   <ANY ng-message="stringValue1, stringValue2, ...">...</ANY>
+	    *   <ANY ng-message-exp="expressionValue">...</ANY>
+	    * </ANY>
+	    *
+	    * <!-- or by using element directives -->
+	    * <ng-messages for="expression" role="alert">
+	    *   <ng-message when="stringValue">...</ng-message>
+	    *   <ng-message when="stringValue1, stringValue2, ...">...</ng-message>
+	    *   <ng-message when-exp="expressionValue">...</ng-message>
+	    * </ng-messages>
+	    * ```
+	    *
+	    * @param {string} ngMessages an angular expression evaluating to a key/value object
+	    *                 (this is typically the $error object on an ngModel instance).
+	    * @param {string=} ngMessagesMultiple|multiple when set, all messages will be displayed with true
+	    *
+	    * @example
+	    * <example name="ngMessages-directive" module="ngMessagesExample"
+	    *          deps="angular-messages.js"
+	    *          animations="true" fixBase="true">
+	    *   <file name="index.html">
+	    *     <form name="myForm">
+	    *       <label>
+	    *         Enter your name:
+	    *         <input type="text"
+	    *                name="myName"
+	    *                ng-model="name"
+	    *                ng-minlength="5"
+	    *                ng-maxlength="20"
+	    *                required />
+	    *       </label>
+	    *       <pre>myForm.myName.$error = {{ myForm.myName.$error | json }}</pre>
+	    *
+	    *       <div ng-messages="myForm.myName.$error" style="color:maroon" role="alert">
+	    *         <div ng-message="required">You did not enter a field</div>
+	    *         <div ng-message="minlength">Your field is too short</div>
+	    *         <div ng-message="maxlength">Your field is too long</div>
+	    *       </div>
+	    *     </form>
+	    *   </file>
+	    *   <file name="script.js">
+	    *     angular.module('ngMessagesExample', ['ngMessages']);
+	    *   </file>
+	    * </example>
+	    */
+	   .directive('ngMessages', ['$animate', function($animate) {
+	     var ACTIVE_CLASS = 'ng-active';
+	     var INACTIVE_CLASS = 'ng-inactive';
+	
+	     return {
+	       require: 'ngMessages',
+	       restrict: 'AE',
+	       controller: ['$element', '$scope', '$attrs', function($element, $scope, $attrs) {
+	         var ctrl = this;
+	         var latestKey = 0;
+	         var nextAttachId = 0;
+	
+	         this.getAttachId = function getAttachId() { return nextAttachId++; };
+	
+	         var messages = this.messages = {};
+	         var renderLater, cachedCollection;
+	
+	         this.render = function(collection) {
+	           collection = collection || {};
+	
+	           renderLater = false;
+	           cachedCollection = collection;
+	
+	           // this is true if the attribute is empty or if the attribute value is truthy
+	           var multiple = isAttrTruthy($scope, $attrs.ngMessagesMultiple) ||
+	                          isAttrTruthy($scope, $attrs.multiple);
+	
+	           var unmatchedMessages = [];
+	           var matchedKeys = {};
+	           var messageItem = ctrl.head;
+	           var messageFound = false;
+	           var totalMessages = 0;
+	
+	           // we use != instead of !== to allow for both undefined and null values
+	           while (messageItem != null) {
+	             totalMessages++;
+	             var messageCtrl = messageItem.message;
+	
+	             var messageUsed = false;
+	             if (!messageFound) {
+	               forEach(collection, function(value, key) {
+	                 if (!messageUsed && truthy(value) && messageCtrl.test(key)) {
+	                   // this is to prevent the same error name from showing up twice
+	                   if (matchedKeys[key]) return;
+	                   matchedKeys[key] = true;
+	
+	                   messageUsed = true;
+	                   messageCtrl.attach();
+	                 }
+	               });
+	             }
+	
+	             if (messageUsed) {
+	               // unless we want to display multiple messages then we should
+	               // set a flag here to avoid displaying the next message in the list
+	               messageFound = !multiple;
+	             } else {
+	               unmatchedMessages.push(messageCtrl);
+	             }
+	
+	             messageItem = messageItem.next;
+	           }
+	
+	           forEach(unmatchedMessages, function(messageCtrl) {
+	             messageCtrl.detach();
+	           });
+	
+	           unmatchedMessages.length !== totalMessages
+	              ? $animate.setClass($element, ACTIVE_CLASS, INACTIVE_CLASS)
+	              : $animate.setClass($element, INACTIVE_CLASS, ACTIVE_CLASS);
+	         };
+	
+	         $scope.$watchCollection($attrs.ngMessages || $attrs['for'], ctrl.render);
+	
+	         this.reRender = function() {
+	           if (!renderLater) {
+	             renderLater = true;
+	             $scope.$evalAsync(function() {
+	               if (renderLater) {
+	                 cachedCollection && ctrl.render(cachedCollection);
+	               }
+	             });
+	           }
+	         };
+	
+	         this.register = function(comment, messageCtrl) {
+	           var nextKey = latestKey.toString();
+	           messages[nextKey] = {
+	             message: messageCtrl
+	           };
+	           insertMessageNode($element[0], comment, nextKey);
+	           comment.$$ngMessageNode = nextKey;
+	           latestKey++;
+	
+	           ctrl.reRender();
+	         };
+	
+	         this.deregister = function(comment) {
+	           var key = comment.$$ngMessageNode;
+	           delete comment.$$ngMessageNode;
+	           removeMessageNode($element[0], comment, key);
+	           delete messages[key];
+	           ctrl.reRender();
+	         };
+	
+	         function findPreviousMessage(parent, comment) {
+	           var prevNode = comment;
+	           var parentLookup = [];
+	           while (prevNode && prevNode !== parent) {
+	             var prevKey = prevNode.$$ngMessageNode;
+	             if (prevKey && prevKey.length) {
+	               return messages[prevKey];
+	             }
+	
+	             // dive deeper into the DOM and examine its children for any ngMessage
+	             // comments that may be in an element that appears deeper in the list
+	             if (prevNode.childNodes.length && parentLookup.indexOf(prevNode) == -1) {
+	               parentLookup.push(prevNode);
+	               prevNode = prevNode.childNodes[prevNode.childNodes.length - 1];
+	             } else {
+	               prevNode = prevNode.previousSibling || prevNode.parentNode;
+	             }
+	           }
+	         }
+	
+	         function insertMessageNode(parent, comment, key) {
+	           var messageNode = messages[key];
+	           if (!ctrl.head) {
+	             ctrl.head = messageNode;
+	           } else {
+	             var match = findPreviousMessage(parent, comment);
+	             if (match) {
+	               messageNode.next = match.next;
+	               match.next = messageNode;
+	             } else {
+	               messageNode.next = ctrl.head;
+	               ctrl.head = messageNode;
+	             }
+	           }
+	         }
+	
+	         function removeMessageNode(parent, comment, key) {
+	           var messageNode = messages[key];
+	
+	           var match = findPreviousMessage(parent, comment);
+	           if (match) {
+	             match.next = messageNode.next;
+	           } else {
+	             ctrl.head = messageNode.next;
+	           }
+	         }
+	       }]
+	     };
+	
+	     function isAttrTruthy(scope, attr) {
+	      return (isString(attr) && attr.length === 0) || //empty attribute
+	             truthy(scope.$eval(attr));
+	     }
+	
+	     function truthy(val) {
+	       return isString(val) ? val.length : !!val;
+	     }
+	   }])
+	
+	   /**
+	    * @ngdoc directive
+	    * @name ngMessagesInclude
+	    * @restrict AE
+	    * @scope
+	    *
+	    * @description
+	    * `ngMessagesInclude` is a directive with the purpose to import existing ngMessage template
+	    * code from a remote template and place the downloaded template code into the exact spot
+	    * that the ngMessagesInclude directive is placed within the ngMessages container. This allows
+	    * for a series of pre-defined messages to be reused and also allows for the developer to
+	    * determine what messages are overridden due to the placement of the ngMessagesInclude directive.
+	    *
+	    * @usage
+	    * ```html
+	    * <!-- using attribute directives -->
+	    * <ANY ng-messages="expression" role="alert">
+	    *   <ANY ng-messages-include="remoteTplString">...</ANY>
+	    * </ANY>
+	    *
+	    * <!-- or by using element directives -->
+	    * <ng-messages for="expression" role="alert">
+	    *   <ng-messages-include src="expressionValue1">...</ng-messages-include>
+	    * </ng-messages>
+	    * ```
+	    *
+	    * {@link module:ngMessages Click here} to learn more about `ngMessages` and `ngMessage`.
+	    *
+	    * @param {string} ngMessagesInclude|src a string value corresponding to the remote template.
+	    */
+	   .directive('ngMessagesInclude',
+	     ['$templateRequest', '$document', '$compile', function($templateRequest, $document, $compile) {
+	
+	     return {
+	       restrict: 'AE',
+	       require: '^^ngMessages', // we only require this for validation sake
+	       link: function($scope, element, attrs) {
+	         var src = attrs.ngMessagesInclude || attrs.src;
+	         $templateRequest(src).then(function(html) {
+	           $compile(html)($scope, function(contents) {
+	             element.after(contents);
+	
+	             // the anchor is placed for debugging purposes
+	             var anchor = jqLite($document[0].createComment(' ngMessagesInclude: ' + src + ' '));
+	             element.after(anchor);
+	
+	             // we don't want to pollute the DOM anymore by keeping an empty directive element
+	             element.remove();
+	           });
+	         });
+	       }
+	     };
+	   }])
+	
+	   /**
+	    * @ngdoc directive
+	    * @name ngMessage
+	    * @restrict AE
+	    * @scope
+	    *
+	    * @description
+	    * `ngMessage` is a directive with the purpose to show and hide a particular message.
+	    * For `ngMessage` to operate, a parent `ngMessages` directive on a parent DOM element
+	    * must be situated since it determines which messages are visible based on the state
+	    * of the provided key/value map that `ngMessages` listens on.
+	    *
+	    * More information about using `ngMessage` can be found in the
+	    * {@link module:ngMessages `ngMessages` module documentation}.
+	    *
+	    * @usage
+	    * ```html
+	    * <!-- using attribute directives -->
+	    * <ANY ng-messages="expression" role="alert">
+	    *   <ANY ng-message="stringValue">...</ANY>
+	    *   <ANY ng-message="stringValue1, stringValue2, ...">...</ANY>
+	    * </ANY>
+	    *
+	    * <!-- or by using element directives -->
+	    * <ng-messages for="expression" role="alert">
+	    *   <ng-message when="stringValue">...</ng-message>
+	    *   <ng-message when="stringValue1, stringValue2, ...">...</ng-message>
+	    * </ng-messages>
+	    * ```
+	    *
+	    * @param {expression} ngMessage|when a string value corresponding to the message key.
+	    */
+	  .directive('ngMessage', ngMessageDirectiveFactory('AE'))
+	
+	
+	   /**
+	    * @ngdoc directive
+	    * @name ngMessageExp
+	    * @restrict AE
+	    * @scope
+	    *
+	    * @description
+	    * `ngMessageExp` is a directive with the purpose to show and hide a particular message.
+	    * For `ngMessageExp` to operate, a parent `ngMessages` directive on a parent DOM element
+	    * must be situated since it determines which messages are visible based on the state
+	    * of the provided key/value map that `ngMessages` listens on.
+	    *
+	    * @usage
+	    * ```html
+	    * <!-- using attribute directives -->
+	    * <ANY ng-messages="expression">
+	    *   <ANY ng-message-exp="expressionValue">...</ANY>
+	    * </ANY>
+	    *
+	    * <!-- or by using element directives -->
+	    * <ng-messages for="expression">
+	    *   <ng-message when-exp="expressionValue">...</ng-message>
+	    * </ng-messages>
+	    * ```
+	    *
+	    * {@link module:ngMessages Click here} to learn more about `ngMessages` and `ngMessage`.
+	    *
+	    * @param {expression} ngMessageExp|whenExp an expression value corresponding to the message key.
+	    */
+	  .directive('ngMessageExp', ngMessageDirectiveFactory('A'));
+	
+	function ngMessageDirectiveFactory(restrict) {
+	  return ['$animate', function($animate) {
+	    return {
+	      restrict: 'AE',
+	      transclude: 'element',
+	      terminal: true,
+	      require: '^^ngMessages',
+	      link: function(scope, element, attrs, ngMessagesCtrl, $transclude) {
+	        var commentNode = element[0];
+	
+	        var records;
+	        var staticExp = attrs.ngMessage || attrs.when;
+	        var dynamicExp = attrs.ngMessageExp || attrs.whenExp;
+	        var assignRecords = function(items) {
+	          records = items
+	              ? (isArray(items)
+	                    ? items
+	                    : items.split(/[\s,]+/))
+	              : null;
+	          ngMessagesCtrl.reRender();
+	        };
+	
+	        if (dynamicExp) {
+	          assignRecords(scope.$eval(dynamicExp));
+	          scope.$watchCollection(dynamicExp, assignRecords);
+	        } else {
+	          assignRecords(staticExp);
+	        }
+	
+	        var currentElement, messageCtrl;
+	        ngMessagesCtrl.register(commentNode, messageCtrl = {
+	          test: function(name) {
+	            return contains(records, name);
+	          },
+	          attach: function() {
+	            if (!currentElement) {
+	              $transclude(scope, function(elm) {
+	                $animate.enter(elm, null, element);
+	                currentElement = elm;
+	
+	                // Each time we attach this node to a message we get a new id that we can match
+	                // when we are destroying the node later.
+	                var $$attachId = currentElement.$$attachId = ngMessagesCtrl.getAttachId();
+	
+	                // in the event that the parent element is destroyed
+	                // by any other structural directive then it's time
+	                // to deregister the message from the controller
+	                currentElement.on('$destroy', function() {
+	                  if (currentElement && currentElement.$$attachId === $$attachId) {
+	                    ngMessagesCtrl.deregister(commentNode);
+	                    messageCtrl.detach();
+	                  }
+	                });
+	              });
+	            }
+	          },
+	          detach: function() {
+	            if (currentElement) {
+	              var elm = currentElement;
+	              currentElement = null;
+	              $animate.leave(elm);
+	            }
+	          }
+	        });
+	      }
+	    };
+	  }];
+	
+	  function contains(collection, key) {
+	    if (collection) {
+	      return isArray(collection)
+	          ? collection.indexOf(key) >= 0
+	          : collection.hasOwnProperty(key);
+	    }
+	  }
+	}
+	
+	
+	})(window, window.angular);
+
+
+/***/ },
+/* 120 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(119);
+	var content = __webpack_require__(121);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(121)(content, {});
+	var update = __webpack_require__(123)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -63656,10 +64363,10 @@
 	}
 
 /***/ },
-/* 119 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(120)();
+	exports = module.exports = __webpack_require__(122)();
 	// imports
 	
 	
@@ -63670,7 +64377,7 @@
 
 
 /***/ },
-/* 120 */
+/* 122 */
 /***/ function(module, exports) {
 
 	/*
@@ -63726,7 +64433,7 @@
 
 
 /***/ },
-/* 121 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -63977,6 +64684,46 @@
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
+
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(125);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(123)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./main.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./main.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(122)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "/*.container-padding {\n    margin-left: 5px;\n}\n\nhtml, body {\n  font-family: 'Roboto', 'Helvetica', sans-serif;\n  margin: 0;\n  padding: 0;\n}\n\n.white-text {\n     color: black !important;\n}*/\n\n/*nav.top-nav {\n    height: 122px;\n    box-shadow: none;\n}*/\n/*ul.side-nav.fixed li.logo {\n    text-align: center;\n    margin-top: 32px;\n    margin-bottom: 80px;\n}*/\n/*#logo-container {\n    height: 57px;\n    margin-bottom: 32px;\n}*/\n\n#nav-mobile li.search {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 120px;\n    margin-top: 1px;\n    padding: 1px 0 0 0;\n    z-index: 2;\n}\n\nul.side-nav.fixed li {\n    line-height: 44px;\n}\n\n#nav-mobile li.search .search-wrapper input#search {\n    display: block;\n    font-size: 16px;\n    font-weight: 300;\n    width: 100%;\n    height: 45px;\n    margin: 0;\n    padding: 0 45px 0 15px;\n    border: 0;\n}\n\n#nav-mobile li.search .search-wrapper.focused {\n    margin: 0;\n}\n\n#nav-mobile li.search .search-wrapper {\n    margin: 0 12px;\n    transition: margin .25s ease;\n}\n\n#view-source {\n  position: fixed;\n  display: block;\n  right: 0;\n  bottom: 0;\n  margin-right: 40px;\n  margin-bottom: 40px;\n  z-index: 900;\n}\n\nheader, main, footer {\n  padding-left: 240px;\n}\n\n@media only screen and (max-width : 992px) {\n  header, main, footer {\n    padding-left: 0;\n  }\n}\n\n\n.shrink{\n  max-width:100px;\n  white-space:nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n[type=\"checkbox\"]+label:before {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 18px;\n    height: 18px;\n    z-index: 0;\n    border: 2px solid #9e9e9e;\n    border-radius: 1px;\n    margin-top: 2px;\n    transition: .2s;\n}\n\n.input-field label {\n    /*color: white;*/\n    position: absolute;\n    top: 0.8rem;\n    left: 0.75rem;\n    font-size: 1rem;\n    cursor: text;\n    transition: .2s ease-out;\n}\ninput.ng-invalid {\nborder-bottom: 1px solid #ff5252;\n}\n\n.error {\n  color: #ff5252;\n}\n", ""]);
+	
+	// exports
 
 
 /***/ }

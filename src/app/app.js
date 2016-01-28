@@ -7,11 +7,14 @@ import angularFileSaver from 'angular-file-saver';
 import AngularMaterial from 'angular-material';
 import AngularAnimate from 'angular-animate';
 import AngularAria from 'angular-aria';
+import AngularMessages from 'angular-messages';
 import 'angular-material/angular-material.css';
+import '../css/main.css';
 
 'use strict';
 
 console.log(AngularMaterial);
+console.log(AngularAria);
 
 angular.module("SwaggerGraphicalEditor", [
     // 'ui.materialize',
@@ -22,6 +25,7 @@ angular.module("SwaggerGraphicalEditor", [
     AngularMaterial,
     AngularAnimate,
     AngularAria,
+    AngularMessages
     // 'ngMaterial',
     // 'ngAnimate',
     // 'ngAria'

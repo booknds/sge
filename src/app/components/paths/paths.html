@@ -1,20 +1,15 @@
-<div class="container" ng-cloak>
-  {{pathCtl.paths}}
+<div class="section" ng-cloak>
   <sg-path-creator-modal></sg-path-creator-modal>
   <div class="row">
-    <div class="col s12">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <div class="row valign-wrapper">
-            <div class="col s3 m2 l2 valign">
-              <h3>Paths</h3>
-            </div>
-            <div class="col s3 m8 l8">
-              <a class="btn-flat" ng-click="togglePaths()">
-              <i class="large material-icons">swap_vert</i>
-              </a>
-            </div>
-            <div class="col s6 m2 l2 valign right-align">
+    <div class="col s12 m7" style="margin-left:2.33%;">
+      {{pathCtl.paths}}
+      <div class="card ">
+        <md-toolbar style="background-color:#3F1C3E;">
+          <div class="md-toolbar-tools" style="display:flex; justify-content:space-between;">
+            <h2>
+              <span>Paths</span>
+            </h2>
+            <div style="padding-top:6%" class="right-align">
               <a ng-click="openFocusPathModal()"
                 class="btn-floating btn-large waves-effect waves-light purple accent-4"
                 href="#path-creation-modal"
@@ -23,6 +18,8 @@
               </a>
             </div>
           </div>
+        </md-toolbar>
+        <div class="card-content">
           <div ng-hide="pathCtl.prevent.showPaths" ng-repeat="(pathName, pathValue) in pathCtl.paths">
             <div class="row valign-wrapper">
               <div class="input-field valign col s8">
@@ -39,33 +36,30 @@
                 </button>
               </div>
             </div>
-            <div class="row" >
-              <div class="left-align" style="padding-left:15px;">Add Operations </div>
-              <div class="col s12 l6">
-                <div class="row" >
-                  <div class="col" ng-repeat="(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'" ng-hide="pathCtl.paths[pathName][operation]">
-                    <a ng-class="{'blue': '{{operation}}' == 'get',
-                      'orange': '{{operation}}' === 'put',
-                      'green': '{{operation}}' === 'post',
-                      'red': '{{operation}}' === 'delete', }"
-                      class="waves-effect waves-light btn" ng-click="pathCtl.addOperation(pathName, operation)">
-                    {{operation | uppercase}}
-                    </a>
-                  </div>
-                </div>
+            <div>
+              <div style="display:flex; flex-direction:row; justify-content:flex-start;">
+                <div>Operations:</div>
+                <a ng-repeat="(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'"
+                    style="margin-left:2%;"
+                     ng-hide="pathCtl.paths[pathName][operation]"
+                  ng-class="{'blue': '{{operation}}' == 'get',
+                  'orange': '{{operation}}' === 'put',
+                  'green': '{{operation}}' === 'post',
+                  'red': '{{operation}}' === 'delete', }"
+                  class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, operation)">
+                {{operation | uppercase}}
+                </a>
               </div>
             </div>
             <div class="row" >
-              <div ng-repeat="(operation, value) in pathCtl.paths[pathName]" ng-show="pathCtl.paths[pathName][operation]" class="valign-wrapper">
-                <div class="col s11 valign">
-                  <ul class="collapsible blue-grey darken-2" init-collapse data-collapsible="accordion">
-                    <li>
-                      <div ng-class="{'blue': '{{operation}}' == 'get',
-                        'orange': '{{operation}}' === 'put',
-                        'green': '{{operation}}' === 'post',
-                        'red': '{{operation}}' === 'delete', }"
-                        class="collapsible-header "><i class="material-icons">filter_drama</i>{{ operation | uppercase }}   {{ " " + path.currentName}}</div>
-                      <div class="collapsible-body ">
+              <ul class="collapsible popout col s12" data-collapsible="accordion" watch>
+                  <li class="" ng-repeat="(operation, value) in pathCtl.paths[pathName]" ng-show="pathCtl.paths[pathName][operation]">
+                    <div ng-class="{'blue': '{{operation}}' == 'get',
+                      'orange': '{{operation}}' === 'put',
+                      'green': '{{operation}}' === 'post',
+                      'red': '{{operation}}' === 'delete', }"
+                      class="collapsible-header white-text"><i class="material-icons">filter_drama</i>{{ operation | uppercase }}   {{ " " + path.currentName}}</div>
+                      <div class="collapsible-body">
                         <div class="section">
                           <div class="">
                             <div sg-unique-input class="input-field col s12">
@@ -89,16 +83,10 @@
                           <sg-response sg-this-operation="{{operation}}" sg-context="pathCtl.paths[pathName][operation].responses"></sg-response>
                         </div>
 
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col s1 valign" >
-                  <button class="btn-flat" type="submit" name="action" ng-click="pathCtl.deleteOperation(pathName, operation)">
-                  <i class="material-icons">delete</i>
-                  </button>
-                </div>
-              </div>
+                    </div>
+                  </li>
+                </ul>
+
               {{path}}
             </div>
           </div>

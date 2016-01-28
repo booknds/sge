@@ -13,12 +13,12 @@
   <tbody>
     <tr ng-repeat="param in paramControl.sgContext.parameters | orderBy:'name'">
       <div >
-        <td class="white-text shrink">{{param.name}}</td>
-        <td class="white-text">{{param.inLocation}}</td>
-        <td class="shrink white-text">{{param.description}}</td>
-        <td class="white-text">{{param.required}}</td>
+        <td class=" shrink">{{param.name}}</td>
+        <td class="">{{param.inLocation}}</td>
+        <td class="shrink ">{{param.description}}</td>
+        <td class="">{{param.required}}</td>
         <td class="shrink">{{param.schema}}</td>
-        <td class="white-text">
+        <td class="">
           <a class="disabled" href="#param-modal" modal ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)">
           <i class="material-icons">settings</i>
           </a>
@@ -34,7 +34,7 @@
       <label id="label" for="label">Parameter Name</label>
     </div>
     <div class="input-field col s4 valign" >
-      <sg-dropdown class="browser-default" style="background-color: #455a64;" ng-model="paramControl.newParamData[paramControl.sgThisOperation].inLocation" sg-default-option="Choose Parameter Location" sg-choices="paramControl.inLocationList"></sg-dropdown>
+      <sg-dropdown sg-label="In Location" ng-model="paramControl.newParamData[paramControl.sgThisOperation].inLocation" sg-default-option="Choose Parameter Location" sg-choices="paramControl.inLocationList"></sg-dropdown>
     </div>
     <div class="col s4 valign">
       <button  class="waves-effect waves-light btn" ng-class="{ 'disabled': addParameter.name.$invalid }">

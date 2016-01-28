@@ -1,4 +1,3 @@
-
 /*.container-padding {
     margin-left: 5px;
 }
@@ -13,6 +12,54 @@ html, body {
      color: black !important;
 }*/
 
+/*nav.top-nav {
+    height: 122px;
+    box-shadow: none;
+}*/
+/*ul.side-nav.fixed li.logo {
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 80px;
+}*/
+/*#logo-container {
+    height: 57px;
+    margin-bottom: 32px;
+}*/
+
+#nav-mobile li.search {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 120px;
+    margin-top: 1px;
+    padding: 1px 0 0 0;
+    z-index: 2;
+}
+
+ul.side-nav.fixed li {
+    line-height: 44px;
+}
+
+#nav-mobile li.search .search-wrapper input#search {
+    display: block;
+    font-size: 16px;
+    font-weight: 300;
+    width: 100%;
+    height: 45px;
+    margin: 0;
+    padding: 0 45px 0 15px;
+    border: 0;
+}
+
+#nav-mobile li.search .search-wrapper.focused {
+    margin: 0;
+}
+
+#nav-mobile li.search .search-wrapper {
+    margin: 0 12px;
+    transition: margin .25s ease;
+}
+
 #view-source {
   position: fixed;
   display: block;
@@ -22,14 +69,17 @@ html, body {
   margin-bottom: 40px;
   z-index: 900;
 }
+
 header, main, footer {
   padding-left: 240px;
 }
+
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
   }
 }
+
 
 .shrink{
   max-width:100px;
@@ -53,7 +103,7 @@ header, main, footer {
 }
 
 .input-field label {
-    color: white;
+    /*color: white;*/
     position: absolute;
     top: 0.8rem;
     left: 0.75rem;

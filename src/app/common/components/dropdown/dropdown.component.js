@@ -13,6 +13,7 @@ function DropdownComponent(){
       ngModel: '=',
       sgChoices: '=',
       sgDefaultOption: '@',
+      sgLabel: '@',
     },
     controller,
     controllerAs: 'dropdown',

@@ -1,9 +1,7 @@
 <div class="section" ng-cloak>
-
   <div class="row">
     <form name="infoForm" novalidate ng-submit="infoForm.$valid">
-      <div class="col s12 m7">
-        
+      <div class="col s12 m7" style="margin-left:2.33%;">
         <div class="card ">
           <md-toolbar style="background-color:#3F1C3E;">
             <div class="md-toolbar-tools">
@@ -97,58 +95,129 @@
             <div class="row">
               <div class="col s12">
                 <span class="card-title">Types</span>
-                <div class="section col s12">
-                  <div class="input-field col s12 m4 l4">
-                    <div class="col  s12">Produces: </div>
-                    <sg-dropdown class="browser-default col s10" style="background-color: #455a64;" ng-model="basicInfo.produce" sg-choices="basicInfo.types.mime"></sg-dropdown>
-                    <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="basicInfo.addType('produces', basicInfo.produce);">
+                <div style="display:flex; flex-direction:column; justify-content:space-between;" >
+                  <div style="display:flex; flex-direction:row;" >
+                    <sg-dropdown sg-label="Produces" ng-model="basicInfo.produce" sg-choices="basicInfo.types.mime"></sg-dropdown>
+                    <button  class="btn-flat waves-effect waves-white white valign" ng-click="basicInfo.addType('produces', basicInfo.produce);">
                       <i class="material-icons">add</i>
                     </button>
+                    <button class="btn-flat waves-effect waves-white white " ng-click="basicInfo.removeType('produces', basicInfo.produce);">
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </div>
+                  <div ng-if="basicInfo.sgBase.produces.length > 0;" style="display:flex; flex-direction:row;">
+                    <div style="display:flex; flex-direction:column; justify-content:flex-start" >
+                      <div ng-repeat="produce in basicInfo.sgBase.produces">
+                        <span> {{ '\t\t - ' + produce}} </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div ng-if="basicInfo.sgBase.produces.length > 0;" style="display:flex; flex-direction:row; justify-content:space-around;">
+                    <ul class="col s12">
+                      <li class="valign-wrapper" ng-repeat="produce in basicInfo.sgBase.produces">
+                        <div class="valign"> {{produce}} </div>
+                      </li>
+                    </ul>
+                  </div> -->
+                  <div style="display:flex; flex-direction:row;">
+                    <sg-dropdown sg-label="Consumes" ng-model="basicInfo.consume" sg-choices="basicInfo.types.mime"></sg-dropdown>
+                    <button class="btn-flat waves-effect waves-white white" ng-click="basicInfo.addType('consumes', basicInfo.consume);">
+                      <i class="material-icons">add</i>
+                    </button>
+                    <button class="btn-flat waves-effect waves-white white " ng-click="basicInfo.removeType('consumes', basicInfo.consume);">
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </div>
+                  <div ng-if="basicInfo.sgBase.consumes.length > 0;" style="display:flex; flex-direction:row;">
+                    <div style="display:flex; flex-direction:column; justify-content:flex-start" >
+                      <div ng-repeat="consume in basicInfo.sgBase.consumes">
+                        <span> {{ '\t\t - ' + consume}} </span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div ng-if="basicInfo.sgBase.consumes.length > 0;" style="display:flex; flex-direction:row; ">
+                    <ul class="">
+                      <li class="valign-wrapper" ng-repeat="consume in basicInfo.sgBase.consumes">
+                        <div class="valign"> {{consume}} </div>
+                      </li>
+                    </ul>
+                  </div> -->
+                  <div style="display:flex; flex-direction:row;">
+                    <sg-dropdown sg-label="Schemes" ng-model="basicInfo.scheme" sg-choices="basicInfo.types.scheme"></sg-dropdown>
+                    <button class="btn-flat waves-effect waves-white white" type="submit" name="action" ng-click="basicInfo.addType('schemes', basicInfo.scheme);">
+                      <i class="material-icons" >add</i>
+                    </button>
+                    <button class="btn-flat waves-effect waves-white white " ng-click="basicInfo.removeType('schemes', basicInfo.scheme);">
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </div>
+                  <div ng-if="basicInfo.sgBase.schemes.length > 0;" style="display:flex; flex-direction:row;">
+                    <div style="display:flex; flex-direction:column; justify-content:flex-start" >
+                      <div ng-repeat="scheme in basicInfo.sgBase.schemes">
+                        <span> {{ '\t\t - ' + scheme}} </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <!-- <div class="input-field col s12 m4 l4 ">
+                    <div class="valign-wrapper">
+                      <button class="btn-flat waves-effect waves-white white col s2" ng-click="basicInfo.addType('produces', basicInfo.produce);">
+                        <i class="material-icons">add</i>
+                      </button>
+                      <sg-dropdown class="col s10" sg-label="Produces" ng-model="basicInfo.produce" sg-choices="basicInfo.types.mime"></sg-dropdown>
+                    </div>
                     <ul class="col s12">
                       <li class="valign-wrapper" ng-repeat="produce in basicInfo.sgBase.produces">
                         <div class="col m10 valign"> {{produce}} </div>
-                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="basicInfo.removeType('produces', produce);">
+                        <button class="btn-flat waves-effect waves-white  col m2 valign" ng-click="basicInfo.removeType('produces', produce);">
                           <i class="material-icons">delete</i>
                         </button>
                       </li>
                     </ul>
                   </div>
-                  <div class="input-field col s12 m4 l4">
+                  <div flex class="input-field col s12 m4 l4">
                     <div class="col  s12">Consumes: </div>
-                    <sg-dropdown class="browser-default col s10" style="background-color: #455a64;" ng-model="basicInfo.consume" sg-choices="basicInfo.types.mime"></sg-dropdown>
-                    <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" ng-click="basicInfo.addType('consumes', basicInfo.consume);">
-                      <i class="material-icons">add</i>
-                    </button>
-                    <ul class="col s12">
+                    <div class="valign-wrapper">
+                      <button class="btn-flat waves-effect waves-white valign col m2" ng-click="basicInfo.addType('consumes', basicInfo.consume);">
+                        <i class="material-icons">add</i>
+                      </button>
+                      <sg-dropdown class=" browser-default col s10 valign" sg-label="Consumes" ng-model="basicInfo.consume" sg-choices="basicInfo.types.mime"></sg-dropdown>
+
+                    </div>
+                    <ul class="row">
                       <li class="valign-wrapper" ng-repeat="consume in basicInfo.sgBase.consumes">
-                        <div class="col m10 valign"> {{consume}} </div>
-                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" ng-click="basicInfo.removeType('consumes', consume);">
+                        <div class="col m10 valign ">
+                          <p class="shrink">{{consume}}</p>
+                        </div>
+                        <button class="btn-flat waves-effect waves-white  col m2 valign" ng-click="basicInfo.removeType('consumes', consume);">
                           <i class="material-icons">delete</i>
                         </button>
                       </li>
                     </ul>
                   </div>
                   <div class="input-field col s12 m4 l4">
-                    <div class="col  s12">Schemes: </div>
-                    <sg-dropdown class="browser-default col s10" style="background-color: #455a64;" ng-model="basicInfo.scheme" sg-choices="basicInfo.types.scheme"></sg-dropdown>
-                    <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2" type="submit" name="action" ng-click="basicInfo.addType('schemes', basicInfo.scheme);">
-                      <i class="material-icons">add</i>
-                    </button>
+                    <div layout="row" class="valign-wrapper">
+                      <sg-dropdown class="col s10 valign" sg-label="Schemes" ng-model="basicInfo.scheme" sg-choices="basicInfo.types.scheme"></sg-dropdown>
+                      <button class="btn-flat waves-effect waves-white valign col m2 " type="submit" name="action" ng-click="basicInfo.addType('schemes', basicInfo.scheme);">
+                        <i class="material-icons" >add</i>
+                      </button>
+                    </div>
                     <ul class="col s12">
                       <li class="valign-wrapper" ng-repeat="scheme in basicInfo.sgBase.schemes">
-                        <div class="col m10 valign"> {{scheme}} </div>
-                        <button class="btn-flat waves-effect waves-light blue-grey darken-1 col m2 valign" type="submit" name="action" ng-click="basicInfo.removeType('schemes', scheme);">
+                        <div class="col s10 valign">
+                          <p>{{scheme}}</p>
+                         </div>
+                        <button class="btn-flat waves-white col s2 valign" type="submit" name="action" ng-click="basicInfo.removeType('schemes', scheme);">
                           <i class="material-icons">delete</i>
                         </button>
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     </form>
   </div>
 </div>
