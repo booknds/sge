@@ -4,10 +4,10 @@ function ObjectFactory(){
 
   let Path ={
     init:function(){
-      this.get = null;
-      this.post = null;
-      this.put = null;
-      this.delete = null;
+      // this.get = null;
+      // this.post = null;
+      // this.put = null;
+      // this.delete = null;
       /** TODO future attributes
       this.options
       this.head

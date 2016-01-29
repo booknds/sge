@@ -17,6 +17,13 @@ function PathCtrl($scope, swaggerPaths, $window){
     showPaths:false,
   }
 
+  this.operations = ['get', 'post', 'put', 'delete'];
+
+  this.hasOperation = function(pathName, operation){
+    //debugger;
+    return this.paths[pathName].hasOwnProperty(operation);
+  };
+
   $scope.focusPathModal = false;
 
   $scope.openFocusPathModal = function(){

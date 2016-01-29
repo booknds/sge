@@ -35,7 +35,7 @@ function ParameterCtrl($scope, PathService, pms){
 
     pms.initParameter(this.sgContext, param);
 
-    pms.parameterToUpdate(pathName, operation, param);
+    //pms.parameterToUpdate(pathName, operation, param);
 
   };
 

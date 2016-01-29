@@ -67,12 +67,14 @@ function PathService(ObjectFactory){
 
       console.log("PATH SERVICE: adding operation");
 
-      if(hasPath(pathName)){
-      //  debugger;
-        paths[pathName].addOperation(operation);
-      }else {
-        throw "Cannot add Operation, path does not exist"
-      }
+      paths[pathName].addOperation(operation);
+
+      // if(hasPath(pathName)){
+      // //  debugger;
+      //
+      // }else {
+      //   throw "Cannot add Operation, path does not exist"
+      // }
   }
 
   /*

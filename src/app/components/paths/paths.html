@@ -39,58 +39,30 @@
             <div>
               <div style="display:flex; flex-direction:row; justify-content:flex-start;">
                 <div>Operations:</div>
-                <a ng-repeat="(operation, value) in pathCtl.paths[pathName] | orderBy:'operation'"
+                <a ng-repeat="operation in pathCtl.operations | orderBy:operation"
                     style="margin-left:2%;"
-                     ng-hide="pathCtl.paths[pathName][operation]"
-                  ng-class="{'blue': '{{operation}}' == 'get',
-                  'orange': '{{operation}}' === 'put',
-                  'green': '{{operation}}' === 'post',
-                  'red': '{{operation}}' === 'delete', }"
+                     ng-hide="pathCtl.hasOperation(pathName, operation)"
+
+                  sg-operation-colorer="{{operation}}"
                   class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, operation)">
                 {{operation | uppercase}}
                 </a>
               </div>
             </div>
-            <div class="row" >
-              <ul class="collapsible popout col s12" data-collapsible="accordion" watch>
-                  <li class="" ng-repeat="(operation, value) in pathCtl.paths[pathName]" ng-show="pathCtl.paths[pathName][operation]">
-                    <div ng-class="{'blue': '{{operation}}' == 'get',
-                      'orange': '{{operation}}' === 'put',
-                      'green': '{{operation}}' === 'post',
-                      'red': '{{operation}}' === 'delete', }"
-                      class="collapsible-header white-text"><i class="material-icons">filter_drama</i>{{ operation | uppercase }}   {{ " " + path.currentName}}</div>
-                      <div class="collapsible-body">
-                        <div class="section">
-                          <div class="">
-                            <div sg-unique-input class="input-field col s12">
-                              <input id="input"
-                                ng-attr-placeholder="pathCtl.paths[pathName][operation].summary"
-                                ng-model="pathCtl.paths[pathName][operation].summary"
-                                maxlength="150" type="text"/>
-                              <label id="label"  for="label">Summary</label>
-                            </div>
-                            <div sg-unique-input class="input-field col s12">
-                              <textarea id="input"
-                                ng-attr-placeholder="pathCtl.paths[pathName][operation].description"
-                                ng-model="pathCtl.paths[pathName][operation].description"
-                                class="materialize-textarea"></textarea>
-                              <label id="label" for="label">Description</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="Section" ng-if="pathCtl.paths[pathName][operation]">
-                          <sg-parameter sg-this-operation="{{operation}}" sg-context="pathCtl.paths[pathName][operation]"></sg-parameter>
-                          <sg-response sg-this-operation="{{operation}}" sg-context="pathCtl.paths[pathName][operation].responses"></sg-response>
-                        </div>
+            <div class="" layout="column">
+              <ul class="collapsible popout" data-collapsible="accordion" watch>
+                  <!-- <li class="" sg-operation sg-operation-name="{{operation}}" sg-operation-object="value" ng-repeat="(operation, value) in pathCtl.paths[pathName]" ng-show="pathCtl.paths[pathName][operation]">
+                  </li> -->
+                  <sg-operation sg-operation-name="{{operation}}"
+                                sg-operation-object="value"
+                                ng-repeat="(operation, value) in pathCtl.paths[pathName]">
+                    <div style="display:flex; flex-direction:row-reverse;">
 
                     </div>
-                  </li>
+                  </sg-operation>
                 </ul>
-
-              {{path}}
             </div>
           </div>
-          {{paths}}
         </div>
       </div>
     </div>

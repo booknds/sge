@@ -1,4 +1,4 @@
-<div id="path-creation-modal" class="modal blue-grey darken-1 white-text modal-fixed-footer"
+<div id="path-creation-modal" class="modal modal-fixed-footer"
       sg-modal-closer ng-model="pathModal.closeModal" modal-id="path-creation-modal">
   <form name="addPathForm" novalidate ng-submit="addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" >
     <div class="modal-content">
@@ -14,7 +14,6 @@
                   ng-minlength=3
                   ng-maxlength=45
                   required=""
-
                   focus-me="focusPathModal">
           <label for="path-name">Path Name</label>
           <div class="error"
@@ -52,7 +51,7 @@
         </div>
       </div>
     </div>
-    <div class="modal-footer blue-grey darken-1 ">
+    <div class="modal-footer">
       <div>
         <button type="submit" name="action" close-path-modal ng-class="{'disabled': addPathForm.$invalid}"
           class=" waves-effect waves-green btn">

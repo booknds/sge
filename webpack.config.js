@@ -57,6 +57,10 @@ module.exports = {
            presets: ['es2015']
          }
        },
+       {
+          test: /\.(png|jpe?g|gif)$/,
+          loader: "file-loader?name=img/img-[hash:6].[ext]"
+        },
        { test: /\.html$/, loader: 'raw' },
        { test: /\.styl$/, loader: 'style!css!stylus' },
        { test: /\.css$/, loader: 'style!css' }
