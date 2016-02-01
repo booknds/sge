@@ -1,35 +1,28 @@
 "use strict";
 
-export default DefinitionEditorModalService;
+let DefEditModalService = ["$log", DefinitionEditorModalService]; 
 
-function DefinitionEditorModalService(){
+export default DefEditModalService;
 
-  this.currentDefinition = {
-    name:null,
-    value:null,
-  };
+function DefinitionEditorModalService($log){
 
-  this.definitionToUpdate = function(definitionName, definitionValue){
-    //console.log("updaiting parameter");
-    //console.log(parameter);
+    this.currentDefinition = {
+        name:null,
+        value:null
+    };
 
-    //rms.currentResponse.pathName = pathName;
-    //rms.currentResponse.operation = operation;
-    //rms.currentResponse.httpCode = httpCode;
-    //rms.currentResponse.response = angular.copy(response);
-    this.currentDefinition.name = definitionName;
-    this.currentDefinition.value = definitionValue;
-    console.log("updated current definition");
-    console.log(this.currentDefinition);
-    //console.log(pms.currentParameter);
-    //console.log("Done updating parameter");
-  }
+    this.definitionToUpdate = function(definitionName, definitionValue){
 
-  this.getCurrentDefinition = function(){
-    return this.currentDefinition;
-  }
+        this.currentDefinition.name = definitionName;
+        this.currentDefinition.value = definitionValue;
+        $log.log("updated current definition");
+        $log.log(this.currentDefinition);
+    };
 
-  return this;
+    this.getCurrentDefinition = function(){
+        return this.currentDefinition;
+    };
 
+    return this;
 
 }

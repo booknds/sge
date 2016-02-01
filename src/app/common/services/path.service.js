@@ -1,7 +1,7 @@
 "use strict";
-import angular from 'angular';
+import angular from "angular";
 
-let path = ['ObjectFactory', PathService];
+let path = ["ObjectFactory", PathService];
 
 export default path;
 

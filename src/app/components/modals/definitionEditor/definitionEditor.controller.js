@@ -1,25 +1,26 @@
-let DefinitionEditorController = ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService", DefinitionEditorCtrl];
+let DefinitionEditorController = ["$scope", "$log", "$window", "DefinitionsService", "DefinitionEditorModalService", DefinitionEditorCtrl];
 
 export default DefinitionEditorController;
 
-function DefinitionEditorCtrl($scope, $window, ds, dems){
+function DefinitionEditorCtrl($scope, $log, $window, ds, dems){
 
-  var vm = this;
+    var vm = this;
 
-  vm.tempDefinition = {
-    name:null,
-    value:null,
-  };
-  vm.originalDefinition = null;
+    vm.tempDefinition = {
+        name:null,
+        value:null
+    };
+  
+    vm.originalDefinition = null;
 
-  vm.newProperty = {
-    name: null,
-  };
+    vm.newProperty = {
+        name: null
+    };
 
-  // vm.formats = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
-  // vm.types = ['integer', 'number', 'string', 'boolean'];
+  // vm.formats = ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
+  // vm.types = ["integer", "number", "string", "boolean"];
 
-  this.closeModal = false;
+    this.closeModal = false;
 
   // vm.toast = function(msg){
   //   var message = msg || "No toast supplied, but hello!!";
@@ -31,13 +32,13 @@ function DefinitionEditorCtrl($scope, $window, ds, dems){
   //   try{
   //     ds.addProperty(definitionName, propertyName);
   //   }catch(e){
-  //       console.log(e);
+  //       $log.log(e);
   //       Materialize.toast(e, 3000);
   //   }
   //   */
   //
   //   if(vm.tempDefinition.value.properties.hasOwnProperty(propertyName)){
-  //     Materialize.toast('Property already exists on this definition.');
+  //     Materialize.toast("Property already exists on this definition.");
   //   }else{
   //     vm.tempDefinition.value.properties[propertyName] =  ds.newSchema();
   //     vm.tempDefinition.value.properties[propertyName].type = null;
@@ -50,8 +51,8 @@ function DefinitionEditorCtrl($scope, $window, ds, dems){
   // }
 
   // vm.togglePropertyRequired = function(propertyName, isRequired){
-  //   console.log("TOGGLE PROPERTY REQUIRED");
-  //   console.log(propertyName, isRequired);
+  //   $log.log("TOGGLE PROPERTY REQUIRED");
+  //   $log.log(propertyName, isRequired);
   //   if(isRequired){
   //     vm.tempDefinition.value.required.push(propertyName);
   //   }else{
@@ -65,36 +66,36 @@ function DefinitionEditorCtrl($scope, $window, ds, dems){
   //   }
   // }
 
-  vm.updateDefinition = function(originalDefinition, newDefinition){
-    console.log("CONTROLLER - Update definition");
-    try{
-      ds.updateDefinition(originalDefinition, newDefinition);
-      this.closeModal = true;
-    }catch(e){
-      console.log(e);
-      Materialize.toast(e, 3000);
-    }
-  }
+    vm.updateDefinition = function(originalDefinition, newDefinition){
+        $log.log("CONTROLLER - Update definition");
+        try{
+            ds.updateDefinition(originalDefinition, newDefinition);
+            this.closeModal = true;
+        }catch(e){
+            $log.log(e);
+            Materialize.toast(e, 3000);
+        }
+    };
 
   // vm.deleteProperty = function(propertyName){
-  //   if($window.confirm('Are you sure you want to delete the property?')){
+  //   if($window.confirm("Are you sure you want to delete the property?")){
   //     delete vm.tempDefinition.value.properties[propertyName];
   //   }else{
-  //     console.log("Don't delete property")
+  //     $log.log("Don"t delete property")
   //   }
   // }
 
-  $scope.$watch(function(){return dems.currentDefinition;}, function(newVal){
+    $scope.$watch(function(){return dems.currentDefinition;}, function(newVal){
 
-      if(newVal.name){
-        console.log("hit current definition updated");
-        var currentDefinition = newVal;
-        vm.originalDefinition = currentDefinition;
+        if(newVal.name){
+            $log.log("hit current definition updated");
+            var currentDefinition = newVal;
+            vm.originalDefinition = currentDefinition;
 
-        vm.tempDefinition.name = vm.originalDefinition.name;
-        vm.tempDefinition.value = angular.copy(vm.originalDefinition.value) ;
-      }
+            vm.tempDefinition.name = vm.originalDefinition.name;
+            vm.tempDefinition.value = angular.copy(vm.originalDefinition.value) ;
+        }
 
-  }, true);
+    }, true);
 
 }

@@ -1,12 +1,12 @@
 /* @ngInject */
-let textInputCtrl = ["$scope", "$element", "$attrs", textInputController];
+let textInputCtrl = [textInputController];
 
 export default textInputCtrl;
 
-function textInputController($scope, $element, $attrs){
+function textInputController(){
 
-  function getRequired(){
+  // function getRequired(){
 
-  }
+  // }
 
 }

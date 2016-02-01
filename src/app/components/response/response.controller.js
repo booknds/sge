@@ -1,10 +1,10 @@
 "use strict";
 
-let ResponseController = ["$scope", "PathService", "ResponseModalService", ResponseCtrl];
+let ResponseController = ["$scope", "$log", "PathService", "ResponseModalService", ResponseCtrl];
 
 export default ResponseController;
 
-function ResponseCtrl($scope, PathService, rms){
+function ResponseCtrl($scope, $log, PathService, rms){
   //debugger;
   /**
     * @name newResponseData
@@ -19,65 +19,64 @@ function ResponseCtrl($scope, PathService, rms){
   //   description: null
   // }
 
-  /**
-    * @name rKeys
-    * @desc Holds how many 'keys' are on sgContext which is a passed value and
-    *        is a reference to the 'responses' object
-    * @type {Object}
-   **/
-  this.rKeys = null;
+    /**
+      * @name rKeys
+      * @desc Holds how many "keys" are on sgContext which is a passed value and
+      *        is a reference to the "responses" object
+      * @type {Object}
+    **/
+    this.rKeys = null;
 
 
   /**
     * @name initResponseModal
-    * @desc Sends the chosen response code and 'responses' object to the
+    * @desc Sends the chosen response code and "responses" object to the
     *        ResponseModalService to be processed.
     * @type {Function}
    **/
-  this.initResponseModal = function(httpCode){
-    try{
-      rms.responseToUpdate(httpCode, this.sgContext);
-    }catch(e){
-      console.log(e);
-      Materialize.toast(e, 3000);
-      return;
-    }
-  };
+    this.initResponseModal = function(httpCode){
+        try {
+            rms.responseToUpdate(httpCode, this.sgContext);
+        } catch (e) {
+            $log.log(e);
+            Materialize.toast(e, 3000);
+            return;
+        }
+    };
 
   /**
     * @name addResponse
-    * @desc adds a new 'response' object to the 'responses' object. 'responses'
+    * @desc adds a new "response" object to the "responses" object. "responses"
     *        holds the state of all current response objects.
     * @type {Function}
    **/
-  this.addResponse = function(httpCode, description){
-    try{
-      this.sgContext.addResponse(httpCode, description);
-    }catch(e){
-      console.log(e);
-      Materialize.toast(e, 3000);
-    }
+    this.addResponse = function(httpCode, description){
+        try{
+            this.sgContext.addResponse(httpCode, description);
+        } catch (e) {
+            $log.log(e);
+            Materialize.toast(e, 3000);
+        }
 
-    //reset input fields
-    $scope.addResponse.$setPristine();
-    debugger;
-    resetNewResponseData.call(this, this.sgThisOperation);
+        //reset input fields
+        $scope.addResponse.$setPristine();
+        //debugger;
+        resetNewResponseData.call(this, this.sgThisOperation);
 
-    this.rKeys= Object.keys(this.sgContext).length;
+        this.rKeys= Object.keys(this.sgContext).length;
 
-  };
+    };
 
   /**
     * @name resetNewResponseData
     * @desc a helper function to reset the data of the intputs
     * @type {Function}
    **/
-  function resetNewResponseData(operation){
-    this.newResponseData[operation] = {
-      httpCode: null,
-      description: null,
+    function resetNewResponseData(operation){
+        this.newResponseData[operation] = {
+            httpCode: null,
+            description: null
+        };
     }
-  }
-
 
 }

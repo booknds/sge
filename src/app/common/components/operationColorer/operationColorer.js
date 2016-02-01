@@ -1,9 +1,9 @@
-'use strict';
-// import angular from 'angular';
-import OperationColorerComponent from './operationColorer.component';
+"use strict";
+import angular from "angular";
+import OperationColorerComponent from "./operationColorer.component";
 
-let OperationColorerModule =
-    angular.module('OperationColorerModule', [])
-            .directive('sgOperationColorer', OperationColorerComponent);
+let OperationColorerModule = angular
+    .module("OperationColorerModule", [])
+    .directive("sgOperationColorer", OperationColorerComponent);
 
 export default OperationColorerModule;

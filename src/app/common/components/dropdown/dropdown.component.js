@@ -1,21 +1,21 @@
-import template from './dropdown.html';
-import controller from './dropdown.controller';
+import template from "./dropdown.html";
+import controller from "./dropdown.controller";
 
 export default DropdownComponent;
 
 function DropdownComponent(){
-  return {
-    restrict:'E',
-    replace: true,
-    template,
-    scope:{},
-    bindToController:{
-      ngModel: '=',
-      sgChoices: '=',
-      sgDefaultOption: '@',
-      sgLabel: '@',
-    },
-    controller,
-    controllerAs: 'dropdown',
-  };
+    return {
+        restrict:"E",
+        replace: true,
+        template,
+        scope:{},
+        bindToController:{
+            ngModel: "=",
+            sgChoices: "=",
+            sgDefaultOption: "@",
+            sgLabel: "@"
+        },
+        controller,
+        controllerAs: "dropdown"
+    };
 }

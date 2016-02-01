@@ -1,9 +1,10 @@
-import angular from 'angular';
-import PathComponent from './paths.component';
+import angular from "angular";
+import PathComponent from "./paths.component";
 
-'use strict';
+"use strict";
 
-let pathModule = angular.module("pathModule", [])
-                        .directive('sgPath', PathComponent);
+let pathModule = angular
+    .module("pathModule", [])
+    .directive("sgPath", PathComponent);
 
 export default pathModule;
