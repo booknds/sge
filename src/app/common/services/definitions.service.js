@@ -5,7 +5,7 @@ export default definitions;
 function DefinitionsService($log, ObjectFactory){
 
     this.addDefinition = function(definitionName, description, type){
-        debugger;
+        // debugger;
         if(hasDefinition(definitionName))
             throw "Cannot Add, Definition Already Exists";
         else{
@@ -16,7 +16,7 @@ function DefinitionsService($log, ObjectFactory){
     };
 
     this.setDefinitions = function setDefinitions(newDefinitions){
-        debugger;
+        // debugger;
         this.definitions.setDefinitions(newDefinitions);
     };
 

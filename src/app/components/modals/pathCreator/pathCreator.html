@@ -1,4 +1,6 @@
-<div id="path-creation-modal" class="modal modal-fixed-footer"
+
+ <md-dialog aria-label="New Path"  ng-cloak>
+ <!-- <div id="path-creation-modal" class="modal modal-fixed-footer"
       sg-modal-closer ng-model="pathModal.closeModal" modal-id="path-creation-modal">
   <form name="addPathForm" novalidate ng-submit="addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" >
     <div class="modal-content">
@@ -66,31 +68,64 @@
     </div>
   </form>
 </div>
-
- <!-- <md-dialog aria-label="Mango (Fruit)"  ng-cloak>
+ -->
   <form>
-    <md-toolbar>
+    <md-toolbar style="background-color:#3F1C3E;">
       <div class="md-toolbar-tools">
-        <h2>Mango (Fruit)</h2>
+        <h2>New Path</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <!-- <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
         </md-button>
-      </div>
+      </div> -->
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
-        <h2>Using .md-dialog-content class that sets the padding as the spec</h2>
-        <p>
-          The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.
-        </p>
-        <img style="margin: auto; max-width: 100%;" alt="Lush mango tree" src="img/mangues.jpg">
-        <p>
-          The highest concentration of Mangifera genus is in the western part of Malesia (Sumatra, Java and Borneo) and in Burma and India. While other Mangifera species (e.g. horse mango, M. foetida) are also grown on a more localized basis, Mangifera indica&mdash;the "common mango" or "Indian mango"&mdash;is the only mango tree commonly cultivated in many tropical and subtropical regions.
-        </p>
-        <p>
-          It originated in Indian subcontinent (present day India and Pakistan) and Burma. It is the national fruit of India, Pakistan, and the Philippines, and the national tree of Bangladesh. In several cultures, its fruit and leaves are ritually used as floral decorations at weddings, public celebrations, and religious ceremonies.
-        </p>
+        <div class="row">
+          <div class="input-field col s12 ">
+            <input id="path-name" type="text"
+                    name="pathName"
+                    ng-model="pathModal.newPath.name"
+                    ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
+                    ng-minlength=3
+                    ng-maxlength=45
+                    required=""
+                    focus-me="focusPathModal">
+            <label for="path-name">Path Name</label>
+            <div class="error"
+                 ng-show="addPathForm.pathName.$dirty && addPathForm.pathName.$invalid">
+              <small class="error"
+                      ng-show="addPathForm.pathName.$error.required">
+                      The Path name is required.
+              </small>
+              <small class="error"
+                      ng-show="addPathForm.pathName.$error.pattern">
+                      The Path must start with a '/' (forward slash).
+              </small>
+              <small class="error"
+                      ng-show="addPathForm.pathName.$error.minlength">
+                      The Path name is required to be at least 3 characters
+              </small>
+              <small class="error"
+                      ng-show="addPathForm.pathName.$error.maxlength">
+                The Path name cannot be longer than 45 characters
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="left-align" style="padding-left:15px;">Operations </div>
+          <div class="col s12 l6">
+            <div class="row">
+              <div ng-repeat="(operation, value) in pathModal.newPath.operations" class="col s3" >
+                <p sg-unique-input>
+                  <input type="checkbox" id="input" ng-model="pathModal.newPath.operations[operation]"/>
+                  <label for="label">{{operation | uppercase}}</label>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
@@ -106,4 +141,4 @@
       </md-button>
     </md-dialog-actions>
   </form>
-</md-dialog> -->
+</md-dialog>

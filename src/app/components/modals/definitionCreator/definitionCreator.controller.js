@@ -1,10 +1,10 @@
 "use strict";
 
-let DefintionCreationController = ["$scope", "$log", "DefinitionsService", DefinitionCreationCtrl];
+let DefintionCreationController = ["$scope", "$log", "DefinitionsService", "$mdDialog", DefinitionCreationCtrl];
 
 export default DefintionCreationController;
 
-function DefinitionCreationCtrl($scope, $log, ds){
+function DefinitionCreationCtrl($scope, $log, ds, $mdDialog){
     var vm = this;
 
     this.closeModal=false;
@@ -16,8 +16,9 @@ function DefinitionCreationCtrl($scope, $log, ds){
 
     vm.addDefinition = function(definitionName, description){
 
+        debugger;
         try {
-            debugger;
+            //debugger;
             ds.addDefinition.call(ds, definitionName, description, "object");
         } catch (e) {
             $log.log(e);
@@ -29,6 +30,8 @@ function DefinitionCreationCtrl($scope, $log, ds){
             name:null,
             description:null
         };
+
+        $mdDialog.hide("added definition");
 
     };
 }

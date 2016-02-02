@@ -2,7 +2,6 @@
   <sg-path-creator-modal></sg-path-creator-modal>
   <div class="row">
     <div class="col s12 m7" style="margin-left:2.33%;">
-      {{pathCtl.paths}}
       <div class="card ">
         <md-toolbar style="background-color:#3F1C3E;">
           <div class="md-toolbar-tools" style="display:flex; justify-content:space-between;">
@@ -10,12 +9,17 @@
               <span>Paths</span>
             </h2>
             <div style="padding-top:6%" class="right-align">
-              <a ng-click="openFocusPathModal()"
+              <a ng-click="pathCtl.showAdvanced($event)"
+                class="btn-floating btn-large waves-effect waves-light purple accent-4"
+                >
+                <i class="material-icons">add</i>
+              </a>
+              <!-- <a ng-click="openFocusPathModal()"
                 class="btn-floating btn-large waves-effect waves-light purple accent-4"
                 href="#path-creation-modal"
                 modal>
               <i class="material-icons">add</i>
-              </a>
+              </a> -->
               <!-- <md-button class="md-fab md-primary purple accent-4" ng-click="showConfirm($event)"  flex="100"  flex-gt-md="auto">
                 <i class="material-icons">add</i>
               </md-button> -->

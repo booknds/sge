@@ -1,7 +1,6 @@
 <div class="section" ng-cloak>
   <div class="row">
     <div class="col s12 m7" style="margin-left:2.33%;">
-      {{defControl}}
       <div class="card">
         <md-toolbar style="background-color:#3F1C3E;">
           <div class="md-toolbar-tools" style="display:flex; justify-content:space-between;">
@@ -9,166 +8,99 @@
               <span>Definitions</span>
             </h2>
             <div style="padding-top:6%" class="right-align">
-              <a ng-click="openFocusDefinitionModal()"
+              <a 
                   class="btn-floating btn-large waves-effect waves-light purple accent-4"
-                  href="#definition-creation-modal" modal>
+                  ng-click="showAdvanced($event)">
               <i class="material-icons">add</i>
               </a>
+              <!-- <a ng-click="openFocusDefinitionModal()"
+                  class="btn-floating btn-large waves-effect waves-light purple accent-4"
+                  href="#definition-creation-modal" modal
+                  ng-click="showAdvanced($event)">
+              <i class="material-icons">add</i>
+              </a> -->
+              <!-- <md-button class="md-primary md-raised" ng-click="showAdvanced($event)" flex="100" flex-gt-md="auto">
+                Custom Dialog
+              </md-button> -->
             </div>
           </div>
         </md-toolbar>
         <div class="card-content">
           <div class="row ">
             <ul class="collapsible popout col s12" data-collapsible="accordion" watch>
-                <li class="" ng-repeat="(definition, defValue) in defControl.definitions" >
-                  <div class="collapsible-header ">
-                    {{definition}}
-                  </div>
-                    <div class="collapsible-body">
-                      <div class="section">
-                        <span class="card-title col s12">Attributes</span>
-                        <div class="input-field col s4 ">
-                          <input class=""
-                            type="text"
-                            placeholder="Some information about the Definition"
-                            ng-model="defValue.description"
-                            disabled>
-                          <label class=" active">Description</label>
-                        </div>
-                        <div class="input-field col s4 ">
-                          <input class="" type="text" ng-model="defValue.type" disabled>
-                          <label class="">Type</label>
-                        </div>
-                        <div class="input-field col s4 ">
-                          <input class="" type="text" placeholder="" ng-model="defValue.required" disabled>
-                          <label class="">Required</label>
-                        </div>
-                      </div>
-                      <div class="section">
-                        <span class="card-title">Properties</span>
-                        <table class="section bordered responsive-table">
-                          <thead>
-                            <tr>
-                              <th ng-repeat="header in defControl.headers"
-                                ng-attr-data-field="{{header}}">{{header}}</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr ng-repeat="(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'">
-                              <td class="">{{propertyName}}</td>
-                              <td class=" shrink">{{propertyValue.description}}</td>
-                              <td class="">{{propertyValue.type}}</td>
-                              <td class=""
-                                ng-if="defValue.required.includes(propertyName);">true</td>
-                              <td class=""
-                                ng-if="!defValue.required.includes(propertyName);">false</td>
-                              <td class="">{{propertyValue.enum}}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="row">
-                        <div class="col s6">
-                          <button tooltipped
-                            class="btn-flat"
-                            data-position="top"
-                            data-delay="50"
-                            data-tooltip="Delete Definition"
-                            ng-click="defControl.deleteDefinition(definition);">
-                          <i class="material-icons">delete</i>
-                          </button>
-                        </div>
-                        <div class="col s6 ">
-                          <button class="btn-flat"
-                            href="#definition-editor-modal"
-                            ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
-                            modal>
-                          <i class="material-icons">settings</i>
-                          </button>
-                        </div>
-                      </div>
-                  </div>
-                </li>
-              </ul>
-
-          <!-- <ul ng-repeat="(definition, defValue) in defControl.definitions"
-            class="collapsible blue-grey darken-2"
-            init-collapse
-            data-collapsible="accordion">
-            <li>
-              <div class="collapsible-header blue-grey">
-                {{definition}}
-              </div>
-              <div class="collapsible-body">
-                <div class="section">
-                  <span class="card-title col s12">Attributes</span>
-                  <div class="input-field col s4 ">
-                    <input class="white-text"
-                      type="text"
-                      placeholder="Some information about the Definition"
-                      ng-model="defValue.description"
-                      disabled>
-                    <label class="white-text active">Description</label>
-                  </div>
-                  <div class="input-field col s4 ">
-                    <input class="white-text" type="text" ng-model="defValue.type" disabled>
-                    <label class="white-text">Type</label>
-                  </div>
-                  <div class="input-field col s4 ">
-                    <input class="white-text" type="text" placeholder="" ng-model="defValue.required" disabled>
-                    <label class="white-text">Required</label>
-                  </div>
+              <li class="" ng-repeat="(definition, defValue) in defControl.definitions" >
+                <div class="collapsible-header ">
+                  {{definition}}
                 </div>
-                <div class="section">
-                  <span class="card-title">Properties</span>
-                  <table class="section bordered responsive-table">
-                    <thead>
-                      <tr>
-                        <th ng-repeat="header in defControl.headers"
-                          ng-attr-data-field="{{header}}">{{header}}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'">
-                        <td class="white-text">{{propertyName}}</td>
-                        <td class="white-text shrink">{{propertyValue.description}}</td>
-                        <td class="white-text">{{propertyValue.type}}</td>
-                        <td class="white-text"
-                          ng-if="defValue.required.includes(propertyName);">true</td>
-                        <td class="white-text"
-                          ng-if="!defValue.required.includes(propertyName);">false</td>
-                        <td class="white-text">{{propertyValue.enum}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div class="collapsible-body">
+                    <div class="section">
+                      <span class="card-title col s12">Attributes</span>
+                      <div class="input-field col s4 ">
+                        <input class=""
+                          type="text"
+                          placeholder="Some information about the Definition"
+                          ng-model="defValue.description"
+                          disabled>
+                        <label class=" active">Description</label>
+                      </div>
+                      <div class="input-field col s4 ">
+                        <input class="" type="text" ng-model="defValue.type" disabled>
+                        <label class="">Type</label>
+                      </div>
+                      <div class="input-field col s4 ">
+                        <input class="" type="text" placeholder="" ng-model="defValue.required" disabled>
+                        <label class="">Required</label>
+                      </div>
+                    </div>
+                    <div class="section">
+                      <span class="card-title">Properties</span>
+                      <table class="section bordered responsive-table">
+                        <thead>
+                          <tr>
+                            <th ng-repeat="header in defControl.headers"
+                              ng-attr-data-field="{{header}}">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'">
+                            <td class="">{{propertyName}}</td>
+                            <td class=" shrink">{{propertyValue.description}}</td>
+                            <td class="">{{propertyValue.type}}</td>
+                            <td class=""
+                              ng-if="defValue.required.includes(propertyName);">true</td>
+                            <td class=""
+                              ng-if="!defValue.required.includes(propertyName);">false</td>
+                            <td class="">{{propertyValue.enum}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="row">
+                      <div class="col s6">
+                        <button tooltipped
+                          class="btn-flat"
+                          data-position="top"
+                          data-delay="50"
+                          data-tooltip="Delete Definition"
+                          ng-click="defControl.deleteDefinition(definition);">
+                        <i class="material-icons">delete</i>
+                        </button>
+                      </div>
+                      <div class="col s6 ">
+                        <button class="btn-flat"
+                          href="#definition-editor-modal"
+                          ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
+                          modal>
+                        <i class="material-icons">settings</i>
+                        </button>
+                      </div>
+                    </div>
                 </div>
-                <div class="row">
-                  <div class="col s6">
-                    <button tooltipped
-                      class="btn-flat"
-                      data-position="top"
-                      data-delay="50"
-                      data-tooltip="Delete Definition"
-                      ng-click="defControl.deleteDefinition(definition);">
-                    <i class="material-icons">delete</i>
-                    </button>
-                  </div>
-                  <div class="col s6 ">
-                    <button class="btn-flat"
-                      href="#definition-editor-modal"
-                      ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
-                      modal>
-                    <i class="material-icons">settings</i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul> -->
-          <sg-definition-creator-modal></sg-definition-creator-modal>
-          <sg-definition-editor-modal></sg-definition-editor-modal>
+              </li>
+            </ul>
         </div>
       </div>
     </div>
   </div>
+  <sg-definition-editor-modal></sg-definition-editor-modal>
 </div>

@@ -1,3 +1,4 @@
+import angular from "angular";
 "use strict";
 
 let compiler = ["PathService", "InfoService", "DefinitionsService", CompilerService];

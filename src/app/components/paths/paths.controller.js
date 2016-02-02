@@ -1,11 +1,14 @@
+import angular from "angular";
+import template from "../modals/pathCreator/pathCreator.html";
+import controller from "../modals/pathCreator/pathCreator.controller";
 
 "use strict";
 
-let PathController = ["$scope", "$log", "PathService", "$window", PathCtrl];
+let PathController = ["$scope", "$log", "PathService", "$window", "$mdDialog", "$mdMedia", PathCtrl];
 
 export default PathController;
 
-function PathCtrl($scope, $log, swaggerPaths, $window){
+function PathCtrl($scope, $log, swaggerPaths, $window, $mdDialog, $mdMedia){
   //$scope.thisObject = this;
 
   //used to test the services
@@ -28,6 +31,36 @@ function PathCtrl($scope, $log, swaggerPaths, $window){
         $scope.focusPathModal = true;
         $log.log("toggle focus: focusPathModal ==" + $scope.focusPathModal);
         //$scope.focusPathModal = !$scope.focusPathModal;
+    };
+
+    this.showAdvanced = function(ev) {
+        //debugger;
+        var useFullScreen = ($mdMedia("sm") || $mdMedia("xs"))  && $scope.customFullscreen;
+        $mdDialog.show({
+            // controller: DialogController,
+            // templateUrl: "dialog1.tmpl.html",
+            controller,
+            controllerAs: "pathModal",
+            template,
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: true
+        })
+        .then(function(answer) {
+            //debugger;
+            $scope.status = "You said the information was '" + answer + "'.";
+            $log.log("RETURNING DIALOGE" + $scope.status);
+        }, function() {
+            $scope.status = "You cancelled the dialog.";
+            $log.log("RETURNING DIALOGE -- CANCELLED");
+        });
+
+        $scope.$watch(function() {
+            return $mdMedia("xs") || $mdMedia("sm");
+        }, function(wantsFullScreen) {
+            $scope.customFullscreen = (wantsFullScreen === true);
+        });
     };
 
     this.updatePathName = function(originalPathName, newPathName){

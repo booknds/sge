@@ -1,3 +1,5 @@
+import angular from "angular";
+
 "use strict";
 
 let sideNavArray = ["$scope", "$http", "$log", "CompilerService", "FileSaver", "Blob", SidenavCtrl];

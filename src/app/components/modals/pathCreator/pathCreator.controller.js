@@ -1,8 +1,8 @@
-let PathCreatorController = ["$scope", "PathService", "$log", PathModalCtrl];
+let PathCreatorController = ["$scope", "PathService", "$log", "$mdDialog", PathModalCtrl];
 
 export default PathCreatorController;
 
-function PathModalCtrl($scope, PathService, $log){
+function PathModalCtrl($scope, PathService, $log, $mdDialog){
 
     this.newPath = {
         name:null,
@@ -58,6 +58,8 @@ function PathModalCtrl($scope, PathService, $log){
         this.prevent.pathCreation = true;
 
         this.closeModal = true;
+
+        $mdDialog.hide("added path");
 
     };
 

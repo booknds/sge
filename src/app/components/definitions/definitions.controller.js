@@ -1,9 +1,14 @@
+import angular from "angular";
+import template from "../modals/definitionCreator/definitionCreator.html";
+import controller from "../modals/definitionCreator/definitionCreator.controller";
 
-let definitionsController = ["$scope", "$window", "$log", "DefinitionsService", "DefinitionEditorModalService", DefinitionsCtrl];
+"use strict";
+
+let definitionsController = ["$scope", "$window", "$log", "DefinitionsService", "DefinitionEditorModalService", "$mdDialog", "$mdMedia", DefinitionsCtrl];
 
 export default definitionsController;
 
-function DefinitionsCtrl($scope, $window, $log, ds, dems){
+function DefinitionsCtrl($scope, $window, $log, ds, dems, $mdDialog, $mdMedia){
 
     var vm = this;
 
@@ -14,11 +19,43 @@ function DefinitionsCtrl($scope, $window, $log, ds, dems){
     vm.Types = ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password"];
 
     $scope.focusDefinitionModal = false;
+    $scope.customFullscreen = $mdMedia("xs") || $mdMedia("sm");
+
 
     $scope.openFocusDefinitionModal = function(){
         $scope.focusDefinitionModal = true;
         $log.log("toggle focus: focusPathModal ==" + $scope.focusDefinitionModal);
         //$scope.focusPathModal = !$scope.focusPathModal;
+    };
+
+    $scope.showAdvanced = function(ev) {
+        //debugger;
+        var useFullScreen = ($mdMedia("sm") || $mdMedia("xs"))  && $scope.customFullscreen;
+        $mdDialog.show({
+            // controller: DialogController,
+            // templateUrl: "dialog1.tmpl.html",
+            controller,
+            controllerAs: "definitionCreation",
+            template,
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: true
+        })
+        .then(function(answer) {
+            //debugger;
+            $scope.status = "You said the information was '" + answer + "'.";
+            $log.log("RETURNING DIALOGE" + $scope.status);
+        }, function() {
+            $scope.status = "You cancelled the dialog.";
+            $log.log("RETURNING DIALOGE -- CANCELLED");
+        });
+
+        $scope.$watch(function() {
+            return $mdMedia("xs") || $mdMedia("sm");
+        }, function(wantsFullScreen) {
+            $scope.customFullscreen = (wantsFullScreen === true);
+        });
     };
 
     // $scope.$watch(function(){return ds;}, function(newVal){
