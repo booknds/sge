@@ -49,7 +49,7 @@ module.exports = {
         "angular/module-dependency-order": [0, {"grouped": true, "prefix": null}],
         "angular/module-getter": 2,
         "angular/module-name": 0,
-        "angular/module-setter": 2,
+        "angular/module-setter": 1,
         "angular/no-angular-mock": 0,
         "angular/no-controller": 0,
         "angular/no-cookiestore": 2,

@@ -1,10 +1,11 @@
-import angular from 'angular';
-import angularMaterialize from 'angular-materialize';
-import DefinitionsComponent from './definitions.component';
+import angular from "angular";
+// import angularMaterialize from "angular-materialize";
+import DefinitionsComponent from "./definitions.component";
 
-'use strict';
+"use strict";
 
-let DefinitionsModule = angular.module('definitionsModule', ['ui.materialize'])
-                                .directive('sgDefinitions', DefinitionsComponent);
+let DefinitionsModule = angular
+    .module("definitionsModule", [])
+    .directive("sgDefinitions", DefinitionsComponent);
 
 export default DefinitionsModule;

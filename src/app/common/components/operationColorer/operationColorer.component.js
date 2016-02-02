@@ -18,7 +18,7 @@ function colorerComponent(){
         link: function(scope, element){
             //debugger;
 
-            switch(scope.sgOperationColorer){
+            switch (scope.sgOperationColorer) {
             case "get":
                 element.addClass("blue");
                 break;

@@ -7,9 +7,9 @@ function DefinitionsService($log, ObjectFactory){
     this.addDefinition = function(definitionName, description, type){
         debugger;
         if(hasDefinition(definitionName))
-            throw "Cannot Add, Definition Already Exists"
+            throw "Cannot Add, Definition Already Exists";
         else{
-            $log.log('adding definitiion');
+            $log.log("adding definitiion");
 
             this.definitions.addDefinition(definitionName, description, type);
         }
@@ -30,7 +30,7 @@ function DefinitionsService($log, ObjectFactory){
         } else {
             return false;
         }
-  }
+    }
 
     this.addProperty = function(definitionName, propertyName){
 
@@ -38,7 +38,7 @@ function DefinitionsService($log, ObjectFactory){
         // $log.log(definitionName, propertyName);
 
         if (hasProperty(definitionName, propertyName)) {
-            throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
+            throw ("Property '" + propertyName + "' already exists in definition: " + definitionName);
 
         } else {
 
@@ -63,7 +63,7 @@ function DefinitionsService($log, ObjectFactory){
     this.updateDefinition = function(originalDefinition, updatedDefinition){
         $log.log("SERVICE - update definition");
         var oName = originalDefinition.name,
-            oValue = originalDefinition.value,
+            //oValue = originalDefinition.value,
             uName = updatedDefinition.name,
             uValue = updatedDefinition.value;
 
@@ -78,7 +78,7 @@ function DefinitionsService($log, ObjectFactory){
 
             if (hasDefinition(uName)) {
 
-                throw "Definition already exists, cannot change definition name."
+                throw "Definition already exists, cannot change definition name.";
 
             } else {
 
@@ -95,7 +95,7 @@ function DefinitionsService($log, ObjectFactory){
             }
         }
 
-    }
+    };
 
     this.newSchema = function(title, description, type){
         // let temp = Object.create(Schema);

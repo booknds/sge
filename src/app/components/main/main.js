@@ -1,9 +1,10 @@
-import angular from 'angular';
-import MainComponent from './main.component';
+import angular from "angular";
+import MainComponent from "./main.component";
 
-  'use strict';
+"use strict";
 
-  let mainModule = angular.module("mainModule", [])
-                          .directive('sgMain', MainComponent);
+let mainModule = angular
+    .module("mainModule", [])
+    .directive("sgMain", MainComponent);
 
 export default mainModule;

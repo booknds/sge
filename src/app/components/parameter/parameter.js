@@ -1,9 +1,10 @@
-import angular from 'angular';
-import ParameterComponent from './parameter.component';
+import angular from "angular";
+import ParameterComponent from "./parameter.component";
+        
+"use strict";
 
-'use strict';
-
-let ParameterModule = angular.module("ParameterModule", [])
-                        .directive('sgParameter', ParameterComponent);
+let ParameterModule = angular
+    .module("ParameterModule", [])
+    .directive("sgParameter", ParameterComponent);
 
 export default ParameterModule;

@@ -1,9 +1,9 @@
 "use strict";
 
-let OperationController = ['$scope','PathService', OperationCtrl];
+let OperationController = [/*"$scope","PathService",*/ OperationCtrl];
 
 export default OperationController;
 
-function OperationCtrl($scope, PathService){
+function OperationCtrl(/*$scope, PathService*/){
 
 }

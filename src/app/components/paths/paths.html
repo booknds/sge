@@ -42,13 +42,40 @@
             <div>
               <div style="display:flex; flex-direction:row; justify-content:flex-start;">
                 <div>Operations:</div>
-                <a ng-repeat="operation in pathCtl.operations | orderBy:operation"
+                <!-- <a ng-repeat="operation in pathCtl.operations | orderBy:operation"
                     style="margin-left:2%;"
-                     ng-hide="pathCtl.hasOperation(pathName, operation)"
-
-                  sg-operation-colorer="{{operation}}"
-                  class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, operation)">
-                {{operation | uppercase}}
+                    ng-hide="pathCtl.hasOperation(pathName, operation)"
+                    sg-operation-colorer="{{operation}}"
+                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, operation)">
+                    {{operation | uppercase}}
+                </a> -->
+                <a 
+                    style="margin-left:2%;"
+                    ng-hide="pathCtl.paths[pathName].hasOwnProperty('get')"
+                    sg-operation-colorer="get"
+                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, 'get')">
+                    {{'get' | uppercase}}
+                </a>
+                <a 
+                    style="margin-left:2%;"
+                    ng-hide="pathCtl.paths[pathName].hasOwnProperty('post')"
+                    sg-operation-colorer="post"
+                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, 'post')">
+                    {{'post' | uppercase}}
+                </a>
+                <a 
+                    style="margin-left:2%;"
+                    ng-hide="pathCtl.paths[pathName].hasOwnProperty('put')"
+                    sg-operation-colorer="put"
+                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, 'put')">
+                    {{'put' | uppercase}}
+                </a>
+                <a 
+                    style="margin-left:2%;"
+                    ng-hide="pathCtl.paths[pathName].hasOwnProperty('delete')"
+                    sg-operation-colorer="delete"
+                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, 'delete')">
+                    {{'delete' | uppercase}}
                 </a>
               </div>
             </div>

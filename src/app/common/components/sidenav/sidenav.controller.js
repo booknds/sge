@@ -59,7 +59,7 @@ function SidenavCtrl($scope, $http, $log, cs, FileSaver, Blob){
             return;
         }
 
-        var data = new Blob([angular.toJson(text, null, "\t")], { type: "application/json" });
+        var data = new Blob([angular.toJson(text, true)], { type: "application/json" });
         FileSaver.saveAs(data, "swagger.json");
     };
 

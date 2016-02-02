@@ -16,7 +16,7 @@ function ModalCloserCtrl($scope){
 
         if(!this.ngModel) return;
 
-        (`#${this.modalId}`).closeModal();
+        $(`#${this.modalId}`).closeModal();
         this.ngModel = false;
     }
 

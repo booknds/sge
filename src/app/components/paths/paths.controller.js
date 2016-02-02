@@ -18,7 +18,7 @@ function PathCtrl($scope, $log, swaggerPaths, $window){
     this.operations = ["get", "post", "put", "delete"];
 
     this.hasOperation = function(pathName, operation){
-        //debugger;
+        debugger;
         return this.paths[pathName].hasOwnProperty(operation);
     };
 

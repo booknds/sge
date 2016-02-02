@@ -1,4 +1,4 @@
-import angular from 'angular';
+"use strict";
 
 export default InfoService;
 
@@ -9,33 +9,33 @@ export default InfoService;
  **/
 function InfoService(){
 
-  /**
-    * @name swaggerInfo
-    * @desc Contains the state of the swagger definition's base info
-    * @type {Object}
-   **/
-  let swaggerInfo = {
-      swagger: "2.0",
-      info: {
+    /**
+      * @name swaggerInfo
+      * @desc Contains the state of the swagger definition's base info
+      * @type {Object}
+     **/
+    let swaggerInfo = {
+        swagger: "2.0",
+        info: {
             title: "",
             description: "",
             termsOfService: "",
             contact: {
                 name: "",
                 url: "",
-                email: "",
+                email: ""
             },
             license: {
                 name: "",
                 url: ""
             },
-            version: "",
+            version: ""
         },
-       host: "",
-       basePath: "",
-       schemes: [],
-       consumes: [],
-       produces: [],
+        host: "",
+        basePath: "",
+        schemes: [],
+        consumes: [],
+        produces: []
     };
 
     /**
@@ -44,21 +44,23 @@ function InfoService(){
       * @type {Function}
      **/
     function addType(list, type){
-      //check if list exists
-      if(!validList(list))
-        throw "List does not exist";
+        //check if list exists
+        if (!validList(list)){
+            throw "List does not exist";
+        }
 
-      //check if type exists
-      if(type){
-        //check if type is already in the list
-        if(swaggerInfo[list].indexOf(type) === -1)
-            swaggerInfo[list].push(type);
-        else
-          throw "Type already exists in this list";
+        //check if type exists
+        if(type){
+            //check if type is already in the list
+            if(swaggerInfo[list].indexOf(type) === -1){
+                swaggerInfo[list].push(type);
+            } else {
+                throw "Type already exists in this list";
+            }
 
-      }else {
-          throw "Type not chosen!";
-      }
+        } else {
+            throw "Type not chosen!";
+        }
     }
 
     /**
@@ -67,15 +69,19 @@ function InfoService(){
       * @type {Function}
      **/
     function removeType(list, type){
-      //check if list exists
-      if(!validList(list))
-        throw "List does not exist";
+        //check if list exists
+        if (!validList(list)){
+            throw "List does not exist";
+        }
 
-      let index = swaggerInfo[list].indexOf(type);
-      if(index >= 0)
-          swaggerInfo[list].splice(index, 1);
-      else
-          throw "Type already deleted";
+        let index = swaggerInfo[list].indexOf(type);
+
+        if(index >= 0){
+            swaggerInfo[list].splice(index, 1);
+        
+        } else {    
+            throw "Type already deleted";
+        }
     }
 
     /**
@@ -84,7 +90,7 @@ function InfoService(){
       * @type {Function}
      **/
     function getBaseInfo(){
-      return swaggerInfo;
+        return swaggerInfo;
     }
 
     /**
@@ -93,14 +99,14 @@ function InfoService(){
       * @type {Function}
      **/
     function setBaseInfo(newSwaggerInfo){
-      debugger;
-      //swaggerInfo = angular.copy(newSwaggerInfo);
-      //console.log(swaggerInfo);
-      for(var key in newSwaggerInfo){
-        if(swaggerInfo.hasOwnProperty(key)){
-          swaggerInfo[key] = newSwaggerInfo[key];
+        debugger;
+        //swaggerInfo = angular.copy(newSwaggerInfo);
+        //console.log(swaggerInfo);
+        for (var key in newSwaggerInfo) {
+            if(swaggerInfo.hasOwnProperty(key)){
+                swaggerInfo[key] = newSwaggerInfo[key];
+            }
         }
-      }
     }
 
     /**
@@ -109,17 +115,19 @@ function InfoService(){
       * @type {Function}
      **/
     function validList(list){
-      if(list === "produces" || list === "consumes" || list === "schemes")
-        return true;
-      else
-        return false;
+        if(list === "produces" || list === "consumes" || list === "schemes"){
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
-  return {
-      getBaseInfo,
-      setBaseInfo,
-      addType,
-      removeType,
-  };
+    return {
+        getBaseInfo,
+        setBaseInfo,
+        addType,
+        removeType
+    };
 
 }

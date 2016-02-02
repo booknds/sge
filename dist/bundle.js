@@ -61,41 +61,47 @@
 	
 	var _common2 = _interopRequireDefault(_common);
 	
-	var _components = __webpack_require__(54);
+	var _components = __webpack_require__(53);
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _app = __webpack_require__(118);
+	var _app = __webpack_require__(106);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _angularMaterialize = __webpack_require__(113);
+	var _angularMaterialize = __webpack_require__(108);
 	
 	var _angularMaterialize2 = _interopRequireDefault(_angularMaterialize);
 	
-	var _angularMaterial = __webpack_require__(120);
+	var _angularFileSaver = __webpack_require__(110);
+	
+	var _angularFileSaver2 = _interopRequireDefault(_angularFileSaver);
+	
+	var _angularMaterial = __webpack_require__(119);
 	
 	var _angularMaterial2 = _interopRequireDefault(_angularMaterial);
 	
-	var _angularAnimate = __webpack_require__(121);
+	var _angularAnimate = __webpack_require__(120);
 	
 	var _angularAnimate2 = _interopRequireDefault(_angularAnimate);
 	
-	var _angularAria = __webpack_require__(123);
+	var _angularAria = __webpack_require__(122);
 	
 	var _angularAria2 = _interopRequireDefault(_angularAria);
 	
-	var _angularMessages = __webpack_require__(126);
+	var _angularMessages = __webpack_require__(125);
 	
 	var _angularMessages2 = _interopRequireDefault(_angularMessages);
 	
-	__webpack_require__(128);
+	__webpack_require__(127);
 	
-	__webpack_require__(132);
+	__webpack_require__(131);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	"use strict";
+	
+	// console.log(FileSaver);
 	
 	_angular2.default.module("SwaggerGraphicalEditor", [
 	// 'ui.materialize',
@@ -29779,10 +29785,10 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
@@ -29793,17 +29799,17 @@
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _services = __webpack_require__(46);
+	var _services = __webpack_require__(45);
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _filters = __webpack_require__(52);
+	var _filters = __webpack_require__(51);
 	
 	var _filters2 = _interopRequireDefault(_filters);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var commonModule = _angular2.default.module('app.common', [_components2.default.name, _services2.default.name, _filters2.default.name]);
+	var commonModule = _angular2.default.module("app.common", [_components2.default.name, _services2.default.name, _filters2.default.name]);
 	
 	exports.default = commonModule;
 
@@ -29811,10 +29817,10 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
@@ -29837,41 +29843,41 @@
 	
 	var _uniqueInput2 = _interopRequireDefault(_uniqueInput);
 	
-	var _modalCloser = __webpack_require__(21);
+	var _modalCloser = __webpack_require__(20);
 	
 	var _modalCloser2 = _interopRequireDefault(_modalCloser);
 	
-	var _focusOnClick = __webpack_require__(24);
+	var _focusOnClick = __webpack_require__(23);
 	
 	var _focusOnClick2 = _interopRequireDefault(_focusOnClick);
 	
-	var _textInputField = __webpack_require__(26);
+	var _textInputField = __webpack_require__(25);
 	
 	var _textInputField2 = _interopRequireDefault(_textInputField);
 	
-	var _dropdown = __webpack_require__(30);
+	var _dropdown = __webpack_require__(29);
 	
 	var _dropdown2 = _interopRequireDefault(_dropdown);
 	
-	var _textareaInput = __webpack_require__(34);
+	var _textareaInput = __webpack_require__(33);
 	
 	var _textareaInput2 = _interopRequireDefault(_textareaInput);
 	
-	var _schemaEditor = __webpack_require__(38);
+	var _schemaEditor = __webpack_require__(37);
 	
 	var _schemaEditor2 = _interopRequireDefault(_schemaEditor);
 	
-	var _fileUpload = __webpack_require__(42);
+	var _fileUpload = __webpack_require__(41);
 	
 	var _fileUpload2 = _interopRequireDefault(_fileUpload);
 	
-	var _operationColorer = __webpack_require__(44);
+	var _operationColorer = __webpack_require__(43);
 	
 	var _operationColorer2 = _interopRequireDefault(_operationColorer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var CommonComponents = _angular2.default.module('common.components', [_header2.default.name, _footer2.default.name, _sidenav2.default.name, _uniqueInput2.default.name, _modalCloser2.default.name, _focusOnClick2.default.name, _textInputField2.default.name, _dropdown2.default.name, _textareaInput2.default.name, _schemaEditor2.default.name, _fileUpload2.default.name, _operationColorer2.default.name]);
+	var CommonComponents = _angular2.default.module("common.components", [_header2.default.name, _footer2.default.name, _sidenav2.default.name, _uniqueInput2.default.name, _modalCloser2.default.name, _focusOnClick2.default.name, _textInputField2.default.name, _dropdown2.default.name, _textareaInput2.default.name, _schemaEditor2.default.name, _fileUpload2.default.name, _operationColorer2.default.name]);
 	
 	exports.default = CommonComponents;
 
@@ -29879,10 +29885,10 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
@@ -29895,15 +29901,15 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//import angular_materialize from 'angular-materialize';
-	//import Blob from 'blob-polyfill';
-	//import FileSaver from 'filesaver.js';
-	//import angularFileSaver from 'angular-file-saver';
-	//import 'materialize-css/dist/js/materialize.js';
+	//import angular_materialize from "angular-materialize";
+	//import Blob from "blob-polyfill";
+	//import FileSaver from "filesaver.js";
+	//import angularFileSaver from "angular-file-saver";
+	//import "materialize-css/dist/js/materialize.js";
 	
-	'use strict';
+	"use strict";
 	
-	var headerModule = _angular2.default.module('header', []).directive('sgHeader', _header2.default);
+	var headerModule = _angular2.default.module("header", []).directive("sgHeader", _header2.default);
 	
 	exports.default = headerModule;
 
@@ -29911,10 +29917,10 @@
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _header = __webpack_require__(8);
@@ -29926,18 +29932,18 @@
 	// angular 1.5 syntax
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
-	function headerComponent() {
-	  return {
-	    template: _header2.default,
-	    replace: true,
-	    restrict: 'E'
-	  };
-	}
-	
 	exports.default = headerComponent;
+	
+	function headerComponent() {
+	    return {
+	        template: _header2.default,
+	        replace: true,
+	        restrict: "E"
+	    };
+	}
 
 /***/ },
 /* 8 */
@@ -29949,10 +29955,10 @@
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                    value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
@@ -29965,9 +29971,9 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	'use strict';
+	"use strict";
 	
-	var FooterModule = _angular2.default.module("footer", []).directive('sgFooter', _footer2.default);
+	var FooterModule = _angular2.default.module("footer", []).directive("sgFooter", _footer2.default);
 	
 	exports.default = FooterModule;
 
@@ -29975,10 +29981,10 @@
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _footer = __webpack_require__(11);
@@ -29990,17 +29996,17 @@
 	// angular 1.5 syntax
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
-	function footerComponent() {
-	  return {
-	    template: _footer2.default,
-	    restrict: 'E'
-	  };
-	}
-	
 	exports.default = footerComponent;
+	
+	function footerComponent() {
+	    return {
+	        template: _footer2.default,
+	        restrict: "E"
+	    };
+	}
 
 /***/ },
 /* 11 */
@@ -30012,10 +30018,10 @@
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
@@ -30032,7 +30038,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var SidenavModule = _angular2.default.module('SidenavModule', []).directive("sgSidenav", _sidenav2.default);
+	var SidenavModule = _angular2.default.module("SidenavModule", []).directive("sgSidenav", _sidenav2.default);
 	
 	exports.default = SidenavModule;
 
@@ -30040,10 +30046,10 @@
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _sidenav = __webpack_require__(14);
@@ -30059,29 +30065,32 @@
 	exports.default = SidenavComponent;
 	
 	function SidenavComponent() {
-	  return {
-	    restrict: 'E',
-	    template: _sidenav2.default,
-	    controller: _sidenav4.default,
-	    controllerAs: 'sidenav',
-	    link: function link(scope, element, attr) {
-	      // Initialize collapse button
-	      $('.button-collapse').sideNav({
-	        menuWidth: 300, // Default is 240
-	        edge: 'right', // Choose the horizontal origin
-	        closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-	      });
+	    return {
+	        restrict: "E",
+	        template: _sidenav2.default,
+	        controller: _sidenav4.default,
+	        controllerAs: "sidenav",
+	        link: function link(scope, element) {
+	            // Initialize collapse button
+	            //$(".button-collapse").sideNav(
+	            element.find(".button-collapse").sideNav({
+	                menuWidth: 300, // Default is 240
+	                edge: "right", // Choose the horizontal origin
+	                closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
 	
-	      //console.log(element);
-	      //console.log(get)
+	            });
 	
-	      $(document).ready(function () {
-	        $('.collapsible').collapsible({
-	          accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-	        });
-	      });
-	    }
-	  };
+	            //console.log(element);
+	            //console.log(get)
+	
+	            $(document).ready(function () {
+	                $(".collapsible").collapsible({
+	                    // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+	                    accordion: false
+	                });
+	            });
+	        }
+	    };
 	}
 
 /***/ },
@@ -30094,72 +30103,69 @@
 /* 15 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	var sideNavArray = ["$scope", '$http', "CompilerService", 'FileSaver', 'Blob', SidenavCtrl];
+	var sideNavArray = ["$scope", "$http", "$log", "CompilerService", "FileSaver", "Blob", SidenavCtrl];
 	
 	exports.default = sideNavArray;
 	
-	function SidenavCtrl($scope, $http, cs, FileSaver, Blob) {
+	function SidenavCtrl($scope, $http, $log, cs, FileSaver, Blob) {
 	
-	  this.compiledDocument = cs.compiled;
+	    this.compiledDocument = cs.compiled;
 	
-	  this.pickedFile = "";
+	    this.pickedFile = "";
 	
-	  this.onChange = function onChange_handler(event) {
-	    //return if the even is unidentified or null
-	    if (!event) {
-	      return;
-	    }
+	    this.onChange = function onChange_handler(event) {
+	        //return if the even is unidentified or null
+	        if (!event) {
+	            return;
+	        }
 	
-	    //debugger;
-	    var file = event.target.files[0];
-	    var reader = new FileReader();
+	        //debugger;
+	        var file = event.target.files[0];
+	        var reader = new FileReader();
 	
-	    //set up the onload property to fire when readAsText() below is compeleted;
-	    reader.onload = function __onload_handler__(event) {
-	      //debugger;
+	        //set up the onload property to fire when readAsText() below is compeleted;
+	        //reader.onload = function __onload_handler__(event){ original handler can take an event
+	        reader.onload = function __onload_handler__() {
+	            //debugger;
 	
-	      $scope.$apply(function __apply_handler__() {
-	        //use $apply() to fire manual watchers to this.pickedFile
-	        var file_content = angular.copy(reader.result);
-	        this.pickedFile = JSON.parse(file_content);
-	        var parsed_file_content = JSON.parse(file_content);
+	            $scope.$apply(function __apply_handler__() {
+	                //use $apply() to fire manual watchers to this.pickedFile
+	                var file_content = angular.copy(reader.result);
+	                this.pickedFile = angular.fromJSON(file_content);
+	                var parsed_file_content = angular.fromJSON(file_content);
 	
-	        cs.distributeImportedDefinitionToServices(parsed_file_content);
-	      }.bind(this));
+	                cs.distributeImportedDefinitionToServices(parsed_file_content);
+	            }.bind(this));
+	        }.bind(this);
+	
+	        //read in the file as a string -> sets of reader.onload() when complete.
+	        reader.readAsText(file);
 	    }.bind(this);
 	
-	    //read in the file as a string -> sets of reader.onload() when complete.
-	    reader.readAsText(file);
-	  }.bind(this);
+	    this.recompile = function recompile() {
+	        cs.recompile();
+	    };
 	
-	  /*
-	  *
-	  *
-	  */
-	  this.recompile = function recompile() {
-	    cs.recompile();
-	  };
+	    this.download = function download(text) {
+	        this.compiledDocument = cs.compiled;
+	        this.recompile();
+	        text = cs.compiled;
 	
-	  this.download = function download(text) {
-	    this.compiledDocument = cs.compiled;
-	    this.recompile();
-	    text = cs.compiled;
+	        $log.log(text);
 	
-	    console.log(text);
+	        if (Object.keys(text).length === 0) {
+	            Materialize.toast("Definition Cannot be empty", 3000);
+	            return;
+	        }
 	
-	    if (Object.keys(text).length === 0) {
-	      Materialize.toast("Definition Cannot be empty", 3000);
-	      return;
-	    }
-	
-	    var data = new Blob([JSON.stringify(text, null, '\t')], { type: 'application/json' });
-	    FileSaver.saveAs(data, 'swagger.json');
-	  };
+	        var data = new Blob([angular.toJson(text, true)], { type: "application/json" });
+	        FileSaver.saveAs(data, "swagger.json");
+	    };
 	}
 
 /***/ },
@@ -30178,10 +30184,10 @@
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	
 	var _angular = __webpack_require__(2);
@@ -30194,63 +30200,55 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var UniqueInputModule = _angular2.default.module('UniqueInputModule', []).directive("sgUniqueInput", _uniqueInput2.default);
+	var UniqueInputModule = _angular2.default.module("UniqueInputModule", []).directive("sgUniqueInput", _uniqueInput2.default);
 	
 	exports.default = UniqueInputModule;
 
 /***/ },
 /* 19 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	
-	var _uniqueInput = __webpack_require__(20);
-	
-	var _uniqueInput2 = _interopRequireDefault(_uniqueInput);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	//import controller from "./uniqueInput.controller";
 	
 	exports.default = uniqueInput;
 	
 	function uniqueInput() {
-	  return {
-	    restrict: "A",
-	    //scope:{},
-	    controller: _uniqueInput2.default,
-	    link: function link(scope, element, attrs) {
-	      console.log("Unique controller.");
+	    return {
+	        restrict: "A",
+	        link: function link(scope, element) {
+	            // console.log("Unique controller.");
+	            var children = element.children();
+	            var newID = scope.$id;
 	
-	      var children = element.children();
-	      var newID = scope.$id;
+	            for (var childNode in children) {
 	
-	      for (var childNode in children) {
+	                if (children[childNode].nodeName === "INPUT") {
 	
-	        if (children[childNode].nodeName === 'INPUT') {
+	                    var attributes = children[childNode].attributes;
 	
-	          var attributes = children[childNode].attributes;
+	                    for (var index in attributes) {
+	                        if (attributes[index].nodeName === "id") {
+	                            attributes[index].value = newID;
+	                        }
+	                    }
+	                } else if (children[childNode].nodeName === "LABEL") {
 	
-	          for (var index in attributes) {
-	            if (attributes[index].nodeName === "id") {
-	              attributes[index].value = newID;
+	                    var attributes = children[childNode].attributes;
+	
+	                    for (var index in attributes) {
+	                        if (attributes[index].nodeName === "for") {
+	                            attributes[index].value = newID;
+	                        }
+	                    }
+	                }
 	            }
-	          }
-	        } else if (children[childNode].nodeName === 'LABEL') {
-	
-	          var attributes = children[childNode].attributes;
-	
-	          for (var index in attributes) {
-	            if (attributes[index].nodeName === "for") {
-	              attributes[index].value = newID;
-	            }
-	          }
 	        }
-	      }
-	    }
-	  };
+	    };
 	}
 
 /***/ },
@@ -30260,72 +30258,25 @@
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var uniqueInputController = ["$scope", uniqueInputCtrl]; /**
-	                                                         * This components ensures that an <input> / <label> pair
-	                                                         *   is given a matching unique ID
-	                                                         **/
-	
-	exports.default = uniqueInputController;
-	
-	function uniqueInputCtrl(scope) {
-	
-	  //   //debugger;
-	  //   console.log("Unique controller.");
-	  //
-	  //   // let input = angular.element(document.getElementById('input'));
-	  //   // input.removeAttr('id');
-	  //   // input.attr('id', scope.$id);
-	  //
-	  //
-	  //   let label = angular.element(document.getElementById('label'));
-	  //   ///debugger;
-	  //   console.log(label);
-	  //   label.removeAttr('id');
-	  // //  debugger;
-	  //   label.removeAttr('for');
-	  //   label.attr('for', scope.$id);
-	  //   console.log(label);
-	  // //  debugger;
-	  //
-	  //   label.attr('poop', 'poop');
-	
-	}
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	var _modalCloser = __webpack_require__(22);
+	var _modalCloser = __webpack_require__(21);
 	
 	var _modalCloser2 = _interopRequireDefault(_modalCloser);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ModalCloserModule = _angular2.default.module('ModalCloserModule', []).directive("sgModalCloser", _modalCloser2.default);
+	var ModalCloserModule = _angular2.default.module("ModalCloserModule", []).directive("sgModalCloser", _modalCloser2.default);
 	
 	exports.default = ModalCloserModule;
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30334,7 +30285,7 @@
 	    value: true
 	});
 	
-	var _modalCloser = __webpack_require__(23);
+	var _modalCloser = __webpack_require__(22);
 	
 	var _modalCloser2 = _interopRequireDefault(_modalCloser);
 	
@@ -30352,152 +30303,148 @@
 	            ngModel: "=?"
 	        },
 	        controller: _modalCloser2.default,
-	        controllerAs: 'ModalCloserCtrl'
+	        controllerAs: "ModalCloserCtrl"
 	    };
+	}
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	/**
+	* This components ensures that an <input> / <label> pair
+	*   is given a matching unique ID
+	**/
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var ModalCloserController = ["$scope", ModalCloserCtrl];
+	
+	exports.default = ModalCloserController;
+	
+	function ModalCloserCtrl($scope) {
+	
+	    $scope.$watch(getModel.bind(this), watchModel.bind(this));
+	
+	    function watchModel() {
+	
+	        if (!this.ngModel) return;
+	
+	        $("#" + this.modalId).closeModal();
+	        this.ngModel = false;
+	    }
+	
+	    function getModel() {
+	        return this.ngModel;
+	    }
 	}
 
 /***/ },
 /* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ModalCloserController = ['$scope', ModalCloserCtrl]; /**
-	                                                         * This components ensures that an <input> / <label> pair
-	                                                         *   is given a matching unique ID
-	                                                         **/
-	
-	exports.default = ModalCloserController;
-	
-	function ModalCloserCtrl($scope) {
-	
-	  $scope.$watch(getModel.bind(this), watchModel.bind(this));
-	
-	  function watchModel(model) {
-	
-	    if (!this.ngModel) return;
-	
-	    $('#' + this.modalId).closeModal();
-	    this.ngModel = false;
-	  }
-	
-	  function getModel() {
-	    return this.ngModel;
-	  }
-	}
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	var _focusOnClick = __webpack_require__(25);
+	var _focusOnClick = __webpack_require__(24);
 	
 	var _focusOnClick2 = _interopRequireDefault(_focusOnClick);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var FocusModule = _angular2.default.module('FocusModule', []).directive('focusMe', _focusOnClick2.default);
+	var FocusModule = _angular2.default.module("FocusModule", []).directive("focusMe", _focusOnClick2.default);
 	
 	exports.default = FocusModule;
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports) {
 
-	'use strict';
+	//directive based on Mark Rajcok"s answer on stack overflow to focus an elemenet on button click event.
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	//directive based on Mark Rajcok's answer on stack overflow to focus an elemenet on button click event.
+	var FocusOnClick = ["$timeout", "$parse", "$log", FocusOnClickCtrl];
 	
 	exports.default = FocusOnClick;
 	
-	function FocusOnClick($timeout, $parse) {
-	  return {
-	    //scope: true,   // optionally create a child scope
-	    link: function link(scope, element, attrs) {
-	      //get the attribute on the element called focus-me and put its value into model
-	      var model = $parse(attrs.focusMe);
+	function FocusOnClickCtrl($timeout, $parse) {
+	    return {
+	        //scope: true,   // optionally create a child scope
+	        link: function link(scope, element, attrs) {
+	            //get the attribute on the element called focus-me and put its value into model
+	            var model = $parse(attrs.focusMe);
 	
-	      //watch whenever model changes, if it true, the pop up modal was activated and should focus on the input
-	      scope.$watch(model, function (value) {
-	        console.log('value=', value);
-	        if (value === true) {
-	          $timeout(function () {
-	            element[0].focus();
-	          });
+	            //watch whenever model changes, if it true, the pop up modal was activated and should focus on the input
+	            scope.$watch(model, function (value) {
+	                // $log.log("value=",value);
+	                if (value === true) {
+	                    $timeout(function () {
+	                        element[0].focus();
+	                    });
+	                }
+	            });
+	
+	            // to address @blesh"s comment, set attribute value to "false"
+	            // on blur event:
+	            element.bind("blur", function () {
+	                // $log.log("blur");
+	                scope.$apply(model.assign(scope, false));
+	            });
 	        }
-	      });
-	      // to address @blesh's comment, set attribute value to 'false'
-	      // on blur event:
-	      element.bind('blur', function () {
-	        console.log('blur');
-	        scope.$apply(model.assign(scope, false));
-	      });
-	    }
-	  };
+	    };
 	}
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _textInputField = __webpack_require__(27);
+	var _textInputField = __webpack_require__(26);
 	
 	var _textInputField2 = _interopRequireDefault(_textInputField);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var TextInputModule = _angular2.default.module('TextInputModule', []).directive("sgTextInput", _textInputField2.default);
+	var TextInputModule = _angular2.default.module("TextInputModule", []).directive("sgTextInput", _textInputField2.default);
 	
 	exports.default = TextInputModule;
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _textInputField = __webpack_require__(28);
+	var _textInputField = __webpack_require__(27);
 	
 	var _textInputField2 = _interopRequireDefault(_textInputField);
 	
-	var _textInputField3 = __webpack_require__(29);
+	var _textInputField3 = __webpack_require__(28);
 	
 	var _textInputField4 = _interopRequireDefault(_textInputField3);
 	
@@ -30506,30 +30453,30 @@
 	exports.default = TextInputComponent;
 	
 	function TextInputComponent() {
-	  return {
-	    restrict: 'E',
-	    template: _textInputField2.default,
-	    scope: {},
-	    bindToController: {
-	      ngModel: '=',
-	      sgLabel: '@',
-	      required: '=?',
-	      ngPattern: '@?'
-	    },
-	    controller: _textInputField4.default,
-	    controllerAs: 'textInputCtrl',
-	    transclude: true
-	  };
+	    return {
+	        restrict: "E",
+	        template: _textInputField2.default,
+	        scope: {},
+	        bindToController: {
+	            ngModel: "=",
+	            sgLabel: "@",
+	            required: "=?",
+	            ngPattern: "@?"
+	        },
+	        controller: _textInputField4.default,
+	        controllerAs: "textInputCtrl",
+	        transclude: true
+	    };
 	}
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = "<input ng-if=\"textInputCtrl.required\" id=\"input\" type=\"text\" name=\"{{textInputCtrl.sgLabel}}\" ng-model=\"textInputCtrl.ngModel\" ng-pattern=\"textInputCtrl.ngPattern\"required=\"\"/>\n<input ng-if=\"!textInputCtrl.required\" id=\"input\" type=\"text\" name=\"{{textInputCtrl.sgLabel}}\" ng-model=\"textInputCtrl.ngModel\" ng-pattern=\"textInputCtrl.ngPattern\"/>\n<label id=\"label\" >{{textInputCtrl.sgLabel}}</label>\n<ng-transclude></ng-transclude>\n"
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30538,54 +30485,57 @@
 	  value: true
 	});
 	/* @ngInject */
-	var textInputCtrl = ["$scope", "$element", "$attrs", textInputController];
+	var textInputCtrl = [textInputController];
 	
 	exports.default = textInputCtrl;
 	
-	function textInputController($scope, $element, $attrs) {
+	function textInputController() {
 	
-	  function getRequired() {}
+	  // function getRequired(){
+	
+	  // }
+	
 	}
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _dropdown = __webpack_require__(31);
+	var _dropdown = __webpack_require__(30);
 	
 	var _dropdown2 = _interopRequireDefault(_dropdown);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var dropdownModule = _angular2.default.module('dropdown', []).directive('sgDropdown', _dropdown2.default);
+	var dropdownModule = _angular2.default.module("dropdown", []).directive("sgDropdown", _dropdown2.default);
 	
 	exports.default = dropdownModule;
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _dropdown = __webpack_require__(32);
+	var _dropdown = __webpack_require__(31);
 	
 	var _dropdown2 = _interopRequireDefault(_dropdown);
 	
-	var _dropdown3 = __webpack_require__(33);
+	var _dropdown3 = __webpack_require__(32);
 	
 	var _dropdown4 = _interopRequireDefault(_dropdown3);
 	
@@ -30594,30 +30544,30 @@
 	exports.default = DropdownComponent;
 	
 	function DropdownComponent() {
-	  return {
-	    restrict: 'E',
-	    replace: true,
-	    template: _dropdown2.default,
-	    scope: {},
-	    bindToController: {
-	      ngModel: '=',
-	      sgChoices: '=',
-	      sgDefaultOption: '@',
-	      sgLabel: '@'
-	    },
-	    controller: _dropdown4.default,
-	    controllerAs: 'dropdown'
-	  };
+	    return {
+	        restrict: "E",
+	        replace: true,
+	        template: _dropdown2.default,
+	        scope: {},
+	        bindToController: {
+	            ngModel: "=",
+	            sgChoices: "=",
+	            sgDefaultOption: "@",
+	            sgLabel: "@"
+	        },
+	        controller: _dropdown4.default,
+	        controllerAs: "dropdown"
+	    };
 	}
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<md-input-container class=\"md-block\" flex-gt-sm>\n  <label>{{dropdown.sgLabel}}</label>\n  <md-select ng-model=\"dropdown.ngModel\">\n    <md-option ng-repeat=\"choice in dropdown.sgChoices\" value=\"{{ choice }}\">{{ choice }}</md-option>\n  </md-select>\n  <!-- <select class=\"\"  material-select watch>\n    <option value=\"\" selected>{{dropdown.sgLabel}}</option>\n    <option ng-repeat=\"choice in dropdown.sgChoices\">{{choice}}</option>\n    <select select-value >\n      <option value=\"\" selected>{{dropdown.sgDefaultOption}}</option>\n      <option ng-repeat=\"choice in dropdown.sgChoices\" ng-attr-value=\"{{ choice }}\" ng-attr-id=\"{{ choice }}\">\n        {{ choice }}\n      </option>\n\n\n    </select>\n  </select> -->\n</md-input-container>\n"
 
 /***/ },
-/* 33 */
+/* 32 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30635,44 +30585,44 @@
 	}
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _textareaInput = __webpack_require__(35);
+	var _textareaInput = __webpack_require__(34);
 	
 	var _textareaInput2 = _interopRequireDefault(_textareaInput);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var TextAreaModule = _angular2.default.module('TextAreaModule', []).directive("sgTextarea", _textareaInput2.default);
+	var TextAreaModule = _angular2.default.module("TextAreaModule", []).directive("sgTextarea", _textareaInput2.default);
 	
 	exports.default = TextAreaModule;
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _textareaInput = __webpack_require__(36);
+	var _textareaInput = __webpack_require__(35);
 	
 	var _textareaInput2 = _interopRequireDefault(_textareaInput);
 	
-	var _textareaInput3 = __webpack_require__(37);
+	var _textareaInput3 = __webpack_require__(36);
 	
 	var _textareaInput4 = _interopRequireDefault(_textareaInput3);
 	
@@ -30681,30 +30631,30 @@
 	exports.default = TextareaComponent;
 	
 	function TextareaComponent() {
-	  return {
-	    restrict: 'E',
-	    template: _textareaInput2.default,
-	    scope: {},
-	    bindToController: {
-	      ngModel: '=',
-	      sgLabel: '@',
-	      required: '=?',
-	      ngPattern: '=?'
-	    },
-	    controller: _textareaInput4.default,
-	    controllerAs: 'textareaCtrl',
-	    transclude: true
-	  };
+	    return {
+	        restrict: "E",
+	        template: _textareaInput2.default,
+	        scope: {},
+	        bindToController: {
+	            ngModel: "=",
+	            sgLabel: "@",
+	            required: "=?",
+	            ngPattern: "=?"
+	        },
+	        controller: _textareaInput4.default,
+	        controllerAs: "textareaCtrl",
+	        transclude: true
+	    };
 	}
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports) {
 
 	module.exports = "<textarea ng-if=\"textareaCtrl.required\" id=\"input\" ng-model=\"textareaCtrl.ngModel\" required=\"\" class=\"materialize-textarea\"></textarea>\n<textarea ng-if=\"!textareaCtrl.required\" id=\"input\" ng-model=\"textareaCtrl.ngModel\" class=\"materialize-textarea\"></textarea>\n<label id=\"label\" >{{textareaCtrl.sgLabel}}</label>\n<ng-transclude></ng-transclude>\n"
 
 /***/ },
-/* 37 */
+/* 36 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30713,27 +30663,27 @@
 	  value: true
 	});
 	/* @ngInject */
-	var textareaCtrl = ["$scope", "$element", "$attrs", textareaController];
+	var textareaCtrl = [textareaController];
 	
 	exports.default = textareaCtrl;
 	
-	function textareaController($scope, $element, $attrs) {}
+	function textareaController() {}
 
 /***/ },
-/* 38 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	      value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _schemaEditor = __webpack_require__(39);
+	var _schemaEditor = __webpack_require__(38);
 	
 	var _schemaEditor2 = _interopRequireDefault(_schemaEditor);
 	
@@ -30744,20 +30694,20 @@
 	exports.default = schemaEditorModule;
 
 /***/ },
-/* 39 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _schemaEditor = __webpack_require__(40);
+	var _schemaEditor = __webpack_require__(39);
 	
 	var _schemaEditor2 = _interopRequireDefault(_schemaEditor);
 	
-	var _schemaEditor3 = __webpack_require__(41);
+	var _schemaEditor3 = __webpack_require__(40);
 	
 	var _schemaEditor4 = _interopRequireDefault(_schemaEditor3);
 	
@@ -30768,107 +30718,107 @@
 	// angular 1.5 syntax for .component();
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
 	function schemaEditorComponent() {
-	  return {
-	    template: _schemaEditor2.default,
-	    restrict: 'E',
-	    scope: {},
-	    bindToController: {
-	      sgSchemaObject: '=', //passed in schema object to manipulate
-	      sgRestrictTypeToObject: '@?' },
-	    //used when creating a definition to restrict the type to an object
-	    // sgFormObject: '=',
-	    //    replace: true,
-	    controller: _schemaEditor4.default,
-	    controllerAs: 'schema'
-	  };
+	    return {
+	        template: _schemaEditor2.default,
+	        restrict: "E",
+	        scope: {},
+	        bindToController: {
+	            sgSchemaObject: "=", //passed in schema object to manipulate
+	            sgRestrictTypeToObject: "@?" //used when creating a definition to restrict the type to an object
+	            // sgFormObject: "=",
+	        },
+	        // replace: true,
+	        controller: _schemaEditor4.default,
+	        controllerAs: "schema"
+	    };
 	}
 
 /***/ },
-/* 40 */
+/* 39 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- <form name=\"editSchema\" ng-submit=\"\" novalidate> -->\n<!-- <div ng-init=\"scope.\"> -->\n  {{schema}}\n  <div class=\"row\">\n    <div class=\"input-field col s12\">\n      <textarea id=\"sgSchemaObject-description\" ng-model=\"schema.sgSchemaObject.description\" class=\"materialize-textarea\"></textarea>\n      <label for=\"sgSchemaObject-description\">Description</label>\n    </div>\n      <sg-text-input class=\"input-field col col s4\" sg-unique-input sg-label=\"$ref\" ng-model=\"schema.sgSchemaObject.$ref\"></sg-text-input>\n    <!-- <div class=\"input-field col s4\">\n      <input id=\"sgSchemaObject-ref\" type=\"text\" ng-model=\"schema.sgSchemaObject.$ref\" >\n      <label for=\"sgSchemaObject-ref\">$ref</label>\n    </div> -->\n    <!-- <sg-text-input class=\"input-field col col s4\" sg-unique-input sg-label=\"Type\" ng-model=\"schema.sgSchemaObject.type\"></sg-text-input> -->\n    <div ng-show=\"schema.sgRestrictTypeToObject === 'true'\" class=\"input-field col s4\">\n      <input id=\"sgSchemaObject-type\" type=\"text\"\n              ng-model=\"schema.sgSchemaObject.type\"\n              disabled>\n      <label for=\"sgSchemaObject-type\">Type</label>\n    </div>\n    <sg-text-input ng-hide=\"schema.sgRestrictTypeToObject === 'true'\" class=\"input-field col col s4\" sg-unique-input sg-label=\"Type\" ng-model=\"schema.sgSchemaObject.type\"></sg-text-input>\n    <div class=\"input-field col s4\">\n      <input id=\"sgSchemaObject-enum\" type=\"text\" disabled value=\"\" ng-model=\"schema.sgSchemaObject.required\">\n      <label class=\"active\" for=\"sgSchemaObject-enum\">Required</label>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <h5>Properties</h5>\n    </div>\n    <div class=\"col s12\">\n      <form name=\"propertyCreator\" ng-submit=\"propertyCreator.$valid && schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);\" novalidate>\n        <sg-text-input class=\"input-field col col s6\" sg-unique-input sg-label=\"Property Name\" ng-model=\"schema.newProperty.name\" required=\"true\"></sg-text-input>\n        <!-- <div class=\"input-field col s6\">\n          <input id=\"new-property-name\" type=\"text\" ng-model=\"schema.newProperty.name\" required aria-required=\"true\">\n          <label for=\"new-property-name\">Property Name</label>\n        </div> -->\n        \n        <div class=\"input-field col s6\">\n          <!-- <button type=\"submit\" name=\"action\" close-path-modal ng-class=\"{'disabled': propertyCreator.$invalid}\"\n            class=\" waves-effect waves-green btn\">\n            Create\n          </button> -->\n          <button type=\"submit\"\n            ng-if=\"!schema.newProperty.name\"\n            ng-click=\"schema.toast('Name cannot be empty')\"\n            class=\" waves-effect waves-green btn disabled\">\n            <i class=\"material-icons\">add</i>\n          </button>\n          <button\n            ng-if=\"schema.newProperty.name\"\n            ng-class=\"{'disabled': !schema.newProperty.name}\"\n            ng-click=\"schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);\"\n            class=\" waves-effect waves-green btn\">\n            <i class=\"material-icons\">add</i>\n          </button>\n        </div>\n      </form>\n    </div>\n  </div>\n  <ul ng-repeat=\"(property, pValue) in schema.sgSchemaObject.properties | orderBy:'property'\"\n      class=\"collapsible blue-grey darken-2\"\n      init-collapse\n      data-collapsible=\"accordion\">\n    <li>\n      <div class=\"collapsible-header blue-grey\">\n        {{property}}\n      </div>\n      <div class=\"collapsible-body \">\n        <div class=\" valign-wrapper section\">\n          <sg-text-input class=\"input-field col col s3 valign\" sg-unique-input sg-label=\"Description\" ng-model=\"pValue.description\" required=\"true\"></sg-text-input>\n          <!-- <div class=\"input-field col s3 valign\">\n            <input id=\"new-property-name\" type=\"text\" ng-model=\"pValue.description\" required aria-required=\"true\">\n            <label for=\"new-property-name\">Description</label>\n          </div> -->\n          <div class=\"input-field col s2 valign\">\n            <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"pValue.type\" sg-choices=\"schema.types\" sg-default-option=\"Choose a Type\"></sg-dropdown>\n            <!-- <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value\n                    ng-model=\"pValue.type\">\n              <option value=\"\" selected>Choose a Type</option>\n              <option ng-repeat=\"type in schema.types\"\n                      ng-attr-value=\"{{ type }}\"\n                      ng-attr-id=\"{{ type }}\">{{ type }}</option>\n            </select> -->\n          </div>\n          <div class=\"input-field col s2 valign\">\n            <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"pValue.format\" sg-choices=\"schema.formats\" sg-default-option=\"Property Format\"></sg-dropdown>\n            <!-- <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"pValue.format\">\n              <option value=\"\" selected>Property Format</option>\n              <option ng-repeat=\"format in schema.formats\"\n                      ng-attr-value=\"{{ format }}\"\n                      ng-attr-id=\"{{ format }}\">{{ format }}</option>\n            </select> -->\n          </div>\n          <div class=\"input-field col s4 valign\">\n            <input id=\"property-enum\" type=\"text\" placeholder=\"value,must,be,comma,separated\" value=\"\"\n            ng-model=\"pValue.enum\">\n            <label class=\"active\" for=\"property-enum\">Enum</label>\n          </div>\n          <div class=\"input-field col s2 valign valign-wrapper\">\n            <p sg-unique-input class=\"valign\">\n              <input type=\"checkbox\" id=\"input\" ng-model=\"schema[property].required\" ng-click=\"schema.toggleRequired(property, schema[property].required)\"/>\n              <label id=\"label\" for=\"label\">Required</label>\n            </p>\n          </div>\n        </div>\n        <div class=\"valign-wrapper section\" >\n          <div class=\"input-field col s1 offset-s11 valign\">\n            <button tooltipped\n                    class=\"btn col \"\n                    data-position=\"top\"\n                    data-delay=\"50\"\n                    data-tooltip=\"Delete Property\"\n                    ng-click=\"schema.deleteProperty(property)\">\n            <i class=\"material-icons\">delete</i>\n            </button>\n          </div>\n          <!--div class=\"input-field col s1 valign\">\n            <button tooltipped\n                    class=\"btn col \"\n                    data-position=\"top\"\n                    data-delay=\"50\"\n                    data-tooltip=\"Update Property Data\">\n            <i class=\"material-icons\">done</i>\n            </button>\n          </div-->\n        </div>\n      </div>\n    </li>\n  </ul>\n<!-- </form> -->\n"
 
 /***/ },
-/* 41 */
+/* 40 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	var schemaEditorController = ["$scope", "$window", "PathService", "ObjectFactory", schemaEditorCtrl];
+	var schemaEditorController = ["$scope", "$log", "$window", "PathService", "ObjectFactory", schemaEditorCtrl];
 	
 	exports.default = schemaEditorController;
 	
-	function schemaEditorCtrl($scope, $window, PathService, ObjectFactory) {
+	function schemaEditorCtrl($scope, $log, $window, PathService, ObjectFactory) {
 	
-	  /**
-	    * @name newResponseData
-	    * @desc Holds the state of the inputs. Only manipulated in the DOM
-	    * @type {Object}
-	   **/
-	  this.schema = {
-	    definition: this.sgSchemaObject
-	  };
+	    /**
+	      * @name newResponseData
+	      * @desc Holds the state of the inputs. Only manipulated in the DOM
+	      * @type {Object}
+	     **/
+	    this.schema = {
+	        definition: this.sgSchemaObject
+	    };
 	
-	  this.formats = ['int32', 'int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
-	  this.types = ['integer', 'number', 'string', 'boolean'];
+	    this.formats = ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
+	    this.types = ["integer", "number", "string", "boolean"];
 	
-	  this.toggleRequired = function (propertyName, isRequired) {
-	    debugger;
-	    console.log("TOGGLE PROPERTY REQUIRED");
-	    console.log(propertyName, isRequired);
-	    if (isRequired) {
-	      this.sgSchemaObject.required.push(propertyName);
-	    } else {
-	      for (var i = 0; i < this.sgSchemaObject.required.length; i++) {
-	        if (this.sgSchemaObject.required[i] === propertyName) {
-	          this.sgSchemaObject.required.splice(i, 1);
-	          return;
+	    this.toggleRequired = function (propertyName, isRequired) {
+	        debugger;
+	        $log.log("TOGGLE PROPERTY REQUIRED");
+	        $log.log(propertyName, isRequired);
+	        if (isRequired) {
+	            this.sgSchemaObject.required.push(propertyName);
+	        } else {
+	            for (var i = 0; i < this.sgSchemaObject.required.length; i++) {
+	                if (this.sgSchemaObject.required[i] === propertyName) {
+	                    this.sgSchemaObject.required.splice(i, 1);
+	                    return;
+	                }
+	            }
 	        }
-	      }
-	    }
-	  };
+	    };
 	
-	  this.toast = function (msg) {
-	    var message = msg || "No toast supplied, but hello!!";
-	    Materialize.toast(msg, 2000);
-	  };
+	    this.toast = function (msg) {
+	        var message = msg || "No toast supplied, but hello!!";
+	        Materialize.toast(message, 2000);
+	    };
 	
-	  this.addProperty = function (definitionName, propertyName) {
-	    debugger;
-	    if (this.sgSchemaObject.properties.hasOwnProperty(propertyName)) {
-	      Materialize.toast('Property already exists on this definition.');
-	    } else {
-	      this.sgSchemaObject.properties[propertyName] = ObjectFactory.newSchema();
-	      //this.sgSchemaObject.properties[propertyName].type = null;
-	    }
+	    this.addProperty = function (definitionName, propertyName) {
+	        debugger;
+	        if (this.sgSchemaObject.properties.hasOwnProperty(propertyName)) {
+	            Materialize.toast("Property already exists on this definition.");
+	        } else {
+	            this.sgSchemaObject.properties[propertyName] = ObjectFactory.newSchema();
+	            //this.sgSchemaObject.properties[propertyName].type = null;
+	        }
 	
-	    //if(tempDefniition.properties.hasOwnProperty)
+	        //if(tempDefniition.properties.hasOwnProperty)
 	
-	    this.newProperty.name = "";
-	  };
+	        this.newProperty.name = "";
+	    };
 	
-	  this.deleteProperty = function (propertyName) {
-	    if ($window.confirm('Are you sure you want to delete the property?')) {
-	      delete this.sgSchemaObject.properties[propertyName];
-	    } else {
-	      console.log("Don't delete property");
-	    }
-	  };
+	    this.deleteProperty = function (propertyName) {
+	        if ($window.confirm("Are you sure you want to delete the property?")) {
+	            delete this.sgSchemaObject.properties[propertyName];
+	        } else {
+	            $log.log("Don't delete property");
+	        }
+	    };
 	}
 
 /***/ },
-/* 42 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -30878,115 +30828,118 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _fileUpload = __webpack_require__(43);
+	var _fileUpload = __webpack_require__(42);
 	
 	var _fileUpload2 = _interopRequireDefault(_fileUpload);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var FileUploadModule = _angular2.default.module('FileUploadModule', []).directive('customOnChange', _fileUpload2.default);
+	var FileUploadModule = _angular2.default.module("FileUploadModule", []).directive("customOnChange", _fileUpload2.default);
 	
 	exports.default = FileUploadModule;
 
 /***/ },
-/* 43 */
+/* 42 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.default = FileUploadComponent;
 	
 	function FileUploadComponent() {
-	  return {
-	    restrict: 'A',
-	    link: function link(scope, element, attrs) {
-	      //debugger;
-	      //need to evaluate the attribute so it manually creates a reference
-	      //  from the onChangeHandler variable to the passed function
-	      var onChangeHandler = scope.$eval(attrs.customOnChange);
+	    return {
+	        restrict: "A",
+	        link: function link(scope, element, attrs) {
+	            //debugger;
+	            //need to evaluate the attribute so it manually creates a reference
+	            //  from the onChangeHandler variable to the passed function
+	            var onChangeHandler = scope.$eval(attrs.customOnChange);
 	
-	      //bind the onChangeHandler function to the change even on the element
-	      element.bind('change', onChangeHandler);
-	    }
-	  };
-	};
+	            //bind the onChangeHandler function to the change even on the element
+	            element.bind("change", onChangeHandler);
+	        }
+	    };
+	}
 
 /***/ },
-/* 44 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	// import angular from 'angular';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	
-	var _operationColorer = __webpack_require__(45);
+	var _angular = __webpack_require__(2);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _operationColorer = __webpack_require__(44);
 	
 	var _operationColorer2 = _interopRequireDefault(_operationColorer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var OperationColorerModule = angular.module('OperationColorerModule', []).directive('sgOperationColorer', _operationColorer2.default);
+	var OperationColorerModule = _angular2.default.module("OperationColorerModule", []).directive("sgOperationColorer", _operationColorer2.default);
 	
 	exports.default = OperationColorerModule;
 
 /***/ },
-/* 45 */
+/* 44 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	// import template from './operation.html';
-	// import controller from './operation.controller';
+	// import template from "./operation.html";
+	// import controller from "./operation.controller";
 	
 	exports.default = colorerComponent;
 	
 	// angular 1.5 syntax for .component();
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
 	function colorerComponent() {
-	  return {
-	    restrict: 'A',
-	    scope: {
-	      sgOperationColorer: '@'
-	    },
-	    link: function link(scope, element, attrs) {
-	      //debugger;
+	    return {
+	        restrict: "A",
+	        scope: {
+	            sgOperationColorer: "@"
+	        },
+	        link: function link(scope, element) {
+	            //debugger;
 	
-	      switch (scope.sgOperationColorer) {
-	        case 'get':
-	          element.addClass('blue');
-	          break;
-	        case 'post':
-	          element.addClass('green');
-	          break;
-	        case 'put':
-	          element.addClass('orange');
-	          break;
-	        case 'delete':
-	          element.addClass('red');
-	          break;
-	      }
-	    }
-	  };
+	            switch (scope.sgOperationColorer) {
+	                case "get":
+	                    element.addClass("blue");
+	                    break;
+	                case "post":
+	                    element.addClass("green");
+	                    break;
+	                case "put":
+	                    element.addClass("orange");
+	                    break;
+	                case "delete":
+	                    element.addClass("red");
+	                    break;
+	            }
+	        }
+	    };
 	}
 
 /***/ },
-/* 46 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	                        value: true
@@ -30996,139 +30949,133 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _compiler = __webpack_require__(47);
+	var _compiler = __webpack_require__(46);
 	
 	var _compiler2 = _interopRequireDefault(_compiler);
 	
-	var _info = __webpack_require__(48);
+	var _info = __webpack_require__(47);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
-	var _path = __webpack_require__(49);
+	var _path = __webpack_require__(48);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _definitions = __webpack_require__(50);
+	var _definitions = __webpack_require__(49);
 	
 	var _definitions2 = _interopRequireDefault(_definitions);
 	
-	var _objectFactory = __webpack_require__(51);
+	var _objectFactory = __webpack_require__(50);
 	
 	var _objectFactory2 = _interopRequireDefault(_objectFactory);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var compilerModule = _angular2.default.module("compilerModule", []).factory('CompilerService', _compiler2.default).factory('InfoService', _info2.default).service('PathService', _path2.default).factory('DefinitionsService', _definitions2.default).factory('ObjectFactory', _objectFactory2.default);
+	var compilerModule = _angular2.default.module("compilerModule", []).factory("CompilerService", _compiler2.default).factory("InfoService", _info2.default).factory("PathService", _path2.default).factory("DefinitionsService", _definitions2.default).factory("ObjectFactory", _objectFactory2.default);
 	
 	exports.default = compilerModule;
 
 /***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
+/* 46 */
+/***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
 	var compiler = ["PathService", "InfoService", "DefinitionsService", CompilerService];
 	
 	exports.default = compiler;
 	
 	function CompilerService(PathsService, infoService, DefinitionsService) {
 	
-	  var cs = this;
+	    var cs = this;
 	
-	  //var compiled = {};
+	    //var compiled = {};
 	
-	  var info = infoService.getBaseInfo();
-	  var paths = PathsService.paths;
-	  var definitions = DefinitionsService.definitions;
+	    //var info = infoService.getBaseInfo();
+	    var paths = PathsService.paths;
+	    var definitions = DefinitionsService.definitions;
 	
-	  cs.compiled = {};
+	    cs.compiled = {};
 	
-	  cs.recompile = function () {
-	    cs.compiled = _angular2.default.copy(infoService.getBaseInfo());
-	    cs.compiled.paths = _angular2.default.copy(paths);
-	    cs.compiled.definitions = _angular2.default.copy(definitions);
+	    cs.recompile = function () {
+	        cs.compiled = angular.copy(infoService.getBaseInfo());
+	        cs.compiled.paths = angular.copy(paths);
+	        cs.compiled.definitions = angular.copy(definitions);
 	
-	    //remove any null or empty properties
-	    cleanDocument(cs.compiled);
-	  };
+	        //remove any null or empty properties
+	        cleanDocument(cs.compiled);
+	    };
 	
-	  cs.distributeImportedDefinitionToServices = function distributeImportedDefinitionToServices(swaggerDefinition) {
-	    //debugger;
-	    //reset paths by deleting old ones, set the new paths, then delete them from the new object
-	    PathsService.clearPaths();
-	    PathsService.setPaths(swaggerDefinition.paths);
-	    delete swaggerDefinition.paths;
+	    cs.distributeImportedDefinitionToServices = function distributeImportedDefinitionToServices(swaggerDefinition) {
+	        //debugger;
+	        //reset paths by deleting old ones, set the new paths, then delete them from the new object
+	        PathsService.clearPaths();
+	        PathsService.setPaths(swaggerDefinition.paths);
+	        delete swaggerDefinition.paths;
 	
-	    //reset definitions by deleting old ones, set the new definitions, then delete them from the new object
-	    DefinitionsService.clearDefinitions();
-	    DefinitionsService.setDefinitions(swaggerDefinition.definitions);
-	    delete swaggerDefinition.definitions;
+	        //reset definitions by deleting old ones, set the new definitions, then delete them from the new object
+	        DefinitionsService.clearDefinitions();
+	        DefinitionsService.setDefinitions(swaggerDefinition.definitions);
+	        delete swaggerDefinition.definitions;
 	
-	    //the rest of the properties should belong to the infoService,
-	    infoService.setBaseInfo(swaggerDefinition);
-	  };
+	        //the rest of the properties should belong to the infoService,
+	        infoService.setBaseInfo(swaggerDefinition);
+	    };
 	
-	  /**
-	    Remove all null or empty values from swagger document
-	  **/
-	  function cleanDocument(obj) {
+	    /**
+	        Remove all null or empty values from swagger document
+	    **/
+	    function cleanDocument(obj) {
 	
-	    for (var key in obj) {
+	        for (var key in obj) {
 	
-	      if (obj.hasOwnProperty(key) && (obj[key] === null || obj[key] === "")) {
+	            if (obj.hasOwnProperty(key) && (obj[key] === null || obj[key] === false || obj[key] === "")) {
+	                delete obj[key];
+	            } else {
 	
-	        delete obj[key];
-	      } else {
+	                if (obj[key] instanceof Object || obj[key] instanceof Array) {
+	                    cleanDocument(obj[key]);
+	                }
+	            }
 	
-	        if (obj[key] instanceof Object || obj[key] instanceof Array) {
-	          cleanDocument(obj[key]);
+	            if (obj[key] === null || obj[key] === false || obj[key] === "") {
+	                delete obj[key];
+	            }
+	
+	            if (obj[key] instanceof Object) {
+	                if (Object.keys(obj[key]).length === 0) {
+	                    delete obj[key];
+	                }
+	            }
+	
+	            if (obj[key] instanceof Array) {
+	                if (obj[key].length === 0) {
+	                    delete obj[key];
+	                }
+	            }
+	
+	            if (key === "inLocation") {
+	                obj.in = obj[key];
+	                delete obj[key];
+	            }
 	        }
-	      }
-	
-	      if (obj[key] === null || obj[key] === "") {
-	        delete obj[key];
-	      }
-	
-	      if (obj[key] instanceof Object) {
-	        if (Object.keys(obj[key]).length === 0) delete obj[key];
-	      }
-	
-	      if (obj[key] instanceof Array) {
-	        if (obj[key].length === 0) delete obj[key];
-	      }
 	    }
-	  }
 	
-	  return cs;
+	    return cs;
 	}
 
 /***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
+/* 47 */
+/***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
 	exports.default = InfoService;
 	
 	/**
@@ -31139,116 +31086,133 @@
 	
 	function InfoService() {
 	
-	  /**
-	    * @name swaggerInfo
-	    * @desc Contains the state of the swagger definition's base info
-	    * @type {Object}
-	   **/
-	  var swaggerInfo = {
-	    swagger: "2.0",
-	    info: {
-	      title: "",
-	      description: "",
-	      termsOfService: "",
-	      contact: {
-	        name: "",
-	        url: "",
-	        email: ""
-	      },
-	      license: {
-	        name: "",
-	        url: ""
-	      },
-	      version: ""
-	    },
-	    host: "",
-	    basePath: "",
-	    schemes: [],
-	    consumes: [],
-	    produces: []
-	  };
+	    /**
+	      * @name swaggerInfo
+	      * @desc Contains the state of the swagger definition's base info
+	      * @type {Object}
+	     **/
+	    var swaggerInfo = {
+	        swagger: "2.0",
+	        info: {
+	            title: "",
+	            description: "",
+	            termsOfService: "",
+	            contact: {
+	                name: "",
+	                url: "",
+	                email: ""
+	            },
+	            license: {
+	                name: "",
+	                url: ""
+	            },
+	            version: ""
+	        },
+	        host: "",
+	        basePath: "",
+	        schemes: [],
+	        consumes: [],
+	        produces: []
+	    };
 	
-	  /**
-	    * @name addType
-	    * @desc Adds a type to one of the three lists 'schemes', 'consumes', or 'produces'
-	    * @type {Function}
-	   **/
-	  function addType(list, type) {
-	    //check if list exists
-	    if (!validList(list)) throw "List does not exist";
+	    /**
+	      * @name addType
+	      * @desc Adds a type to one of the three lists 'schemes', 'consumes', or 'produces'
+	      * @type {Function}
+	     **/
+	    function addType(list, type) {
+	        //check if list exists
+	        if (!validList(list)) {
+	            throw "List does not exist";
+	        }
 	
-	    //check if type exists
-	    if (type) {
-	      //check if type is already in the list
-	      if (swaggerInfo[list].indexOf(type) === -1) swaggerInfo[list].push(type);else throw "Type already exists in this list";
-	    } else {
-	      throw "Type not chosen!";
+	        //check if type exists
+	        if (type) {
+	            //check if type is already in the list
+	            if (swaggerInfo[list].indexOf(type) === -1) {
+	                swaggerInfo[list].push(type);
+	            } else {
+	                throw "Type already exists in this list";
+	            }
+	        } else {
+	            throw "Type not chosen!";
+	        }
 	    }
-	  }
 	
-	  /**
-	    * @name removeType
-	    * @desc Removes a type from one of the three lists 'schemes', 'consumes', or 'produces'
-	    * @type {Function}
-	   **/
-	  function removeType(list, type) {
-	    //check if list exists
-	    if (!validList(list)) throw "List does not exist";
+	    /**
+	      * @name removeType
+	      * @desc Removes a type from one of the three lists 'schemes', 'consumes', or 'produces'
+	      * @type {Function}
+	     **/
+	    function removeType(list, type) {
+	        //check if list exists
+	        if (!validList(list)) {
+	            throw "List does not exist";
+	        }
 	
-	    var index = swaggerInfo[list].indexOf(type);
-	    if (index >= 0) swaggerInfo[list].splice(index, 1);else throw "Type already deleted";
-	  }
+	        var index = swaggerInfo[list].indexOf(type);
 	
-	  /**
-	    * @name getBaseInfo
-	    * @desc returns a reference of the state of the swaggerInfo object
-	    * @type {Function}
-	   **/
-	  function getBaseInfo() {
-	    return swaggerInfo;
-	  }
-	
-	  /**
-	    * @name setBaseInfo
-	    * @desc sets the swaggerInfo object to a copy of the passed new swaggerInfo object
-	    * @type {Function}
-	   **/
-	  function setBaseInfo(newSwaggerInfo) {
-	    debugger;
-	    //swaggerInfo = angular.copy(newSwaggerInfo);
-	    //console.log(swaggerInfo);
-	    for (var key in newSwaggerInfo) {
-	      if (swaggerInfo.hasOwnProperty(key)) {
-	        swaggerInfo[key] = newSwaggerInfo[key];
-	      }
+	        if (index >= 0) {
+	            swaggerInfo[list].splice(index, 1);
+	        } else {
+	            throw "Type already deleted";
+	        }
 	    }
-	  }
 	
-	  /**
-	    * @name validList
-	    * @desc helper function that checks if the passed list name is valid as per the definition
-	    * @type {Function}
-	   **/
-	  function validList(list) {
-	    if (list === "produces" || list === "consumes" || list === "schemes") return true;else return false;
-	  }
+	    /**
+	      * @name getBaseInfo
+	      * @desc returns a reference of the state of the swaggerInfo object
+	      * @type {Function}
+	     **/
+	    function getBaseInfo() {
+	        return swaggerInfo;
+	    }
 	
-	  return {
-	    getBaseInfo: getBaseInfo,
-	    setBaseInfo: setBaseInfo,
-	    addType: addType,
-	    removeType: removeType
-	  };
+	    /**
+	      * @name setBaseInfo
+	      * @desc sets the swaggerInfo object to a copy of the passed new swaggerInfo object
+	      * @type {Function}
+	     **/
+	    function setBaseInfo(newSwaggerInfo) {
+	        debugger;
+	        //swaggerInfo = angular.copy(newSwaggerInfo);
+	        //console.log(swaggerInfo);
+	        for (var key in newSwaggerInfo) {
+	            if (swaggerInfo.hasOwnProperty(key)) {
+	                swaggerInfo[key] = newSwaggerInfo[key];
+	            }
+	        }
+	    }
+	
+	    /**
+	      * @name validList
+	      * @desc helper function that checks if the passed list name is valid as per the definition
+	      * @type {Function}
+	     **/
+	    function validList(list) {
+	        if (list === "produces" || list === "consumes" || list === "schemes") {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
+	
+	    return {
+	        getBaseInfo: getBaseInfo,
+	        setBaseInfo: setBaseInfo,
+	        addType: addType,
+	        removeType: removeType
+	    };
 	}
 
 /***/ },
-/* 49 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
@@ -31257,125 +31221,258 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var path = ['ObjectFactory', PathService];
+	var path = ["$log", "ObjectFactory", PathService];
 	
 	exports.default = path;
 	
-	function PathService(ObjectFactory) {
+	function PathService($log, ObjectFactory) {
 	
-	  var paths = {};
+	    var paths = {};
 	
-	  this.paths = paths;
+	    this.paths = paths;
 	
-	  /************** PATH FUNCTIONS START *******************/
-	  this.setPaths = function (newPaths) {
-	    debugger;
-	    //paths = angular.copy(newPaths);
-	    //this.paths = paths;
-	    //console.log(paths);
-	    for (var key in newPaths) {
-	      paths[key] = newPaths[key];
+	    /************** PATH FUNCTIONS START *******************/
+	    this.setPaths = function (newPaths) {
+	        debugger;
+	        //paths = angular.copy(newPaths);
+	        //this.paths = paths;
+	        //console.log(paths);
+	        for (var key in newPaths) {
+	            paths[key] = newPaths[key];
+	        }
+	    };
+	
+	    this.clearPaths = function clearPaths() {
+	        for (var key in paths) {
+	            delete paths[key];
+	        }
+	    };
+	
+	    this.addPath = function (pathName) {
+	        if (hasPath(pathName)) {
+	            throw "Path name already exsists, could not add";
+	        } else {
+	            paths[pathName] = ObjectFactory.newPath();
+	        }
+	    };
+	
+	    this.removePath = function (pathName) {
+	        if (hasPath(pathName)) {
+	            delete paths[pathName];
+	        } else {
+	            throw "Not a valid path to delete";
+	        }
+	    };
+	
+	    this.updatePathName = function (oldPathName, newPathName) {
+	        if (oldPathName === newPathName) return;
+	
+	        if (hasPath(oldPathName)) {
+	            paths[newPathName] = _angular2.default.copy(paths[oldPathName]);
+	            delete paths[oldPathName];
+	        } else {
+	            throw "Original path name does not exist, could not update name";
+	        }
+	    };
+	
+	    function hasPath(pathName) {
+	        return paths.hasOwnProperty(pathName);
 	    }
-	  };
 	
-	  this.clearPaths = function clearPaths() {
-	    for (var key in paths) {
-	      delete paths[key];
+	    /************** PATH FUNCTIONS END*******************/
+	
+	    /************** OPERATION FUNCTIONS START *******************/
+	
+	    /* make a separate Operations class */
+	    this.addOperation = function (pathName, operation) {
+	
+	        $log.log("PATH SERVICE: adding operation");
+	
+	        paths[pathName].addOperation(operation);
+	
+	        // if(hasPath(pathName)){
+	        // //  debugger;
+	        //
+	        // }else {
+	        //   throw "Cannot add Operation, path does not exist"
+	        // }
+	    };
+	
+	    /*
+	        Deletes an operation from a given service.
+	    */
+	    this.removeOperation = function (pathName, operation) {
+	
+	        paths[pathName].removeOperation(operation);
+	    };
+	
+	    /************** OPERATION FUNCTIONS END *******************/
+	
+	    /************** PARAMETER(S) FUNCTIONS START *******************/
+	
+	    /*
+	        Tries to create and validate a new parameter object.
+	    */
+	    this.addNewParam = function (operation, paramName, paramIn) {
+	        var pIn = paramIn || "query";
+	
+	        if (!operation.hasParameter(paramName, pIn)) {
+	            operation.addParameter(paramName, pIn);
+	        } else {
+	            throw "Invalid Parameter Name-in combination, must be unique.";
+	        }
+	    };
+	
+	    /************** PARAMETERS FUNCTIONS END*******************/
+	
+	    /************** RESPONSE FUNCTIONS START*******************/
+	
+	    this.removeResponse = function (pathName, operation, httpCode) {
+	        debugger;
+	        delete paths[pathName][operation].responses[httpCode];
+	    };
+	
+	    this.updateResponse = function (originalData, newData) {
+	
+	        debugger;
+	
+	        if (originalData.httpCode !== newData.httpCode) {
+	            if (originalData.responses.hasResponse(newData.httpCode)) {
+	                throw "Http Code already exists";
+	            }
+	        } else {
+	            var responseList = originalData.responses;
+	            var originalResponse = responseList.getResponse(originalData.httpCode);
+	            var newResponse = newData.response;
+	
+	            responseList.updateResponse(originalResponse, newResponse);
+	        }
+	    };
+	
+	    /************** RESPONSE FUNCTIONS END*******************/
+	    return this;
+	}
+
+/***/ },
+/* 49 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var definitions = ["$log", "ObjectFactory", DefinitionsService];
+	
+	exports.default = definitions;
+	
+	function DefinitionsService($log, ObjectFactory) {
+	
+	    this.addDefinition = function (definitionName, description, type) {
+	        debugger;
+	        if (hasDefinition(definitionName)) throw "Cannot Add, Definition Already Exists";else {
+	            $log.log("adding definitiion");
+	
+	            this.definitions.addDefinition(definitionName, description, type);
+	        }
+	    };
+	
+	    this.setDefinitions = function setDefinitions(newDefinitions) {
+	        debugger;
+	        this.definitions.setDefinitions(newDefinitions);
+	    };
+	
+	    this.clearDefinitions = function clearDefinitions() {
+	        this.definitions.clearDefinitions();
+	    };
+	
+	    function hasDefinition(definitionName) {
+	        if (definitions.hasOwnProperty(definitionName)) {
+	            return true;
+	        } else {
+	            return false;
+	        }
 	    }
-	  };
 	
-	  this.addPath = function (pathName, operations) {
-	    if (hasPath(pathName)) {
-	      throw "Path name already exsists, could not add";
-	    } else paths[pathName] = ObjectFactory.newPath();
-	  };
+	    this.addProperty = function (definitionName, propertyName) {
 	
-	  this.removePath = function (pathName) {
-	    if (hasPath(pathName)) delete paths[pathName];else throw "Not a valid path to delete";
-	  };
+	        // $log.log("this add property");
+	        // $log.log(definitionName, propertyName);
 	
-	  this.updatePathName = function (oldPathName, newPathName) {
-	    if (oldPathName === newPathName) return;
+	        if (hasProperty(definitionName, propertyName)) {
+	            throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
+	        } else {
 	
-	    if (hasPath(oldPathName)) {
-	      paths[newPathName] = _angular2.default.copy(paths[oldPathName]);
-	      delete paths[oldPathName];
-	    } else throw "Original path name does not exist, could not update name";
-	  };
+	            definitions[definitionName].properties[propertyName] = ObjectFactory.newSchema();
+	            //definitions[definitionName].properties[propertyName].type = null;
+	        }
+	    };
 	
-	  function hasPath(pathName) {
-	    return paths.hasOwnProperty(pathName);
-	  };
+	    function hasProperty(definitionName, propertyName) {
+	        $log.log("HAS PROPERTY");
+	        $log.log(definitionName, propertyName);
 	
-	  /************** PATH FUNCTIONS END*******************/
+	        // if(definitions[definitionName].properties.hasOwnProperty(propertyName))
+	        //     return true;
+	        // else
+	        //     return false;
 	
-	  /************** OPERATION FUNCTIONS START *******************/
-	
-	  /* make a separate Operations class */
-	  this.addOperation = function (pathName, operation) {
-	
-	    console.log("PATH SERVICE: adding operation");
-	
-	    paths[pathName].addOperation(operation);
-	
-	    // if(hasPath(pathName)){
-	    // //  debugger;
-	    //
-	    // }else {
-	    //   throw "Cannot add Operation, path does not exist"
-	    // }
-	  };
-	
-	  /*
-	      Deletes an operation from a given service.
-	  */
-	  this.removeOperation = function (pathName, operation) {
-	
-	    paths[pathName].removeOperation(operation);
-	  };
-	
-	  /************** OPERATION FUNCTIONS END *******************/
-	
-	  /************** PARAMETER(S) FUNCTIONS START *******************/
-	
-	  /*
-	      Tries to create and validate a new parameter object.
-	  */
-	  this.addNewParam = function (operation, paramName, paramIn) {
-	    var pIn = paramIn || "query";
-	
-	    if (!operation.hasParameter(paramName, pIn)) {
-	      operation.addParameter(paramName, pIn);
-	    } else {
-	      throw "Invalid Parameter Name-in combination, must be unique.";
+	        return definitions[definitionName].properties.hasOwnProperty(propertyName);
 	    }
-	  };
 	
-	  /************** PARAMETERS FUNCTIONS END*******************/
+	    this.updateDefinition = function (originalDefinition, updatedDefinition) {
+	        $log.log("SERVICE - update definition");
+	        var oName = originalDefinition.name,
 	
-	  /************** RESPONSE FUNCTIONS START*******************/
+	        //oValue = originalDefinition.value,
+	        uName = updatedDefinition.name,
+	            uValue = updatedDefinition.value;
 	
-	  this.removeResponse = function (pathName, operation, httpCode) {
-	    debugger;
-	    delete paths[pathName][operation].responses[httpCode];
-	  };
+	        if (oName === uName) {
+	            var definitionToUpdate = definitions[oName];
 	
-	  this.updateResponse = function (originalData, newData) {
+	            for (var key in definitionToUpdate) {
+	                definitionToUpdate[key] = uValue[key];
+	            }
+	        } else {
 	
-	    debugger;
+	            if (hasDefinition(uName)) {
 	
-	    if (originalData.httpCode !== newData.httpCode) {
-	      if (originalData.responses.hasResponse(newData.httpCode)) throw "Http Code already exists";
-	    } else {
-	      var responseList = originalData.responses;
-	      var originalResponse = responseList.getResponse(originalData.httpCode);
-	      var newResponse = newData.response;
+	                throw "Definition already exists, cannot change definition name.";
+	            } else {
 	
-	      responseList.updateResponse(originalResponse, newResponse);
-	    }
-	  };
+	                this.addDefinition(uName);
 	
-	  /************** RESPONSE FUNCTIONS END*******************/
+	                var currentDefinition = definitions[uName];
+	
+	                for (var key in currentDefinition) {
+	                    currentDefinition[key] = uValue[key];
+	                }
+	
+	                delete definitions[oName];
+	            }
+	        }
+	    };
+	
+	    this.newSchema = function (title, description, type) {
+	        // let temp = Object.create(Schema);
+	        // temp.init(title, description, type);
+	        // return temp;
+	        return ObjectFactory.newSchema(title, description, type);
+	    };
+	
+	    this.deleteDefinition = function (definitionName) {
+	        delete this.definitions[definitionName];
+	    };
+	
+	    var definitions = ObjectFactory.newDefinitions();
+	
+	    this.definitions = definitions;
+	    //$log.log(definitions);
+	
+	    //debugger;
+	
+	    return this;
 	}
 
 /***/ },
@@ -31385,441 +31482,400 @@
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var definitions = ["ObjectFactory", DefinitionsService];
-	
-	exports.default = definitions;
-	
-	function DefinitionsService(ObjectFactory) {
-	
-	  this.addDefinition = function (definitionName, description, type) {
-	    debugger;
-	    if (hasDefinition(definitionName)) throw "Cannot Add, Definition Already Exists";else {
-	      console.log('adding definitiion');
-	      //definitions[definitionName] = {
-	      //  poop:'hi'
-	      //}
-	      this.definitions.addDefinition(definitionName, description, type);
-	      // console.log(definitions);
-	      // console.log(this.definitions);
-	    }
-	  };
-	
-	  this.setDefinitions = function setDefinitions(newDefinitions) {
-	    debugger;
-	    this.definitions.setDefinitions(newDefinitions);
-	  };
-	
-	  this.clearDefinitions = function clearDefinitions() {
-	    this.definitions.clearDefinitions();
-	  };
-	
-	  function hasDefinition(definitionName) {
-	    if (definitions.hasOwnProperty(definitionName)) return true;else return false;
-	  }
-	
-	  this.addProperty = function (definitionName, propertyName) {
-	
-	    // console.log("this add property");
-	    // console.log(definitionName, propertyName);
-	
-	    if (hasProperty(definitionName, propertyName)) {
-	      throw "Property '" + propertyName + "' already exists in definition: " + definitionName;
-	    } else {
-	
-	      definitions[definitionName].properties[propertyName] = ObjectFactory.newSchema();
-	      //definitions[definitionName].properties[propertyName].type = null;
-	    }
-	  };
-	
-	  function hasProperty(definitionName, propertyName) {
-	    console.log("HAS PROPERTY");
-	    console.log(definitionName, propertyName);
-	    if (definitions[definitionName].properties.hasOwnProperty(propertyName)) return true;else return false;
-	  }
-	
-	  this.updateDefinition = function (originalDefinition, updatedDefinition) {
-	    console.log("SERVICE - update definition");
-	    var oName = originalDefinition.name,
-	        oValue = originalDefinition.value,
-	        uName = updatedDefinition.name,
-	        uValue = updatedDefinition.value;
-	
-	    if (oName === uName) {
-	      var definitionToUpdate = definitions[oName];
-	
-	      for (var key in definitionToUpdate) {
-	        definitionToUpdate[key] = uValue[key];
-	      }
-	    } else {
-	
-	      if (hasDefinition(uName)) {
-	
-	        throw "Definition already exists, cannot change definition name.";
-	      } else {
-	
-	        this.addDefinition(uName);
-	
-	        var currentDefinition = definitions[uName];
-	
-	        for (var key in currentDefinition) {
-	          currentDefinition[key] = uValue[key];
-	        }
-	
-	        delete definitions[oName];
-	      }
-	    }
-	  };
-	
-	  this.newSchema = function (title, description, type) {
-	    // let temp = Object.create(Schema);
-	    // temp.init(title, description, type);
-	    // return temp;
-	    return ObjectFactory.newSchema(title, description, type);
-	  };
-	
-	  this.deleteDefinition = function (definitionName) {
-	    delete this.definitions[definitionName];
-	  };
-	
-	  var definitions = ObjectFactory.newDefinitions();
-	
-	  this.definitions = definitions;
-	  //console.log(definitions);
-	
-	  //debugger;
-	
-	  return this;
-	}
-
-/***/ },
-/* 51 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.default = ObjectFactory;
 	
 	function ObjectFactory() {
 	
-	  var Path = {
-	    init: function init() {
-	      // this.get = null;
-	      // this.post = null;
-	      // this.put = null;
-	      // this.delete = null;
-	      /** TODO future attributes
-	      this.options
-	      this.head
-	      this.patch
-	      this.parameters
-	      */
-	    },
-	    addOperation: function addOperation(operation) {
-	      this[operation] = newOperation();
-	    },
+	    var Path = {
+	        init: function init() {
+	            // this.get = null;
+	            // this.post = null;
+	            // this.put = null;
+	            // this.delete = null;
+	            /** TODO future attributes
+	            this.options
+	            this.head
+	            this.patch
+	            this.parameters
+	            */
+	        },
+	        addOperation: function addOperation(operation) {
+	            this[operation] = newOperation();
+	        },
 	
-	    removeOperation: function removeOperation(operation) {
-	      delete this[operation];
-	      this[operation] = null;
-	    }
-	  };
-	
-	  var Definitions = {
-	    addDefinition: function addDefinition(definitionName, description, type) {
-	      var temp = Object.create(Schema);
-	      temp.init(definitionName, description, type);
-	      this[definitionName] = temp;
-	    },
-	
-	    hasDefinition: function hasDefinition(definitionName) {
-	      if (this.hasOwnProperty(definitionName)) return true;else return false;
-	    },
-	
-	    clearDefinitions: function clearDefinitions() {
-	      for (var key in this) {
-	        delete this[key];
-	      }
-	    },
-	
-	    setDefinitions: function setDefinitions(newDefinitions) {
-	      for (var key in newDefinitions) {
-	        this[key] = newDefinitions[key];
-	      }
-	    },
-	
-	    getDefinition: function getDefinition(definitionName) {
-	      return this[definitionName];
-	    }
-	  };
-	
-	  var Operation = {
-	    init: function init() {
-	      this.tags = null;
-	      this.summary = null;
-	      this.description = null;
-	      this.externalDocs = new Object();
-	      this.operationId = null;
-	      this.consumes = null;
-	      this.produces = null;
-	      this.parameters = new Array();
-	      this.responses = newResponses();
-	      this.schemes = null;
-	      this.deprecated = false;
-	      this.security = new Object();
-	    },
-	
-	    addParameter: function addParameter(paramName, paramIn) {
-	      this.parameters.push(newParameter(paramName, paramIn));
-	    },
-	
-	    getParameter: function getParameter(name, inLoc) {
-	      var parameter = null;
-	      this.parameters.forEach(function (element, index, array) {
-	        console.log(element);
-	        if (element.name === name && element.inLocation === inLoc) {
-	          parameter = element;
-	          return;
+	        removeOperation: function removeOperation(operation) {
+	            delete this[operation];
+	            this[operation] = null;
 	        }
-	      });
+	    };
 	
-	      return parameter;
-	    },
+	    var Definitions = {
+	        addDefinition: function addDefinition(definitionName, description, type) {
+	            var temp = Object.create(Schema);
+	            temp.init(definitionName, description, type);
+	            this[definitionName] = temp;
+	        },
 	
-	    hasParameter: function hasParameter(name, inLoc) {
-	      var found = false;
+	        hasDefinition: function hasDefinition(definitionName) {
+	            if (this.hasOwnProperty(definitionName)) {
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        },
 	
-	      this.parameters.forEach(function (element, index, array) {
-	        if (element.name === name && element.inLocation === inLoc) found = true;
-	      });
+	        clearDefinitions: function clearDefinitions() {
+	            for (var key in this) {
+	                delete this[key];
+	            }
+	        },
 	
-	      if (found) return true;else return false;
-	    },
+	        setDefinitions: function setDefinitions(newDefinitions) {
+	            for (var key in newDefinitions) {
+	                this[key] = newDefinitions[key];
+	            }
+	        },
 	
-	    updateParameter: function updateParameter(oldParameter, newParameter) {
-	
-	      var original = this.getParameter(oldParameter.name, oldParameter.inLocation);
-	
-	      for (var key in newParameter) {
-	        original[key] = newParameter[key];
-	      }
-	    },
-	
-	    getJSON: function getJSON() {
-	      var operationJSON = {};
-	
-	      for (var property in this) {
-	        console.log(property);
-	        if (this[property]) {
-	          //if(property === "parameters");
-	          operationJSON[property] = this[property];
+	        getDefinition: function getDefinition(definitionName) {
+	            return this[definitionName];
 	        }
-	      };
+	    };
 	
-	      return operationJSON;
-	    }
+	    var Operation = {
+	        init: function init() {
+	            this.tags = null;
+	            this.summary = null;
+	            this.description = null;
+	            this.externalDocs = new Object();
+	            this.operationId = null;
+	            this.consumes = null;
+	            this.produces = null;
+	            this.parameters = new Array();
+	            this.responses = newResponses();
+	            this.schemes = null;
+	            this.deprecated = false;
+	            this.security = new Object();
+	        },
 	
-	  };
+	        addParameter: function addParameter(paramName, paramIn) {
+	            this.parameters.push(newParameter(paramName, paramIn));
+	        },
 	
-	  var Parameter = {
-	    init: function init(name, inLocation) {
-	      this.name = name || "";
-	      this.inLocation = inLocation || "query";
-	      this.description = null;
-	      this.required = this.inLocation === "path" ? true : false;
-	      this.schema = newSchema();
-	      this.type = "";
-	      this.format = "";
-	      this.allowEmptyValue = false;
-	      this.items = new Object();
-	      this.collectionFormat = "";
-	    },
+	        getParameter: function getParameter(name, inLoc) {
+	            var parameter = null;
+	            this.parameters.forEach(function (element) {
+	                // console.log(element);
+	                if (element.name === name && element.inLocation === inLoc) {
+	                    parameter = element;
+	                    return;
+	                }
+	            });
 	
-	    getJSON: function getJSON() {
+	            return parameter;
+	        },
 	
-	      var paramJSON = {};
+	        hasParameter: function hasParameter(name, inLoc) {
+	            var found = false;
 	
-	      if (this.name) {
-	        paramJSON.name = this.name;
-	      }
+	            this.parameters.forEach(function (element) {
+	                if (element.name === name && element.inLocation === inLoc) {
+	                    found = true;
+	                }
+	            });
 	
-	      if (this.inLocation) {
-	        paramJSON.in = this.inLocation;
-	      }
+	            if (found) {
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        },
 	
-	      if (this.description) {
-	        paramJSON.description = this.description;
-	      }
+	        updateParameter: function updateParameter(oldParameter, newParameter) {
 	
-	      paramJSON.required = this.required;
+	            var original = this.getParameter(oldParameter.name, oldParameter.inLocation);
 	
-	      return paramJSON;
-	    }
-	  };
+	            for (var key in newParameter) {
+	                original[key] = newParameter[key];
+	            }
+	        },
 	
-	  var Responses = {
+	        getJSON: function getJSON() {
+	            var operationJSON = {};
 	
-	    addResponse: function addResponse(httpCode, description) {
+	            for (var property in this) {
+	                // console.log(property);
+	                if (this[property]) {
+	                    // if(property === "parameters");
+	                    operationJSON[property] = this[property];
+	                }
+	            }
 	
-	      //this[httpCode] = new Response(description);
-	      this[httpCode] = Object.create(Response);
-	      this[httpCode].init(description);
-	    },
-	
-	    /**
-	    */
-	    removeResponse: function removeResponse(httpCode) {
-	
-	      this.responseList.forEach(function (resp, index, responseList) {
-	        if (resp.hasOwnProperty(httpCode)) {
-	          this.responseList.splice(index, 1);
-	          return;
+	            return operationJSON;
 	        }
-	      });
-	    },
 	
-	    /**
-	    */
-	    getResponse: function getResponse(httpCode) {
+	    };
 	
-	      if (this.hasOwnProperty(httpCode)) return this[httpCode];else return null;
-	    },
-	    updateResponse: function updateResponse(oldResponse, newResponse) {
+	    var Parameter = {
+	        init: function init(name, inLocation) {
+	            this.name = name || "";
+	            this.inLocation = inLocation || "query";
+	            this.description = null;
+	            this.required = this.inLocation === "path" ? true : false;
+	            this.schema = newSchema();
+	            this.type = "";
+	            this.format = "";
+	            this.allowEmptyValue = false;
+	            this.items = new Object();
+	            this.collectionFormat = "";
+	        },
 	
-	      for (var key in newResponse) {
-	        oldResponse[key] = newResponse[key];
-	      }
-	    },
+	        getJSON: function getJSON() {
 	
-	    /**
-	      Check to see if a response exists in the list
-	    */
-	    hasResponse: function hasResponse(httpCode) {
-	      //var exists = false;
+	            var paramJSON = {};
 	
-	      //this.responseList.forEach(function(response, index, responseList){
+	            if (this.name) {
+	                paramJSON.name = this.name;
+	            }
 	
-	      return this.hasOwnProperty(httpCode);
+	            if (this.inLocation) {
+	                paramJSON.in = this.inLocation;
+	            }
+	
+	            if (this.description) {
+	                paramJSON.description = this.description;
+	            }
+	
+	            paramJSON.required = this.required;
+	
+	            return paramJSON;
+	        }
+	    };
+	
+	    var Responses = {
+	
+	        addResponse: function addResponse(httpCode, description) {
+	
+	            //this[httpCode] = new Response(description);
+	            this[httpCode] = Object.create(Response);
+	            this[httpCode].init(description);
+	        },
+	
+	        /**
+	        */
+	        removeResponse: function removeResponse(httpCode) {
+	
+	            this.responseList.forEach(function (resp, index) {
+	                if (resp.hasOwnProperty(httpCode)) {
+	                    this.responseList.splice(index, 1);
+	                    return;
+	                }
+	            });
+	        },
+	
+	        /**
+	        */
+	        getResponse: function getResponse(httpCode) {
+	
+	            if (this.hasOwnProperty(httpCode)) {
+	                return this[httpCode];
+	            } else {
+	                return null;
+	            }
+	        },
+	
+	        updateResponse: function updateResponse(oldResponse, newResponse) {
+	
+	            for (var key in newResponse) {
+	                oldResponse[key] = newResponse[key];
+	            }
+	        },
+	
+	        /**
+	            Check to see if a response exists in the list
+	        */
+	        hasResponse: function hasResponse(httpCode) {
+	            //var exists = false;
+	
+	            //this.responseList.forEach(function(response, index, responseList){
+	
+	            return this.hasOwnProperty(httpCode);
+	        }
+	
+	    };
+	
+	    var Response = {
+	        init: function init(descrip) {
+	            this.description = descrip;
+	            this.schema = newSchema();
+	            this.headers = {};
+	            this.examples = {};
+	        }
+	    };
+	
+	    var Schema = {
+	        init: function init(title, description, type) {
+	            this.$ref = null;
+	            this.format = null;
+	            this.title = title || "";
+	            this.description = description || "";
+	            this.required = new Array();
+	            this.enum = null;
+	            this.type = type || "";
+	            this.properties = {};
+	        }
+	    };
+	
+	    function newDefinitions() {
+	        return Object.create(Definitions);
 	    }
 	
-	  };
-	
-	  var Response = {
-	    init: function init(descrip) {
-	      this.description = descrip, this.schema = newSchema(), this.headers = new Object(), this.examples = new Object();
-	    }
-	  };
-	
-	  var Schema = {
-	    init: function init(title, description, type) {
-	      this.$ref = null;
-	      this.format = null;
-	      this.title = title || "";
-	      this.description = description || "";
-	      this.required = new Array();
-	      this.enum = null;
-	      this.type = type || "";
-	      this.properties = {};
+	    function newSchema(title, description, type) {
+	        var temp = Object.create(Schema);
+	        temp.init(title, description, type);
+	        return temp;
 	    }
 	
-	  };
+	    function newPath() {
+	        var temp = Object.create(Path);
+	        temp.init();
+	        return temp;
+	    }
 	
-	  function newDefinitions() {
-	    return Object.create(Definitions);
-	  }
+	    function newResponses() {
+	        return Object.create(Responses);
+	    }
 	
-	  function newSchema(title, description, type) {
-	    var temp = Object.create(Schema);
-	    temp.init(title, description, type);
-	    return temp;
-	  }
+	    function newParameter(name, inLocation) {
+	        var temp = Object.create(Parameter);
+	        temp.init(name, inLocation);
+	        return temp;
+	    }
 	
-	  function newPath() {
-	    var temp = Object.create(Path);
-	    temp.init();
-	    return temp;
-	  }
+	    function newOperation() {
+	        var temp = Object.create(Operation);
+	        temp.init();
+	        return temp;
+	    }
 	
-	  function newResponses() {
-	    return Object.create(Responses);
-	  }
-	
-	  function newParameter(name, inLocation) {
-	    var temp = Object.create(Parameter);
-	    temp.init(name, inLocation);
-	    return temp;
-	  }
-	
-	  function newOperation() {
-	    var temp = Object.create(Operation);
-	    temp.init();
-	    return temp;
-	  }
-	
-	  return {
-	    newPath: newPath,
-	    newOperation: newOperation,
-	    newParameter: newParameter,
-	    newResponses: newResponses,
-	    newSchema: newSchema,
-	    newDefinitions: newDefinitions
-	  };
+	    return {
+	        newPath: newPath,
+	        newOperation: newOperation,
+	        newParameter: newParameter,
+	        newResponses: newResponses,
+	        newSchema: newSchema,
+	        newDefinitions: newDefinitions
+	    };
 	}
 
 /***/ },
-/* 52 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _capitalize = __webpack_require__(53);
+	var _capitalize = __webpack_require__(52);
 	
 	var _capitalize2 = _interopRequireDefault(_capitalize);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var filters = _angular2.default.module("filters", []).filter('capitalize', _capitalize2.default);
+	var filters = _angular2.default.module("filters", []).filter("capitalize", _capitalize2.default);
 	
 	exports.default = filters;
 
 /***/ },
-/* 53 */
+/* 52 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.default = callback;
 	
 	function callback() {
-	  return function Capitalize(input, scope) {
-	    if (input != null) input = input.toLowerCase();
-	    return input.substring(0, 1).toUpperCase() + input.substring(1);
-	  };
+	    return function Capitalize(input) {
+	        if (input != null) {
+	            input = input.toLowerCase();
+	        }
+	
+	        return input.substring(0, 1).toUpperCase() + input.substring(1);
+	    };
 	}
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _angular = __webpack_require__(2);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _main = __webpack_require__(54);
+	
+	var _main2 = _interopRequireDefault(_main);
+	
+	var _modals = __webpack_require__(58);
+	
+	var _modals2 = _interopRequireDefault(_modals);
+	
+	var _info = __webpack_require__(82);
+	
+	var _info2 = _interopRequireDefault(_info);
+	
+	var _paths = __webpack_require__(86);
+	
+	var _paths2 = _interopRequireDefault(_paths);
+	
+	var _operation = __webpack_require__(90);
+	
+	var _operation2 = _interopRequireDefault(_operation);
+	
+	var _parameter = __webpack_require__(94);
+	
+	var _parameter2 = _interopRequireDefault(_parameter);
+	
+	var _response = __webpack_require__(98);
+	
+	var _response2 = _interopRequireDefault(_response);
+	
+	var _definitions = __webpack_require__(102);
+	
+	var _definitions2 = _interopRequireDefault(_definitions);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	"use strict";
+	
+	var componentModule = _angular2.default.module("app.components", [_main2.default.name, _modals2.default.name, _info2.default.name, _paths2.default.name, _operation2.default.name, _parameter2.default.name, _response2.default.name, _definitions2.default.name]);
+	
+	exports.default = componentModule;
 
 /***/ },
 /* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
@@ -31830,82 +31886,29 @@
 	
 	var _main2 = _interopRequireDefault(_main);
 	
-	var _modals = __webpack_require__(68);
-	
-	var _modals2 = _interopRequireDefault(_modals);
-	
-	var _info = __webpack_require__(92);
-	
-	var _info2 = _interopRequireDefault(_info);
-	
-	var _paths = __webpack_require__(96);
-	
-	var _paths2 = _interopRequireDefault(_paths);
-	
-	var _operation = __webpack_require__(100);
-	
-	var _operation2 = _interopRequireDefault(_operation);
-	
-	var _parameter = __webpack_require__(104);
-	
-	var _parameter2 = _interopRequireDefault(_parameter);
-	
-	var _response = __webpack_require__(108);
-	
-	var _response2 = _interopRequireDefault(_response);
-	
-	var _definitions = __webpack_require__(112);
-	
-	var _definitions2 = _interopRequireDefault(_definitions);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var componentModule = _angular2.default.module('app.components', [_main2.default.name, _modals2.default.name, _info2.default.name, _paths2.default.name, _operation2.default.name, _parameter2.default.name, _response2.default.name, _definitions2.default.name]);
-	//}
+	"use strict";
 	
-	exports.default = componentModule;
+	var mainModule = _angular2.default.module("mainModule", []).directive("sgMain", _main2.default);
+	
+	exports.default = mainModule;
 
 /***/ },
 /* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
 	
 	var _main = __webpack_require__(56);
 	
 	var _main2 = _interopRequireDefault(_main);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	'use strict';
-	
-	var mainModule = _angular2.default.module("mainModule", []).directive('sgMain', _main2.default);
-	
-	exports.default = mainModule;
-
-/***/ },
-/* 56 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _main = __webpack_require__(57);
-	
-	var _main2 = _interopRequireDefault(_main);
-	
-	var _main3 = __webpack_require__(58);
+	var _main3 = __webpack_require__(57);
 	
 	var _main4 = _interopRequireDefault(_main3);
 	
@@ -31914,758 +31917,123 @@
 	// angular 1.5 syntax for .component();
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
 	function mainComponent() {
-	  return {
-	    template: _main2.default,
-	    restrict: 'E',
-	    //    replace: true,
-	    controller: _main4.default,
-	    controllerAs: 'compilerController'
-	  };
+	    return {
+	        template: _main2.default,
+	        restrict: "E",
+	        // replace: true,
+	        controller: _main4.default,
+	        controllerAs: "compilerController"
+	    };
 	}
 	
 	exports.default = mainComponent;
 
 /***/ },
-/* 57 */
+/* 56 */
 /***/ function(module, exports) {
 
 	module.exports = "<!--main ng-controller=\"CompilerController as compilerController\"-->\n<main >\n    <!--div\n      class=\"fixed-action-btn\" style=\"bottom: 45px; right: 24px;\">\n      <a class=\"btn-floating btn-large red\">\n      <i class=\"large material-icons\">mode_edit</i>\n      </a>\n      <ul>\n        <li><a class=\"btn-floating red\"><i class=\"material-icons\">insert_chart</i></i></a></li>\n          <li><a class=\"btn-floating yellow darken-1\"><i class=\"material-icons\">format_quote</i></a></li>\n          <li><a class=\"btn-floating green\"><i class=\"material-icons\">publish</i></a></li>>\n        <li><a ng-click=\"compilerController.download(compilerController.compiledDocument)\"\n          class=\"btn-floating blue\">\n          <i class=\"material-icons\">attach_file</i>\n          </a>\n        </li>\n        <li><a ng-click=\"compilerController.recompile()\"\n          class=\"btn-floating green\">\n          <i class=\"material-icons\">publish</i></a>\n        </li>\n      </ul>\n    </div-->\n\n    <sg-info></sg-info>\n    <sg-path></sg-path>\n    <sg-definitions></sg-defintions>\n\n</main>\n"
 
 /***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
+/* 57 */
+/***/ function(module, exports) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	var _angularFileSaver = __webpack_require__(59);
-	
-	var _angularFileSaver2 = _interopRequireDefault(_angularFileSaver);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	// import angularFileSaver from "angular-file-saver";
 	
 	"use strict";
 	
 	//  angular
 	//    .module("SwaggerGraphicalEditor")
-	//    .controller("CompilerController", ["$scope", "CompilerService", 'FileSaver', 'Blob', CompilerCtrl]);
-	var compilerArray = ["$scope", '$element', '$attrs', "CompilerService", 'FileSaver', 'Blob', CompilerCtrl];
+	//    .controller("CompilerController", ["$scope", "CompilerService", "FileSaver", "Blob", CompilerCtrl]);
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var compilerArray = ["$scope", "$log", "CompilerService", "FileSaver", "Blob", CompilerCtrl];
 	
 	exports.default = compilerArray;
 	
-	function CompilerCtrl($scope, $element, $attrs, cs, FileSaver, Blob) {
-	  var vm = this;
+	function CompilerCtrl($scope, $log, cs, FileSaver, Blob) {
+	    var vm = this;
 	
-	  vm.compiledDocument = cs.compiled;
+	    vm.compiledDocument = cs.compiled;
 	
-	  /*
-	  *
-	  *
-	  */
-	  vm.recompile = function () {
-	    cs.recompile();
-	  };
-	
-	  vm.download = function (text) {
-	    var data = new Blob([JSON.stringify(text)], { type: 'application/json' });
-	    FileSaver.saveAs(data, 'swagger.json');
-	  };
-	
-	  $scope.$watch(function () {
-	    return cs.compiled;
-	  }, function (newVal) {
-	    console.log("COMPILKED CHANGED");
-	    console.log(newVal);
-	    if (newVal) {
-	      vm.compiledDocument = cs.compiled;
-	      //vm.definitions = ds.definitions;
-	    }
-	  }, true);
-	}
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	/*
-	*
-	* A AngularJS module that implements the HTML5 W3C saveAs() in browsers that
-	* do not natively support it
-	*
-	* (c) 2015 Philipp Alferov
-	* License: MIT
-	*
-	*/
-	
-	angular.module('ngFileSaver', [])
-	  .factory('FileSaver', ['Blob', 'SaveAs', 'FileSaverUtils', __webpack_require__(60)])
-	  .factory('FileSaverUtils', [__webpack_require__(61)])
-	  .factory('Blob', ['$window', __webpack_require__(62)])
-	  .factory('SaveAs', [__webpack_require__(64)]);
-
-
-/***/ },
-/* 60 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = function FileSaver(Blob, SaveAs, FileSaverUtils) {
-	
-	  function save(blob, filename, disableAutoBOM) {
-	    try {
-	      SaveAs(blob, filename, disableAutoBOM);
-	    } catch(err) {
-	      FileSaverUtils.handleErrors(err.message);
-	    }
-	  }
-	
-	  return {
-	
-	    /**
-	    * saveAs
-	    * Immediately starts saving a file, returns undefined.
+	    /*
 	    *
-	    * @name saveAs
-	    * @function
-	    * @param {Blob} data A Blob instance
-	    * @param {Object} filename Custom filename (extension is optional)
-	    * @param {Boolean} disableAutoBOM Disable automatically provided Unicode
-	    * text encoding hints
 	    *
-	    * @return {Undefined}
 	    */
+	    vm.recompile = function () {
+	        cs.recompile();
+	    };
 	
-	    saveAs: function(data, filename, disableAutoBOM) {
+	    vm.download = function (text) {
+	        var data = new Blob([angular.toJson(text)], { type: "application/json" });
+	        FileSaver.saveAs(data, "swagger.json");
+	    };
 	
-	      if (!FileSaverUtils.isBlobInstance(data)) {
-	        FileSaverUtils.handleErrors('Data argument should be a blob instance');
-	      }
-	
-	      if (!FileSaverUtils.isString(filename)) {
-	        FileSaverUtils.handleErrors('Filename argument should be a string');
-	      }
-	
-	      return save(data, filename, disableAutoBOM);
-	    }
-	  };
-	};
-
-
-/***/ },
-/* 61 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = function FileSaverUtils() {
-	  return {
-	    handleErrors: function(msg) {
-	      throw new Error(msg);
-	    },
-	    isString: function(obj) {
-	      return typeof obj === 'string' || obj instanceof String;
-	    },
-	    isUndefined: function(obj) {
-	      return typeof obj === 'undefined';
-	    },
-	    isBlobInstance: function(obj) {
-	      return obj instanceof Blob;
-	    }
-	  };
-	};
-
-
-/***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	__webpack_require__(63);
-	
-	module.exports = function Blob($window) {
-	  return $window.Blob;
-	};
-
-
-/***/ },
-/* 63 */
-/***/ function(module, exports) {
-
-	/* Blob.js
-	 * A Blob implementation.
-	 * 2014-07-24
-	 *
-	 * By Eli Grey, http://eligrey.com
-	 * By Devin Samarin, https://github.com/dsamarin
-	 * License: X11/MIT
-	 *   See https://github.com/eligrey/Blob.js/blob/master/LICENSE.md
-	 */
-	
-	/*global self, unescape */
-	/*jslint bitwise: true, regexp: true, confusion: true, es5: true, vars: true, white: true,
-	  plusplus: true */
-	
-	/*! @source http://purl.eligrey.com/github/Blob.js/blob/master/Blob.js */
-	
-	(function (view) {
-		"use strict";
-	
-		view.URL = view.URL || view.webkitURL;
-	
-		if (view.Blob && view.URL) {
-			try {
-				new Blob;
-				return;
-			} catch (e) {}
-		}
-	
-		// Internally we use a BlobBuilder implementation to base Blob off of
-		// in order to support older browsers that only have BlobBuilder
-		var BlobBuilder = view.BlobBuilder || view.WebKitBlobBuilder || view.MozBlobBuilder || (function(view) {
-			var
-				  get_class = function(object) {
-					return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
-				}
-				, FakeBlobBuilder = function BlobBuilder() {
-					this.data = [];
-				}
-				, FakeBlob = function Blob(data, type, encoding) {
-					this.data = data;
-					this.size = data.length;
-					this.type = type;
-					this.encoding = encoding;
-				}
-				, FBB_proto = FakeBlobBuilder.prototype
-				, FB_proto = FakeBlob.prototype
-				, FileReaderSync = view.FileReaderSync
-				, FileException = function(type) {
-					this.code = this[this.name = type];
-				}
-				, file_ex_codes = (
-					  "NOT_FOUND_ERR SECURITY_ERR ABORT_ERR NOT_READABLE_ERR ENCODING_ERR "
-					+ "NO_MODIFICATION_ALLOWED_ERR INVALID_STATE_ERR SYNTAX_ERR"
-				).split(" ")
-				, file_ex_code = file_ex_codes.length
-				, real_URL = view.URL || view.webkitURL || view
-				, real_create_object_URL = real_URL.createObjectURL
-				, real_revoke_object_URL = real_URL.revokeObjectURL
-				, URL = real_URL
-				, btoa = view.btoa
-				, atob = view.atob
-	
-				, ArrayBuffer = view.ArrayBuffer
-				, Uint8Array = view.Uint8Array
-	
-				, origin = /^[\w-]+:\/*\[?[\w\.:-]+\]?(?::[0-9]+)?/
-			;
-			FakeBlob.fake = FB_proto.fake = true;
-			while (file_ex_code--) {
-				FileException.prototype[file_ex_codes[file_ex_code]] = file_ex_code + 1;
-			}
-			// Polyfill URL
-			if (!real_URL.createObjectURL) {
-				URL = view.URL = function(uri) {
-					var
-						  uri_info = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
-						, uri_origin
-					;
-					uri_info.href = uri;
-					if (!("origin" in uri_info)) {
-						if (uri_info.protocol.toLowerCase() === "data:") {
-							uri_info.origin = null;
-						} else {
-							uri_origin = uri.match(origin);
-							uri_info.origin = uri_origin && uri_origin[1];
-						}
-					}
-					return uri_info;
-				};
-			}
-			URL.createObjectURL = function(blob) {
-				var
-					  type = blob.type
-					, data_URI_header
-				;
-				if (type === null) {
-					type = "application/octet-stream";
-				}
-				if (blob instanceof FakeBlob) {
-					data_URI_header = "data:" + type;
-					if (blob.encoding === "base64") {
-						return data_URI_header + ";base64," + blob.data;
-					} else if (blob.encoding === "URI") {
-						return data_URI_header + "," + decodeURIComponent(blob.data);
-					} if (btoa) {
-						return data_URI_header + ";base64," + btoa(blob.data);
-					} else {
-						return data_URI_header + "," + encodeURIComponent(blob.data);
-					}
-				} else if (real_create_object_URL) {
-					return real_create_object_URL.call(real_URL, blob);
-				}
-			};
-			URL.revokeObjectURL = function(object_URL) {
-				if (object_URL.substring(0, 5) !== "data:" && real_revoke_object_URL) {
-					real_revoke_object_URL.call(real_URL, object_URL);
-				}
-			};
-			FBB_proto.append = function(data/*, endings*/) {
-				var bb = this.data;
-				// decode data to a binary string
-				if (Uint8Array && (data instanceof ArrayBuffer || data instanceof Uint8Array)) {
-					var
-						  str = ""
-						, buf = new Uint8Array(data)
-						, i = 0
-						, buf_len = buf.length
-					;
-					for (; i < buf_len; i++) {
-						str += String.fromCharCode(buf[i]);
-					}
-					bb.push(str);
-				} else if (get_class(data) === "Blob" || get_class(data) === "File") {
-					if (FileReaderSync) {
-						var fr = new FileReaderSync;
-						bb.push(fr.readAsBinaryString(data));
-					} else {
-						// async FileReader won't work as BlobBuilder is sync
-						throw new FileException("NOT_READABLE_ERR");
-					}
-				} else if (data instanceof FakeBlob) {
-					if (data.encoding === "base64" && atob) {
-						bb.push(atob(data.data));
-					} else if (data.encoding === "URI") {
-						bb.push(decodeURIComponent(data.data));
-					} else if (data.encoding === "raw") {
-						bb.push(data.data);
-					}
-				} else {
-					if (typeof data !== "string") {
-						data += ""; // convert unsupported types to strings
-					}
-					// decode UTF-16 to binary string
-					bb.push(unescape(encodeURIComponent(data)));
-				}
-			};
-			FBB_proto.getBlob = function(type) {
-				if (!arguments.length) {
-					type = null;
-				}
-				return new FakeBlob(this.data.join(""), type, "raw");
-			};
-			FBB_proto.toString = function() {
-				return "[object BlobBuilder]";
-			};
-			FB_proto.slice = function(start, end, type) {
-				var args = arguments.length;
-				if (args < 3) {
-					type = null;
-				}
-				return new FakeBlob(
-					  this.data.slice(start, args > 1 ? end : this.data.length)
-					, type
-					, this.encoding
-				);
-			};
-			FB_proto.toString = function() {
-				return "[object Blob]";
-			};
-			FB_proto.close = function() {
-				this.size = 0;
-				delete this.data;
-			};
-			return FakeBlobBuilder;
-		}(view));
-	
-		view.Blob = function(blobParts, options) {
-			var type = options ? (options.type || "") : "";
-			var builder = new BlobBuilder();
-			if (blobParts) {
-				for (var i = 0, len = blobParts.length; i < len; i++) {
-					if (Uint8Array && blobParts[i] instanceof Uint8Array) {
-						builder.append(blobParts[i].buffer);
-					}
-					else {
-						builder.append(blobParts[i]);
-					}
-				}
-			}
-			var blob = builder.getBlob(type);
-			if (!blob.slice && blob.webkitSlice) {
-				blob.slice = blob.webkitSlice;
-			}
-			return blob;
-		};
-	
-		var getPrototypeOf = Object.getPrototypeOf || function(object) {
-			return object.__proto__;
-		};
-		view.Blob.prototype = getPrototypeOf(new view.Blob());
-	}(typeof self !== "undefined" && self || typeof window !== "undefined" && window || this.content || this));
-
-
-/***/ },
-/* 64 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = function SaveAs() {
-	  return __webpack_require__(65).saveAs || function() {};
-	};
-
-
-/***/ },
-/* 65 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* FileSaver.js
-	 * A saveAs() FileSaver implementation.
-	 * 1.1.20151003
-	 *
-	 * By Eli Grey, http://eligrey.com
-	 * License: MIT
-	 *   See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
-	 */
-	
-	/*global self */
-	/*jslint bitwise: true, indent: 4, laxbreak: true, laxcomma: true, smarttabs: true, plusplus: true */
-	
-	/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-	
-	var saveAs = saveAs || (function(view) {
-		"use strict";
-		// IE <10 is explicitly unsupported
-		if (typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
-			return;
-		}
-		var
-			  doc = view.document
-			  // only get URL when necessary in case Blob.js hasn't overridden it yet
-			, get_URL = function() {
-				return view.URL || view.webkitURL || view;
-			}
-			, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
-			, can_use_save_link = "download" in save_link
-			, click = function(node) {
-				var event = new MouseEvent("click");
-				node.dispatchEvent(event);
-			}
-			, is_safari = /Version\/[\d\.]+.*Safari/.test(navigator.userAgent)
-			, webkit_req_fs = view.webkitRequestFileSystem
-			, req_fs = view.requestFileSystem || webkit_req_fs || view.mozRequestFileSystem
-			, throw_outside = function(ex) {
-				(view.setImmediate || view.setTimeout)(function() {
-					throw ex;
-				}, 0);
-			}
-			, force_saveable_type = "application/octet-stream"
-			, fs_min_size = 0
-			// See https://code.google.com/p/chromium/issues/detail?id=375297#c7 and
-			// https://github.com/eligrey/FileSaver.js/commit/485930a#commitcomment-8768047
-			// for the reasoning behind the timeout and revocation flow
-			, arbitrary_revoke_timeout = 500 // in ms
-			, revoke = function(file) {
-				var revoker = function() {
-					if (typeof file === "string") { // file is an object URL
-						get_URL().revokeObjectURL(file);
-					} else { // file is a File
-						file.remove();
-					}
-				};
-				if (view.chrome) {
-					revoker();
-				} else {
-					setTimeout(revoker, arbitrary_revoke_timeout);
-				}
-			}
-			, dispatch = function(filesaver, event_types, event) {
-				event_types = [].concat(event_types);
-				var i = event_types.length;
-				while (i--) {
-					var listener = filesaver["on" + event_types[i]];
-					if (typeof listener === "function") {
-						try {
-							listener.call(filesaver, event || filesaver);
-						} catch (ex) {
-							throw_outside(ex);
-						}
-					}
-				}
-			}
-			, auto_bom = function(blob) {
-				// prepend BOM for UTF-8 XML and text/* types (including HTML)
-				if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
-					return new Blob(["\ufeff", blob], {type: blob.type});
-				}
-				return blob;
-			}
-			, FileSaver = function(blob, name, no_auto_bom) {
-				if (!no_auto_bom) {
-					blob = auto_bom(blob);
-				}
-				// First try a.download, then web filesystem, then object URLs
-				var
-					  filesaver = this
-					, type = blob.type
-					, blob_changed = false
-					, object_url
-					, target_view
-					, dispatch_all = function() {
-						dispatch(filesaver, "writestart progress write writeend".split(" "));
-					}
-					// on any filesys errors revert to saving with object URLs
-					, fs_error = function() {
-						if (target_view && is_safari && typeof FileReader !== "undefined") {
-							// Safari doesn't allow downloading of blob urls
-							var reader = new FileReader();
-							reader.onloadend = function() {
-								var base64Data = reader.result;
-								target_view.location.href = "data:attachment/file" + base64Data.slice(base64Data.search(/[,;]/));
-								filesaver.readyState = filesaver.DONE;
-								dispatch_all();
-							};
-							reader.readAsDataURL(blob);
-							filesaver.readyState = filesaver.INIT;
-							return;
-						}
-						// don't create more object URLs than needed
-						if (blob_changed || !object_url) {
-							object_url = get_URL().createObjectURL(blob);
-						}
-						if (target_view) {
-							target_view.location.href = object_url;
-						} else {
-							var new_tab = view.open(object_url, "_blank");
-							if (new_tab == undefined && is_safari) {
-								//Apple do not allow window.open, see http://bit.ly/1kZffRI
-								view.location.href = object_url
-							}
-						}
-						filesaver.readyState = filesaver.DONE;
-						dispatch_all();
-						revoke(object_url);
-					}
-					, abortable = function(func) {
-						return function() {
-							if (filesaver.readyState !== filesaver.DONE) {
-								return func.apply(this, arguments);
-							}
-						};
-					}
-					, create_if_not_found = {create: true, exclusive: false}
-					, slice
-				;
-				filesaver.readyState = filesaver.INIT;
-				if (!name) {
-					name = "download";
-				}
-				if (can_use_save_link) {
-					object_url = get_URL().createObjectURL(blob);
-					setTimeout(function() {
-						save_link.href = object_url;
-						save_link.download = name;
-						click(save_link);
-						dispatch_all();
-						revoke(object_url);
-						filesaver.readyState = filesaver.DONE;
-					});
-					return;
-				}
-				// Object and web filesystem URLs have a problem saving in Google Chrome when
-				// viewed in a tab, so I force save with application/octet-stream
-				// http://code.google.com/p/chromium/issues/detail?id=91158
-				// Update: Google errantly closed 91158, I submitted it again:
-				// https://code.google.com/p/chromium/issues/detail?id=389642
-				if (view.chrome && type && type !== force_saveable_type) {
-					slice = blob.slice || blob.webkitSlice;
-					blob = slice.call(blob, 0, blob.size, force_saveable_type);
-					blob_changed = true;
-				}
-				// Since I can't be sure that the guessed media type will trigger a download
-				// in WebKit, I append .download to the filename.
-				// https://bugs.webkit.org/show_bug.cgi?id=65440
-				if (webkit_req_fs && name !== "download") {
-					name += ".download";
-				}
-				if (type === force_saveable_type || webkit_req_fs) {
-					target_view = view;
-				}
-				if (!req_fs) {
-					fs_error();
-					return;
-				}
-				fs_min_size += blob.size;
-				req_fs(view.TEMPORARY, fs_min_size, abortable(function(fs) {
-					fs.root.getDirectory("saved", create_if_not_found, abortable(function(dir) {
-						var save = function() {
-							dir.getFile(name, create_if_not_found, abortable(function(file) {
-								file.createWriter(abortable(function(writer) {
-									writer.onwriteend = function(event) {
-										target_view.location.href = file.toURL();
-										filesaver.readyState = filesaver.DONE;
-										dispatch(filesaver, "writeend", event);
-										revoke(file);
-									};
-									writer.onerror = function() {
-										var error = writer.error;
-										if (error.code !== error.ABORT_ERR) {
-											fs_error();
-										}
-									};
-									"writestart progress write abort".split(" ").forEach(function(event) {
-										writer["on" + event] = filesaver["on" + event];
-									});
-									writer.write(blob);
-									filesaver.abort = function() {
-										writer.abort();
-										filesaver.readyState = filesaver.DONE;
-									};
-									filesaver.readyState = filesaver.WRITING;
-								}), fs_error);
-							}), fs_error);
-						};
-						dir.getFile(name, {create: false}, abortable(function(file) {
-							// delete file if it already exists
-							file.remove();
-							save();
-						}), abortable(function(ex) {
-							if (ex.code === ex.NOT_FOUND_ERR) {
-								save();
-							} else {
-								fs_error();
-							}
-						}));
-					}), fs_error);
-				}), fs_error);
-			}
-			, FS_proto = FileSaver.prototype
-			, saveAs = function(blob, name, no_auto_bom) {
-				return new FileSaver(blob, name, no_auto_bom);
-			}
-		;
-		// IE 10+ (native saveAs)
-		if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
-			return function(blob, name, no_auto_bom) {
-				if (!no_auto_bom) {
-					blob = auto_bom(blob);
-				}
-				return navigator.msSaveOrOpenBlob(blob, name || "download");
-			};
-		}
-	
-		FS_proto.abort = function() {
-			var filesaver = this;
-			filesaver.readyState = filesaver.DONE;
-			dispatch(filesaver, "abort");
-		};
-		FS_proto.readyState = FS_proto.INIT = 0;
-		FS_proto.WRITING = 1;
-		FS_proto.DONE = 2;
-	
-		FS_proto.error =
-		FS_proto.onwritestart =
-		FS_proto.onprogress =
-		FS_proto.onwrite =
-		FS_proto.onabort =
-		FS_proto.onerror =
-		FS_proto.onwriteend =
-			null;
-	
-		return saveAs;
-	}(
-		   typeof self !== "undefined" && self
-		|| typeof window !== "undefined" && window
-		|| this.content
-	));
-	// `self` is undefined in Firefox for Android content script context
-	// while `this` is nsIContentFrameMessageManager
-	// with an attribute `content` that corresponds to the window
-	
-	if (typeof module !== "undefined" && module.exports) {
-	  module.exports.saveAs = saveAs;
-	} else if (("function" !== "undefined" && __webpack_require__(66) !== null) && (__webpack_require__(67) != null)) {
-	  !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
-	    return saveAs;
-	  }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    $scope.$watch(function () {
+	        return cs.compiled;
+	    }, function (newVal) {
+	        $log.log("COMPILKED CHANGED");
+	        $log.log(newVal);
+	        if (newVal) {
+	            vm.compiledDocument = cs.compiled;
+	            //vm.definitions = ds.definitions;
+	        }
+	    }, true);
 	}
 
-
 /***/ },
-/* 66 */
-/***/ function(module, exports) {
-
-	module.exports = function() { throw new Error("define cannot be used indirect"); };
-
-
-/***/ },
-/* 67 */
-/***/ function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, {}))
-
-/***/ },
-/* 68 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _definitionCreator = __webpack_require__(69);
+	var _definitionCreator = __webpack_require__(59);
 	
 	var _definitionCreator2 = _interopRequireDefault(_definitionCreator);
 	
-	var _definitionEditor = __webpack_require__(73);
+	var _definitionEditor = __webpack_require__(63);
 	
 	var _definitionEditor2 = _interopRequireDefault(_definitionEditor);
 	
-	var _pathCreator = __webpack_require__(78);
+	var _pathCreator = __webpack_require__(68);
 	
 	var _pathCreator2 = _interopRequireDefault(_pathCreator);
 	
-	var _parameterEditor = __webpack_require__(82);
+	var _parameterEditor = __webpack_require__(72);
 	
 	var _parameterEditor2 = _interopRequireDefault(_parameterEditor);
 	
-	var _responseEditor = __webpack_require__(87);
+	var _responseEditor = __webpack_require__(77);
 	
 	var _responseEditor2 = _interopRequireDefault(_responseEditor);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ModalsModule = _angular2.default.module('modals', [_definitionCreator2.default.name, _definitionEditor2.default.name, _pathCreator2.default.name, _parameterEditor2.default.name, _responseEditor2.default.name]);
+	"use strict";
+	
+	var ModalsModule = _angular2.default.module("modals", [_definitionCreator2.default.name, _definitionEditor2.default.name, _pathCreator2.default.name, _parameterEditor2.default.name, _responseEditor2.default.name]);
 	
 	exports.default = ModalsModule;
 
 /***/ },
-/* 69 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	                                value: true
@@ -32675,31 +32043,31 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _definitionCreator = __webpack_require__(70);
+	var _definitionCreator = __webpack_require__(60);
 	
 	var _definitionCreator2 = _interopRequireDefault(_definitionCreator);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DefinitionCreatorModule = _angular2.default.module('DefinitionCreatorModule', []).directive('sgDefinitionCreatorModal', _definitionCreator2.default);
+	var DefinitionCreatorModule = _angular2.default.module("DefinitionCreatorModule", []).directive("sgDefinitionCreatorModal", _definitionCreator2.default);
 	
 	exports.default = DefinitionCreatorModule;
 
 /***/ },
-/* 70 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _definitionCreator = __webpack_require__(71);
+	var _definitionCreator = __webpack_require__(61);
 	
 	var _definitionCreator2 = _interopRequireDefault(_definitionCreator);
 	
-	var _definitionCreator3 = __webpack_require__(72);
+	var _definitionCreator3 = __webpack_require__(62);
 	
 	var _definitionCreator4 = _interopRequireDefault(_definitionCreator3);
 	
@@ -32708,105 +32076,104 @@
 	exports.default = DefinitionComponent;
 	
 	function DefinitionComponent() {
-	  return {
-	    restrict: 'E',
-	    template: _definitionCreator2.default,
-	    controller: _definitionCreator4.default,
-	    controllerAs: 'definitionCreation'
-	  };
+	    return {
+	        restrict: "E",
+	        template: _definitionCreator2.default,
+	        controller: _definitionCreator4.default,
+	        controllerAs: "definitionCreation"
+	    };
 	}
 
 /***/ },
-/* 71 */
+/* 61 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"definition-creation-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\"\n      sg-modal-closer ng-model=\"definitionCreation.closeModal\" modal-id=\"definition-creation-modal\">\n  <form name=\"createDefinition\" ng-submit=\"definitionCreation.addDefinition(definitionCreation.newDefinition.name, definitionCreation.newDefinition.description);\" >\n    <div class=\"modal-content\">\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Create New Definition</h4>\n        </div>\n        <div class=\"input-field col s12 \">\n          <input id=\"definition-name\"\n                  type=\"text\"\n                  ng-model=\"definitionCreation.newDefinition.name\"\n                  focus-me=\"focusDefinitionModal\"\n                  required=\"\" aria-required=\"true\">\n          <label for=\"definition-name\">Definition Name</label>\n        </div>\n        <div class=\"input-field col s12 \">\n          <textarea id=\"definition-description\" ng-model=\"definitionCreation.newDefinition.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"definition-description\">Description</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <div>\n        <button type=\"submit\"\n          close-definition-creation-modal\n          ng-class=\"{'disabled': !definitionCreation.newDefinition.name}\"\n          class=\" waves-effect waves-green btn\">\n        Create\n        </button>\n      </div>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
-/* 72 */
+/* 62 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	
-	var DefintionCreationController = ['$scope', 'DefinitionsService', DefinitionCreationCtrl];
+	var DefintionCreationController = ["$scope", "$log", "DefinitionsService", DefinitionCreationCtrl];
 	
 	exports.default = DefintionCreationController;
 	
-	function DefinitionCreationCtrl($scope, ds) {
-	  var vm = this;
+	function DefinitionCreationCtrl($scope, $log, ds) {
+	    var vm = this;
 	
-	  this.closeModal = false;
+	    this.closeModal = false;
 	
-	  vm.newDefinition = {
-	    name: null,
-	    description: null
-	  };
-	
-	  vm.addDefinition = function (definitionName, description) {
-	
-	    try {
-	      debugger;
-	      ds.addDefinition.call(ds, definitionName, description, 'object');
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast(e, 3000);
-	    }
-	
-	    this.closeModal = true;
 	    vm.newDefinition = {
-	      name: null,
-	      description: null
+	        name: null,
+	        description: null
 	    };
-	  };
+	
+	    vm.addDefinition = function (definitionName, description) {
+	
+	        try {
+	            debugger;
+	            ds.addDefinition.call(ds, definitionName, description, "object");
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast(e, 3000);
+	        }
+	
+	        this.closeModal = true;
+	        vm.newDefinition = {
+	            name: null,
+	            description: null
+	        };
+	    };
 	}
 
 /***/ },
-/* 73 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                                value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _definitionEditor = __webpack_require__(74);
+	var _definitionEditor = __webpack_require__(64);
 	
 	var _definitionEditor2 = _interopRequireDefault(_definitionEditor);
 	
-	var _definitionEditor3 = __webpack_require__(77);
+	var _definitionEditor3 = __webpack_require__(67);
 	
 	var _definitionEditor4 = _interopRequireDefault(_definitionEditor3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DefinitionEditorModule = _angular2.default.module('DefinitionEditorModule', []).directive('sgDefinitionEditorModal', _definitionEditor2.default).factory('DefinitionEditorModalService', _definitionEditor4.default);
+	var DefinitionEditorModule = _angular2.default.module("DefinitionEditorModule", []).directive("sgDefinitionEditorModal", _definitionEditor2.default).factory("DefinitionEditorModalService", _definitionEditor4.default);
 	
 	exports.default = DefinitionEditorModule;
 
 /***/ },
-/* 74 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _definitionEditor = __webpack_require__(75);
+	var _definitionEditor = __webpack_require__(65);
 	
 	var _definitionEditor2 = _interopRequireDefault(_definitionEditor);
 	
-	var _definitionEditor3 = __webpack_require__(76);
+	var _definitionEditor3 = __webpack_require__(66);
 	
 	var _definitionEditor4 = _interopRequireDefault(_definitionEditor3);
 	
@@ -32815,176 +32182,171 @@
 	exports.default = DefinitionEditorComponent;
 	
 	function DefinitionEditorComponent() {
-	  return {
-	    restrict: 'E',
-	    template: _definitionEditor2.default,
-	    controller: _definitionEditor4.default,
-	    controllerAs: 'definitionEditor'
-	  };
+	    return {
+	        restrict: "E",
+	        template: _definitionEditor2.default,
+	        controller: _definitionEditor4.default,
+	        controllerAs: "definitionEditor"
+	    };
 	}
 
 /***/ },
-/* 75 */
+/* 65 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"definition-editor-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\"\n      sg-modal-closer ng-model=\"definitionEditor.closeModal\" modal-id=\"definition-editor-modal\">\n\n    <div class=\"modal-content\">\n      <!-- <div class=\"row\"> -->\n        <div class=\"left-align col s12\">\n          <h4>Edit Definition</h4>\n        </div>\n        <form name=\"editDefinition\" novalidate ng-submit=\"editDefinition.$valid && definitionEditor.updateDefinition(definitionEditor.originalDefinition, definitionEditor.tempDefinition)\">\n          <div class=\"input-field col s12 \">\n            <input id=\"definition-name\" type=\"text\" name=\"name\" required=\"\" ng-model=\"definitionEditor.tempDefinition.name\" required=\"\" aria-required=\"true\">\n            <label for=\"definition-name\">Name</label>\n          </div>\n        </form>\n        <sg-schema-editor sg-schema-object=\"definitionEditor.tempDefinition.value\" sg-restrict-type-to-object=\"true\"></sg-schema-editor>\n      <!-- </div> -->\n      <!-- <form name=\"createDefinition\"\n            ng-submit=\"\"\n            novalidate>\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Edit Definition</h4>\n        </div>\n        <div class=\"input-field col s12 \">\n          <input id=\"definition-name\" type=\"text\" ng-model=\"definitionEditor.tempDefinition.name\" required=\"\" aria-required=\"true\">\n          <label for=\"definition-name\">Name</label>\n        </div>\n        <div class=\"input-field col s12\">\n          <textarea id=\"definition-description\" ng-model=\"definitionEditor.tempDefinition.value.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"definition-description\">Description</label>\n        </div>\n        <div class=\"input-field col s4\">\n          <input id=\"definition-ref\" type=\"text\" ng-model=\"definitionEditor.tempDefinition.value.$ref\" >\n          <label for=\"definition-ref\">$ref</label>\n        </div>\n        <div class=\"input-field col s4\">\n          <input id=\"definition-type\" type=\"text\"\n                  ng-model=\"definitionEditor.tempDefinition.value.type\"\n                  disabled>\n          <label for=\"definition-type\">Type</label>\n        </div>\n        <div class=\"input-field col s4\">\n          <input id=\"definition-enum\" type=\"text\" disabled value=\"\" ng-model=\"definitionEditor.tempDefinition.value.required\">\n          <label class=\"active\" for=\"definition-enum\">Required</label>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col s12\">\n          <h5>Properties</h5>\n        </div>\n        <div class=\"col s12\">\n          <form ng-submit=\"\" novalidate>\n            <div class=\"input-field col s6\">\n              <input id=\"new-property-name\" type=\"text\" ng-model=\"definitionEditor.newProperty.name\" required aria-required=\"true\">\n              <label for=\"new-property-name\">Property Name</label>\n            </div>\n            <div class=\"input-field col s6\">\n              <button type=\"submit\"\n                ng-if=\"!definitionEditor.newProperty.name\"\n                ng-click=\"definitionEditor.toast('Name cannot be empty')\"\n                class=\" waves-effect waves-green btn disabled\">\n                <i class=\"material-icons\">add</i>\n              </button>\n              <button\n                ng-if=\"definitionEditor.newProperty.name\"\n                ng-class=\"{'disabled': !definitionEditor.newProperty.name}\"\n                ng-click=\"definitionEditor.addProperty(definitionEditor.tempDefinition.name, definitionEditor.newProperty.name);\"\n                class=\" waves-effect waves-green btn\">\n                <i class=\"material-icons\">add</i>\n              </button>\n            </div>\n          </form>\n        </div>\n\n      </div>\n      <ul ng-repeat=\"(property, pValue) in definitionEditor.tempDefinition.value.properties | orderBy:'property'\"\n          class=\"collapsible blue-grey darken-2\"\n          init-collapse\n          data-collapsible=\"accordion\">\n        <li>\n          <div class=\"collapsible-header blue-grey\">\n            {{property}}\n          </div>\n          <div class=\"collapsible-body \">\n            <div class=\" valign-wrapper section\">\n              <div class=\"input-field col s3 valign\">\n                <input id=\"new-property-name\" type=\"text\" ng-model=\"pValue.description\" required aria-required=\"true\">\n                <label for=\"new-property-name\">Description</label>\n              </div>\n              <div class=\"input-field col s2 valign\">\n                <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value\n                        ng-model=\"pValue.type\">\n                  <option value=\"\" selected>Choose a Type</option>\n                  <option ng-repeat=\"type in definitionEditor.types\"\n                          ng-attr-value=\"{{ type }}\"\n                          ng-attr-id=\"{{ type }}\">{{ type }}</option>\n                </select>\n              </div>\n              <div class=\"input-field col s2 valign\">\n                <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"pValue.format\">\n                  <option value=\"\" selected>Property Format</option>\n                  <option ng-repeat=\"format in definitionEditor.formats\"\n                          ng-attr-value=\"{{ format }}\"\n                          ng-attr-id=\"{{ format }}\">{{ format }}</option>\n                </select>\n              </div>\n              <div class=\"input-field col s4 valign\">\n                <input id=\"property-enum\" type=\"text\" placeholder=\"value,must,be,comma,separated\" value=\"\"\n                ng-model=\"pValue.enum\">\n                <label class=\"active\" for=\"property-enum\">Enum</label>\n              </div>\n              <div class=\"input-field col s2 valign valign-wrapper\">\n                <p sg-unique-input class=\"valign\">\n                  <input type=\"checkbox\" id=\"input\" ng-model=\"definitionEditor[property].required\" ng-click=\"definitionEditor.togglePropertyRequired(property, definitionEditor[property].required)\"/>\n                  <label id=\"label\" for=\"label\">Required</label>\n                </p>\n              </div>\n            </div>\n            <div class=\"valign-wrapper section\" >\n              <div class=\"input-field col s1 offset-s11 valign\">\n                <button tooltipped\n                        class=\"btn col \"\n                        data-position=\"top\"\n                        data-delay=\"50\"\n                        data-tooltip=\"Delete Property\"\n                        ng-click=\"definitionEditor.deleteProperty(property)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n\n            </div>\n          </div>\n        </li>\n      </ul>\n      </form> -->\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <div>\n        <!-- <button type=\"submit\" name=\"action\" close-path-modal ng-class=\"{'disabled': editDefinition.$invalid}\"\n          class=\" waves-effect waves-green btn\">\n          Update\n        </button> -->\n        <button ng-if=\"editDefinition.$invalid\"\n          class=\" waves-effect waves-green btn disabled\">\n          Update\n        </button>\n        <button class=\"waves-effect waves-green btn modal-action modal-close\"\n                ng-if=\"editDefinition.$valid\"\n                ng-click=\"definitionEditor.updateDefinition(definitionEditor.originalDefinition, definitionEditor.tempDefinition)\">\n          Update\n        </button>\n      </div>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n\n</div>\n"
 
 /***/ },
-/* 76 */
+/* 66 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	var DefinitionEditorController = ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService", DefinitionEditorCtrl];
+	var DefinitionEditorController = ["$scope", "$log", "$window", "DefinitionsService", "DefinitionEditorModalService", DefinitionEditorCtrl];
 	
 	exports.default = DefinitionEditorController;
 	
-	function DefinitionEditorCtrl($scope, $window, ds, dems) {
+	function DefinitionEditorCtrl($scope, $log, $window, ds, dems) {
 	
-	  var vm = this;
+	    var vm = this;
 	
-	  vm.tempDefinition = {
-	    name: null,
-	    value: null
-	  };
-	  vm.originalDefinition = null;
+	    vm.tempDefinition = {
+	        name: null,
+	        value: null
+	    };
 	
-	  vm.newProperty = {
-	    name: null
-	  };
+	    vm.originalDefinition = null;
 	
-	  // vm.formats = ['int32','int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password', 'email', 'uuid'];
-	  // vm.types = ['integer', 'number', 'string', 'boolean'];
+	    vm.newProperty = {
+	        name: null
+	    };
 	
-	  this.closeModal = false;
+	    // vm.formats = ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
+	    // vm.types = ["integer", "number", "string", "boolean"];
 	
-	  // vm.toast = function(msg){
-	  //   var message = msg || "No toast supplied, but hello!!";
-	  //   Materialize.toast(msg, 2000);
-	  // }
-	  //
-	  // vm.addProperty = function(definitionName, propertyName){
-	  //   /*
-	  //   try{
-	  //     ds.addProperty(definitionName, propertyName);
-	  //   }catch(e){
-	  //       console.log(e);
-	  //       Materialize.toast(e, 3000);
-	  //   }
-	  //   */
-	  //
-	  //   if(vm.tempDefinition.value.properties.hasOwnProperty(propertyName)){
-	  //     Materialize.toast('Property already exists on this definition.');
-	  //   }else{
-	  //     vm.tempDefinition.value.properties[propertyName] =  ds.newSchema();
-	  //     vm.tempDefinition.value.properties[propertyName].type = null;
-	  //   }
-	  //
-	  //   //if(tempDefniition.value.properties.hasOwnProperty)
-	  //
-	  //   vm.newProperty.name = "";
-	  //
-	  // }
+	    this.closeModal = false;
 	
-	  // vm.togglePropertyRequired = function(propertyName, isRequired){
-	  //   console.log("TOGGLE PROPERTY REQUIRED");
-	  //   console.log(propertyName, isRequired);
-	  //   if(isRequired){
-	  //     vm.tempDefinition.value.required.push(propertyName);
-	  //   }else{
-	  //     for(var i = 0; i < vm.tempDefinition.value.required.length; i++){
-	  //       if(vm.tempDefinition.value.required[i] === propertyName){
-	  //         vm.tempDefinition.value.required.splice(i, 1);
-	  //         return;
-	  //       }
-	  //
-	  //     }
-	  //   }
-	  // }
+	    // vm.toast = function(msg){
+	    //   var message = msg || "No toast supplied, but hello!!";
+	    //   Materialize.toast(msg, 2000);
+	    // }
+	    //
+	    // vm.addProperty = function(definitionName, propertyName){
+	    //   /*
+	    //   try{
+	    //     ds.addProperty(definitionName, propertyName);
+	    //   }catch(e){
+	    //       $log.log(e);
+	    //       Materialize.toast(e, 3000);
+	    //   }
+	    //   */
+	    //
+	    //   if(vm.tempDefinition.value.properties.hasOwnProperty(propertyName)){
+	    //     Materialize.toast("Property already exists on this definition.");
+	    //   }else{
+	    //     vm.tempDefinition.value.properties[propertyName] =  ds.newSchema();
+	    //     vm.tempDefinition.value.properties[propertyName].type = null;
+	    //   }
+	    //
+	    //   //if(tempDefniition.value.properties.hasOwnProperty)
+	    //
+	    //   vm.newProperty.name = "";
+	    //
+	    // }
 	
-	  vm.updateDefinition = function (originalDefinition, newDefinition) {
-	    console.log("CONTROLLER - Update definition");
-	    try {
-	      ds.updateDefinition(originalDefinition, newDefinition);
-	      this.closeModal = true;
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast(e, 3000);
-	    }
-	  };
+	    // vm.togglePropertyRequired = function(propertyName, isRequired){
+	    //   $log.log("TOGGLE PROPERTY REQUIRED");
+	    //   $log.log(propertyName, isRequired);
+	    //   if(isRequired){
+	    //     vm.tempDefinition.value.required.push(propertyName);
+	    //   }else{
+	    //     for(var i = 0; i < vm.tempDefinition.value.required.length; i++){
+	    //       if(vm.tempDefinition.value.required[i] === propertyName){
+	    //         vm.tempDefinition.value.required.splice(i, 1);
+	    //         return;
+	    //       }
+	    //
+	    //     }
+	    //   }
+	    // }
 	
-	  // vm.deleteProperty = function(propertyName){
-	  //   if($window.confirm('Are you sure you want to delete the property?')){
-	  //     delete vm.tempDefinition.value.properties[propertyName];
-	  //   }else{
-	  //     console.log("Don't delete property")
-	  //   }
-	  // }
+	    vm.updateDefinition = function (originalDefinition, newDefinition) {
+	        $log.log("CONTROLLER - Update definition");
+	        try {
+	            ds.updateDefinition(originalDefinition, newDefinition);
+	            this.closeModal = true;
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast(e, 3000);
+	        }
+	    };
 	
-	  $scope.$watch(function () {
-	    return dems.currentDefinition;
-	  }, function (newVal) {
+	    // vm.deleteProperty = function(propertyName){
+	    //   if($window.confirm("Are you sure you want to delete the property?")){
+	    //     delete vm.tempDefinition.value.properties[propertyName];
+	    //   }else{
+	    //     $log.log("Don"t delete property")
+	    //   }
+	    // }
 	
-	    if (newVal.name) {
-	      console.log("hit current definition updated");
-	      var currentDefinition = newVal;
-	      vm.originalDefinition = currentDefinition;
+	    $scope.$watch(function () {
+	        return dems.currentDefinition;
+	    }, function (newVal) {
 	
-	      vm.tempDefinition.name = vm.originalDefinition.name;
-	      vm.tempDefinition.value = angular.copy(vm.originalDefinition.value);
-	    }
-	  }, true);
+	        if (newVal.name) {
+	            $log.log("hit current definition updated");
+	            var currentDefinition = newVal;
+	            vm.originalDefinition = currentDefinition;
+	
+	            vm.tempDefinition.name = vm.originalDefinition.name;
+	            vm.tempDefinition.value = angular.copy(vm.originalDefinition.value);
+	        }
+	    }, true);
 	}
 
 /***/ },
-/* 77 */
+/* 67 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	exports.default = DefinitionEditorModalService;
+	var DefEditModalService = ["$log", DefinitionEditorModalService];
 	
-	function DefinitionEditorModalService() {
+	exports.default = DefEditModalService;
 	
-	  this.currentDefinition = {
-	    name: null,
-	    value: null
-	  };
+	function DefinitionEditorModalService($log) {
 	
-	  this.definitionToUpdate = function (definitionName, definitionValue) {
-	    //console.log("updaiting parameter");
-	    //console.log(parameter);
+	    this.currentDefinition = {
+	        name: null,
+	        value: null
+	    };
 	
-	    //rms.currentResponse.pathName = pathName;
-	    //rms.currentResponse.operation = operation;
-	    //rms.currentResponse.httpCode = httpCode;
-	    //rms.currentResponse.response = angular.copy(response);
-	    this.currentDefinition.name = definitionName;
-	    this.currentDefinition.value = definitionValue;
-	    console.log("updated current definition");
-	    console.log(this.currentDefinition);
-	    //console.log(pms.currentParameter);
-	    //console.log("Done updating parameter");
-	  };
+	    this.definitionToUpdate = function (definitionName, definitionValue) {
 	
-	  this.getCurrentDefinition = function () {
-	    return this.currentDefinition;
-	  };
+	        this.currentDefinition.name = definitionName;
+	        this.currentDefinition.value = definitionValue;
+	        $log.log("updated current definition");
+	        $log.log(this.currentDefinition);
+	    };
 	
-	  return this;
+	    this.getCurrentDefinition = function () {
+	        return this.currentDefinition;
+	    };
+	
+	    return this;
 	}
 
 /***/ },
-/* 78 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	                                value: true
@@ -32994,31 +32356,31 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _pathCreator = __webpack_require__(79);
+	var _pathCreator = __webpack_require__(69);
 	
 	var _pathCreator2 = _interopRequireDefault(_pathCreator);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var PathCreatorModule = _angular2.default.module('PathCreatorModule', []).directive('sgPathCreatorModal', _pathCreator2.default);
+	var PathCreatorModule = _angular2.default.module("PathCreatorModule", []).directive("sgPathCreatorModal", _pathCreator2.default);
 	
 	exports.default = PathCreatorModule;
 
 /***/ },
-/* 79 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _pathCreator = __webpack_require__(80);
+	var _pathCreator = __webpack_require__(70);
 	
 	var _pathCreator2 = _interopRequireDefault(_pathCreator);
 	
-	var _pathCreator3 = __webpack_require__(81);
+	var _pathCreator3 = __webpack_require__(71);
 	
 	var _pathCreator4 = _interopRequireDefault(_pathCreator3);
 	
@@ -33027,135 +32389,133 @@
 	exports.default = PathCreatorComponent;
 	
 	function PathCreatorComponent() {
-	  return {
-	    restrict: 'E',
-	    template: _pathCreator2.default,
-	    controller: _pathCreator4.default,
-	    controllerAs: 'pathModal'
-	  };
+	    return {
+	        restrict: "E",
+	        template: _pathCreator2.default,
+	        controller: _pathCreator4.default,
+	        controllerAs: "pathModal"
+	    };
 	}
 
 /***/ },
-/* 80 */
+/* 70 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"path-creation-modal\" class=\"modal modal-fixed-footer\"\n      sg-modal-closer ng-model=\"pathModal.closeModal\" modal-id=\"path-creation-modal\">\n  <form name=\"addPathForm\" novalidate ng-submit=\"addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)\" >\n    <div class=\"modal-content\">\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Create New Path</h4>\n        </div>\n        <div class=\"input-field col s12 \">\n          <input id=\"path-name\" type=\"text\"\n                  name=\"pathName\"\n                  ng-model=\"pathModal.newPath.name\"\n                  ng-pattern=\"/^\\/[0-9a-zA-Z\\/\\.\\_\\-\\{\\}]*$/\"\n                  ng-minlength=3\n                  ng-maxlength=45\n                  required=\"\"\n                  focus-me=\"focusPathModal\">\n          <label for=\"path-name\">Path Name</label>\n          <div class=\"error\"\n               ng-show=\"addPathForm.pathName.$dirty && addPathForm.pathName.$invalid\">\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.required\">\n                    The Path name is required.\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.pattern\">\n                    The Path must start with a '/' (forward slash).\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.minlength\">\n                    The Path name is required to be at least 3 characters\n            </small>\n            <small class=\"error\"\n                    ng-show=\"addPathForm.pathName.$error.maxlength\">\n              The Path name cannot be longer than 45 characters\n            </small>\n          </div>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"left-align\" style=\"padding-left:15px;\">Operations </div>\n        <div class=\"col s12 l6\">\n          <div class=\"row\">\n            <div ng-repeat=\"(operation, value) in pathModal.newPath.operations\" class=\"col s3\" >\n              <p sg-unique-input>\n                <input type=\"checkbox\" id=\"input\" ng-model=\"pathModal.newPath.operations[operation]\"/>\n                <label for=\"label\">{{operation | uppercase}}</label>\n              </p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"modal-footer\">\n      <div>\n        <button type=\"submit\" name=\"action\" close-path-modal ng-class=\"{'disabled': addPathForm.$invalid}\"\n          class=\" waves-effect waves-green btn\">\n        Create\n        </button>\n      </div>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n\n <!-- <md-dialog aria-label=\"Mango (Fruit)\"  ng-cloak>\n  <form>\n    <md-toolbar>\n      <div class=\"md-toolbar-tools\">\n        <h2>Mango (Fruit)</h2>\n        <span flex></span>\n        <md-button class=\"md-icon-button\" ng-click=\"cancel()\">\n          <md-icon md-svg-src=\"img/icons/ic_close_24px.svg\" aria-label=\"Close dialog\"></md-icon>\n        </md-button>\n      </div>\n    </md-toolbar>\n    <md-dialog-content>\n      <div class=\"md-dialog-content\">\n        <h2>Using .md-dialog-content class that sets the padding as the spec</h2>\n        <p>\n          The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.\n        </p>\n        <img style=\"margin: auto; max-width: 100%;\" alt=\"Lush mango tree\" src=\"img/mangues.jpg\">\n        <p>\n          The highest concentration of Mangifera genus is in the western part of Malesia (Sumatra, Java and Borneo) and in Burma and India. While other Mangifera species (e.g. horse mango, M. foetida) are also grown on a more localized basis, Mangifera indica&mdash;the \"common mango\" or \"Indian mango\"&mdash;is the only mango tree commonly cultivated in many tropical and subtropical regions.\n        </p>\n        <p>\n          It originated in Indian subcontinent (present day India and Pakistan) and Burma. It is the national fruit of India, Pakistan, and the Philippines, and the national tree of Bangladesh. In several cultures, its fruit and leaves are ritually used as floral decorations at weddings, public celebrations, and religious ceremonies.\n        </p>\n      </div>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n      <md-button href=\"http://en.wikipedia.org/wiki/Mango\" target=\"_blank\" md-autofocus>\n        More on Wikipedia\n      </md-button>\n      <span flex></span>\n      <md-button ng-click=\"answer('not useful')\">\n       Not Useful\n      </md-button>\n      <md-button ng-click=\"answer('useful')\" style=\"margin-right:20px;\">\n        Useful\n      </md-button>\n    </md-dialog-actions>\n  </form>\n</md-dialog> -->"
 
 /***/ },
-/* 81 */
+/* 71 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	var PathCreatorController = ["$scope", "PathService", PathModalCtrl];
+	var PathCreatorController = ["$scope", "PathService", "$log", PathModalCtrl];
 	
 	exports.default = PathCreatorController;
 	
-	function PathModalCtrl($scope, PathService) {
-	
-	  this.newPath = {
-	    name: null,
-	    operations: {
-	      post: false,
-	      get: false,
-	      put: false,
-	      delete: false
-	    }
-	  };
-	
-	  this.prevent = {
-	    pathCreation: false
-	  };
-	
-	  this.closeModal = false;
-	
-	  /*
-	      Add a new path object to the array containing all the paths
-	  */
-	  this.addPath = function (pathName, operation) {
-	    try {
-	      PathService.addPath(pathName);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast('Not a unique name!', 2000);
-	    }
-	    for (var operation in this.newPath.operations) {
-	
-	      if (this.newPath.operations[operation]) {
-	        console.log("CURRENT OP");
-	        console.log(operation);
-	        console.log(this.newPath.operations);
-	
-	        try {
-	          PathService.addOperation(pathName, operation);
-	        } catch (e) {
-	          console.log(e);
-	        }
-	      }
-	    }
+	function PathModalCtrl($scope, PathService, $log) {
 	
 	    this.newPath = {
-	      name: null,
-	      operations: {
-	        post: false,
-	        get: false,
-	        put: false,
-	        delete: false
-	      }
+	        name: null,
+	        operations: {
+	            post: false,
+	            get: false,
+	            put: false,
+	            delete: false
+	        }
 	    };
 	
-	    this.prevent.pathCreation = true;
+	    this.prevent = {
+	        pathCreation: false
+	    };
 	
-	    this.closeModal = true;
-	  };
+	    this.closeModal = false;
+	
+	    /*
+	      Add a new path object to the array containing all the paths
+	    */
+	    this.addPath = function (pathName, operation) {
+	        try {
+	            PathService.addPath(pathName);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast("Not a unique name!", 2000);
+	        }
+	
+	        for (var operation in this.newPath.operations) {
+	
+	            if (this.newPath.operations[operation]) {
+	
+	                try {
+	                    PathService.addOperation(pathName, operation);
+	                } catch (e) {
+	                    $log.log(e);
+	                }
+	            }
+	        }
+	
+	        this.newPath = {
+	            name: null,
+	            operations: {
+	                post: false,
+	                get: false,
+	                put: false,
+	                delete: false
+	            }
+	        };
+	
+	        this.prevent.pathCreation = true;
+	
+	        this.closeModal = true;
+	    };
 	}
 
 /***/ },
-/* 82 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                                value: true
+		value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _parameterEditor = __webpack_require__(83);
+	var _parameterEditor = __webpack_require__(73);
 	
 	var _parameterEditor2 = _interopRequireDefault(_parameterEditor);
 	
-	var _parameterEditor3 = __webpack_require__(86);
+	var _parameterEditor3 = __webpack_require__(76);
 	
 	var _parameterEditor4 = _interopRequireDefault(_parameterEditor3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ParameterEditorModule = _angular2.default.module('ParameterEditorModule', []).directive('sgParameterEditorModal', _parameterEditor2.default).factory('ParameterModalService', _parameterEditor4.default);
+	var ParameterEditorModule = _angular2.default.module("ParameterEditorModule", []).directive("sgParameterEditorModal", _parameterEditor2.default).factory("ParameterModalService", _parameterEditor4.default);
 	
 	exports.default = ParameterEditorModule;
 
 /***/ },
-/* 83 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _parameterEditor = __webpack_require__(84);
+	var _parameterEditor = __webpack_require__(74);
 	
 	var _parameterEditor2 = _interopRequireDefault(_parameterEditor);
 	
-	var _parameterEditor3 = __webpack_require__(85);
+	var _parameterEditor3 = __webpack_require__(75);
 	
 	var _parameterEditor4 = _interopRequireDefault(_parameterEditor3);
 	
@@ -33164,167 +32524,168 @@
 	exports.default = ParameterEditorComponent;
 	
 	function ParameterEditorComponent() {
-	  return {
-	    restrict: 'E',
-	    template: _parameterEditor2.default,
-	    controller: _parameterEditor4.default,
-	    controllerAs: 'paramModalControl',
-	    link: function link(scope) {}
-	  };
+	    return {
+	        restrict: "E",
+	        template: _parameterEditor2.default,
+	        controller: _parameterEditor4.default,
+	        controllerAs: "paramModalControl"
+	        // link: function(scope){
+	
+	        // }
+	    };
 	}
 
 /***/ },
-/* 84 */
+/* 74 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"param-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\">\n  <form name=\"editParam\" novalidate ng-submit=\"paramModalControl.updateParameter()\">\n    <div class=\"modal-content white-text\">\n      {{paramModalControl.tempParam}}\n      {{paramModalControl.currentParam}}\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Parameter Options</h4>\n        </div>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <div class=\"input-field col s3 valign\">\n          <input id=\"newParamUtil\" name\"paramName\" ng-model=\"paramModalControl.tempParam.name\" type=\"text\" required=\"\" aria-required=\"true\"/>\n          <label for=\"newParamUtil\">Parameter Name</label>\n        </div>\n        <div class=\"input-field col s3 valign\" >\n          <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam.inLocation\" ng-change=\"paramModalControl.setParamInModal(paramModalControl.tempParam.inLocation)\" >\n            <option value=\"\" disabled selected>Parameter Location</option>\n            <option value=\"path\" id=\"path\">Path</option>\n            <option value=\"query\" id=\"query\">Query</option>\n            <option value=\"header\" id=\"header\">Header</option>\n            <option value=\"body\" id=\"body\">Body</option>\n            <option value=\"formData\" id=\"formData\">Form Data</option>\n          </select>\n          <!--label>In</label-->\n        </div>\n        <div class=\" col s3 valign\" >\n          <p>\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.allowEmptyValue\" id=\"allowEmptyValue\" />\n            <label for=\"allowEmptyValue\">Allow Empty Value</label>\n          </p>\n        </div>\n        <div class=\"col s3 valign\" >\n          <p ng-if=\"paramModalControl.tempParam.inLocation !== 'path'\">\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.required\" id=\"required\" />\n            <label for=\"required\">required</label>\n          </p>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"input-field col s12\">\n          <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-description\">Description</label>\n        </div>\n        <div class=\"input-field col s4 valign\"\n              ng-repeat=\"(optionTypeName, optionTypeValue) in paramModalControl.paramOptions\">\n          <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam[optionTypeName]\" >\n            <option value=\"\" selected>Parameter {{ optionTypeName | capitalize }}</option>\n            <option ng-repeat=\"type in optionTypeValue\"\n                    ng-if=\"(collection === 'multi' && (paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData')) || collection !== 'multi' \"\n                    ng-attr-value=\"{{ type }}\"\n                    ng-attr-id=\"{{ type }}\">{{ type }}</option>\n          </select>\n        </div>\n        <div class=\"input-field col s12 valign\" >\n          <div ng-if=\"paramModalControl.tempParam.type === 'array'\">\n            <textarea id=\"param-items\" ng-model=\"paramModalControl.tempParam.items\" class=\"materialize-textarea\" required=\"\" aria-required=\"true\"></textarea>\n            <label for=\"param-items\">Items</label>\n          </div>\n        </div>\n        <div  class=\"input-field col s12 l6\">\n          <textarea id=\"param-extra\" ng-model=\"paramModalControl.tempParam.extra\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-extra\">Extra values</label>\n        </div>\n      </div>\n      <div  ng-if=\"paramModalControl.tempParam.inLocation === 'body'\" class=\"row\">\n        <!-- <div class=\"input-field col s12 l6\">\n          <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-description\">Description</label>\n        </div>\n        <div class=\"input-field col s12 l6\">\n          <textarea id=\"param-schema\" ng-model=\"paramModalControl.tempParam.schema\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-schema\">Schema</label>\n        </div> -->\n        <div>\n          <h4>Schema</h4>\n        </div>\n        <sg-schema-editor sg-schema-object=\"paramModalControl.tempParam.schema\" sg-restrict-type-to-object=\"false\"></sg-schema-editor>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Parameter\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Parameter\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
-/* 85 */
+/* 75 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	var ParameterEditorController = ["$scope", "PathService", "ParameterModalService", ParameterModalCtrl];
+	var ParameterEditorController = ["$scope", "$log", "PathService", "ParameterModalService", ParameterModalCtrl];
 	
 	exports.default = ParameterEditorController;
 	
-	function ParameterModalCtrl($scope, swaggerPaths, pms) {
+	function ParameterModalCtrl($scope, $log, swaggerPaths, pms) {
 	
-	  this.tempParam = {};
-	  //this.currentParam = {};
+	    this.tempParam = {};
+	    //this.currentParam = {};
 	
-	  var originalParamContext = {
-	    operation: null,
-	    parameter: null
-	  };
+	    var originalParamContext = {
+	        operation: null,
+	        parameter: null
+	    };
 	
-	  this.paramOptions = {
-	    format: ['int32', 'int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'],
-	    type: ['string', 'number', 'integer', 'boolean', 'array', 'file'],
-	    collectionFormat: ['csv', 'ssv', 'tsv', 'pipes', 'multi']
-	  };
+	    this.paramOptions = {
+	        format: ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password"],
+	        type: ["string", "number", "integer", "boolean", "array", "file"],
+	        collectionFormat: ["csv", "ssv", "tsv", "pipes", "multi"]
+	    };
 	
-	  $scope.$watch(function () {
-	    return pms.parameterContext;
-	  }, onModalInit.bind(this), true);
+	    $scope.$watch(function () {
+	        return pms.parameterContext;
+	    }, onModalInit.bind(this), true);
 	
-	  function onModalInit(newVal, oldVal) {
+	    function onModalInit(newVal) {
 	
-	    if (newVal.parameter) {
-	      // this.currentParam = pms.currentParameter;
-	      //
-	      // var currentParam = newVal;
-	      // originalParamData.pathName = currentParam.pathName;
-	      // originalParamData.operation = currentParam.operation;
-	      // originalParamData.parameter = currentParam.parameter;
-	      //
-	      // this.tempParam = angular.copy(currentParam.parameter);
-	      // this.tempParam.Operation = currentParameter.Operation;
-	      //
-	      // if(this.tempParam.schema){
-	      //   this.tempParam.schema = JSON.stringify(this.tempParam.schema);
-	      // }
+	        if (newVal.parameter) {
+	            // this.currentParam = pms.currentParameter;
+	            //
+	            // var currentParam = newVal;
+	            // originalParamData.pathName = currentParam.pathName;
+	            // originalParamData.operation = currentParam.operation;
+	            // originalParamData.parameter = currentParam.parameter;
+	            //
+	            // this.tempParam = angular.copy(currentParam.parameter);
+	            // this.tempParam.Operation = currentParameter.Operation;
+	            //
+	            // if(this.tempParam.schema){
+	            //   this.tempParam.schema = JSON.stringify(this.tempParam.schema);
+	            // }
 	
-	      //debugger;
-	      originalParamContext = pms.parameterContext;
+	            //debugger;
+	            originalParamContext = pms.parameterContext;
 	
-	      this.tempParam = angular.copy(originalParamContext.parameter);
+	            this.tempParam = angular.copy(originalParamContext.parameter);
+	        }
 	    }
-	  }
 	
-	  this.updateParameter = function () {
-	    try {
+	    this.updateParameter = function () {
+	        try {
+	            //debugger;
+	            originalParamContext.operation.updateParameter(originalParamContext.parameter, this.tempParam);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast("Parameter name/query combo' already exists", 3000);
+	        }
+	    };
 	
-	      debugger;
-	      originalParamContext.operation.updateParameter(originalParamContext.parameter, this.tempParam);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast("Parameter name/query combo' already exists", 3000);
-	    }
-	  };
-	
-	  this.setParamInModal = function (inLocation) {
-	    console.log("setting param modal");
-	    if (inLocation === 'path') {
-	      this.tempParam.required = true;
-	      console.log(this.tempParam);
-	    }
-	  };
+	    this.setParamInModal = function (inLocation) {
+	        //$log.log("setting param modal");
+	        if (inLocation === "path") {
+	            this.tempParam.required = true;
+	            $log.log(this.tempParam);
+	        }
+	    };
 	}
 
 /***/ },
-/* 86 */
+/* 76 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.default = ParameterModalService;
 	
 	function ParameterModalService() {
 	
-	  this.parameterContext = {
-	    operation: null,
-	    parameter: null
-	  };
+	    this.parameterContext = {
+	        operation: null,
+	        parameter: null
+	    };
 	
-	  this.initParameter = function (operation, parameter) {
-	    this.parameterContext.operation = operation;
-	    this.parameterContext.parameter = parameter;
-	  };
+	    this.initParameter = function (operation, parameter) {
+	        this.parameterContext.operation = operation;
+	        this.parameterContext.parameter = parameter;
+	    };
 	
-	  return this;
+	    return this;
 	}
 
 /***/ },
-/* 87 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                                value: true
+		value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _responseEditor = __webpack_require__(88);
+	var _responseEditor = __webpack_require__(78);
 	
 	var _responseEditor2 = _interopRequireDefault(_responseEditor);
 	
-	var _responseEditor3 = __webpack_require__(91);
+	var _responseEditor3 = __webpack_require__(81);
 	
 	var _responseEditor4 = _interopRequireDefault(_responseEditor3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ResponseEditorModule = _angular2.default.module('ResponseEditorModule', []).directive('sgResponseEditorModal', _responseEditor2.default).factory('ResponseModalService', _responseEditor4.default);
+	var ResponseEditorModule = _angular2.default.module("ResponseEditorModule", []).directive("sgResponseEditorModal", _responseEditor2.default).factory("ResponseModalService", _responseEditor4.default);
 	
 	exports.default = ResponseEditorModule;
 
 /***/ },
-/* 88 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _responseEditor = __webpack_require__(89);
+	var _responseEditor = __webpack_require__(79);
 	
 	var _responseEditor2 = _interopRequireDefault(_responseEditor);
 	
-	var _responseEditor3 = __webpack_require__(90);
+	var _responseEditor3 = __webpack_require__(80);
 	
 	var _responseEditor4 = _interopRequireDefault(_responseEditor3);
 	
@@ -33333,152 +32694,151 @@
 	exports.default = ResponseEditorComponent;
 	
 	function ResponseEditorComponent() {
-	  return {
-	    restrict: 'E',
-	    template: _responseEditor2.default,
-	    controller: _responseEditor4.default,
-	    controllerAs: 'rmControl'
-	  };
+	    return {
+	        restrict: "E",
+	        template: _responseEditor2.default,
+	        controller: _responseEditor4.default,
+	        controllerAs: "rmControl"
+	    };
 	}
 
 /***/ },
-/* 89 */
+/* 79 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"response-modal\" class=\"modal blue-grey darken-1 modal-fixed-footer\">\n  <form ng-submit=\"rmControl.updateResponse(rmControl.tempResponse)\">\n    <div class=\"modal-content white-text\">\n      {{rmControl.tempResponse}}\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Response Options</h4>\n        </div>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <input id=\"response-modal-name\" ng-model=\"rmControl.tempResponse.httpCode\" type=\"text\" required=\"\" aria-required=\"true\"/>\n        <label for=\"response-modal-name\">Response Name</label>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <textarea id=\"response-modal-description\" ng-model=\"rmControl.tempResponse.response.description\" class=\"materialize-textarea\"></textarea>\n        <label for=\"response-modal-description\">Description</label>\n      </div>\n      <div class=\"row valign-wrapper\">\n        TODO ADD HEADERS AND EXAMPLES TEXT AREAS\n        <!-- <div class=\"input-field col s12 valign\"\n          ng-repeat=\"(key, value) in rmControl.tempResponse.response\"\n          ng-if=\"key !== 'description'\">\n          <textarea ng-attr-id=\"response-modal-{{key}}\" ng-model=\"rmControl.tempResponse.response[key]\" class=\"materialize-textarea\"></textarea>\n          <label ng-attr-for=\"response-modal-{{key}}\">{{ key | capitalize}}</label>\n        </div> -->\n      </div>\n      <div class=\"section\">\n        <div>\n          <h5>Schema</h5>\n        </div>\n        <sg-schema-editor sg-schema-object=\"rmControl.tempResponse.response.schema\" sg-restrict-type-to-object=\"false\"></sg-schema-editor>\n      </div>\n    </div>\n    <div class=\"modal-footer blue-grey darken-1 \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Response\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Response\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
 
 /***/ },
-/* 90 */
+/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	var ResponseEditorController = ["ResponseModalService", "PathService", "$scope", ResponseModalCtrl];
+	var ResponseEditorController = ["ResponseModalService", "PathService", "$scope", "$log", ResponseModalCtrl];
 	
 	exports.default = ResponseEditorController;
 	
-	function ResponseModalCtrl(rms, PathService, $scope) {
+	function ResponseModalCtrl(rms, PathService, $scope, $log) {
 	
-	  this.tempResponse = {
-	    httpCode: null,
-	    response: null
-	  };
+	    this.tempResponse = {
+	        httpCode: null,
+	        response: null
+	    };
 	
-	  var originalResponse = {
-	    responses: null,
-	    httpCode: null
-	  };
+	    var originalResponse = {
+	        responses: null,
+	        httpCode: null
+	    };
 	
-	  $scope.$watch(function () {
-	    return rms.responseContext;
-	  }, onModalInit.bind(this), true);
+	    $scope.$watch(function () {
+	        return rms.responseContext;
+	    }, onModalInit.bind(this), true);
 	
-	  function onModalInit(newVal) {
+	    function onModalInit(newVal) {
 	
-	    if (newVal.responses) {
-	
-	      debugger;
-	      originalResponse = newVal;
-	      this.tempResponse.httpCode = newVal.httpCode;
-	      this.tempResponse.response = angular.copy(newVal.responses.getResponse(newVal.httpCode));
+	        if (newVal.responses) {
+	            // debugger;
+	            originalResponse = newVal;
+	            this.tempResponse.httpCode = newVal.httpCode;
+	            this.tempResponse.response = angular.copy(newVal.responses.getResponse(newVal.httpCode));
+	        }
 	    }
-	  }
 	
-	  this.updateResponse = function (newResponse) {
-	    try {
-	      //swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
-	      PathService.updateResponse(originalResponse, newResponse);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast("Parameter name/query combo' already exists", 3000);
-	    }
-	  };
+	    this.updateResponse = function (newResponse) {
+	        try {
+	            // swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
+	            PathService.updateResponse(originalResponse, newResponse);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast("Parameter name/query combo' already exists", 3000);
+	        }
+	    };
 	
-	  // this.setResponseInModal = function(inLocation){
-	  //   console.log("setting response modal");
-	  //   if(inLocation === 'path'){
-	  //     this.tempResponse.required = true;
-	  //     console.log(this.tempResponse);
-	  //   }
-	  //
-	  // }
+	    // this.setResponseInModal = function(inLocation){
+	    //   console.log("setting response modal");
+	    //   if(inLocation === 'path'){
+	    //     this.tempResponse.required = true;
+	    //     console.log(this.tempResponse);
+	    //   }
+	    //
+	    // }
 	}
 
 /***/ },
-/* 91 */
+/* 81 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.default = ResponseModalService;
 	
 	function ResponseModalService() {
 	
-	  this.responseContext = {
-	    responses: null,
-	    httpCode: null
-	  };
+	    this.responseContext = {
+	        responses: null,
+	        httpCode: null
+	    };
 	
-	  this.responseToUpdate = function initilizer(httpCode, responses) {
-	    debugger;
-	    this.responseContext.httpCode = httpCode;
-	    this.responseContext.responses = responses;
-	  };
+	    this.responseToUpdate = function initilizer(httpCode, responses) {
+	        // debugger;
+	        this.responseContext.httpCode = httpCode;
+	        this.responseContext.responses = responses;
+	    };
 	
-	  this.getCurrentParameter = function () {
-	    return this.currentResponse;
-	  };
+	    this.getCurrentParameter = function () {
+	        return this.currentResponse;
+	    };
 	
-	  return this;
+	    return this;
 	}
 
 /***/ },
-/* 92 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                        value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _info = __webpack_require__(93);
+	var _info = __webpack_require__(83);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	'use strict';
+	"use strict";
 	
-	var infoModule = _angular2.default.module("infoModule", []).directive('sgInfo', _info2.default);
+	var infoModule = _angular2.default.module("infoModule", []).directive("sgInfo", _info2.default);
 	
 	exports.default = infoModule;
 
 /***/ },
-/* 93 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _info = __webpack_require__(94);
+	var _info = __webpack_require__(84);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
-	var _info3 = __webpack_require__(95);
+	var _info3 = __webpack_require__(85);
 	
 	var _info4 = _interopRequireDefault(_info3);
 	
@@ -33487,137 +32847,137 @@
 	// angular 1.5 syntax for .component();
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
 	function infoComponent() {
-	  return {
-	    template: _info2.default,
-	    restrict: 'E',
-	    //    replace: true,
-	    controller: _info4.default,
-	    controllerAs: 'basicInfo'
-	  };
+	    return {
+	        template: _info2.default,
+	        restrict: "E",
+	        // replace: true,
+	        controller: _info4.default,
+	        controllerAs: "basicInfo"
+	    };
 	}
 	
 	exports.default = infoComponent;
 
 /***/ },
-/* 94 */
+/* 84 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"section\" ng-cloak>\n  <div class=\"row\">\n    <form name=\"infoForm\" novalidate ng-submit=\"infoForm.$valid\">\n      <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n        <div class=\"card \">\n          <md-toolbar style=\"background-color:#3F1C3E;\">\n            <div class=\"md-toolbar-tools\">\n              <h2>\n                <span>{{ basicInfo.sgBase.info.title + ' API'}}</span>\n              </h2>\n\n            </div>\n          </md-toolbar>\n          <div class=\"card-content\">\n            <div class=\"section\">\n              <div class=\"section\">\n                <p>Start building your Swagger definition by describing some basic info. Watch out some\n                  fields are required to enter, but don't worry we will prompt you if anything is missing.\n                </p>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Info</span>\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <div class=\"row\">\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"title\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.title\"\n                          name=\"apiName\"\n                          required=\"\" >\n                        <label for=\"title\">Title</label>\n                        <div class=\"error\" ng-show=\"infoForm.apiName.$dirty && infoForm.apiName.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.apiName.$error.required\">\n                            The API name is required.\n                          </small>\n                        </div>\n                      </div>\n                      <!-- <div>\n                        <md-button>\n                          <label for=\"file-input\">Select</label>\n                        </md-button>\n                        <input style=\"display:none;\" id=\"file-input\" type=\"file\">\n                      </div> -->\n                      <div class=\"input-field col s12 m6\">\n                        <input id=\"version\" type=\"text\"\n                          ng-model=\"basicInfo.sgBase.info.version\"\n                          ng-pattern=\"/^([v]?)([0-9]+)((\\.([0-9]+))*)?$/\"\n                          name=\"version\"\n                          required=\"\" >\n                        <label for=\"version\">Version</label>\n                        <div class=\"error\" ng-show=\"infoForm.version.$dirty && infoForm.version.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.required\">\n                            The version is required.\n                          </small>\n                          <small class=\"error\" ng-show=\"infoForm.version.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <sg-textarea class=\"input-field col s12\" sg-unique-input sg-label=\"Description\" ng-model=\"basicInfo.sgBase.info.description\"></sg-textarea>\n                    </div>\n                    <div class=\"row\">\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Host\"  ng-model=\"basicInfo.sgBase.host\"></sg-text-input>\n                      <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"BasePath\" ng-model=\"basicInfo.sgBase.basePath\">\n                        <div class=\"error\" ng-show=\"infoForm.BasePath.$dirty && infoForm.BasePath.$invalid\">\n                          <small class=\"error\" ng-show=\"infoForm.BasePath.$error.pattern\">\n                            Allowed format \"v1\", \"v1.0\", \"v1.0.0\", \"1\", \"1.0.0\"\n                          </small>\n                        </div>\n                     </sg-text-input>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"col s12 m6\">\n                <span class=\"card-title\">Contact</span>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.contact.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.contact.url\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m4\" unique-input sg-label=\"Email\" ng-model=\"basicInfo.sgBase.info.contact.email\"> </sg-text-input>\n                </div>\n                <span class=\"card-title\">License</span>\n                <div class=\"row\">\n                  <sg-text-input ng-if=\"basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.license.name\" required=\"true\"> </sg-text-input>\n                  <sg-text-input ng-if=\"!basicInfo.sgBase.info.license.url\" class=\"input-field col s12 m6\" unique-input sg-label=\"Name\" ng-model=\"basicInfo.sgBase.info.license.name\"> </sg-text-input>\n                  <sg-text-input class=\"input-field col s12 m6\" unique-input sg-label=\"Url\" ng-model=\"basicInfo.sgBase.info.license.url\"> </sg-text-input>\n                </div>\n                <div class=\"row\">\n                  <sg-text-input class=\"input-field col s12 \" unique-input sg-label=\"Terms Of Service\" ng-model=\"basicInfo.sgBase.info.termsOfService\"> </sg-text-input>\n                </div>\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col s12\">\n                <span class=\"card-title\">Types</span>\n                <div style=\"display:flex; flex-direction:column; justify-content:space-between;\" >\n                  <div style=\"display:flex; flex-direction:row;\" >\n                    <sg-dropdown sg-label=\"Produces\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button  class=\"btn-flat waves-effect waves-white white valign\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <button class=\"btn-flat waves-effect waves-white white \" ng-click=\"basicInfo.removeType('produces', basicInfo.produce);\">\n                      <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div ng-if=\"basicInfo.sgBase.produces.length > 0;\" style=\"display:flex; flex-direction:row;\">\n                    <div style=\"display:flex; flex-direction:column; justify-content:flex-start\" >\n                      <div ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <span> {{ '\\t\\t - ' + produce}} </span>\n                      </div>\n                    </div>\n                  </div>\n                  <!-- <div ng-if=\"basicInfo.sgBase.produces.length > 0;\" style=\"display:flex; flex-direction:row; justify-content:space-around;\">\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"valign\"> {{produce}} </div>\n                      </li>\n                    </ul>\n                  </div> -->\n                  <div style=\"display:flex; flex-direction:row;\">\n                    <sg-dropdown sg-label=\"Consumes\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-white white\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">add</i>\n                    </button>\n                    <button class=\"btn-flat waves-effect waves-white white \" ng-click=\"basicInfo.removeType('consumes', basicInfo.consume);\">\n                      <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div ng-if=\"basicInfo.sgBase.consumes.length > 0;\" style=\"display:flex; flex-direction:row;\">\n                    <div style=\"display:flex; flex-direction:column; justify-content:flex-start\" >\n                      <div ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <span> {{ '\\t\\t - ' + consume}} </span>\n                      </div>\n                    </div>\n                  </div>\n                  <!-- <div ng-if=\"basicInfo.sgBase.consumes.length > 0;\" style=\"display:flex; flex-direction:row; \">\n                    <ul class=\"\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"valign\"> {{consume}} </div>\n                      </li>\n                    </ul>\n                  </div> -->\n                  <div style=\"display:flex; flex-direction:row;\">\n                    <sg-dropdown sg-label=\"Schemes\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                    <button class=\"btn-flat waves-effect waves-white white\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\" >add</i>\n                    </button>\n                    <button class=\"btn-flat waves-effect waves-white white \" ng-click=\"basicInfo.removeType('schemes', basicInfo.scheme);\">\n                      <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div ng-if=\"basicInfo.sgBase.schemes.length > 0;\" style=\"display:flex; flex-direction:row;\">\n                    <div style=\"display:flex; flex-direction:column; justify-content:flex-start\" >\n                      <div ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <span> {{ '\\t\\t - ' + scheme}} </span>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                  <!-- <div class=\"input-field col s12 m4 l4 \">\n                    <div class=\"valign-wrapper\">\n                      <button class=\"btn-flat waves-effect waves-white white col s2\" ng-click=\"basicInfo.addType('produces', basicInfo.produce);\">\n                        <i class=\"material-icons\">add</i>\n                      </button>\n                      <sg-dropdown class=\"col s10\" sg-label=\"Produces\" ng-model=\"basicInfo.produce\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n                    </div>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"produce in basicInfo.sgBase.produces\">\n                        <div class=\"col m10 valign\"> {{produce}} </div>\n                        <button class=\"btn-flat waves-effect waves-white  col m2 valign\" ng-click=\"basicInfo.removeType('produces', produce);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div flex class=\"input-field col s12 m4 l4\">\n                    <div class=\"col  s12\">Consumes: </div>\n                    <div class=\"valign-wrapper\">\n                      <button class=\"btn-flat waves-effect waves-white valign col m2\" ng-click=\"basicInfo.addType('consumes', basicInfo.consume);\">\n                        <i class=\"material-icons\">add</i>\n                      </button>\n                      <sg-dropdown class=\" browser-default col s10 valign\" sg-label=\"Consumes\" ng-model=\"basicInfo.consume\" sg-choices=\"basicInfo.types.mime\"></sg-dropdown>\n\n                    </div>\n                    <ul class=\"row\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"consume in basicInfo.sgBase.consumes\">\n                        <div class=\"col m10 valign \">\n                          <p class=\"shrink\">{{consume}}</p>\n                        </div>\n                        <button class=\"btn-flat waves-effect waves-white  col m2 valign\" ng-click=\"basicInfo.removeType('consumes', consume);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div>\n                  <div class=\"input-field col s12 m4 l4\">\n                    <div layout=\"row\" class=\"valign-wrapper\">\n                      <sg-dropdown class=\"col s10 valign\" sg-label=\"Schemes\" ng-model=\"basicInfo.scheme\" sg-choices=\"basicInfo.types.scheme\"></sg-dropdown>\n                      <button class=\"btn-flat waves-effect waves-white valign col m2 \" type=\"submit\" name=\"action\" ng-click=\"basicInfo.addType('schemes', basicInfo.scheme);\">\n                        <i class=\"material-icons\" >add</i>\n                      </button>\n                    </div>\n                    <ul class=\"col s12\">\n                      <li class=\"valign-wrapper\" ng-repeat=\"scheme in basicInfo.sgBase.schemes\">\n                        <div class=\"col s10 valign\">\n                          <p>{{scheme}}</p>\n                         </div>\n                        <button class=\"btn-flat waves-white col s2 valign\" type=\"submit\" name=\"action\" ng-click=\"basicInfo.removeType('schemes', scheme);\">\n                          <i class=\"material-icons\">delete</i>\n                        </button>\n                      </li>\n                    </ul>\n                  </div> -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n    </form>\n  </div>\n</div>\n"
 
 /***/ },
-/* 95 */
+/* 85 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	var infoCtrl = ['InfoService', BaseInfoCtrl];
+	var infoCtrl = ["$log", "InfoService", BaseInfoCtrl];
 	
 	exports.default = infoCtrl;
 	
-	function BaseInfoCtrl(InfoService) {
+	function BaseInfoCtrl($log, InfoService) {
 	
-	  /**
-	    * @name InfoService
-	    * @desc A singleton module to hold Base definition state and manipulate it's info.
-	    * @type {Function}
-	   **/
-	  this.sgBase = InfoService.getBaseInfo();
+	    /**
+	      * @name InfoService
+	      * @desc A singleton module to hold Base definition state and manipulate it"s info.
+	      * @type {Function}
+	     **/
+	    this.sgBase = InfoService.getBaseInfo();
 	
-	  // $scope.$watch(InfoService.getBaseInfo, function(newVal) {
-	  //   if(newVal){
-	  //     debugger;
-	  //     console.log(newVal);
-	  //     this.sgBase = InfoService.getBaseInfo();
-	  //   }
-	  // }, true)
+	    // $scope.$watch(InfoService.getBaseInfo, function(newVal) {
+	    //   if(newVal){
+	    //     debugger;
+	    //     console.log(newVal);
+	    //     this.sgBase = InfoService.getBaseInfo();
+	    //   }
+	    // }, true)
 	
-	  /**
-	    * @name types
-	    * @desc holds arrays that define lists. These lists are the types allowed for the key.
-	    * @type {Obejct}
-	   **/
-	  this.types = {
-	    scheme: ['http', 'https', 'ws', 'wws'],
-	    mime: ['text/plain; charset=utf-8', 'application/json', 'application/vnd.github+json', 'application/vnd.github.v3+json', 'application/vnd.github.v3.raw+json', 'application/vnd.github.v3.text+json', 'application/vnd.github.v3.html+json', 'application/vnd.github.v3.full+json', 'application/vnd.github.v3.diff', 'application/vnd.github.v3.patch']
-	  };
+	    /**
+	      * @name types
+	      * @desc holds arrays that define lists. These lists are the types allowed for the key.
+	      * @type {Obejct}
+	     **/
+	    this.types = {
+	        scheme: ["http", "https", "ws", "wws"],
+	        mime: ["text/plain; charset=utf-8", "application/json", "application/vnd.github+json", "application/vnd.github.v3+json", "application/vnd.github.v3.raw+json", "application/vnd.github.v3.text+json", "application/vnd.github.v3.html+json", "application/vnd.github.v3.full+json", "application/vnd.github.v3.diff", "application/vnd.github.v3.patch"]
+	    };
 	
-	  /**
-	    * @name addType
-	    * @desc invokes a call to the InfoService service to handle the logic of adding types.
-	    * @type {Function}
-	   **/
-	  this.addType = function addEvent(list, type) {
-	    try {
-	      InfoService.addType(list, type);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast(e, 3000);
-	    }
-	  };
+	    /**
+	      * @name addType
+	      * @desc invokes a call to the InfoService service to handle the logic of adding types.
+	      * @type {Function}
+	     **/
+	    this.addType = function addEvent(list, type) {
+	        try {
+	            InfoService.addType(list, type);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast(e, 3000);
+	        }
+	    };
 	
-	  /**
-	    * @name removeType
-	    * @desc invokes a call to the InfoService service to handle the logic of removing types.
-	    * @type {Function}
-	   **/
-	  this.removeType = function removeEvent(list, type) {
-	    try {
-	      InfoService.removeType(list, type);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast(e, 3000);
-	    }
-	  };
+	    /**
+	      * @name removeType
+	      * @desc invokes a call to the InfoService service to handle the logic of removing types.
+	      * @type {Function}
+	     **/
+	    this.removeType = function removeEvent(list, type) {
+	        try {
+	            InfoService.removeType(list, type);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast(e, 3000);
+	        }
+	    };
 	}
 
 /***/ },
-/* 96 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                        value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _paths = __webpack_require__(97);
+	var _paths = __webpack_require__(87);
 	
 	var _paths2 = _interopRequireDefault(_paths);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	'use strict';
+	"use strict";
 	
-	var pathModule = _angular2.default.module("pathModule", []).directive('sgPath', _paths2.default);
+	var pathModule = _angular2.default.module("pathModule", []).directive("sgPath", _paths2.default);
 	
 	exports.default = pathModule;
 
 /***/ },
-/* 97 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _paths = __webpack_require__(98);
+	var _paths = __webpack_require__(88);
 	
 	var _paths2 = _interopRequireDefault(_paths);
 	
-	var _paths3 = __webpack_require__(99);
+	var _paths3 = __webpack_require__(89);
 	
 	var _paths4 = _interopRequireDefault(_paths3);
 	
@@ -33628,172 +32988,162 @@
 	// angular 1.5 syntax for .component();
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
 	function pathComponent() {
-	  return {
-	    template: _paths2.default,
-	    restrict: 'E',
-	    //    replace: true,
-	    controller: _paths4.default,
-	    controllerAs: 'pathCtl'
-	  };
+	    return {
+	        template: _paths2.default,
+	        restrict: "E",
+	        // replace: true,
+	        controller: _paths4.default,
+	        controllerAs: "pathCtl"
+	    };
 	}
 
 /***/ },
-/* 98 */
+/* 88 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"section\" ng-cloak>\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      {{pathCtl.paths}}\n      <div class=\"card \">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Paths</span>\n            </h2>\n            <div style=\"padding-top:6%\" class=\"right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n              <!-- <md-button class=\"md-fab md-primary purple accent-4\" ng-click=\"showConfirm($event)\"  flex=\"100\"  flex-gt-md=\"auto\">\n                <i class=\"material-icons\">add</i>\n              </md-button> -->\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div>\n              <div style=\"display:flex; flex-direction:row; justify-content:flex-start;\">\n                <div>Operations:</div>\n                <a ng-repeat=\"operation in pathCtl.operations | orderBy:operation\"\n                    style=\"margin-left:2%;\"\n                     ng-hide=\"pathCtl.hasOperation(pathName, operation)\"\n\n                  sg-operation-colorer=\"{{operation}}\"\n                  class=\"waves-effect waves-light btn white-text\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                {{operation | uppercase}}\n                </a>\n              </div>\n            </div>\n            <div class=\"\" layout=\"column\">\n              <ul class=\"collapsible popout\" data-collapsible=\"accordion\" watch>\n                  <!-- <li class=\"\" sg-operation sg-operation-name=\"{{operation}}\" sg-operation-object=\"value\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\">\n                  </li> -->\n                  <sg-operation sg-operation-name=\"{{operation}}\"\n                                sg-operation-object=\"value\"\n                                ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\">\n                    <div style=\"display:flex; flex-direction:row-reverse;\">\n\n                    </div>\n                  </sg-operation>\n                </ul>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
+	module.exports = "<div class=\"section\" ng-cloak>\n  <sg-path-creator-modal></sg-path-creator-modal>\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      {{pathCtl.paths}}\n      <div class=\"card \">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Paths</span>\n            </h2>\n            <div style=\"padding-top:6%\" class=\"right-align\">\n              <a ng-click=\"openFocusPathModal()\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                href=\"#path-creation-modal\"\n                modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n              <!-- <md-button class=\"md-fab md-primary purple accent-4\" ng-click=\"showConfirm($event)\"  flex=\"100\"  flex-gt-md=\"auto\">\n                <i class=\"material-icons\">add</i>\n              </md-button> -->\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div>\n              <div style=\"display:flex; flex-direction:row; justify-content:flex-start;\">\n                <div>Operations:</div>\n                <!-- <a ng-repeat=\"operation in pathCtl.operations | orderBy:operation\"\n                    style=\"margin-left:2%;\"\n                    ng-hide=\"pathCtl.hasOperation(pathName, operation)\"\n                    sg-operation-colorer=\"{{operation}}\"\n                    class=\"waves-effect waves-light btn white-text\" ng-click=\"pathCtl.addOperation(pathName, operation)\">\n                    {{operation | uppercase}}\n                </a> -->\n                <a \n                    style=\"margin-left:2%;\"\n                    ng-hide=\"pathCtl.paths[pathName].hasOwnProperty('get')\"\n                    sg-operation-colorer=\"get\"\n                    class=\"waves-effect waves-light btn white-text\" ng-click=\"pathCtl.addOperation(pathName, 'get')\">\n                    {{'get' | uppercase}}\n                </a>\n                <a \n                    style=\"margin-left:2%;\"\n                    ng-hide=\"pathCtl.paths[pathName].hasOwnProperty('post')\"\n                    sg-operation-colorer=\"post\"\n                    class=\"waves-effect waves-light btn white-text\" ng-click=\"pathCtl.addOperation(pathName, 'post')\">\n                    {{'post' | uppercase}}\n                </a>\n                <a \n                    style=\"margin-left:2%;\"\n                    ng-hide=\"pathCtl.paths[pathName].hasOwnProperty('put')\"\n                    sg-operation-colorer=\"put\"\n                    class=\"waves-effect waves-light btn white-text\" ng-click=\"pathCtl.addOperation(pathName, 'put')\">\n                    {{'put' | uppercase}}\n                </a>\n                <a \n                    style=\"margin-left:2%;\"\n                    ng-hide=\"pathCtl.paths[pathName].hasOwnProperty('delete')\"\n                    sg-operation-colorer=\"delete\"\n                    class=\"waves-effect waves-light btn white-text\" ng-click=\"pathCtl.addOperation(pathName, 'delete')\">\n                    {{'delete' | uppercase}}\n                </a>\n              </div>\n            </div>\n            <div class=\"\" layout=\"column\">\n              <ul class=\"collapsible popout\" data-collapsible=\"accordion\" watch>\n                  <!-- <li class=\"\" sg-operation sg-operation-name=\"{{operation}}\" sg-operation-object=\"value\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\">\n                  </li> -->\n                  <sg-operation sg-operation-name=\"{{operation}}\"\n                                sg-operation-object=\"value\"\n                                ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\">\n                    <div style=\"display:flex; flex-direction:row-reverse;\">\n\n                    </div>\n                  </sg-operation>\n                </ul>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
 
 /***/ },
-/* 99 */
-/***/ function(module, exports, __webpack_require__) {
+/* 89 */
+/***/ function(module, exports) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	//import main from './main.js';
 	
 	"use strict";
 	
-	var PathController = ['$scope', 'PathService', '$window', PathCtrl];
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var PathController = ["$scope", "$log", "PathService", "$window", PathCtrl];
 	
 	exports.default = PathController;
 	
-	function PathCtrl($scope, swaggerPaths, $window) {
-	  //$scope.thisObject = this;
+	function PathCtrl($scope, $log, swaggerPaths, $window) {
+	    //$scope.thisObject = this;
 	
-	  //used to test the services
-	  this.paths = swaggerPaths.paths;
+	    //used to test the services
+	    this.paths = swaggerPaths.paths;
 	
-	  this.prevent = {
-	    showPaths: false
-	  };
+	    this.prevent = {
+	        showPaths: false
+	    };
 	
-	  this.operations = ['get', 'post', 'put', 'delete'];
+	    this.operations = ["get", "post", "put", "delete"];
 	
-	  this.hasOperation = function (pathName, operation) {
-	    //debugger;
-	    return this.paths[pathName].hasOwnProperty(operation);
-	  };
+	    this.hasOperation = function (pathName, operation) {
+	        debugger;
+	        return this.paths[pathName].hasOwnProperty(operation);
+	    };
 	
-	  $scope.focusPathModal = false;
+	    $scope.focusPathModal = false;
 	
-	  $scope.openFocusPathModal = function () {
-	    $scope.focusPathModal = true;
-	    console.log("toggle focus: focusPathModal ==" + $scope.focusPathModal);
-	    //$scope.focusPathModal = !$scope.focusPathModal;
-	  };
+	    $scope.openFocusPathModal = function () {
+	        $scope.focusPathModal = true;
+	        $log.log("toggle focus: focusPathModal ==" + $scope.focusPathModal);
+	        //$scope.focusPathModal = !$scope.focusPathModal;
+	    };
 	
-	  this.updatePathName = function (originalPathName, newPathName) {
-	    try {
-	      swaggerPaths.updatePathName(originalPathName, newPathName);
-	      //delete the old pathName saved on the Object
-	      //delete this[originalPathName];
-	      this[newPathName] = "";
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast(e, 3000);
-	    }
-	  };
+	    this.updatePathName = function (originalPathName, newPathName) {
+	        try {
+	            swaggerPaths.updatePathName(originalPathName, newPathName);
+	            //delete the old pathName saved on the Object
+	            //delete this[originalPathName];
+	            this[newPathName] = "";
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast(e, 3000);
+	        }
+	    };
 	
-	  this.deletePath = function (pathName) {
-	    if ($window.confirm('Are you sure you want to delete the path?')) {
+	    this.deletePath = function (pathName) {
+	        if ($window.confirm("Are you sure you want to delete the path?")) {
 	
-	      try {
-	        swaggerPaths.removePath(pathName);
-	      } catch (e) {
-	        console.log(e);
-	        Materialize.toast(e, 3000);
-	      }
-	      //  swaggerPaths.deleteOperation(pathName, operation);
+	            try {
+	                swaggerPaths.removePath(pathName);
+	            } catch (e) {
+	                $log.log(e);
+	                Materialize.toast(e, 3000);
+	            }
+	            //  swaggerPaths.deleteOperation(pathName, operation);
 	
-	      //delete path.pathDefinition[pathName][operation];
-	    } else {
-	        //angular
-	        console.log('DONT DELETE');
-	        //path.currentPathOperations[operation] = !path.currentPathOperations[operation];
-	      }
-	  };
+	            //delete path.pathDefinition[pathName][operation];
+	        } else {
+	                //angular
+	                $log.log("DONT DELETE");
+	                //path.currentPathOperations[operation] = !path.currentPathOperations[operation];
+	            }
+	    };
 	
-	  /**---------  START Operation methods ---------**/
+	    /**---------  START Operation methods ---------**/
 	
-	  this.deleteOperation = function (pathName, operation) {
-	    //if the operation exists delete it
+	    this.deleteOperation = function (pathName, operation) {
+	        //if the operation exists delete it
 	
-	    if ($window.confirm('Are you sure you want to delete the ' + operation + ' operation?')) {
+	        if ($window.confirm("Are you sure you want to delete the " + operation + " operation?")) {
 	
-	      swaggerPaths.removeOperation(pathName, operation);
+	            swaggerPaths.removeOperation(pathName, operation);
 	
-	      //delete path.pathDefinition[pathName][operation];
-	    } else {
-	        console.log("dont delete operation");
-	      }
-	  };
+	            //delete path.pathDefinition[pathName][operation];
+	        } else {
+	                $log.log("dont delete operation");
+	            }
+	    };
 	
-	  this.addOperation = function (pathName, operation) {
-	    try {
-	      swaggerPaths.addOperation(pathName, operation);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast(e, 3000);
-	    }
-	  };
+	    this.addOperation = function (pathName, operation) {
+	        try {
+	            swaggerPaths.addOperation(pathName, operation);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast(e, 3000);
+	        }
+	    };
 	
-	  this.updateOperation = function (pathName, operation, key, value) {
-	    swaggerPaths.updateOperationInformation(pathName, operation, key, value);
-	    value = "";
-	    Materialize.toast("Updated " + key, 2000);
-	  };
+	    this.updateOperation = function (pathName, operation, key, value) {
+	        swaggerPaths.updateOperationInformation(pathName, operation, key, value);
+	        value = "";
+	        Materialize.toast("Updated " + key, 2000);
+	    };
 	}
 
 /***/ },
-/* 100 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	// import angular from 'angular';
+	"use strict";
+	// import angular from "angular";
 	
 	Object.defineProperty(exports, "__esModule", {
-	        value: true
+	    value: true
 	});
 	
-	var _operation = __webpack_require__(101);
+	var _operation = __webpack_require__(91);
 	
 	var _operation2 = _interopRequireDefault(_operation);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var OperationModule = angular.module('OperationModule', []).directive('sgOperation', _operation2.default);
+	var OperationModule = angular.module("OperationModule", []).directive("sgOperation", _operation2.default);
 	
 	exports.default = OperationModule;
 
 /***/ },
-/* 101 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _operation = __webpack_require__(102);
+	var _operation = __webpack_require__(92);
 	
 	var _operation2 = _interopRequireDefault(_operation);
 	
-	var _operation3 = __webpack_require__(103);
+	var _operation3 = __webpack_require__(93);
 	
 	var _operation4 = _interopRequireDefault(_operation3);
 	
@@ -33804,33 +33154,33 @@
 	// angular 1.5 syntax for .component();
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
 	function operationComponent() {
-	  return {
-	    template: _operation2.default,
-	    restrict: 'E',
-	    replace: true,
-	    scope: {},
-	    bindToController: {
-	      sgOperationObject: "=",
-	      sgOperationName: '@'
-	    },
-	    controller: _operation4.default,
-	    controllerAs: 'operationCtl',
-	    transclude: true
-	  };
+	    return {
+	        template: _operation2.default,
+	        restrict: "E",
+	        replace: true,
+	        scope: {},
+	        bindToController: {
+	            sgOperationObject: "=",
+	            sgOperationName: "@"
+	        },
+	        controller: _operation4.default,
+	        controllerAs: "operationCtl",
+	        transclude: true
+	    };
 	}
 
 /***/ },
-/* 102 */
+/* 92 */
 /***/ function(module, exports) {
 
 	module.exports = "<li>\n  <!-- <div sgOperationColorer=\"operationCtl.sgOperationName\" operationTitle=\"{{operationCtl.sgOperationName}}\" id=\"operation-header\" class=\"collapsible-header white-text\"> -->\n  <div sg-operation-colorer=\"{{operationCtl.sgOperationName}}\" class=\"collapsible-header white-text\">\n    <i class=\"material-icons\">filter_drama</i>{{ operationCtl.sgOperationName | uppercase }}\n  </div>\n  <div class=\"collapsible-body\" style=\"margin-left:2%; margin-right:2%;\">\n    <div class=\"\" style=\"display:flex; flex-direction:column;\">\n      <div sg-unique-input class=\"input-field\">\n        <input id=\"input\"\n          ng-attr-placeholder=\"operationCtl.sgOperationObject.summary\"\n          ng-model=\"operationCtl.sgOperationObject.summary\"\n          maxlength=\"150\" type=\"text\"/>\n        <label id=\"label\"  for=\"label\">Summary</label>\n      </div>\n      <div sg-unique-input class=\"input-field\">\n        <textarea id=\"input\"\n          ng-attr-placeholder=\"operationCtl.sgOperationObject.description\"\n          ng-model=\"operationCtl.sgOperationObject.description\"\n          class=\"materialize-textarea\"></textarea>\n        <label id=\"label\" for=\"label\">Description</label>\n      </div>\n    </div>\n    <sg-parameter sg-this-operation=\"{{operationCtl.sgOperationName}}\" sg-context=\"operationCtl.sgOperationObject\"></sg-parameter>\n    <sg-response sg-this-operation=\"{{operationCtl.sgOperationName}}\" sg-context=\"operationCtl.sgOperationObject.responses\"></sg-response>\n    <ng-transclude></ng-transclude>\n  </div>\n</li>\n"
 
 /***/ },
-/* 103 */
+/* 93 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -33838,53 +33188,53 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var OperationController = ['$scope', 'PathService', OperationCtrl];
+	var OperationController = [/*"$scope","PathService",*/OperationCtrl];
 	
 	exports.default = OperationController;
 	
-	function OperationCtrl($scope, PathService) {}
+	function OperationCtrl() /*$scope, PathService*/{}
 
 /***/ },
-/* 104 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                        value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _parameter = __webpack_require__(105);
+	var _parameter = __webpack_require__(95);
 	
 	var _parameter2 = _interopRequireDefault(_parameter);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	'use strict';
+	"use strict";
 	
-	var ParameterModule = _angular2.default.module("ParameterModule", []).directive('sgParameter', _parameter2.default);
+	var ParameterModule = _angular2.default.module("ParameterModule", []).directive("sgParameter", _parameter2.default);
 	
 	exports.default = ParameterModule;
 
 /***/ },
-/* 105 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _parameter = __webpack_require__(106);
+	var _parameter = __webpack_require__(96);
 	
 	var _parameter2 = _interopRequireDefault(_parameter);
 	
-	var _parameter3 = __webpack_require__(107);
+	var _parameter3 = __webpack_require__(97);
 	
 	var _parameter4 = _interopRequireDefault(_parameter3);
 	
@@ -33895,132 +33245,132 @@
 	// angular 1.5 syntax for .component();
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
 	function parameterComponent() {
-	  return {
-	    template: _parameter2.default,
-	    restrict: 'E',
-	    scope: {},
-	    bindToController: {
-	      sgContext: '=',
-	      sgThisOperation: '@'
-	    },
-	    //    replace: true,
-	    controller: _parameter4.default,
-	    controllerAs: 'paramControl'
-	  };
+	    return {
+	        template: _parameter2.default,
+	        restrict: "E",
+	        scope: {},
+	        bindToController: {
+	            sgContext: "=",
+	            sgThisOperation: "@"
+	        },
+	        // replace: true,
+	        controller: _parameter4.default,
+	        controllerAs: "paramControl"
+	    };
 	}
 
 /***/ },
-/* 106 */
+/* 96 */
 /***/ function(module, exports) {
 
 	module.exports = "<h5>Parameters</h5>\n<table ng-if=\"paramControl.sgContext.parameters.length > 0;\" class=\" section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"name\">Name</th>\n      <th data-field=\"in\">Located In</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"required\">Required</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"param in paramControl.sgContext.parameters | orderBy:'name'\">\n      <div >\n        <td class=\" shrink\">{{param.name}}</td>\n        <td class=\"\">{{param.inLocation}}</td>\n        <td class=\"shrink \">{{param.description}}</td>\n        <td class=\"\">{{param.required}}</td>\n        <td class=\"shrink\">{{param.schema}}</td>\n        <td class=\"\">\n          <a class=\"disabled\" href=\"#param-modal\" modal ng-click=\"paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addParameter\" novalidate ng-submit=\"addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation)\">\n  <div class=\"valign-wrapper\">\n    <div sg-unique-input class=\"input-field col s4 valign\">\n      <input id=\"input\" name=\"name\" ng-model=\"paramControl.newParamData[paramControl.sgThisOperation].name\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Parameter Name</label>\n    </div>\n    <div class=\"input-field col s4 valign\" >\n      <sg-dropdown sg-label=\"In Location\" ng-model=\"paramControl.newParamData[paramControl.sgThisOperation].inLocation\" sg-default-option=\"Choose Parameter Location\" sg-choices=\"paramControl.inLocationList\"></sg-dropdown>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\" ng-class=\"{ 'disabled': addParameter.name.$invalid }\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n  <div class=\"valign-wrapper\">\n    <div class=\"col s4 valign\">\n      <div  class=\"error\"\n            ng-show=\"addParameter.name.$dirty && addParameter.name.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addParameter.name.$error.required\">\n          Parameter name is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\"></div>\n    <div class=\"col s4\">\n    </div>\n  </div>\n</form>\n{{paramControl.paths}}\n"
 
 /***/ },
-/* 107 */
+/* 97 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	var ParameterController = ['$scope', 'PathService', "ParameterModalService", ParameterCtrl];
+	var ParameterController = ["$scope", "$log", "PathService", "ParameterModalService", ParameterCtrl];
 	
 	exports.default = ParameterController;
 	
-	function ParameterCtrl($scope, PathService, pms) {
+	function ParameterCtrl($scope, $log, PathService, pms) {
 	
-	  this.inLocationList = ["path", "query", "header", "body", "formData"];
+	    this.inLocationList = ["path", "query", "header", "body", "formData"];
 	
-	  this.pLength = null;
+	    this.pLength = null;
 	
-	  this.addParam = function (paramName, paramInLocation) {
+	    this.addParam = function (paramName, paramInLocation) {
 	
-	    try {
-	      PathService.addNewParam(this.sgContext, paramName, paramInLocation);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast("Parameter name/query combo' already exists", 3000);
-	    }
+	        try {
+	            PathService.addNewParam(this.sgContext, paramName, paramInLocation);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast("Parameter name/query combo' already exists", 3000);
+	        }
 	
-	    //reset input data
-	    $scope.addParameter.$setPristine();
-	    resetNewParamData.call(this, this.sgThisOperation);
+	        //reset input data
+	        $scope.addParameter.$setPristine();
+	        resetNewParamData.call(this, this.sgThisOperation);
 	
-	    this.pLength = this.sgContext.parameters.length;
-	  };
-	
-	  this.editParamData = function (pathName, operation, paramName, paramInLocation, index) {
-	
-	    var param = this.sgContext.getParameter(paramName, paramInLocation);
-	
-	    //debugger;
-	    //pms.initParameter(this.sgContext, paramName, paramInLocation);
-	
-	    pms.initParameter(this.sgContext, param);
-	
-	    //pms.parameterToUpdate(pathName, operation, param);
-	  };
-	
-	  /**
-	    * @name resetNewParamData
-	    * @desc a helper function to reset the data of the intputs
-	    * @type {Function}
-	   **/
-	  function resetNewParamData(operation) {
-	    //debugger;
-	    this.newParamData[operation] = {
-	      name: null,
-	      inLocation: null
+	        this.pLength = this.sgContext.parameters.length;
 	    };
-	  }
+	
+	    this.editParamData = function (pathName, operation, paramName, paramInLocation) {
+	
+	        var param = this.sgContext.getParameter(paramName, paramInLocation);
+	
+	        //debugger;
+	        //pms.initParameter(this.sgContext, paramName, paramInLocation);
+	
+	        pms.initParameter(this.sgContext, param);
+	
+	        //pms.parameterToUpdate(pathName, operation, param);
+	    };
+	
+	    /**
+	      * @name resetNewParamData
+	      * @desc a helper function to reset the data of the intputs
+	      * @type {Function}
+	     **/
+	    function resetNewParamData(operation) {
+	        //debugger;
+	        this.newParamData[operation] = {
+	            name: null,
+	            inLocation: null
+	        };
+	    }
 	}
 
 /***/ },
-/* 108 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                        value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _response = __webpack_require__(109);
+	var _response = __webpack_require__(99);
 	
 	var _response2 = _interopRequireDefault(_response);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	'use strict';
+	"use strict";
 	
-	var ResponseModule = _angular2.default.module("ResponseModule", []).directive('sgResponse', _response2.default);
+	var ResponseModule = _angular2.default.module("ResponseModule", []).directive("sgResponse", _response2.default);
 	
 	exports.default = ResponseModule;
 
 /***/ },
-/* 109 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _response = __webpack_require__(110);
+	var _response = __webpack_require__(100);
 	
 	var _response2 = _interopRequireDefault(_response);
 	
-	var _response3 = __webpack_require__(111);
+	var _response3 = __webpack_require__(101);
 	
 	var _response4 = _interopRequireDefault(_response3);
 	
@@ -34031,157 +33381,312 @@
 	// angular 1.5 syntax for .component();
 	// let appComponent = {
 	//   template,
-	//   restrict: 'E'
+	//   restrict: "E"
 	// }
 	
 	function responseComponent() {
-	  return {
-	    template: _response2.default,
-	    scope: {},
-	    bindToController: {
-	      sgContext: '=',
-	      sgThisOperation: '@'
-	    },
-	    restrict: 'E',
-	    //    replace: true,
-	    controller: _response4.default,
-	    controllerAs: 'responseControl'
-	  };
+	    return {
+	        template: _response2.default,
+	        scope: {},
+	        bindToController: {
+	            sgContext: "=",
+	            sgThisOperation: "@"
+	        },
+	        restrict: "E",
+	        // replace: true,
+	        controller: _response4.default,
+	        controllerAs: "responseControl"
+	    };
 	}
 
 /***/ },
-/* 110 */
+/* 100 */
 /***/ function(module, exports) {
 
 	module.exports = "<h5>Response</h5>\n<table  class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseModal(responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[responseControl.sgThisOperation].httpCode\"\n              ng-pattern=\"/^(Default|default)?([0-9]+)?$/\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[responseControl.sgThisOperation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n  <div class=\"valign-wrapper\">\n    <div class=\"col s4\">\n      <div  class=\"error valign\" ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          Response code is required.\n        </small>\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.pattern\">\n          Response code can either be a number or set to 'default'\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\">\n      <div class=\"error valign\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          Response description is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\"></div>\n  </div>\n  <div class=\"row\"></div>\n</form>\n"
 
 /***/ },
-/* 111 */
+/* 101 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	var ResponseController = ["$scope", "PathService", "ResponseModalService", ResponseCtrl];
+	var ResponseController = ["$scope", "$log", "PathService", "ResponseModalService", ResponseCtrl];
 	
 	exports.default = ResponseController;
 	
-	function ResponseCtrl($scope, PathService, rms) {
-	  //debugger;
-	  /**
-	    * @name newResponseData
-	    * @desc Holds the state of the inputs. Only manipulated in the DOM
-	    * @type {Object}
-	   **/
-	  // this.newResponseData = {
-	  //
-	  // }
-	  // this.newResponseData[this.sgThisOperation] = {
-	  //   httpCode: null,
-	  //   description: null
-	  // }
+	function ResponseCtrl($scope, $log, PathService, rms) {
+	    //debugger;
+	    /**
+	      * @name newResponseData
+	      * @desc Holds the state of the inputs. Only manipulated in the DOM
+	      * @type {Object}
+	     **/
+	    // this.newResponseData = {
+	    //
+	    // }
+	    // this.newResponseData[this.sgThisOperation] = {
+	    //   httpCode: null,
+	    //   description: null
+	    // }
 	
-	  /**
-	    * @name rKeys
-	    * @desc Holds how many 'keys' are on sgContext which is a passed value and
-	    *        is a reference to the 'responses' object
-	    * @type {Object}
-	   **/
-	  this.rKeys = null;
+	    /**
+	      * @name rKeys
+	      * @desc Holds how many "keys" are on sgContext which is a passed value and
+	      *        is a reference to the "responses" object
+	      * @type {Object}
+	    **/
+	    this.rKeys = null;
 	
-	  /**
-	    * @name initResponseModal
-	    * @desc Sends the chosen response code and 'responses' object to the
-	    *        ResponseModalService to be processed.
-	    * @type {Function}
-	   **/
-	  this.initResponseModal = function (httpCode) {
-	    try {
-	      rms.responseToUpdate(httpCode, this.sgContext);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast(e, 3000);
-	      return;
-	    }
-	  };
-	
-	  /**
-	    * @name addResponse
-	    * @desc adds a new 'response' object to the 'responses' object. 'responses'
-	    *        holds the state of all current response objects.
-	    * @type {Function}
-	   **/
-	  this.addResponse = function (httpCode, description) {
-	    try {
-	      this.sgContext.addResponse(httpCode, description);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast(e, 3000);
-	    }
-	
-	    //reset input fields
-	    $scope.addResponse.$setPristine();
-	    debugger;
-	    resetNewResponseData.call(this, this.sgThisOperation);
-	
-	    this.rKeys = Object.keys(this.sgContext).length;
-	  };
-	
-	  /**
-	    * @name resetNewResponseData
-	    * @desc a helper function to reset the data of the intputs
-	    * @type {Function}
-	   **/
-	  function resetNewResponseData(operation) {
-	    this.newResponseData[operation] = {
-	      httpCode: null,
-	      description: null
+	    /**
+	      * @name initResponseModal
+	      * @desc Sends the chosen response code and "responses" object to the
+	      *        ResponseModalService to be processed.
+	      * @type {Function}
+	     **/
+	    this.initResponseModal = function (httpCode) {
+	        try {
+	            rms.responseToUpdate(httpCode, this.sgContext);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast(e, 3000);
+	            return;
+	        }
 	    };
-	  }
+	
+	    /**
+	      * @name addResponse
+	      * @desc adds a new "response" object to the "responses" object. "responses"
+	      *        holds the state of all current response objects.
+	      * @type {Function}
+	     **/
+	    this.addResponse = function (httpCode, description) {
+	        try {
+	            this.sgContext.addResponse(httpCode, description);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast(e, 3000);
+	        }
+	
+	        //reset input fields
+	        $scope.addResponse.$setPristine();
+	        //debugger;
+	        resetNewResponseData.call(this, this.sgThisOperation);
+	
+	        this.rKeys = Object.keys(this.sgContext).length;
+	    };
+	
+	    /**
+	      * @name resetNewResponseData
+	      * @desc a helper function to reset the data of the intputs
+	      * @type {Function}
+	     **/
+	    function resetNewResponseData(operation) {
+	        this.newResponseData[operation] = {
+	            httpCode: null,
+	            description: null
+	        };
+	    }
 	}
 
 /***/ },
-/* 112 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	                                value: true
+	    value: true
 	});
 	
 	var _angular = __webpack_require__(2);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _angularMaterialize = __webpack_require__(113);
-	
-	var _angularMaterialize2 = _interopRequireDefault(_angularMaterialize);
-	
-	var _definitions = __webpack_require__(115);
+	var _definitions = __webpack_require__(103);
 	
 	var _definitions2 = _interopRequireDefault(_definitions);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	'use strict';
+	"use strict";
+	// import angularMaterialize from "angular-materialize";
 	
-	var DefinitionsModule = _angular2.default.module('definitionsModule', ['ui.materialize']).directive('sgDefinitions', _definitions2.default);
+	var DefinitionsModule = _angular2.default.module("definitionsModule", []).directive("sgDefinitions", _definitions2.default);
 	
 	exports.default = DefinitionsModule;
 
 /***/ },
-/* 113 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(114);
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _definitions = __webpack_require__(104);
+	
+	var _definitions2 = _interopRequireDefault(_definitions);
+	
+	var _definitions3 = __webpack_require__(105);
+	
+	var _definitions4 = _interopRequireDefault(_definitions3);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = DefinitionsComponent;
+	
+	function DefinitionsComponent() {
+	    return {
+	        restrict: "E",
+	        template: _definitions2.default,
+	        controller: _definitions4.default,
+	        controllerAs: "defControl"
+	    };
+	}
+
+/***/ },
+/* 104 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"section\" ng-cloak>\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      {{defControl}}\n      <div class=\"card\">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Definitions</span>\n            </h2>\n            <div style=\"padding-top:6%\" class=\"right-align\">\n              <a ng-click=\"openFocusDefinitionModal()\"\n                  class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                  href=\"#definition-creation-modal\" modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div class=\"row \">\n            <ul class=\"collapsible popout col s12\" data-collapsible=\"accordion\" watch>\n                <li class=\"\" ng-repeat=\"(definition, defValue) in defControl.definitions\" >\n                  <div class=\"collapsible-header \">\n                    {{definition}}\n                  </div>\n                    <div class=\"collapsible-body\">\n                      <div class=\"section\">\n                        <span class=\"card-title col s12\">Attributes</span>\n                        <div class=\"input-field col s4 \">\n                          <input class=\"\"\n                            type=\"text\"\n                            placeholder=\"Some information about the Definition\"\n                            ng-model=\"defValue.description\"\n                            disabled>\n                          <label class=\" active\">Description</label>\n                        </div>\n                        <div class=\"input-field col s4 \">\n                          <input class=\"\" type=\"text\" ng-model=\"defValue.type\" disabled>\n                          <label class=\"\">Type</label>\n                        </div>\n                        <div class=\"input-field col s4 \">\n                          <input class=\"\" type=\"text\" placeholder=\"\" ng-model=\"defValue.required\" disabled>\n                          <label class=\"\">Required</label>\n                        </div>\n                      </div>\n                      <div class=\"section\">\n                        <span class=\"card-title\">Properties</span>\n                        <table class=\"section bordered responsive-table\">\n                          <thead>\n                            <tr>\n                              <th ng-repeat=\"header in defControl.headers\"\n                                ng-attr-data-field=\"{{header}}\">{{header}}</th>\n                            </tr>\n                          </thead>\n                          <tbody>\n                            <tr ng-repeat=\"(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'\">\n                              <td class=\"\">{{propertyName}}</td>\n                              <td class=\" shrink\">{{propertyValue.description}}</td>\n                              <td class=\"\">{{propertyValue.type}}</td>\n                              <td class=\"\"\n                                ng-if=\"defValue.required.includes(propertyName);\">true</td>\n                              <td class=\"\"\n                                ng-if=\"!defValue.required.includes(propertyName);\">false</td>\n                              <td class=\"\">{{propertyValue.enum}}</td>\n                            </tr>\n                          </tbody>\n                        </table>\n                      </div>\n                      <div class=\"row\">\n                        <div class=\"col s6\">\n                          <button tooltipped\n                            class=\"btn-flat\"\n                            data-position=\"top\"\n                            data-delay=\"50\"\n                            data-tooltip=\"Delete Definition\"\n                            ng-click=\"defControl.deleteDefinition(definition);\">\n                          <i class=\"material-icons\">delete</i>\n                          </button>\n                        </div>\n                        <div class=\"col s6 \">\n                          <button class=\"btn-flat\"\n                            href=\"#definition-editor-modal\"\n                            ng-click=\"defControl.initDefinitionEditorModal(definition, defValue)\"\n                            modal>\n                          <i class=\"material-icons\">settings</i>\n                          </button>\n                        </div>\n                      </div>\n                  </div>\n                </li>\n              </ul>\n\n          <!-- <ul ng-repeat=\"(definition, defValue) in defControl.definitions\"\n            class=\"collapsible blue-grey darken-2\"\n            init-collapse\n            data-collapsible=\"accordion\">\n            <li>\n              <div class=\"collapsible-header blue-grey\">\n                {{definition}}\n              </div>\n              <div class=\"collapsible-body\">\n                <div class=\"section\">\n                  <span class=\"card-title col s12\">Attributes</span>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\"\n                      type=\"text\"\n                      placeholder=\"Some information about the Definition\"\n                      ng-model=\"defValue.description\"\n                      disabled>\n                    <label class=\"white-text active\">Description</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" ng-model=\"defValue.type\" disabled>\n                    <label class=\"white-text\">Type</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" placeholder=\"\" ng-model=\"defValue.required\" disabled>\n                    <label class=\"white-text\">Required</label>\n                  </div>\n                </div>\n                <div class=\"section\">\n                  <span class=\"card-title\">Properties</span>\n                  <table class=\"section bordered responsive-table\">\n                    <thead>\n                      <tr>\n                        <th ng-repeat=\"header in defControl.headers\"\n                          ng-attr-data-field=\"{{header}}\">{{header}}</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr ng-repeat=\"(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'\">\n                        <td class=\"white-text\">{{propertyName}}</td>\n                        <td class=\"white-text shrink\">{{propertyValue.description}}</td>\n                        <td class=\"white-text\">{{propertyValue.type}}</td>\n                        <td class=\"white-text\"\n                          ng-if=\"defValue.required.includes(propertyName);\">true</td>\n                        <td class=\"white-text\"\n                          ng-if=\"!defValue.required.includes(propertyName);\">false</td>\n                        <td class=\"white-text\">{{propertyValue.enum}}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col s6\">\n                    <button tooltipped\n                      class=\"btn-flat\"\n                      data-position=\"top\"\n                      data-delay=\"50\"\n                      data-tooltip=\"Delete Definition\"\n                      ng-click=\"defControl.deleteDefinition(definition);\">\n                    <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div class=\"col s6 \">\n                    <button class=\"btn-flat\"\n                      href=\"#definition-editor-modal\"\n                      ng-click=\"defControl.initDefinitionEditorModal(definition, defValue)\"\n                      modal>\n                    <i class=\"material-icons\">settings</i>\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </li>\n          </ul> -->\n          <sg-definition-creator-modal></sg-definition-creator-modal>\n          <sg-definition-editor-modal></sg-definition-editor-modal>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+
+/***/ },
+/* 105 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var definitionsController = ["$scope", "$window", "$log", "DefinitionsService", "DefinitionEditorModalService", DefinitionsCtrl];
+	
+	exports.default = definitionsController;
+	
+	function DefinitionsCtrl($scope, $window, $log, ds, dems) {
+	
+	    var vm = this;
+	
+	    // debugger;
+	
+	    vm.definitions = ds.definitions;
+	    vm.headers = ["Name", "Description", "Type", "Required", "Enum"];
+	    vm.Types = ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password"];
+	
+	    $scope.focusDefinitionModal = false;
+	
+	    $scope.openFocusDefinitionModal = function () {
+	        $scope.focusDefinitionModal = true;
+	        $log.log("toggle focus: focusPathModal ==" + $scope.focusDefinitionModal);
+	        //$scope.focusPathModal = !$scope.focusPathModal;
+	    };
+	
+	    // $scope.$watch(function(){return ds;}, function(newVal){
+	    //   console.log("DEFINITIONS HIT");
+	    //   debugger;
+	    //   if(newVal){
+	    //     console.log(newVal);
+	    //     console.log("DEFINITIONS CHANGED");
+	    //     vm.definitions = ds;
+	    //     console.log(ds)
+	    //   }
+	    // }, true);
+	
+	    // vm.showDefinitionProperty = function show(def, prop){
+	    //   var allowedProperties = ["name", "description", "type", "required", "enum"];
+	    //
+	    //   console.log(def, prop);
+	    //
+	    //   var show = false;
+	    //
+	    //   if(!def[prop]){
+	    //     for(var i = 0; i < allowedProperties.length; i++){
+	    //       if(prop === allowedProperties)
+	    //         show = true;
+	    //     }
+	    //   }
+	    //
+	    //   console.log("returning " + show);
+	    //   return show;
+	    // }
+	
+	    vm.initDefinitionEditorModal = function (definitionName, definitionValue) {
+	        $log.log("initDefinitionEditorModal");
+	        try {
+	            //var currentResponse = PathService.getResponse(pathName, operation, httpCode);
+	            $log.log(definitionName);
+	            $log.log(definitionValue);
+	            dems.definitionToUpdate(definitionName, definitionValue);
+	        } catch (e) {
+	            $log.log(e);
+	            Materialize.toast(e, 3000);
+	            return;
+	        }
+	    };
+	
+	    vm.deleteDefinition = function (definitionName) {
+	        if ($window.confirm("Are you sure you want to delete the definition?")) {
+	            ds.deleteDefinition(definitionName);
+	        } else {
+	            $log.log("Don't delete definitions");
+	        }
+	    };
+	}
+
+/***/ },
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _app = __webpack_require__(107);
+	
+	var _app2 = _interopRequireDefault(_app);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// angular 1.5 syntax
+	// let appComponent = {
+	//   template,
+	//   restrict: "E"
+	// }ssss
+	
+	function appComponent() {
+	    return {
+	        template: _app2.default,
+	        restrict: "E"
+	    };
+	}
+	
+	exports.default = appComponent;
+
+/***/ },
+/* 107 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n  <sg-header></sg-header>\n  <sg-main></sg-main>\n  <sg-footer></sg-footer>\n</div>\n"
+
+/***/ },
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(109);
 	module.exports = 'ui.materialize';
 
 
 /***/ },
-/* 114 */
+/* 109 */
 /***/ function(module, exports) {
 
 	(function (angular) {
@@ -35090,191 +34595,660 @@
 
 
 /***/ },
+/* 110 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	/*
+	*
+	* A AngularJS module that implements the HTML5 W3C saveAs() in browsers that
+	* do not natively support it
+	*
+	* (c) 2015 Philipp Alferov
+	* License: MIT
+	*
+	*/
+	
+	angular.module('ngFileSaver', [])
+	  .factory('FileSaver', ['Blob', 'SaveAs', 'FileSaverUtils', __webpack_require__(111)])
+	  .factory('FileSaverUtils', [__webpack_require__(112)])
+	  .factory('Blob', ['$window', __webpack_require__(113)])
+	  .factory('SaveAs', [__webpack_require__(115)]);
+
+
+/***/ },
+/* 111 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function FileSaver(Blob, SaveAs, FileSaverUtils) {
+	
+	  function save(blob, filename, disableAutoBOM) {
+	    try {
+	      SaveAs(blob, filename, disableAutoBOM);
+	    } catch(err) {
+	      FileSaverUtils.handleErrors(err.message);
+	    }
+	  }
+	
+	  return {
+	
+	    /**
+	    * saveAs
+	    * Immediately starts saving a file, returns undefined.
+	    *
+	    * @name saveAs
+	    * @function
+	    * @param {Blob} data A Blob instance
+	    * @param {Object} filename Custom filename (extension is optional)
+	    * @param {Boolean} disableAutoBOM Disable automatically provided Unicode
+	    * text encoding hints
+	    *
+	    * @return {Undefined}
+	    */
+	
+	    saveAs: function(data, filename, disableAutoBOM) {
+	
+	      if (!FileSaverUtils.isBlobInstance(data)) {
+	        FileSaverUtils.handleErrors('Data argument should be a blob instance');
+	      }
+	
+	      if (!FileSaverUtils.isString(filename)) {
+	        FileSaverUtils.handleErrors('Filename argument should be a string');
+	      }
+	
+	      return save(data, filename, disableAutoBOM);
+	    }
+	  };
+	};
+
+
+/***/ },
+/* 112 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function FileSaverUtils() {
+	  return {
+	    handleErrors: function(msg) {
+	      throw new Error(msg);
+	    },
+	    isString: function(obj) {
+	      return typeof obj === 'string' || obj instanceof String;
+	    },
+	    isUndefined: function(obj) {
+	      return typeof obj === 'undefined';
+	    },
+	    isBlobInstance: function(obj) {
+	      return obj instanceof Blob;
+	    }
+	  };
+	};
+
+
+/***/ },
+/* 113 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(114);
+	
+	module.exports = function Blob($window) {
+	  return $window.Blob;
+	};
+
+
+/***/ },
+/* 114 */
+/***/ function(module, exports) {
+
+	/* Blob.js
+	 * A Blob implementation.
+	 * 2014-07-24
+	 *
+	 * By Eli Grey, http://eligrey.com
+	 * By Devin Samarin, https://github.com/dsamarin
+	 * License: X11/MIT
+	 *   See https://github.com/eligrey/Blob.js/blob/master/LICENSE.md
+	 */
+	
+	/*global self, unescape */
+	/*jslint bitwise: true, regexp: true, confusion: true, es5: true, vars: true, white: true,
+	  plusplus: true */
+	
+	/*! @source http://purl.eligrey.com/github/Blob.js/blob/master/Blob.js */
+	
+	(function (view) {
+		"use strict";
+	
+		view.URL = view.URL || view.webkitURL;
+	
+		if (view.Blob && view.URL) {
+			try {
+				new Blob;
+				return;
+			} catch (e) {}
+		}
+	
+		// Internally we use a BlobBuilder implementation to base Blob off of
+		// in order to support older browsers that only have BlobBuilder
+		var BlobBuilder = view.BlobBuilder || view.WebKitBlobBuilder || view.MozBlobBuilder || (function(view) {
+			var
+				  get_class = function(object) {
+					return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
+				}
+				, FakeBlobBuilder = function BlobBuilder() {
+					this.data = [];
+				}
+				, FakeBlob = function Blob(data, type, encoding) {
+					this.data = data;
+					this.size = data.length;
+					this.type = type;
+					this.encoding = encoding;
+				}
+				, FBB_proto = FakeBlobBuilder.prototype
+				, FB_proto = FakeBlob.prototype
+				, FileReaderSync = view.FileReaderSync
+				, FileException = function(type) {
+					this.code = this[this.name = type];
+				}
+				, file_ex_codes = (
+					  "NOT_FOUND_ERR SECURITY_ERR ABORT_ERR NOT_READABLE_ERR ENCODING_ERR "
+					+ "NO_MODIFICATION_ALLOWED_ERR INVALID_STATE_ERR SYNTAX_ERR"
+				).split(" ")
+				, file_ex_code = file_ex_codes.length
+				, real_URL = view.URL || view.webkitURL || view
+				, real_create_object_URL = real_URL.createObjectURL
+				, real_revoke_object_URL = real_URL.revokeObjectURL
+				, URL = real_URL
+				, btoa = view.btoa
+				, atob = view.atob
+	
+				, ArrayBuffer = view.ArrayBuffer
+				, Uint8Array = view.Uint8Array
+	
+				, origin = /^[\w-]+:\/*\[?[\w\.:-]+\]?(?::[0-9]+)?/
+			;
+			FakeBlob.fake = FB_proto.fake = true;
+			while (file_ex_code--) {
+				FileException.prototype[file_ex_codes[file_ex_code]] = file_ex_code + 1;
+			}
+			// Polyfill URL
+			if (!real_URL.createObjectURL) {
+				URL = view.URL = function(uri) {
+					var
+						  uri_info = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+						, uri_origin
+					;
+					uri_info.href = uri;
+					if (!("origin" in uri_info)) {
+						if (uri_info.protocol.toLowerCase() === "data:") {
+							uri_info.origin = null;
+						} else {
+							uri_origin = uri.match(origin);
+							uri_info.origin = uri_origin && uri_origin[1];
+						}
+					}
+					return uri_info;
+				};
+			}
+			URL.createObjectURL = function(blob) {
+				var
+					  type = blob.type
+					, data_URI_header
+				;
+				if (type === null) {
+					type = "application/octet-stream";
+				}
+				if (blob instanceof FakeBlob) {
+					data_URI_header = "data:" + type;
+					if (blob.encoding === "base64") {
+						return data_URI_header + ";base64," + blob.data;
+					} else if (blob.encoding === "URI") {
+						return data_URI_header + "," + decodeURIComponent(blob.data);
+					} if (btoa) {
+						return data_URI_header + ";base64," + btoa(blob.data);
+					} else {
+						return data_URI_header + "," + encodeURIComponent(blob.data);
+					}
+				} else if (real_create_object_URL) {
+					return real_create_object_URL.call(real_URL, blob);
+				}
+			};
+			URL.revokeObjectURL = function(object_URL) {
+				if (object_URL.substring(0, 5) !== "data:" && real_revoke_object_URL) {
+					real_revoke_object_URL.call(real_URL, object_URL);
+				}
+			};
+			FBB_proto.append = function(data/*, endings*/) {
+				var bb = this.data;
+				// decode data to a binary string
+				if (Uint8Array && (data instanceof ArrayBuffer || data instanceof Uint8Array)) {
+					var
+						  str = ""
+						, buf = new Uint8Array(data)
+						, i = 0
+						, buf_len = buf.length
+					;
+					for (; i < buf_len; i++) {
+						str += String.fromCharCode(buf[i]);
+					}
+					bb.push(str);
+				} else if (get_class(data) === "Blob" || get_class(data) === "File") {
+					if (FileReaderSync) {
+						var fr = new FileReaderSync;
+						bb.push(fr.readAsBinaryString(data));
+					} else {
+						// async FileReader won't work as BlobBuilder is sync
+						throw new FileException("NOT_READABLE_ERR");
+					}
+				} else if (data instanceof FakeBlob) {
+					if (data.encoding === "base64" && atob) {
+						bb.push(atob(data.data));
+					} else if (data.encoding === "URI") {
+						bb.push(decodeURIComponent(data.data));
+					} else if (data.encoding === "raw") {
+						bb.push(data.data);
+					}
+				} else {
+					if (typeof data !== "string") {
+						data += ""; // convert unsupported types to strings
+					}
+					// decode UTF-16 to binary string
+					bb.push(unescape(encodeURIComponent(data)));
+				}
+			};
+			FBB_proto.getBlob = function(type) {
+				if (!arguments.length) {
+					type = null;
+				}
+				return new FakeBlob(this.data.join(""), type, "raw");
+			};
+			FBB_proto.toString = function() {
+				return "[object BlobBuilder]";
+			};
+			FB_proto.slice = function(start, end, type) {
+				var args = arguments.length;
+				if (args < 3) {
+					type = null;
+				}
+				return new FakeBlob(
+					  this.data.slice(start, args > 1 ? end : this.data.length)
+					, type
+					, this.encoding
+				);
+			};
+			FB_proto.toString = function() {
+				return "[object Blob]";
+			};
+			FB_proto.close = function() {
+				this.size = 0;
+				delete this.data;
+			};
+			return FakeBlobBuilder;
+		}(view));
+	
+		view.Blob = function(blobParts, options) {
+			var type = options ? (options.type || "") : "";
+			var builder = new BlobBuilder();
+			if (blobParts) {
+				for (var i = 0, len = blobParts.length; i < len; i++) {
+					if (Uint8Array && blobParts[i] instanceof Uint8Array) {
+						builder.append(blobParts[i].buffer);
+					}
+					else {
+						builder.append(blobParts[i]);
+					}
+				}
+			}
+			var blob = builder.getBlob(type);
+			if (!blob.slice && blob.webkitSlice) {
+				blob.slice = blob.webkitSlice;
+			}
+			return blob;
+		};
+	
+		var getPrototypeOf = Object.getPrototypeOf || function(object) {
+			return object.__proto__;
+		};
+		view.Blob.prototype = getPrototypeOf(new view.Blob());
+	}(typeof self !== "undefined" && self || typeof window !== "undefined" && window || this.content || this));
+
+
+/***/ },
 /* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _definitions = __webpack_require__(116);
-	
-	var _definitions2 = _interopRequireDefault(_definitions);
-	
-	var _definitions3 = __webpack_require__(117);
-	
-	var _definitions4 = _interopRequireDefault(_definitions3);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = DefinitionsComponent;
-	
-	function DefinitionsComponent() {
-	  return {
-	    restrict: 'E',
-	    template: _definitions2.default,
-	    controller: _definitions4.default,
-	    controllerAs: 'defControl'
-	  };
-	}
+	module.exports = function SaveAs() {
+	  return __webpack_require__(116).saveAs || function() {};
+	};
+
 
 /***/ },
 /* 116 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"section\" ng-cloak>\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      {{defControl}}\n      <div class=\"card\">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Definitions</span>\n            </h2>\n            <div style=\"padding-top:6%\" class=\"right-align\">\n              <a ng-click=\"openFocusDefinitionModal()\"\n                  class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                  href=\"#definition-creation-modal\" modal>\n              <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div class=\"row \">\n            <ul class=\"collapsible popout col s12\" data-collapsible=\"accordion\" watch>\n                <li class=\"\" ng-repeat=\"(definition, defValue) in defControl.definitions\" >\n                  <div class=\"collapsible-header \">\n                    {{definition}}\n                  </div>\n                    <div class=\"collapsible-body\">\n                      <div class=\"section\">\n                        <span class=\"card-title col s12\">Attributes</span>\n                        <div class=\"input-field col s4 \">\n                          <input class=\"\"\n                            type=\"text\"\n                            placeholder=\"Some information about the Definition\"\n                            ng-model=\"defValue.description\"\n                            disabled>\n                          <label class=\" active\">Description</label>\n                        </div>\n                        <div class=\"input-field col s4 \">\n                          <input class=\"\" type=\"text\" ng-model=\"defValue.type\" disabled>\n                          <label class=\"\">Type</label>\n                        </div>\n                        <div class=\"input-field col s4 \">\n                          <input class=\"\" type=\"text\" placeholder=\"\" ng-model=\"defValue.required\" disabled>\n                          <label class=\"\">Required</label>\n                        </div>\n                      </div>\n                      <div class=\"section\">\n                        <span class=\"card-title\">Properties</span>\n                        <table class=\"section bordered responsive-table\">\n                          <thead>\n                            <tr>\n                              <th ng-repeat=\"header in defControl.headers\"\n                                ng-attr-data-field=\"{{header}}\">{{header}}</th>\n                            </tr>\n                          </thead>\n                          <tbody>\n                            <tr ng-repeat=\"(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'\">\n                              <td class=\"\">{{propertyName}}</td>\n                              <td class=\" shrink\">{{propertyValue.description}}</td>\n                              <td class=\"\">{{propertyValue.type}}</td>\n                              <td class=\"\"\n                                ng-if=\"defValue.required.includes(propertyName);\">true</td>\n                              <td class=\"\"\n                                ng-if=\"!defValue.required.includes(propertyName);\">false</td>\n                              <td class=\"\">{{propertyValue.enum}}</td>\n                            </tr>\n                          </tbody>\n                        </table>\n                      </div>\n                      <div class=\"row\">\n                        <div class=\"col s6\">\n                          <button tooltipped\n                            class=\"btn-flat\"\n                            data-position=\"top\"\n                            data-delay=\"50\"\n                            data-tooltip=\"Delete Definition\"\n                            ng-click=\"defControl.deleteDefinition(definition);\">\n                          <i class=\"material-icons\">delete</i>\n                          </button>\n                        </div>\n                        <div class=\"col s6 \">\n                          <button class=\"btn-flat\"\n                            href=\"#definition-editor-modal\"\n                            ng-click=\"defControl.initDefinitionEditorModal(definition, defValue)\"\n                            modal>\n                          <i class=\"material-icons\">settings</i>\n                          </button>\n                        </div>\n                      </div>\n                  </div>\n                </li>\n              </ul>\n\n          <!-- <ul ng-repeat=\"(definition, defValue) in defControl.definitions\"\n            class=\"collapsible blue-grey darken-2\"\n            init-collapse\n            data-collapsible=\"accordion\">\n            <li>\n              <div class=\"collapsible-header blue-grey\">\n                {{definition}}\n              </div>\n              <div class=\"collapsible-body\">\n                <div class=\"section\">\n                  <span class=\"card-title col s12\">Attributes</span>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\"\n                      type=\"text\"\n                      placeholder=\"Some information about the Definition\"\n                      ng-model=\"defValue.description\"\n                      disabled>\n                    <label class=\"white-text active\">Description</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" ng-model=\"defValue.type\" disabled>\n                    <label class=\"white-text\">Type</label>\n                  </div>\n                  <div class=\"input-field col s4 \">\n                    <input class=\"white-text\" type=\"text\" placeholder=\"\" ng-model=\"defValue.required\" disabled>\n                    <label class=\"white-text\">Required</label>\n                  </div>\n                </div>\n                <div class=\"section\">\n                  <span class=\"card-title\">Properties</span>\n                  <table class=\"section bordered responsive-table\">\n                    <thead>\n                      <tr>\n                        <th ng-repeat=\"header in defControl.headers\"\n                          ng-attr-data-field=\"{{header}}\">{{header}}</th>\n                      </tr>\n                    </thead>\n                    <tbody>\n                      <tr ng-repeat=\"(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'\">\n                        <td class=\"white-text\">{{propertyName}}</td>\n                        <td class=\"white-text shrink\">{{propertyValue.description}}</td>\n                        <td class=\"white-text\">{{propertyValue.type}}</td>\n                        <td class=\"white-text\"\n                          ng-if=\"defValue.required.includes(propertyName);\">true</td>\n                        <td class=\"white-text\"\n                          ng-if=\"!defValue.required.includes(propertyName);\">false</td>\n                        <td class=\"white-text\">{{propertyValue.enum}}</td>\n                      </tr>\n                    </tbody>\n                  </table>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col s6\">\n                    <button tooltipped\n                      class=\"btn-flat\"\n                      data-position=\"top\"\n                      data-delay=\"50\"\n                      data-tooltip=\"Delete Definition\"\n                      ng-click=\"defControl.deleteDefinition(definition);\">\n                    <i class=\"material-icons\">delete</i>\n                    </button>\n                  </div>\n                  <div class=\"col s6 \">\n                    <button class=\"btn-flat\"\n                      href=\"#definition-editor-modal\"\n                      ng-click=\"defControl.initDefinitionEditorModal(definition, defValue)\"\n                      modal>\n                    <i class=\"material-icons\">settings</i>\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </li>\n          </ul> -->\n          <sg-definition-creator-modal></sg-definition-creator-modal>\n          <sg-definition-editor-modal></sg-definition-editor-modal>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* FileSaver.js
+	 * A saveAs() FileSaver implementation.
+	 * 1.1.20151003
+	 *
+	 * By Eli Grey, http://eligrey.com
+	 * License: MIT
+	 *   See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+	 */
+	
+	/*global self */
+	/*jslint bitwise: true, indent: 4, laxbreak: true, laxcomma: true, smarttabs: true, plusplus: true */
+	
+	/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
+	
+	var saveAs = saveAs || (function(view) {
+		"use strict";
+		// IE <10 is explicitly unsupported
+		if (typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
+			return;
+		}
+		var
+			  doc = view.document
+			  // only get URL when necessary in case Blob.js hasn't overridden it yet
+			, get_URL = function() {
+				return view.URL || view.webkitURL || view;
+			}
+			, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
+			, can_use_save_link = "download" in save_link
+			, click = function(node) {
+				var event = new MouseEvent("click");
+				node.dispatchEvent(event);
+			}
+			, is_safari = /Version\/[\d\.]+.*Safari/.test(navigator.userAgent)
+			, webkit_req_fs = view.webkitRequestFileSystem
+			, req_fs = view.requestFileSystem || webkit_req_fs || view.mozRequestFileSystem
+			, throw_outside = function(ex) {
+				(view.setImmediate || view.setTimeout)(function() {
+					throw ex;
+				}, 0);
+			}
+			, force_saveable_type = "application/octet-stream"
+			, fs_min_size = 0
+			// See https://code.google.com/p/chromium/issues/detail?id=375297#c7 and
+			// https://github.com/eligrey/FileSaver.js/commit/485930a#commitcomment-8768047
+			// for the reasoning behind the timeout and revocation flow
+			, arbitrary_revoke_timeout = 500 // in ms
+			, revoke = function(file) {
+				var revoker = function() {
+					if (typeof file === "string") { // file is an object URL
+						get_URL().revokeObjectURL(file);
+					} else { // file is a File
+						file.remove();
+					}
+				};
+				if (view.chrome) {
+					revoker();
+				} else {
+					setTimeout(revoker, arbitrary_revoke_timeout);
+				}
+			}
+			, dispatch = function(filesaver, event_types, event) {
+				event_types = [].concat(event_types);
+				var i = event_types.length;
+				while (i--) {
+					var listener = filesaver["on" + event_types[i]];
+					if (typeof listener === "function") {
+						try {
+							listener.call(filesaver, event || filesaver);
+						} catch (ex) {
+							throw_outside(ex);
+						}
+					}
+				}
+			}
+			, auto_bom = function(blob) {
+				// prepend BOM for UTF-8 XML and text/* types (including HTML)
+				if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+					return new Blob(["\ufeff", blob], {type: blob.type});
+				}
+				return blob;
+			}
+			, FileSaver = function(blob, name, no_auto_bom) {
+				if (!no_auto_bom) {
+					blob = auto_bom(blob);
+				}
+				// First try a.download, then web filesystem, then object URLs
+				var
+					  filesaver = this
+					, type = blob.type
+					, blob_changed = false
+					, object_url
+					, target_view
+					, dispatch_all = function() {
+						dispatch(filesaver, "writestart progress write writeend".split(" "));
+					}
+					// on any filesys errors revert to saving with object URLs
+					, fs_error = function() {
+						if (target_view && is_safari && typeof FileReader !== "undefined") {
+							// Safari doesn't allow downloading of blob urls
+							var reader = new FileReader();
+							reader.onloadend = function() {
+								var base64Data = reader.result;
+								target_view.location.href = "data:attachment/file" + base64Data.slice(base64Data.search(/[,;]/));
+								filesaver.readyState = filesaver.DONE;
+								dispatch_all();
+							};
+							reader.readAsDataURL(blob);
+							filesaver.readyState = filesaver.INIT;
+							return;
+						}
+						// don't create more object URLs than needed
+						if (blob_changed || !object_url) {
+							object_url = get_URL().createObjectURL(blob);
+						}
+						if (target_view) {
+							target_view.location.href = object_url;
+						} else {
+							var new_tab = view.open(object_url, "_blank");
+							if (new_tab == undefined && is_safari) {
+								//Apple do not allow window.open, see http://bit.ly/1kZffRI
+								view.location.href = object_url
+							}
+						}
+						filesaver.readyState = filesaver.DONE;
+						dispatch_all();
+						revoke(object_url);
+					}
+					, abortable = function(func) {
+						return function() {
+							if (filesaver.readyState !== filesaver.DONE) {
+								return func.apply(this, arguments);
+							}
+						};
+					}
+					, create_if_not_found = {create: true, exclusive: false}
+					, slice
+				;
+				filesaver.readyState = filesaver.INIT;
+				if (!name) {
+					name = "download";
+				}
+				if (can_use_save_link) {
+					object_url = get_URL().createObjectURL(blob);
+					setTimeout(function() {
+						save_link.href = object_url;
+						save_link.download = name;
+						click(save_link);
+						dispatch_all();
+						revoke(object_url);
+						filesaver.readyState = filesaver.DONE;
+					});
+					return;
+				}
+				// Object and web filesystem URLs have a problem saving in Google Chrome when
+				// viewed in a tab, so I force save with application/octet-stream
+				// http://code.google.com/p/chromium/issues/detail?id=91158
+				// Update: Google errantly closed 91158, I submitted it again:
+				// https://code.google.com/p/chromium/issues/detail?id=389642
+				if (view.chrome && type && type !== force_saveable_type) {
+					slice = blob.slice || blob.webkitSlice;
+					blob = slice.call(blob, 0, blob.size, force_saveable_type);
+					blob_changed = true;
+				}
+				// Since I can't be sure that the guessed media type will trigger a download
+				// in WebKit, I append .download to the filename.
+				// https://bugs.webkit.org/show_bug.cgi?id=65440
+				if (webkit_req_fs && name !== "download") {
+					name += ".download";
+				}
+				if (type === force_saveable_type || webkit_req_fs) {
+					target_view = view;
+				}
+				if (!req_fs) {
+					fs_error();
+					return;
+				}
+				fs_min_size += blob.size;
+				req_fs(view.TEMPORARY, fs_min_size, abortable(function(fs) {
+					fs.root.getDirectory("saved", create_if_not_found, abortable(function(dir) {
+						var save = function() {
+							dir.getFile(name, create_if_not_found, abortable(function(file) {
+								file.createWriter(abortable(function(writer) {
+									writer.onwriteend = function(event) {
+										target_view.location.href = file.toURL();
+										filesaver.readyState = filesaver.DONE;
+										dispatch(filesaver, "writeend", event);
+										revoke(file);
+									};
+									writer.onerror = function() {
+										var error = writer.error;
+										if (error.code !== error.ABORT_ERR) {
+											fs_error();
+										}
+									};
+									"writestart progress write abort".split(" ").forEach(function(event) {
+										writer["on" + event] = filesaver["on" + event];
+									});
+									writer.write(blob);
+									filesaver.abort = function() {
+										writer.abort();
+										filesaver.readyState = filesaver.DONE;
+									};
+									filesaver.readyState = filesaver.WRITING;
+								}), fs_error);
+							}), fs_error);
+						};
+						dir.getFile(name, {create: false}, abortable(function(file) {
+							// delete file if it already exists
+							file.remove();
+							save();
+						}), abortable(function(ex) {
+							if (ex.code === ex.NOT_FOUND_ERR) {
+								save();
+							} else {
+								fs_error();
+							}
+						}));
+					}), fs_error);
+				}), fs_error);
+			}
+			, FS_proto = FileSaver.prototype
+			, saveAs = function(blob, name, no_auto_bom) {
+				return new FileSaver(blob, name, no_auto_bom);
+			}
+		;
+		// IE 10+ (native saveAs)
+		if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+			return function(blob, name, no_auto_bom) {
+				if (!no_auto_bom) {
+					blob = auto_bom(blob);
+				}
+				return navigator.msSaveOrOpenBlob(blob, name || "download");
+			};
+		}
+	
+		FS_proto.abort = function() {
+			var filesaver = this;
+			filesaver.readyState = filesaver.DONE;
+			dispatch(filesaver, "abort");
+		};
+		FS_proto.readyState = FS_proto.INIT = 0;
+		FS_proto.WRITING = 1;
+		FS_proto.DONE = 2;
+	
+		FS_proto.error =
+		FS_proto.onwritestart =
+		FS_proto.onprogress =
+		FS_proto.onwrite =
+		FS_proto.onabort =
+		FS_proto.onerror =
+		FS_proto.onwriteend =
+			null;
+	
+		return saveAs;
+	}(
+		   typeof self !== "undefined" && self
+		|| typeof window !== "undefined" && window
+		|| this.content
+	));
+	// `self` is undefined in Firefox for Android content script context
+	// while `this` is nsIContentFrameMessageManager
+	// with an attribute `content` that corresponds to the window
+	
+	if (typeof module !== "undefined" && module.exports) {
+	  module.exports.saveAs = saveAs;
+	} else if (("function" !== "undefined" && __webpack_require__(117) !== null) && (__webpack_require__(118) != null)) {
+	  !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
+	    return saveAs;
+	  }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	}
+
 
 /***/ },
 /* 117 */
 /***/ function(module, exports) {
 
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var definitionsController = ["$scope", "$window", "DefinitionsService", "DefinitionEditorModalService", DefinitionsCtrl];
-	
-	exports.default = definitionsController;
-	
-	function DefinitionsCtrl($scope, $window, ds, dems) {
-	
-	  var vm = this;
-	
-	  // debugger;
-	
-	  vm.definitions = ds.definitions;
-	  vm.headers = ['Name', 'Description', 'Type', 'Required', 'Enum'];
-	  vm.Types = ['int32', 'int64', 'float', 'double', 'string', 'byte', 'binary', 'boolean', 'date', 'date-time', 'password'];
-	
-	  $scope.focusDefinitionModal = false;
-	
-	  $scope.openFocusDefinitionModal = function () {
-	    $scope.focusDefinitionModal = true;
-	    console.log("toggle focus: focusPathModal ==" + $scope.focusDefinitionModal);
-	    //$scope.focusPathModal = !$scope.focusPathModal;
-	  };
-	
-	  // $scope.$watch(function(){return ds;}, function(newVal){
-	  //   console.log("DEFINITIONS HIT");
-	  //   debugger;
-	  //   if(newVal){
-	  //     console.log(newVal);
-	  //     console.log("DEFINITIONS CHANGED");
-	  //     vm.definitions = ds;
-	  //     console.log(ds)
-	  //   }
-	  // }, true);
-	
-	  // vm.showDefinitionProperty = function show(def, prop){
-	  //   var allowedProperties = ['name', 'description', 'type', 'required', 'enum'];
-	  //
-	  //   console.log(def, prop);
-	  //
-	  //   var show = false;
-	  //
-	  //   if(!def[prop]){
-	  //     for(var i = 0; i < allowedProperties.length; i++){
-	  //       if(prop === allowedProperties)
-	  //         show = true;
-	  //     }
-	  //   }
-	  //
-	  //   console.log("returning " + show);
-	  //   return show;
-	  // }
-	
-	  vm.initDefinitionEditorModal = function (definitionName, definitionValue) {
-	    console.log("initDefinitionEditorModal");
-	    try {
-	      //var currentResponse = PathService.getResponse(pathName, operation, httpCode);
-	      console.log(definitionName);
-	      console.log(definitionValue);
-	      dems.definitionToUpdate(definitionName, definitionValue);
-	    } catch (e) {
-	      console.log(e);
-	      Materialize.toast(e, 3000);
-	      return;
-	    }
-	  };
-	
-	  vm.deleteDefinition = function (definitionName) {
-	    if ($window.confirm('Are you sure you want to delete the definition?')) {
-	      ds.deleteDefinition(definitionName);
-	    } else {
-	      console.log("Don't delete definitions");
-	    }
-	  };
-	}
+	module.exports = function() { throw new Error("define cannot be used indirect"); };
+
 
 /***/ },
 /* 118 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _app = __webpack_require__(119);
-	
-	var _app2 = _interopRequireDefault(_app);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// angular 1.5 syntax
-	// let appComponent = {
-	//   template,
-	//   restrict: 'E'
-	// }ssss
-	
-	function appComponent() {
-	  return {
-	    template: _app2.default,
-	    restrict: 'E'
-	  };
-	}
-	
-	exports.default = appComponent;
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
 /* 119 */
-/***/ function(module, exports) {
-
-	module.exports = "<div>\n  <sg-header></sg-header>\n  <sg-main></sg-main>\n  <sg-footer></sg-footer>\n</div>\n"
-
-/***/ },
-/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Should already be required, here for clarity
 	__webpack_require__(2);
 	
 	// Load Angular and dependent libs
-	__webpack_require__(121);
-	__webpack_require__(123);
+	__webpack_require__(120);
+	__webpack_require__(122);
 	
 	// Now load Angular Material
-	__webpack_require__(125);
+	__webpack_require__(124);
 	
 	// Export namespace
 	module.exports = 'ngMaterial';
 
 
 /***/ },
-/* 121 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(122);
+	__webpack_require__(121);
 	module.exports = 'ngAnimate';
 
 
 /***/ },
-/* 122 */
+/* 121 */
 /***/ function(module, exports) {
 
 	/**
@@ -39153,15 +39127,15 @@
 
 
 /***/ },
-/* 123 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(124);
+	__webpack_require__(123);
 	module.exports = 'ngAria';
 
 
 /***/ },
-/* 124 */
+/* 123 */
 /***/ function(module, exports) {
 
 	/**
@@ -39565,7 +39539,7 @@
 
 
 /***/ },
-/* 125 */
+/* 124 */
 /***/ function(module, exports) {
 
 	/*!
@@ -63818,15 +63792,15 @@
 	})(window, window.angular);;window.ngMaterial={version:{full: "1.0.2"}};
 
 /***/ },
-/* 126 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(127);
+	__webpack_require__(126);
 	module.exports = 'ngMessages';
 
 
 /***/ },
-/* 127 */
+/* 126 */
 /***/ function(module, exports) {
 
 	/**
@@ -64517,16 +64491,16 @@
 
 
 /***/ },
-/* 128 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(129);
+	var content = __webpack_require__(128);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(131)(content, {});
+	var update = __webpack_require__(130)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -64543,10 +64517,10 @@
 	}
 
 /***/ },
-/* 129 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(130)();
+	exports = module.exports = __webpack_require__(129)();
 	// imports
 	
 	
@@ -64557,7 +64531,7 @@
 
 
 /***/ },
-/* 130 */
+/* 129 */
 /***/ function(module, exports) {
 
 	/*
@@ -64613,7 +64587,7 @@
 
 
 /***/ },
-/* 131 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -64867,16 +64841,16 @@
 
 
 /***/ },
-/* 132 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(133);
+	var content = __webpack_require__(132);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(131)(content, {});
+	var update = __webpack_require__(130)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -64893,10 +64867,10 @@
 	}
 
 /***/ },
-/* 133 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(130)();
+	exports = module.exports = __webpack_require__(129)();
 	// imports
 	
 	
