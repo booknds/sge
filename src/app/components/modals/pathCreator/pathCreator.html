@@ -1,5 +1,78 @@
+<md-dialog aria-label="New Path"  ng-cloak>
+  <form name="addPathForm">
+    <md-toolbar style="background-color:#3F1C3E;">
+      <div class="md-toolbar-tools">
+        <h2>New Path</h2>
+        <span flex></span>
+       <!--  <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button> -->
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div class="row">
+          <div class="input-field col s12 ">
+            <input id="path-name" type="text"
+                    name="pathName"
+                    ng-model="pathModal.newPath.name"
+                    ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
+                    ng-minlength=3
+                    ng-maxlength=45
+                    required=""
+                    focus-me="focusPathModal">
+            <label for="path-name">Path Name</label>
+            <div class="error"
+                 ng-show="addPathForm.pathName.$dirty && addPathForm.pathName.$invalid">
+              <small class="error"
+                      ng-show="addPathForm.pathName.$error.required">
+                      The Path name is required.
+              </small>
+              <small class="error"
+                      ng-show="addPathForm.pathName.$error.pattern">
+                      The Path must start with a '/' (forward slash).
+              </small>
+              <small class="error"
+                      ng-show="addPathForm.pathName.$error.minlength">
+                      The Path name is required to be at least 3 characters
+              </small>
+              <small class="error"
+                      ng-show="addPathForm.pathName.$error.maxlength">
+                The Path name cannot be longer than 45 characters
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="left-align" style="padding-left:15px;">Operations </div>
+          <div class="col s12">
+            <div class="row">
+              <div ng-repeat="(operation, value) in pathModal.newPath.operations" class="col s3" >
+                <p sg-unique-input>
+                  <input type="checkbox" id="input" ng-model="pathModal.newPath.operations[operation]"/>
+                  <label for="label">{{operation | uppercase}}</label>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <!-- <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+        More on Wikipedia
+      </md-button> -->
+      <span flex></span>
+      <md-button ng-click="answer('not useful')">
+       Cancel
+      </md-button>
+      <md-button ng-click="pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" style="margin-right:20px;">
+        Create
+      </md-button>
+    </md-dialog-actions>
+  </form>
 
- <md-dialog aria-label="New Path"  ng-cloak>
+
  <!-- <div id="path-creation-modal" class="modal modal-fixed-footer"
       sg-modal-closer ng-model="pathModal.closeModal" modal-id="path-creation-modal">
   <form name="addPathForm" novalidate ng-submit="addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" >
@@ -69,76 +142,4 @@
   </form>
 </div>
  -->
-  <form>
-    <md-toolbar style="background-color:#3F1C3E;">
-      <div class="md-toolbar-tools">
-        <h2>New Path</h2>
-        <span flex></span>
-        <!-- <md-button class="md-icon-button" ng-click="cancel()">
-          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-        </md-button>
-      </div> -->
-    </md-toolbar>
-    <md-dialog-content>
-      <div class="md-dialog-content">
-        <div class="row">
-          <div class="input-field col s12 ">
-            <input id="path-name" type="text"
-                    name="pathName"
-                    ng-model="pathModal.newPath.name"
-                    ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
-                    ng-minlength=3
-                    ng-maxlength=45
-                    required=""
-                    focus-me="focusPathModal">
-            <label for="path-name">Path Name</label>
-            <div class="error"
-                 ng-show="addPathForm.pathName.$dirty && addPathForm.pathName.$invalid">
-              <small class="error"
-                      ng-show="addPathForm.pathName.$error.required">
-                      The Path name is required.
-              </small>
-              <small class="error"
-                      ng-show="addPathForm.pathName.$error.pattern">
-                      The Path must start with a '/' (forward slash).
-              </small>
-              <small class="error"
-                      ng-show="addPathForm.pathName.$error.minlength">
-                      The Path name is required to be at least 3 characters
-              </small>
-              <small class="error"
-                      ng-show="addPathForm.pathName.$error.maxlength">
-                The Path name cannot be longer than 45 characters
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="left-align" style="padding-left:15px;">Operations </div>
-          <div class="col s12 l6">
-            <div class="row">
-              <div ng-repeat="(operation, value) in pathModal.newPath.operations" class="col s3" >
-                <p sg-unique-input>
-                  <input type="checkbox" id="input" ng-model="pathModal.newPath.operations[operation]"/>
-                  <label for="label">{{operation | uppercase}}</label>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
-        More on Wikipedia
-      </md-button>
-      <span flex></span>
-      <md-button ng-click="answer('not useful')">
-       Not Useful
-      </md-button>
-      <md-button ng-click="answer('useful')" style="margin-right:20px;">
-        Useful
-      </md-button>
-    </md-dialog-actions>
-  </form>
 </md-dialog>
