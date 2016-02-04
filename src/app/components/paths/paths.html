@@ -9,20 +9,11 @@
               <span>Paths</span>
             </h2>
             <div style="padding-top:6%" class="right-align">
-              <a ng-click="pathCtl.showAdvanced($event)"
+              <a ng-click="pathCtl.showPathCreator($event)"
                 class="btn-floating btn-large waves-effect waves-light purple accent-4"
                 >
                 <i class="material-icons">add</i>
               </a>
-              <!-- <a ng-click="openFocusPathModal()"
-                class="btn-floating btn-large waves-effect waves-light purple accent-4"
-                href="#path-creation-modal"
-                modal>
-              <i class="material-icons">add</i>
-              </a> -->
-              <!-- <md-button class="md-fab md-primary purple accent-4" ng-click="showConfirm($event)"  flex="100"  flex-gt-md="auto">
-                <i class="material-icons">add</i>
-              </md-button> -->
             </div>
           </div>
         </md-toolbar>
@@ -46,41 +37,14 @@
             <div>
               <div style="display:flex; flex-direction:row; justify-content:flex-start;">
                 <div>Operations:</div>
-                <!-- <a ng-repeat="operation in pathCtl.operations | orderBy:operation"
-                    style="margin-left:2%;"
-                    ng-hide="pathCtl.hasOperation(pathName, operation)"
-                    sg-operation-colorer="{{operation}}"
-                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, operation)">
-                    {{operation | uppercase}}
-                </a> -->
-                <a 
-                    style="margin-left:2%;"
-                    ng-hide="pathCtl.paths[pathName].hasOwnProperty('get')"
-                    sg-operation-colorer="get"
-                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, 'get')">
-                    {{'get' | uppercase}}
-                </a>
-                <a 
-                    style="margin-left:2%;"
-                    ng-hide="pathCtl.paths[pathName].hasOwnProperty('post')"
-                    sg-operation-colorer="post"
-                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, 'post')">
-                    {{'post' | uppercase}}
-                </a>
-                <a 
-                    style="margin-left:2%;"
-                    ng-hide="pathCtl.paths[pathName].hasOwnProperty('put')"
-                    sg-operation-colorer="put"
-                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, 'put')">
-                    {{'put' | uppercase}}
-                </a>
-                <a 
-                    style="margin-left:2%;"
-                    ng-hide="pathCtl.paths[pathName].hasOwnProperty('delete')"
-                    sg-operation-colorer="delete"
-                    class="waves-effect waves-light btn white-text" ng-click="pathCtl.addOperation(pathName, 'delete')">
-                    {{'delete' | uppercase}}
-                </a>
+                <md-button
+                  sg-operation-colorer="{{operation}}"
+                  ng-repeat="operation in pathCtl.operations | orderBy:operation" 
+                  ng-click="pathCtl.addOperation(pathName, operation)" 
+                  ng-hide="pathCtl.paths[pathName].hasOwnProperty(operation)"
+                  style="margin-right:20px; color:white;">
+                  {{operation | uppercase}}
+                </md-button>
               </div>
             </div>
             <div class="" layout="column">

@@ -1,4 +1,5 @@
 // import angularFileSaver from "angular-file-saver";
+import angular from "angular";
 
 "use strict";
 

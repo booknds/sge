@@ -13,7 +13,7 @@ import "../css/main.css";
 
 "use strict";
 
-// console.log(FileSaver);
+//console.log(FileSaver);
 
 angular
     .module("SwaggerGraphicalEditor", [
@@ -32,3 +32,5 @@ angular
     ])
 
   .directive("app", appComponent);
+
+$log(FileSaver);

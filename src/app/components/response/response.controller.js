@@ -1,10 +1,10 @@
 "use strict";
 
-let ResponseController = ["$scope", "$log", "PathService", "ResponseModalService", ResponseCtrl];
+let ResponseController = ["$scope", "$log", "UtilitiesService", "PathService", "ResponseModalService", ResponseCtrl];
 
 export default ResponseController;
 
-function ResponseCtrl($scope, $log, PathService, rms){
+function ResponseCtrl($scope, $log, UtilitiesService, PathService, rms){
   //debugger;
   /**
     * @name newResponseData
@@ -39,7 +39,7 @@ function ResponseCtrl($scope, $log, PathService, rms){
             rms.responseToUpdate(httpCode, this.sgContext);
         } catch (e) {
             $log.log(e);
-            Materialize.toast(e, 3000);
+            UtilitiesService.toast(e, 3000);
             return;
         }
     };
@@ -55,7 +55,7 @@ function ResponseCtrl($scope, $log, PathService, rms){
             this.sgContext.addResponse(httpCode, description);
         } catch (e) {
             $log.log(e);
-            Materialize.toast(e, 3000);
+            UtilitiesService.toast(e, 3000);
         }
 
         //reset input fields

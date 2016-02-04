@@ -70,8 +70,8 @@ function DefinitionsService($log, ObjectFactory){
         if (oName === uName) {
             var definitionToUpdate = definitions[oName];
 
-            for (var key in definitionToUpdate) {
-                definitionToUpdate[key] = uValue[key];
+            for (var defKey in definitionToUpdate) {
+                definitionToUpdate[defKey] = uValue[defKey];
             }
 
         } else {

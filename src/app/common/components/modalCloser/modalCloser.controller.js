@@ -1,3 +1,5 @@
+import angular from "angular";
+
 /**
 * This components ensures that an <input> / <label> pair
 *   is given a matching unique ID
@@ -16,7 +18,7 @@ function ModalCloserCtrl($scope){
 
         if(!this.ngModel) return;
 
-        $(`#${this.modalId}`).closeModal();
+        angular.element.find(`#${this.modalId}`).closeModal();
         this.ngModel = false;
     }
 

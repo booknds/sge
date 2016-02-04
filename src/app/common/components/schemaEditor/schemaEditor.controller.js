@@ -1,10 +1,10 @@
 "use strict";
 
-let schemaEditorController = ["$scope", "$log", "$window", "PathService", "ObjectFactory", schemaEditorCtrl];
+let schemaEditorController = ["$scope", "$log", "$window", "UtilitiesService", "PathService", "ObjectFactory", schemaEditorCtrl];
 
 export default schemaEditorController;
 
-function schemaEditorCtrl($scope, $log, $window, PathService, ObjectFactory){
+function schemaEditorCtrl($scope, $log, $window, UtilitiesService, PathService, ObjectFactory){
 
   /**
     * @name newResponseData
@@ -19,7 +19,7 @@ function schemaEditorCtrl($scope, $log, $window, PathService, ObjectFactory){
     this.types = ["integer", "number", "string", "boolean"];
 
     this.toggleRequired = function(propertyName, isRequired){
-        debugger;
+        // debugger;
         $log.log("TOGGLE PROPERTY REQUIRED");
         $log.log(propertyName, isRequired);
         if (isRequired) {
@@ -36,13 +36,13 @@ function schemaEditorCtrl($scope, $log, $window, PathService, ObjectFactory){
 
     this.toast = function(msg){
         var message = msg || "No toast supplied, but hello!!";
-        Materialize.toast(message, 2000);
+        UtilitiesService.toast(message, 2000);
     };
 
     this.addProperty = function(definitionName, propertyName){
-        debugger;
+        // debugger;
         if (this.sgSchemaObject.properties.hasOwnProperty(propertyName)) {
-            Materialize.toast("Property already exists on this definition.");
+            UtilitiesService.toast("Property already exists on this definition.");
         } else {
             this.sgSchemaObject.properties[propertyName] =  ObjectFactory.newSchema();
             //this.sgSchemaObject.properties[propertyName].type = null;

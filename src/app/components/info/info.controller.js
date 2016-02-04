@@ -1,10 +1,10 @@
 "use strict";
 
-let infoCtrl = ["$log", "InfoService", BaseInfoCtrl];
+let infoCtrl = ["$log", "UtilitiesService", "InfoService", BaseInfoCtrl];
 
 export default infoCtrl;
 
-function BaseInfoCtrl($log, InfoService){
+function BaseInfoCtrl($log, UtilitiesService, InfoService){
 
     /**
       * @name InfoService
@@ -45,7 +45,7 @@ function BaseInfoCtrl($log, InfoService){
             InfoService.addType(list, type);
         } catch (e) {
             $log.log(e);
-            Materialize.toast(e, 3000);
+            UtilitiesService.toast(e, 3000);
         }
     };
 
@@ -59,7 +59,7 @@ function BaseInfoCtrl($log, InfoService){
             InfoService.removeType(list, type);
         } catch (e) {
             $log.log(e);
-            Materialize.toast(e, 3000);
+            UtilitiesService.toast(e, 3000);
         }
     };
 

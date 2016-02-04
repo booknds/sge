@@ -2,11 +2,11 @@ import angular from "angular";
 
 "use strict";
 
-let sideNavArray = ["$scope", "$http", "$log", "CompilerService", "FileSaver", "Blob", SidenavCtrl];
+let sideNavArray = ["$scope", "$log", "UtilitiesService", "CompilerService", "FileSaver", "Blob", SidenavCtrl];
 
 export default sideNavArray;
 
-function SidenavCtrl($scope, $http, $log, cs, FileSaver, Blob){
+function SidenavCtrl($scope, $log, UtilitiesService, cs, FileSaver, Blob){
 
     this.compiledDocument = cs.compiled;
 
@@ -57,7 +57,7 @@ function SidenavCtrl($scope, $http, $log, cs, FileSaver, Blob){
         $log.log(text);
 
         if(Object.keys(text).length === 0){
-            Materialize.toast("Definition Cannot be empty", 3000);
+            UtilitiesService.toast("Definition Cannot be empty", 3000);
             return;
         }
 

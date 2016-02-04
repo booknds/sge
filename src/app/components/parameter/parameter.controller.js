@@ -1,10 +1,10 @@
 "use strict";
 
-let ParameterController = ["$scope", "$log", "PathService", "ParameterModalService", ParameterCtrl];
+let ParameterController = ["$scope", "$log", "UtilitiesService", "PathService", "ParameterModalService", ParameterCtrl];
 
 export default ParameterController;
 
-function ParameterCtrl($scope, $log, PathService, pms){
+function ParameterCtrl($scope, $log, UtilitiesService, PathService, pms){
 
     this.inLocationList = ["path", "query", "header", "body", "formData"];
 
@@ -16,7 +16,7 @@ function ParameterCtrl($scope, $log, PathService, pms){
             PathService.addNewParam(this.sgContext, paramName, paramInLocation);
         } catch (e) {
             $log.log(e);
-            Materialize.toast("Parameter name/query combo' already exists", 3000);
+            UtilitiesService.toast("Parameter name/query combo' already exists", 3000);
         }
 
         //reset input data

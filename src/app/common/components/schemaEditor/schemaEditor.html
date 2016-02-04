@@ -58,11 +58,11 @@
     </div>
   </div>
   <ul ng-repeat="(property, pValue) in schema.sgSchemaObject.properties | orderBy:'property'"
-      class="collapsible blue-grey darken-2"
+      class="collapsible "
       init-collapse
       data-collapsible="accordion">
     <li>
-      <div class="collapsible-header blue-grey">
+      <div class="collapsible-header ">
         {{property}}
       </div>
       <div class="collapsible-body ">
@@ -73,23 +73,23 @@
             <label for="new-property-name">Description</label>
           </div> -->
           <div class="input-field col s2 valign">
-            <sg-dropdown class="browser-default" style="background-color: #455a64;" ng-model="pValue.type" sg-choices="schema.types" sg-default-option="Choose a Type"></sg-dropdown>
-            <!-- <select class="browser-default" style="background-color: #455a64;" select-value
+            <!-- <sg-dropdown class="browser-default" style="background-color: #455a64;" ng-model="pValue.type" sg-choices="schema.types" sg-default-option="Choose a Type"></sg-dropdown> -->
+            <select class="browser-default"  select-value
                     ng-model="pValue.type">
               <option value="" selected>Choose a Type</option>
               <option ng-repeat="type in schema.types"
                       ng-attr-value="{{ type }}"
                       ng-attr-id="{{ type }}">{{ type }}</option>
-            </select> -->
+            </select>
           </div>
           <div class="input-field col s2 valign">
-            <sg-dropdown class="browser-default" style="background-color: #455a64;" ng-model="pValue.format" sg-choices="schema.formats" sg-default-option="Property Format"></sg-dropdown>
-            <!-- <select class="browser-default" style="background-color: #455a64;" select-value ng-model="pValue.format">
+            <!-- <sg-dropdown class="browser-default" style="background-color: #455a64;" ng-model="pValue.format" sg-choices="schema.formats" sg-default-option="Property Format"></sg-dropdown> -->
+            <select class="browser-default"  select-value ng-model="pValue.format">
               <option value="" selected>Property Format</option>
               <option ng-repeat="format in schema.formats"
                       ng-attr-value="{{ format }}"
                       ng-attr-id="{{ format }}">{{ format }}</option>
-            </select> -->
+            </select>
           </div>
           <div class="input-field col s4 valign">
             <input id="property-enum" type="text" placeholder="value,must,be,comma,separated" value=""

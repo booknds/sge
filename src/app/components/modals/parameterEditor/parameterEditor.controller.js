@@ -1,8 +1,10 @@
-let ParameterEditorController = ["$scope", "$log", "PathService", "ParameterModalService", ParameterModalCtrl];
+import angular from "angular";
+
+let ParameterEditorController = ["$scope", "$log", "PathService", "ParameterModalService", "UtilitiesService", ParameterModalCtrl];
 
 export default ParameterEditorController;
 
-function ParameterModalCtrl($scope, $log, swaggerPaths, pms){
+function ParameterModalCtrl($scope, $log, swaggerPaths, pms, UtilitiesService){
 
     this.tempParam = {};
     //this.currentParam = {};
@@ -52,7 +54,7 @@ function ParameterModalCtrl($scope, $log, swaggerPaths, pms){
 
         }catch(e){
             $log.log(e);
-            Materialize.toast("Parameter name/query combo' already exists", 3000);
+            UtilitiesService.toast("Parameter name/query combo' already exists", 3000);
         }
     };
 

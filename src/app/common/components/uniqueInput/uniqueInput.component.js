@@ -14,21 +14,21 @@ function uniqueInput(){
 
                 if (children[childNode].nodeName === "INPUT") {
 
-                    var attributes = children[childNode].attributes;
+                    var inputAttributes = children[childNode].attributes;
 
-                    for (var index in attributes) {
-                        if (attributes[index].nodeName === "id") {
-                            attributes[index].value = newID;
+                    for (var inputIndex in inputAttributes) {
+                        if (inputAttributes[inputIndex].nodeName === "id") {
+                            inputAttributes[inputIndex].value = newID;
                         }
                     }
 
                 } else if (children[childNode].nodeName === "LABEL") {
 
-                    var attributes = children[childNode].attributes;
+                    var labelAttributes = children[childNode].attributes;
 
-                    for(var index in attributes){
-                        if(attributes[index].nodeName === "for"){
-                            attributes[index].value = newID;
+                    for(var labelIndex in labelAttributes){
+                        if(labelAttributes[labelIndex].nodeName === "for"){
+                            labelAttributes[labelIndex].value = newID;
                         }
                     }
 

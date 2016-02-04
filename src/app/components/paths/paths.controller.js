@@ -4,36 +4,40 @@ import controller from "../modals/pathCreator/pathCreator.controller";
 
 "use strict";
 
-let PathController = ["$scope", "$log", "PathService", "$window", "$mdDialog", "$mdMedia", PathCtrl];
+let PathController = ["$scope", "$log", "$document", "UtilitiesService", "PathService", "$window", "$mdDialog", "$mdMedia", PathCtrl];
 
 export default PathController;
 
-function PathCtrl($scope, $log, swaggerPaths, $window, $mdDialog, $mdMedia){
-  //$scope.thisObject = this;
+function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $window, $mdDialog, $mdMedia){
+    //$scope.thisObject = this;
 
-  //used to test the services
+    //used to test the services
     this.paths = swaggerPaths.paths;
 
-    this.prevent = {
-        showPaths:false
-    };
+    // this.prevent = {
+    //     showPaths:false
+    // };
 
     this.operations = ["get", "post", "put", "delete"];
 
-    this.hasOperation = function(pathName, operation){
-        debugger;
-        return this.paths[pathName].hasOwnProperty(operation);
-    };
+    // this.hasOperation = function(pathName, operation){
+    //     debugger;
+    //     return this.paths[pathName].hasOwnProperty(operation);
+    // };
 
-    $scope.focusPathModal = false;
+    // $scope.focusPathModal = false;
 
-    $scope.openFocusPathModal = function(){
-        $scope.focusPathModal = true;
-        $log.log("toggle focus: focusPathModal ==" + $scope.focusPathModal);
-        //$scope.focusPathModal = !$scope.focusPathModal;
-    };
+    // $scope.openFocusPathModal = function(){
+    //     $scope.focusPathModal = true;
+    //     $log.log("toggle focus: focusPathModal ==" + $scope.focusPathModal);
+    //     //$scope.focusPathModal = !$scope.focusPathModal;
+    // };
 
-    this.showAdvanced = function(ev) {
+    // function toast(message){
+    //     UtilitiesService.toast(message, 3000);
+    // }
+
+    this.showPathCreator = function(ev) {
         //debugger;
         var useFullScreen = ($mdMedia("sm") || $mdMedia("xs"))  && $scope.customFullscreen;
         $mdDialog.show({
@@ -42,10 +46,10 @@ function PathCtrl($scope, $log, swaggerPaths, $window, $mdDialog, $mdMedia){
             controller,
             controllerAs: "pathModal",
             template,
-            parent: angular.element(document.body),
+            parent: angular.element($document.body),
             targetEvent: ev,
             clickOutsideToClose:true,
-            fullscreen: true
+            fullscreen: useFullScreen
         })
         .then(function(answer) {
             //debugger;
@@ -56,11 +60,11 @@ function PathCtrl($scope, $log, swaggerPaths, $window, $mdDialog, $mdMedia){
             $log.log("RETURNING DIALOGE -- CANCELLED");
         });
 
-        $scope.$watch(function() {
-            return $mdMedia("xs") || $mdMedia("sm");
-        }, function(wantsFullScreen) {
-            $scope.customFullscreen = (wantsFullScreen === true);
-        });
+        // $scope.$watch(function() {
+        //     return $mdMedia("xs") || $mdMedia("sm");
+        // }, function(wantsFullScreen) {
+        //     $scope.customFullscreen = (wantsFullScreen === true);
+        // });
     };
 
     this.updatePathName = function(originalPathName, newPathName){
@@ -71,7 +75,7 @@ function PathCtrl($scope, $log, swaggerPaths, $window, $mdDialog, $mdMedia){
             this[newPathName]="";
         } catch (e) {
             $log.log(e);
-            Materialize.toast(e, 3000);
+            UtilitiesService.toast(e, 3000);
         }
     };
 
@@ -82,7 +86,7 @@ function PathCtrl($scope, $log, swaggerPaths, $window, $mdDialog, $mdMedia){
                 swaggerPaths.removePath(pathName);
             } catch (e) {
                 $log.log(e);
-                Materialize.toast(e, 3000);
+                UtilitiesService.toast(e, 3000);
             }
             //  swaggerPaths.deleteOperation(pathName, operation);
 
@@ -117,13 +121,13 @@ function PathCtrl($scope, $log, swaggerPaths, $window, $mdDialog, $mdMedia){
             swaggerPaths.addOperation(pathName, operation);
         } catch (e) {
             $log.log(e);
-            Materialize.toast(e, 3000);
+            UtilitiesService.toast(e, 3000);
         }
     };
 
     this.updateOperation = function(pathName, operation, key, value){
         swaggerPaths.updateOperationInformation(pathName, operation, key, value);
         value="";
-        Materialize.toast("Updated " + key, 2000);
+        UtilitiesService.toast("Updated " + key, 2000);
     };
 }

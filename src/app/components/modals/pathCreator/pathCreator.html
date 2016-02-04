@@ -1,145 +1,71 @@
-<md-dialog aria-label="New Path"  ng-cloak>
-  <form name="addPathForm">
-    <md-toolbar style="background-color:#3F1C3E;">
-      <div class="md-toolbar-tools">
-        <h2>New Path</h2>
-        <span flex></span>
-       <!--  <md-button class="md-icon-button" ng-click="cancel()">
-          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-        </md-button> -->
-      </div>
-    </md-toolbar>
-    <md-dialog-content>
-      <div class="md-dialog-content">
-        <div class="row">
-          <div class="input-field col s12 ">
-            <input id="path-name" type="text"
-                    name="pathName"
-                    ng-model="pathModal.newPath.name"
-                    ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
-                    ng-minlength=3
-                    ng-maxlength=45
-                    required=""
-                    focus-me="focusPathModal">
-            <label for="path-name">Path Name</label>
-            <div class="error"
-                 ng-show="addPathForm.pathName.$dirty && addPathForm.pathName.$invalid">
-              <small class="error"
-                      ng-show="addPathForm.pathName.$error.required">
-                      The Path name is required.
-              </small>
-              <small class="error"
-                      ng-show="addPathForm.pathName.$error.pattern">
-                      The Path must start with a '/' (forward slash).
-              </small>
-              <small class="error"
-                      ng-show="addPathForm.pathName.$error.minlength">
-                      The Path name is required to be at least 3 characters
-              </small>
-              <small class="error"
-                      ng-show="addPathForm.pathName.$error.maxlength">
-                The Path name cannot be longer than 45 characters
-              </small>
-            </div>
-          </div>
+<div class="md-dialog-container" style="top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;"> --> 
+  <md-dialog aria-label="New Path" style="width:30%;" ng-cloak>
+    <form name="addPathForm">
+      <md-toolbar style="background-color:#3F1C3E;">
+        <div class="md-toolbar-tools">
+          <h2>New Path</h2>
+          <span flex></span>
+         <!--  <md-button class="md-icon-button" ng-click="cancel()">
+            <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+          </md-button> -->
         </div>
-        <div class="row">
-          <div class="left-align" style="padding-left:15px;">Operations </div>
-          <div class="col s12">
-            <div class="row">
-              <div ng-repeat="(operation, value) in pathModal.newPath.operations" class="col s3" >
-                <p sg-unique-input>
-                  <input type="checkbox" id="input" ng-model="pathModal.newPath.operations[operation]"/>
-                  <label for="label">{{operation | uppercase}}</label>
-                </p>
+      </md-toolbar>
+      <md-dialog-content>
+        <div class="md-dialog-content">
+          <div style="display: flex; flex-direction:row; justify-content:space-around;" >
+            <!-- <div class="input-field col s12 "> -->
+            <md-input-container class="md-block" style="flex-grow:1;">
+              <label>Title</label>
+              <input  type="text"
+                      name="pathName"
+                      ng-model="pathModal.newPath.name"
+                      ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
+                      minlength="3"
+                      maxlength="45"
+                      required>
+              <div ng-messages="addPathForm.pathName.$error" role="alert" >
+                <!-- <div ng-message="required">
+                  The Path name is required.
+                </div>
+                <div ng-message="minlength">
+                  Must be a minimum of 3 characters
+                </div>
+                <div ng-message="maxlength">
+                  Must be a maximum of 45 characters
+                </div>
+                <div ng-message="pattern">
+                  Path must start with a '/' (forward slash).
+                </div> -->
+                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                  Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).
+                </div>
               </div>
+            </md-input-container>
+          </div>
+          <div class="flex-direction:row;">
+            <div class="left-align" style="">Operations </div>
+            <div style="display:flex; flex-direction:row; justify-content:space-around; flex-wrap:nowrap;">
+
+                <md-checkbox 
+                    ng-repeat="(operation, value) in pathModal.newPath.operations"
+                    ng-model="pathModal.newPath.operations[operation]" 
+                    aria-label="{{operation}}">
+                  {{operation | uppercase}}
+                </md-checkbox>
+
             </div>
           </div>
         </div>
-      </div>
-    </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <!-- <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
-        More on Wikipedia
-      </md-button> -->
-      <span flex></span>
-      <md-button ng-click="answer('not useful')">
-       Cancel
-      </md-button>
-      <md-button ng-click="pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" style="margin-right:20px;">
-        Create
-      </md-button>
-    </md-dialog-actions>
-  </form>
-
-
- <!-- <div id="path-creation-modal" class="modal modal-fixed-footer"
-      sg-modal-closer ng-model="pathModal.closeModal" modal-id="path-creation-modal">
-  <form name="addPathForm" novalidate ng-submit="addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" >
-    <div class="modal-content">
-      <div class="row">
-        <div class="left-align col s12">
-          <h4>Create New Path</h4>
-        </div>
-        <div class="input-field col s12 ">
-          <input id="path-name" type="text"
-                  name="pathName"
-                  ng-model="pathModal.newPath.name"
-                  ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
-                  ng-minlength=3
-                  ng-maxlength=45
-                  required=""
-                  focus-me="focusPathModal">
-          <label for="path-name">Path Name</label>
-          <div class="error"
-               ng-show="addPathForm.pathName.$dirty && addPathForm.pathName.$invalid">
-            <small class="error"
-                    ng-show="addPathForm.pathName.$error.required">
-                    The Path name is required.
-            </small>
-            <small class="error"
-                    ng-show="addPathForm.pathName.$error.pattern">
-                    The Path must start with a '/' (forward slash).
-            </small>
-            <small class="error"
-                    ng-show="addPathForm.pathName.$error.minlength">
-                    The Path name is required to be at least 3 characters
-            </small>
-            <small class="error"
-                    ng-show="addPathForm.pathName.$error.maxlength">
-              The Path name cannot be longer than 45 characters
-            </small>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="left-align" style="padding-left:15px;">Operations </div>
-        <div class="col s12 l6">
-          <div class="row">
-            <div ng-repeat="(operation, value) in pathModal.newPath.operations" class="col s3" >
-              <p sg-unique-input>
-                <input type="checkbox" id="input" ng-model="pathModal.newPath.operations[operation]"/>
-                <label for="label">{{operation | uppercase}}</label>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <div>
-        <button type="submit" name="action" close-path-modal ng-class="{'disabled': addPathForm.$invalid}"
-          class=" waves-effect waves-green btn">
-        Create
-        </button>
-      </div>
-      <div class="container">
-        <button class=" waves-effect waves-green btn modal-action modal-close">
-        Cancel
-        </button>
-      </div>
-    </div>
-  </form>
-</div>
- -->
-</md-dialog>
+      </md-dialog-content>
+      <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="pathModal.cancel()">
+         Cancel
+        </md-button>
+        <md-button ng-click="pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" style="margin-right:20px;">
+          Create
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </md-dialog>
+<!-- </div>

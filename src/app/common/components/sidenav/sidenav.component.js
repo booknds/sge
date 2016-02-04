@@ -1,9 +1,11 @@
 import template from "./sidenav.html";
 import controller from "./sidenav.controller";
 
-export default SidenavComponent;
+let sideNavComp = ["$document", SidenavComponent];
 
-function SidenavComponent(){
+export default sideNavComp;
+
+function SidenavComponent($document){
     return {
         restrict: "E",
         template,
@@ -24,8 +26,8 @@ function SidenavComponent(){
             //console.log(element);
             //console.log(get)
 
-            $(document).ready(function(){
-                $(".collapsible").collapsible({
+            $document.ready(function(){
+                element.find(".collapsible").collapsible({
                     // A setting that changes the collapsible behavior to expandable instead of the default accordion style
                     accordion : false 
                 });

@@ -13,7 +13,7 @@
     "angular-animate": "^1.4.8",
     "angular-aria": "^1.4.8",
     "angular-file-saver": "~1.0.2",
-    "angular-material": "^1.0.2",
+    "angular-material": "^1.0.4",
     "angular-materialize": "~0.1.2",
     "angular-messages": "^1.4.8",
     "babel-core": "~6.4.0",

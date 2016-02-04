@@ -1,10 +1,10 @@
 "use strict";
 
-let DefintionCreationController = ["$scope", "$log", "DefinitionsService", "$mdDialog", DefinitionCreationCtrl];
+let DefintionCreationController = ["$scope", "$log", "UtilitiesService", "DefinitionsService", "$mdDialog", DefinitionCreationCtrl];
 
 export default DefintionCreationController;
 
-function DefinitionCreationCtrl($scope, $log, ds, $mdDialog){
+function DefinitionCreationCtrl($scope, $log, UtilitiesService, ds, $mdDialog){
     var vm = this;
 
     this.closeModal=false;
@@ -22,7 +22,7 @@ function DefinitionCreationCtrl($scope, $log, ds, $mdDialog){
             ds.addDefinition.call(ds, definitionName, description, "object");
         } catch (e) {
             $log.log(e);
-            Materialize.toast(e, 3000);
+            UtilitiesService.toast(e, 3000);
         }
 
         this.closeModal = true;

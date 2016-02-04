@@ -1,8 +1,8 @@
-let PathCreatorController = ["$scope", "PathService", "$log", "$mdDialog", PathModalCtrl];
+let PathCreatorController = ["$scope", "PathService", "UtilitiesService", "$log", "$mdDialog", PathModalCtrl];
 
 export default PathCreatorController;
 
-function PathModalCtrl($scope, PathService, $log, $mdDialog){
+function PathModalCtrl($scope, PathService, UtilitiesService, $log, $mdDialog){
 
     this.newPath = {
         name:null,
@@ -14,26 +14,27 @@ function PathModalCtrl($scope, PathService, $log, $mdDialog){
         }
     };
 
-    this.prevent = {
-        pathCreation: false
-    };
+    // this.prevent = {
+    //     pathCreation: false
+    // };
 
-    this.closeModal = false;
+    //this.closeModal = false;
 
     /*
       Add a new path object to the array containing all the paths
     */
-    this.addPath = function(pathName, operation){
+    this.addPath = function(pathName, operations){
         try {
             PathService.addPath(pathName);
         } catch (e) {
             $log.log(e);
-            Materialize.toast ("Not a unique name!", 2000);
+            UtilitiesService.toast(e);
         }
         
-        for (var operation in this.newPath.operations) {
+        // debugger;
+        for (var operation in operations) {
 
-            if (this.newPath.operations[operation]) { 
+            if (operations[operation]) { 
 
                 try {
                     PathService.addOperation(pathName, operation);
@@ -55,12 +56,16 @@ function PathModalCtrl($scope, PathService, $log, $mdDialog){
             }
         };
 
-        this.prevent.pathCreation = true;
+        //this.prevent.pathCreation = true;
 
-        this.closeModal = true;
+        //this.closeModal = true;
 
         $mdDialog.hide("added path");
 
+    };
+
+    this.cancel = function(){
+        $mdDialog.cancel();
     };
 
 

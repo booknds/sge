@@ -1,10 +1,12 @@
+import angular from "angular";
+
 "use strict";
 
-let ResponseEditorController = ["ResponseModalService", "PathService", "$scope", "$log", ResponseModalCtrl];
+let ResponseEditorController = ["ResponseModalService", "PathService", "UtilitiesService", "$scope", "$log", ResponseModalCtrl];
 
 export default ResponseEditorController;
 
-function ResponseModalCtrl(rms, PathService, $scope, $log){
+function ResponseModalCtrl(rms, PathService, UtilitiesService, $scope, $log){
 
     this.tempResponse = {
         httpCode:null,
@@ -35,7 +37,8 @@ function ResponseModalCtrl(rms, PathService, $scope, $log){
             PathService.updateResponse(originalResponse, newResponse);
         }catch(e){
             $log.log(e);
-            Materialize.toast("Parameter name/query combo' already exists", 3000);
+            // Materialize.toast("Parameter name/query combo' already exists", 3000);
+            UtilitiesService.toast(e);
         }
     };
 

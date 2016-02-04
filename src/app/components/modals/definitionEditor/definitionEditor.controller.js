@@ -1,8 +1,10 @@
-let DefinitionEditorController = ["$scope", "$log", "$window", "DefinitionsService", "DefinitionEditorModalService", DefinitionEditorCtrl];
+import angular from "angular";
+
+let DefinitionEditorController = ["$scope", "$log", "$window", "UtilitiesService", "DefinitionsService", "DefinitionEditorModalService", DefinitionEditorCtrl];
 
 export default DefinitionEditorController;
 
-function DefinitionEditorCtrl($scope, $log, $window, ds, dems){
+function DefinitionEditorCtrl($scope, $log, $window, UtilitiesService, ds, dems){
 
     var vm = this;
 
@@ -20,7 +22,7 @@ function DefinitionEditorCtrl($scope, $log, $window, ds, dems){
   // vm.formats = ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
   // vm.types = ["integer", "number", "string", "boolean"];
 
-    this.closeModal = false;
+    //this.closeModal = false;
 
   // vm.toast = function(msg){
   //   var message = msg || "No toast supplied, but hello!!";
@@ -73,7 +75,7 @@ function DefinitionEditorCtrl($scope, $log, $window, ds, dems){
             this.closeModal = true;
         }catch(e){
             $log.log(e);
-            Materialize.toast(e, 3000);
+            UtilitiesService.toast(e, 3000);
         }
     };
 

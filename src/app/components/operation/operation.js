@@ -1,6 +1,7 @@
-"use strict";
-// import angular from "angular";
+import angular from "angular";
 import OperationComponent from "./operation.component";
+
+"use strict";
 
 let OperationModule = angular
     .module("OperationModule", [])
