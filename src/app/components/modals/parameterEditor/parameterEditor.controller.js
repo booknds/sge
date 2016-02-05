@@ -1,12 +1,12 @@
 import angular from "angular";
 
-let ParameterEditorController = ["$scope", "$log", "PathService", "ParameterModalService", "UtilitiesService", ParameterModalCtrl];
+let ParameterEditorController = ["$scope", "$log", "$mdDialog", "PathService", "ParameterModalService", "UtilitiesService", ParameterModalCtrl];
 
 export default ParameterEditorController;
 
-function ParameterModalCtrl($scope, $log, swaggerPaths, pms, UtilitiesService){
+function ParameterModalCtrl($scope, $log, $mdDialog, swaggerPaths, pms, UtilitiesService){
 
-    this.tempParam = {};
+    //this.tempParam = {};
     //this.currentParam = {};
 
     let originalParamContext = {
@@ -14,11 +14,16 @@ function ParameterModalCtrl($scope, $log, swaggerPaths, pms, UtilitiesService){
         parameter:null
     };
 
+
+    this.scope = $scope;
+
     this.paramOptions = {
         format : ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password"],
         type : ["string","number", "integer", "boolean", "array", "file"],
         collectionFormat : ["csv", "ssv", "tsv", "pipes", "multi"]
     };
+
+    this.locationTypes = ["path", "query", "header", "body", "formData"];
 
     $scope.$watch(function(){return pms.parameterContext;}, onModalInit.bind(this), true);
 
@@ -47,15 +52,21 @@ function ParameterModalCtrl($scope, $log, swaggerPaths, pms, UtilitiesService){
 
     }
 
-    this.updateParameter = function(){
-        try{
-            //debugger;
-            originalParamContext.operation.updateParameter(originalParamContext.parameter, this.tempParam);
+    this.updateParameter = function(newParameter){
+        // try{
+        //     //debugger;
+        //     originalParamContext.operation.updateParameter(originalParamContext.parameter, this.tempParam);
 
-        }catch(e){
-            $log.log(e);
-            UtilitiesService.toast("Parameter name/query combo' already exists", 3000);
-        }
+        // }catch(e){
+        //     $log.log(e);
+        //     UtilitiesService.toast("Parameter name/query combo' already exists", 3000);
+        // }
+
+        $mdDialog.hide(newParameter);
+    };
+
+    this.cancel = function(){
+        $mdDialog.cancel();
     };
 
     this.setParamInModal = function(inLocation){

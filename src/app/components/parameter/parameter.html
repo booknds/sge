@@ -19,9 +19,16 @@
         <td class="">{{param.required}}</td>
         <td class="shrink">{{param.schema}}</td>
         <td class="">
-          <a class="disabled" href="#param-modal" modal ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)">
+          <!-- <a class="disabled" href="#param-modal" modal 
+          ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)"
+          ng-click="paramControl.showPathCreator($event)" >
+          <i class="material-icons">settings</i> -->
+          <!-- <a class="disabled" ng-click="paramControl.showParamEditor($event, param.name, param.inLocation)" >
           <i class="material-icons">settings</i>
-          </a>
+          </a> -->
+          <md-button ng-click="paramControl.showParamEditor($event, param.name, param.inLocation)">
+            <i class="material-icons">settings</i>
+          </md-button>
         </td>
       </div>
     </tr>

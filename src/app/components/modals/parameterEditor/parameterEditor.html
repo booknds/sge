@@ -1,4 +1,108 @@
-<div id="param-modal" class="modal modal-fixed-footer">
+<div class="md-dialog-container" style="top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;"> 
+  <md-dialog aria-label="New Path" style="width:50%;" ng-cloak>
+    <form name="editParam">
+      <md-toolbar style="background-color:#3F1C3E;">
+        <div class="md-toolbar-tools">
+          <h2>Parameter Options</h2>
+          <span flex></span>
+         <!--  <md-button class="md-icon-button" ng-click="cancel()">
+            <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+          </md-button> -->
+        </div>
+      </md-toolbar>
+      <md-dialog-content>
+        <div class="md-dialog-content">
+          <div style="display: flex; flex-direction:row; justify-content:space-around; flex-wrap:nowrap;">
+            <md-input-container style="">
+              <label>Title</label>
+              <input  type="text"
+                      name="paramName"
+                      ng-model="paramModalControl.tempParam.name"
+                      required>
+              <div ng-messages="editParam.paramName.$error" role="alert" >
+                <div ng-message="required">
+                  Name is required.
+                </div>
+              </div>
+            </md-input-container>
+            
+            <md-input-container>
+              <label>Parameter Location</label>
+              <md-select ng-model="paramModalControl.tempParam.inLocation">
+                <md-option ng-repeat="locationType in paramModalControl.locationTypes" value="{{locationType}}">
+                  {{locationType | capitalize}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+           
+            <md-checkbox 
+                ng-model="paramModalControl.tempParam.allowEmptyValue" 
+                aria-label="Allow Empty Value">
+              Allow Empty Value
+            </md-checkbox>
+         
+            <md-checkbox 
+                ng-if="paramModalControl.tempParam.inLocation !== 'path'"
+                ng-model="paramModalControl.tempParam.required" 
+                aria-label="required">
+              required
+            </md-checkbox>
+        
+          </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="param-description" ng-model="paramModalControl.tempParam.description" class="materialize-textarea"></textarea>
+            <label for="param-description">Description</label>
+          </div>
+          <div class="input-field col s4 valign"
+                ng-repeat="(optionTypeName, optionTypeValue) in paramModalControl.paramOptions">
+            <select class="browser-default" style="background-color: #455a64;" select-value ng-model="paramModalControl.tempParam[optionTypeName]" >
+              <option value="" selected>Parameter {{ optionTypeName | capitalize }}</option>
+              <option ng-repeat="type in optionTypeValue"
+                      ng-if="(collection === 'multi' && (paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData')) || collection !== 'multi' "
+                      ng-attr-value="{{ type }}"
+                      ng-attr-id="{{ type }}">{{ type }}</option>
+            </select>
+          </div>
+          <div class="input-field col s12 valign" >
+            <div ng-if="paramModalControl.tempParam.type === 'array'">
+              <textarea id="param-items" ng-model="paramModalControl.tempParam.items" class="materialize-textarea" required="" aria-required="true"></textarea>
+              <label for="param-items">Items</label>
+            </div>
+          </div>
+          <div  class="input-field col s12 l6">
+            <textarea id="param-extra" ng-model="paramModalControl.tempParam.extra" class="materialize-textarea"></textarea>
+            <label for="param-extra">Extra values</label>
+          </div>
+        </div>
+        <div  ng-if="paramModalControl.tempParam.inLocation === 'body'" class="row">
+          <!-- <div class="input-field col s12 l6">
+            <textarea id="param-description" ng-model="paramModalControl.tempParam.description" class="materialize-textarea"></textarea>
+            <label for="param-description">Description</label>
+          </div>
+          <div class="input-field col s12 l6">
+            <textarea id="param-schema" ng-model="paramModalControl.tempParam.schema" class="materialize-textarea"></textarea>
+            <label for="param-schema">Schema</label>
+          </div> -->
+          <div>
+            <h4>Schema</h4>
+          </div>
+          <sg-schema-editor sg-schema-object="paramModalControl.tempParam.schema" sg-restrict-type-to-object="false"></sg-schema-editor>
+        </div>
+        </div>
+      </md-dialog-content>
+      <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="paramModalControl.cancel()">
+         Cancel
+        </md-button>
+        <md-button ng-click="paramModalControl.updateParameter(paramModalControl.tempParam)" style="margin-right:20px;">
+          Update
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </md-dialog>
+  <!-- <div id="param-modal" class="modal modal-fixed-footer">
   <form name="editParam" novalidate ng-submit="paramModalControl.updateParameter()">
     <div class="modal-content ">
       <div class="row">
@@ -12,16 +116,17 @@
           <label for="newParamUtil">Parameter Name</label>
         </div>
         <div class="input-field col s3 valign" >
-          <select class="browser-default" style="background-color: #455a64;" select-value ng-model="paramModalControl.tempParam.inLocation" ng-change="paramModalControl.setParamInModal(paramModalControl.tempParam.inLocation)" >
-            <option value="" disabled selected>Parameter Location</option>
-            <option value="path" id="path">Path</option>
-            <option value="query" id="query">Query</option>
-            <option value="header" id="header">Header</option>
-            <option value="body" id="body">Body</option>
-            <option value="formData" id="formData">Form Data</option>
-          </select>
-          <!--label>In</label-->
+          
+          <md-input-container>
+            <label>Parameter Location</label>
+            <md-select ng-model="paramModalControl.tempParam.inLocation">
+              <md-option ng-repeat="locationType in paramModalControl.locationTypes" value="{{locationType}}">
+                {{locationType | capitalize}}
+              </md-option>
+            </md-select>
+          </md-input-container>
         </div>
+        
         <div class=" col s3 valign" >
           <p>
             <input type="checkbox" ng-model="paramModalControl.tempParam.allowEmptyValue" id="allowEmptyValue" />
@@ -62,14 +167,7 @@
         </div>
       </div>
       <div  ng-if="paramModalControl.tempParam.inLocation === 'body'" class="row">
-        <!-- <div class="input-field col s12 l6">
-          <textarea id="param-description" ng-model="paramModalControl.tempParam.description" class="materialize-textarea"></textarea>
-          <label for="param-description">Description</label>
-        </div>
-        <div class="input-field col s12 l6">
-          <textarea id="param-schema" ng-model="paramModalControl.tempParam.schema" class="materialize-textarea"></textarea>
-          <label for="param-schema">Schema</label>
-        </div> -->
+        
         <div>
           <h4>Schema</h4>
         </div>
@@ -92,4 +190,5 @@
       </div>
     </div>
   </form>
+</div> -->
 </div>
