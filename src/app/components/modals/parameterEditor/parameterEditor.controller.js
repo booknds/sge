@@ -1,13 +1,11 @@
 import angular from "angular";
 
-let ParameterEditorController = ["$scope", "$log", "$mdDialog", "PathService", "ParameterModalService", "UtilitiesService", ParameterModalCtrl];
+let ParameterEditorController = ["$scope", "$log", "$mdDialog", "PathService", "ParameterModalService", ParameterModalCtrl];
 
 export default ParameterEditorController;
 
-function ParameterModalCtrl($scope, $log, $mdDialog, swaggerPaths, pms, UtilitiesService){
+function ParameterModalCtrl($scope, $log, $mdDialog, swaggerPaths, pms){
 
-    //this.tempParam = {};
-    //this.currentParam = {};
 
     let originalParamContext = {
         operation:null,

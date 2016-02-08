@@ -32477,7 +32477,7 @@
 /* 71 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"md-dialog-container\" style=\"top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;\">\n  <md-dialog aria-label=\"New Path\" style=\"width:30%;\" ng-cloak>\n    <form name=\"addPathForm\">\n      <md-toolbar style=\"background-color:#3F1C3E;\">\n        <div class=\"md-toolbar-tools\">\n          <h2>New Path</h2>\n          <span flex></span>\n         <!--  <md-button class=\"md-icon-button\" ng-click=\"cancel()\">\n            <md-icon md-svg-src=\"img/icons/ic_close_24px.svg\" aria-label=\"Close dialog\"></md-icon>\n          </md-button> -->\n        </div>\n      </md-toolbar>\n      <md-dialog-content>\n        <div class=\"md-dialog-content\">\n          <div style=\"display: flex; flex-direction:row; justify-content:space-around;\" >\n            <!-- <div class=\"input-field col s12 \"> -->\n            <md-input-container class=\"md-block\" style=\"flex-grow:1;\">\n              <label>Title</label>\n              <input  type=\"text\"\n                      name=\"pathName\"\n                      ng-model=\"pathModal.newPath.name\"\n                      ng-pattern=\"/^\\/[0-9a-zA-Z\\/\\.\\_\\-\\{\\}]*$/\"\n                      minlength=\"3\"\n                      maxlength=\"45\"\n                      required>\n              <div ng-messages=\"addPathForm.pathName.$error\" role=\"alert\" >\n                <div ng-message-exp=\"['required', 'minlength', 'maxlength', 'pattern']\">\n                  Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).\n                </div>\n              </div>\n            </md-input-container>\n          </div>\n          <div class=\"flex-direction:row;\">\n            <div class=\"left-align\" style=\"\">Operations </div>\n            <div style=\"display:flex; flex-direction:row; justify-content:space-around; flex-wrap:nowrap;\">\n                <md-checkbox \n                    ng-repeat=\"(operation, value) in pathModal.newPath.operations\"\n                    ng-model=\"pathModal.newPath.operations[operation]\" \n                    aria-label=\"{{operation}}\">\n                  {{operation | uppercase}}\n                </md-checkbox>\n            </div>\n          </div>\n        </div>\n      </md-dialog-content>\n      <md-dialog-actions layout=\"row\">\n        <span flex></span>\n        <md-button ng-click=\"pathModal.cancel()\">\n         Cancel\n        </md-button>\n        <md-button ng-click=\"pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)\" style=\"margin-right:20px;\">\n          Create\n        </md-button>\n      </md-dialog-actions>\n    </form>\n  </md-dialog>\n</div>"
+	module.exports = "<div class=\"md-dialog-container\" style=\"top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;\">\n  <md-dialog aria-label=\"New Path\" style=\"width:30%;\" ng-cloak>\n    <form name=\"addPathForm\">\n      <md-toolbar style=\"background-color:#3F1C3E;\">\n        <div class=\"md-toolbar-tools\">\n          <h2>New Path</h2>\n          <span flex></span>\n         <!--  <md-button class=\"md-icon-button\" ng-click=\"cancel()\">\n            <md-icon md-svg-src=\"img/icons/ic_close_24px.svg\" aria-label=\"Close dialog\"></md-icon>\n          </md-button> -->\n        </div>\n      </md-toolbar>\n      <md-dialog-content>\n        <div class=\"md-dialog-content\">\n          <div style=\"display: flex; flex-direction:row; justify-content:space-around;\" >\n            <!-- <div class=\"input-field col s12 \"> -->\n            <md-input-container class=\"md-block\" style=\"flex-grow:1;\">\n              <label>Title</label>\n              <input  type=\"text\"\n                      name=\"pathName\"\n                      ng-model=\"pathModal.newPath.name\"\n                      ng-pattern=\"/^\\/[0-9a-zA-Z\\/\\.\\_\\-\\{\\}]*$/\"\n                      minlength=\"3\"\n                      maxlength=\"45\"\n                      required>\n              <div ng-messages=\"addPathForm.pathName.$error\" role=\"alert\" >\n                <div ng-message-exp=\"['required', 'minlength', 'maxlength', 'pattern']\">\n                  Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).\n                </div>\n              </div>\n            </md-input-container>\n          </div>\n          <div class=\"flex-direction:row;\">\n            <div class=\"left-align\" style=\"\">Operations </div>\n            <div style=\"display:flex; flex-direction:row; justify-content:space-around; flex-wrap:nowrap;\">\n                <md-checkbox\n                    ng-repeat=\"(operation, value) in pathModal.newPath.operations\"\n                    ng-model=\"pathModal.newPath.operations[operation]\"\n                    aria-label=\"{{operation}}\">\n                  {{operation | uppercase}}\n                </md-checkbox>\n            </div>\n          </div>\n        </div>\n      </md-dialog-content>\n      <md-dialog-actions layout=\"row\">\n        <span flex></span>\n        <md-button ng-click=\"pathModal.cancel()\">\n         Cancel\n        </md-button>\n        <md-button ng-click=\"addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)\" style=\"margin-right:20px;\">\n          Create\n        </md-button>\n      </md-dialog-actions>\n    </form>\n  </md-dialog>\n</div>\n"
 
 /***/ },
 /* 72 */
@@ -32494,21 +32494,7 @@
 	
 	function PathModalCtrl($scope, PathService, UtilitiesService, $log, $mdDialog) {
 	
-	    this.newPath = {
-	        name: null,
-	        operations: {
-	            post: false,
-	            get: false,
-	            put: false,
-	            delete: false
-	        }
-	    };
-	
-	    // this.prevent = {
-	    //     pathCreation: false
-	    // };
-	
-	    //this.closeModal = false;
+	    this.newPath = newPathCreator();
 	
 	    /*
 	      Add a new path object to the array containing all the paths
@@ -32534,7 +32520,16 @@
 	            }
 	        }
 	
-	        this.newPath = {
+	        this.newPath = newPathCreator();
+	        $mdDialog.hide("added path");
+	    };
+	
+	    this.cancel = function () {
+	        $mdDialog.cancel();
+	    };
+	
+	    function newPathCreator() {
+	        return {
 	            name: null,
 	            operations: {
 	                post: false,
@@ -32543,17 +32538,7 @@
 	                delete: false
 	            }
 	        };
-	
-	        //this.prevent.pathCreation = true;
-	
-	        //this.closeModal = true;
-	
-	        $mdDialog.hide("added path");
-	    };
-	
-	    this.cancel = function () {
-	        $mdDialog.cancel();
-	    };
+	    }
 	}
 
 /***/ },
@@ -32640,14 +32625,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ParameterEditorController = ["$scope", "$log", "$mdDialog", "PathService", "ParameterModalService", "UtilitiesService", ParameterModalCtrl];
+	var ParameterEditorController = ["$scope", "$log", "$mdDialog", "PathService", "ParameterModalService", ParameterModalCtrl];
 	
 	exports.default = ParameterEditorController;
 	
-	function ParameterModalCtrl($scope, $log, $mdDialog, swaggerPaths, pms, UtilitiesService) {
-	
-	    //this.tempParam = {};
-	    //this.currentParam = {};
+	function ParameterModalCtrl($scope, $log, $mdDialog, swaggerPaths, pms) {
 	
 	    var originalParamContext = {
 	        operation: null,
@@ -33116,7 +33098,7 @@
 /* 89 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"section\" ng-cloak>\n  <!-- <sg-path-creator-modal></sg-path-creator-modal> -->\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      <div class=\"card \">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Paths</span>\n            </h2>\n            <div style=\"padding-top:6%\" class=\"right-align\">\n              <a ng-click=\"pathCtl.showPathCreator($event)\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                >\n                <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div ng-hide=\"pathCtl.prevent.showPaths\" ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div class=\"row valign-wrapper\">\n              <div class=\"input-field valign col s8\">\n                <input id=\"path-name\" ng-attr-placeholder=\"{{pathName}}\" type=\"text\" ng-model=\"pathCtl[pathName].newName\">\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn waves-effect waves-light\" type=\"button\" ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\" name=\"action\">\n                  Update\n                </button>\n              </div>\n              <div class=\"valign col s2\">\n                <button class=\"btn-flat waves-effect waves-light\" type=\"submit\" name=\"action\" ng-click=\"pathCtl.deletePath(pathName)\">\n                <i class=\"material-icons\">delete</i>\n                </button>\n              </div>\n            </div>\n            <div>\n              <div style=\"display:flex; flex-direction:row; justify-content:flex-start; align-items: center;\">\n                <div>Operations:</div>\n                <md-button\n                  sg-operation-colorer=\"{{operation}}\"\n                  ng-repeat=\"operation in pathCtl.operations | orderBy:operation\" \n                  ng-click=\"pathCtl.addOperation(pathName, operation)\" \n                  ng-hide=\"pathCtl.paths[pathName].hasOwnProperty(operation)\"\n                  style=\"margin-right:20px; color:white;\">\n                  {{operation | uppercase}}\n                </md-button>\n              </div>\n            </div>\n            <div class=\"\" layout=\"column\">\n              <ul class=\"collapsible popout\" data-collapsible=\"accordion\" watch>\n                  <!-- <li class=\"\" sg-operation sg-operation-name=\"{{operation}}\" sg-operation-object=\"value\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\">\n                  </li> -->\n                  <sg-operation sg-operation-name=\"{{operation}}\"\n                                sg-operation-object=\"value\"\n                                ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\">\n                    <div style=\"display:flex; flex-direction:row-reverse;\">\n\n                    </div>\n                  </sg-operation>\n                </ul>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
+	module.exports = "<div class=\"section\" ng-cloak>\n  <!-- <sg-path-creator-modal></sg-path-creator-modal> -->\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      <div class=\"card \">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Paths</span>\n            </h2>\n            <div style=\"margin-top: 55px;\" class=\"right-align\">\n              <a ng-click=\"pathCtl.showPathCreator($event)\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                >\n                <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div  style=\"display: flex; flex-flow:row nowrap; justify-content:flex-start;\">\n                <md-button  class=\"path-title\"\n                    style=\"display: flex; flex-grow: 1; color: #3F1C3E;\" ng-click=\"pathCtl.toggleShowPath(pathName);\" href=\"\">\n                    <h4  style=\"text-transform:none; display: flex; flex-grow: 1;\">{{pathName}}</h4>\n                </md-button>\n            </div>\n            <div style=\"display: flex; flex-flow:column nowrap; justify-content:flex-start;\" ng-hide=\"pathCtl.dontShowPaths[pathName]\">\n                <form name=\"updateName\" style=\"display: flex; flex-flow:row nowrap;  margin-left: 16px;\">\n                    <md-input-container style=\"display:flex; flex-grow:2;\">\n                      <label>Change Path Name</label>\n                      <input  type=\"text\"\n                            name=\"pathName\"\n                            ng-model=\"pathCtl[pathName].newName\"\n                            ng-pattern=\"/^\\/[0-9a-zA-Z\\/\\.\\_\\-\\{\\}]*$/\"\n                            minlength=\"3\"\n                            maxlength=\"45\"\n                            required>\n                        <div ng-messages=\"updateName.pathName.$error && updateName.pathName.$dirty\" role=\"alert\" >\n                            <div ng-message-exp=\"['required', 'minlength', 'maxlength', 'pattern']\">\n                              Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).\n                            </div>\n                        </div>\n                    </md-input-container>\n                    <div style=\"display: flex; flex-flow:row nowrap; justify-content:space-between;\">\n                        <md-button\n                            type=\"submit\"\n                            ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\"\n                            style=\"\">\n                            Update\n                        </md-button>\n\n                        <md-button style=\"\"\n                            ng-click=\"pathCtl.deletePath(pathName)\">\n                            Delete\n                        </md-button>\n                    </div>\n                </form>\n\n                  <div style=\"display:flex; flex-direction:row; justify-content:flex-start; align-items: center; margin-left: 16px;\">\n                    <!-- <div>Operations:</div> -->\n                    <md-button\n                      sg-operation-colorer=\"{{operation}}\"\n                      ng-repeat=\"operation in pathCtl.operations | orderBy:operation\"\n                      ng-click=\"pathCtl.addOperation(pathName, operation)\"\n                      ng-hide=\"pathCtl.paths[pathName].hasOwnProperty(operation)\"\n                      style=\"margin-right:20px; color:white;\">\n                      {{operation | uppercase}}\n                    </md-button>\n                  </div>\n\n                <div class=\"\" layout=\"column\">\n                  <ul class=\"collapsible popout\" data-collapsible=\"accordion\" watch>\n                      <!-- <li class=\"\" sg-operation sg-operation-name=\"{{operation}}\" sg-operation-object=\"value\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\">\n                      </li> -->\n                      <sg-operation sg-operation-name=\"{{operation}}\"\n                                    sg-operation-object=\"value\"\n                                    ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\">\n                        <div style=\"display:flex; flex-direction:row-reverse;\">\n\n                        </div>\n                      </sg-operation>\n                    </ul>\n                </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
 
 /***/ },
 /* 90 */
@@ -33160,6 +33142,8 @@
 	
 	    this.operations = ["get", "post", "put", "delete"];
 	
+	    this.dontShowPaths = {};
+	
 	    // this.hasOperation = function(pathName, operation){
 	    //     debugger;
 	    //     return this.paths[pathName].hasOwnProperty(operation);
@@ -33176,6 +33160,14 @@
 	    // function toast(message){
 	    //     UtilitiesService.toast(message, 3000);
 	    // }
+	
+	    this.toggleShowPath = function toggle(pathName) {
+	        if (_angular2.default.isUndefined(pathName)) {
+	            this.dontShowPaths[pathName] = true;
+	        } else {
+	            this.dontShowPaths[pathName] = !this.dontShowPaths[pathName];
+	        }
+	    };
 	
 	    this.showPathCreator = function (ev) {
 	        //debugger;
@@ -33207,6 +33199,11 @@
 	    };
 	
 	    this.updatePathName = function (originalPathName, newPathName) {
+	        if (_angular2.default.isUndefined(newPathName)) {
+	            UtilitiesService.toast("New Name cannot be blank", 3000);
+	            return;
+	        }
+	
 	        try {
 	            swaggerPaths.updatePathName(originalPathName, newPathName);
 	            //delete the old pathName saved on the Object
@@ -33216,6 +33213,7 @@
 	            $log.log(e);
 	            UtilitiesService.toast(e, 3000);
 	        }
+	        this.toggleUpdateName();
 	    };
 	
 	    this.deletePath = function (pathName) {
@@ -33223,6 +33221,7 @@
 	
 	            try {
 	                swaggerPaths.removePath(pathName);
+	                this.toggleUpdateName();
 	            } catch (e) {
 	                $log.log(e);
 	                UtilitiesService.toast(e, 3000);

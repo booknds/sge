@@ -20,6 +20,8 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
 
     this.operations = ["get", "post", "put", "delete"];
 
+    this.dontShowPaths = {};
+
     // this.hasOperation = function(pathName, operation){
     //     debugger;
     //     return this.paths[pathName].hasOwnProperty(operation);
@@ -36,6 +38,15 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
     // function toast(message){
     //     UtilitiesService.toast(message, 3000);
     // }
+
+    this.toggleShowPath = function toggle(pathName){
+        if (angular.isUndefined(pathName)) {
+            this.dontShowPaths[pathName] = true;
+            
+        } else {
+            this.dontShowPaths[pathName] = !this.dontShowPaths[pathName];
+        }
+    };
 
     this.showPathCreator = function(ev) {
         //debugger;
@@ -68,6 +79,11 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
     };
 
     this.updatePathName = function(originalPathName, newPathName){
+        if (angular.isUndefined(newPathName)) {
+            UtilitiesService.toast("New Name cannot be blank", 3000);
+            return;
+        }
+
         try {
             swaggerPaths.updatePathName(originalPathName, newPathName);
             //delete the old pathName saved on the Object
@@ -77,6 +93,7 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
             $log.log(e);
             UtilitiesService.toast(e, 3000);
         }
+        this.toggleUpdateName();
     };
 
     this.deletePath = function(pathName){
@@ -84,6 +101,7 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
 
             try{
                 swaggerPaths.removePath(pathName);
+                this.toggleUpdateName();
             } catch (e) {
                 $log.log(e);
                 UtilitiesService.toast(e, 3000);
@@ -114,7 +132,7 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
         } else {
             $log.log("dont delete operation");
         }
-    };    
+    };
 
     this.addOperation = function(pathName, operation){
         try {

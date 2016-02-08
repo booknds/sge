@@ -33,9 +33,9 @@
           <div class="flex-direction:row;">
             <div class="left-align" style="">Operations </div>
             <div style="display:flex; flex-direction:row; justify-content:space-around; flex-wrap:nowrap;">
-                <md-checkbox 
+                <md-checkbox
                     ng-repeat="(operation, value) in pathModal.newPath.operations"
-                    ng-model="pathModal.newPath.operations[operation]" 
+                    ng-model="pathModal.newPath.operations[operation]"
                     aria-label="{{operation}}">
                   {{operation | uppercase}}
                 </md-checkbox>
@@ -48,7 +48,7 @@
         <md-button ng-click="pathModal.cancel()">
          Cancel
         </md-button>
-        <md-button ng-click="pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" style="margin-right:20px;">
+        <md-button ng-click="addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" style="margin-right:20px;">
           Create
         </md-button>
       </md-dialog-actions>

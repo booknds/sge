@@ -8,7 +8,7 @@
             <h2>
               <span>Paths</span>
             </h2>
-            <div style="padding-top:6%" class="right-align">
+            <div style="margin-top: 55px;" class="right-align">
               <a ng-click="pathCtl.showPathCreator($event)"
                 class="btn-floating btn-large waves-effect waves-light purple accent-4"
                 >
@@ -18,47 +18,70 @@
           </div>
         </md-toolbar>
         <div class="card-content">
-          <div ng-hide="pathCtl.prevent.showPaths" ng-repeat="(pathName, pathValue) in pathCtl.paths">
-            <div class="row valign-wrapper">
-              <div class="input-field valign col s8">
-                <input id="path-name" ng-attr-placeholder="{{pathName}}" type="text" ng-model="pathCtl[pathName].newName">
-              </div>
-              <div class="valign col s2">
-                <button class="btn waves-effect waves-light" type="button" ng-click="pathCtl.updatePathName(pathName, pathCtl[pathName].newName)" name="action">
-                  Update
-                </button>
-              </div>
-              <div class="valign col s2">
-                <button class="btn-flat waves-effect waves-light" type="submit" name="action" ng-click="pathCtl.deletePath(pathName)">
-                <i class="material-icons">delete</i>
-                </button>
-              </div>
-            </div>
-            <div>
-              <div style="display:flex; flex-direction:row; justify-content:flex-start; align-items: center;">
-                <div>Operations:</div>
-                <md-button
-                  sg-operation-colorer="{{operation}}"
-                  ng-repeat="operation in pathCtl.operations | orderBy:operation" 
-                  ng-click="pathCtl.addOperation(pathName, operation)" 
-                  ng-hide="pathCtl.paths[pathName].hasOwnProperty(operation)"
-                  style="margin-right:20px; color:white;">
-                  {{operation | uppercase}}
+          <div ng-repeat="(pathName, pathValue) in pathCtl.paths">
+            <div  style="display: flex; flex-flow:row nowrap; justify-content:flex-start;">
+                <md-button  class="path-title"
+                    style="display: flex; flex-grow: 1; color: #3F1C3E;" ng-click="pathCtl.toggleShowPath(pathName);" href="">
+                    <h4  style="text-transform:none; display: flex; flex-grow: 1;">{{pathName}}</h4>
                 </md-button>
-              </div>
             </div>
-            <div class="" layout="column">
-              <ul class="collapsible popout" data-collapsible="accordion" watch>
-                  <!-- <li class="" sg-operation sg-operation-name="{{operation}}" sg-operation-object="value" ng-repeat="(operation, value) in pathCtl.paths[pathName]" ng-show="pathCtl.paths[pathName][operation]">
-                  </li> -->
-                  <sg-operation sg-operation-name="{{operation}}"
-                                sg-operation-object="value"
-                                ng-repeat="(operation, value) in pathCtl.paths[pathName]">
-                    <div style="display:flex; flex-direction:row-reverse;">
+            <div style="display: flex; flex-flow:column nowrap; justify-content:flex-start;" ng-hide="pathCtl.dontShowPaths[pathName]">
+                <form name="updateName" style="display: flex; flex-flow:row nowrap;  margin-left: 16px;">
+                    <md-input-container style="display:flex; flex-grow:2;">
+                      <label>Change Path Name</label>
+                      <input  type="text"
+                            name="pathName"
+                            ng-model="pathCtl[pathName].newName"
+                            ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
+                            minlength="3"
+                            maxlength="45"
+                            required>
+                        <div ng-messages="updateName.pathName.$error && updateName.pathName.$dirty" role="alert" >
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                              Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <div style="display: flex; flex-flow:row nowrap; justify-content:space-between;">
+                        <md-button
+                            type="submit"
+                            ng-click="pathCtl.updatePathName(pathName, pathCtl[pathName].newName)"
+                            style="">
+                            Update
+                        </md-button>
 
+                        <md-button style=""
+                            ng-click="pathCtl.deletePath(pathName)">
+                            Delete
+                        </md-button>
                     </div>
-                  </sg-operation>
-                </ul>
+                </form>
+
+                  <div style="display:flex; flex-direction:row; justify-content:flex-start; align-items: center; margin-left: 16px;">
+                    <!-- <div>Operations:</div> -->
+                    <md-button
+                      sg-operation-colorer="{{operation}}"
+                      ng-repeat="operation in pathCtl.operations | orderBy:operation"
+                      ng-click="pathCtl.addOperation(pathName, operation)"
+                      ng-hide="pathCtl.paths[pathName].hasOwnProperty(operation)"
+                      style="margin-right:20px; color:white;">
+                      {{operation | uppercase}}
+                    </md-button>
+                  </div>
+
+                <div class="" layout="column">
+                  <ul class="collapsible popout" data-collapsible="accordion" watch>
+                      <!-- <li class="" sg-operation sg-operation-name="{{operation}}" sg-operation-object="value" ng-repeat="(operation, value) in pathCtl.paths[pathName]" ng-show="pathCtl.paths[pathName][operation]">
+                      </li> -->
+                      <sg-operation sg-operation-name="{{operation}}"
+                                    sg-operation-object="value"
+                                    ng-repeat="(operation, value) in pathCtl.paths[pathName]">
+                        <div style="display:flex; flex-direction:row-reverse;">
+
+                        </div>
+                      </sg-operation>
+                    </ul>
+                </div>
             </div>
           </div>
         </div>

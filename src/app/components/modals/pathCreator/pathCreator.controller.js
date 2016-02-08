@@ -4,21 +4,7 @@ export default PathCreatorController;
 
 function PathModalCtrl($scope, PathService, UtilitiesService, $log, $mdDialog){
 
-    this.newPath = {
-        name:null,
-        operations:{
-            post:false,
-            get:false,
-            put:false,
-            delete:false
-        }
-    };
-
-    // this.prevent = {
-    //     pathCreation: false
-    // };
-
-    //this.closeModal = false;
+    this.newPath = newPathCreator();
 
     /*
       Add a new path object to the array containing all the paths
@@ -30,11 +16,11 @@ function PathModalCtrl($scope, PathService, UtilitiesService, $log, $mdDialog){
             $log.log(e);
             UtilitiesService.toast(e);
         }
-        
+
         // debugger;
         for (var operation in operations) {
 
-            if (operations[operation]) { 
+            if (operations[operation]) {
 
                 try {
                     PathService.addOperation(pathName, operation);
@@ -45,8 +31,17 @@ function PathModalCtrl($scope, PathService, UtilitiesService, $log, $mdDialog){
 
         }
 
+        this.newPath = newPathCreator();
+        $mdDialog.hide("added path");
 
-        this.newPath = {
+    };
+
+    this.cancel = function(){
+        $mdDialog.cancel();
+    };
+
+    function newPathCreator() {
+        return {
             name:null,
             operations:{
                 post:false,
@@ -55,18 +50,7 @@ function PathModalCtrl($scope, PathService, UtilitiesService, $log, $mdDialog){
                 delete:false
             }
         };
-
-        //this.prevent.pathCreation = true;
-
-        //this.closeModal = true;
-
-        $mdDialog.hide("added path");
-
-    };
-
-    this.cancel = function(){
-        $mdDialog.cancel();
-    };
+    }
 
 
 }
