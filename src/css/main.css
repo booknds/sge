@@ -26,6 +26,54 @@ html, body {
     margin-bottom: 32px;
 }*/
 
+/*@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade {
+  transition: 0.5s linear all;
+  -webkit-transition: 0.5s linear all;
+  transform: scaleY(0);
+ transition: transform 500ms ease-in-out;
+}
+
+.fade[aria-fade="true"] {
+  transform: scaleY(1);
+}
+
+.fade.ng-show {
+  opacity: 0;
+}
+
+.fade.ng-show.ng-show-active {
+  opacity: 1;
+}
+
+.fade.ng-hide {
+  opacity: 1;
+}
+
+.fade.ng-hide.ng-hide-active {
+  opacity: 0;
+}
+
+.path-title:hover {
+
+}*/
+
 #nav-mobile li.search {
     position: absolute;
     left: 0;

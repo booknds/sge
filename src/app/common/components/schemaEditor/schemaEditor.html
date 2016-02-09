@@ -23,39 +23,35 @@
       <label class="active" for="sgSchemaObject-enum">Required</label>
     </div>
   </div>
-  <div class="row">
-    <div class="col s12">
-      <h5>Properties</h5>
-    </div>
-    <div class="col s12">
-      <form name="propertyCreator" ng-submit="propertyCreator.$valid && schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);" novalidate>
-        <sg-text-input class="input-field col col s6" sg-unique-input sg-label="Property Name" ng-model="schema.newProperty.name" required="true"></sg-text-input>
-        <!-- <div class="input-field col s6">
-          <input id="new-property-name" type="text" ng-model="schema.newProperty.name" required aria-required="true">
-          <label for="new-property-name">Property Name</label>
-        </div> -->
-        
-        <div class="input-field col s6">
-          <!-- <button type="submit" name="action" close-path-modal ng-class="{'disabled': propertyCreator.$invalid}"
-            class=" waves-effect waves-green btn">
-            Create
-          </button> -->
-          <button type="submit"
-            ng-if="!schema.newProperty.name"
-            ng-click="schema.toast('Name cannot be empty')"
-            class=" waves-effect waves-green btn disabled">
-            <i class="material-icons">add</i>
-          </button>
-          <button
-            ng-if="schema.newProperty.name"
-            ng-class="{'disabled': !schema.newProperty.name}"
-            ng-click="schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);"
-            class=" waves-effect waves-green btn">
-            <i class="material-icons">add</i>
-          </button>
+  <div class="display:flex; flex-flow:column nowrap;">
+        <div >
+          <h5>Properties</h5>
         </div>
-      </form>
-    </div>
+
+        <form novalidate name="propertyCreator" style="display:flex; flex-direction:row; align-items:center;">
+
+          <md-input-container style="display:flex; flex-flow:column nowrap;  flex-grow:2;">
+            <label>Property Name</label>
+            <input  type="text"
+                    name="propertyName"
+                    ng-model="schema.newProperty.name"
+                    required>
+
+            <div ng-if="propertyCreator.propertyName.$dirty"
+                ng-messages="propertyCreator.propertyName.$error"
+                role="alert" >
+              <div ng-message="required">
+                Property name is required.
+              </div>
+            </div>
+
+          </md-input-container>
+
+          <md-button style="display:flex; justify-content:center; align-items:center;"
+                    ng-click="propertyCreator.$valid && schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);">
+              <i class="material-icons">add</i>
+          </md-button>
+        </form>
   </div>
   <ul ng-repeat="(property, pValue) in schema.sgSchemaObject.properties | orderBy:'property'"
       class="collapsible "

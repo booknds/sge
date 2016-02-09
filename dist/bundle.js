@@ -30763,7 +30763,7 @@
 /* 39 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- <form name=\"editSchema\" ng-submit=\"\" novalidate> -->\n<!-- <div ng-init=\"scope.\"> -->\n  <div class=\"row\">\n    <div class=\"input-field col s12\">\n      <textarea id=\"sgSchemaObject-description\" ng-model=\"schema.sgSchemaObject.description\" class=\"materialize-textarea\"></textarea>\n      <label for=\"sgSchemaObject-description\">Description</label>\n    </div>\n      <sg-text-input class=\"input-field col col s4\" sg-unique-input sg-label=\"$ref\" ng-model=\"schema.sgSchemaObject.$ref\"></sg-text-input>\n    <!-- <div class=\"input-field col s4\">\n      <input id=\"sgSchemaObject-ref\" type=\"text\" ng-model=\"schema.sgSchemaObject.$ref\" >\n      <label for=\"sgSchemaObject-ref\">$ref</label>\n    </div> -->\n    <!-- <sg-text-input class=\"input-field col col s4\" sg-unique-input sg-label=\"Type\" ng-model=\"schema.sgSchemaObject.type\"></sg-text-input> -->\n    <div ng-show=\"schema.sgRestrictTypeToObject === 'true'\" class=\"input-field col s4\">\n      <input id=\"sgSchemaObject-type\" type=\"text\"\n              ng-model=\"schema.sgSchemaObject.type\"\n              disabled>\n      <label for=\"sgSchemaObject-type\">Type</label>\n    </div>\n    <sg-text-input ng-hide=\"schema.sgRestrictTypeToObject === 'true'\" class=\"input-field col col s4\" sg-unique-input sg-label=\"Type\" ng-model=\"schema.sgSchemaObject.type\"></sg-text-input>\n    <div class=\"input-field col s4\">\n      <input id=\"sgSchemaObject-enum\" type=\"text\" disabled value=\"\" ng-model=\"schema.sgSchemaObject.required\">\n      <label class=\"active\" for=\"sgSchemaObject-enum\">Required</label>\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"col s12\">\n      <h5>Properties</h5>\n    </div>\n    <div class=\"col s12\">\n      <form name=\"propertyCreator\" ng-submit=\"propertyCreator.$valid && schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);\" novalidate>\n        <sg-text-input class=\"input-field col col s6\" sg-unique-input sg-label=\"Property Name\" ng-model=\"schema.newProperty.name\" required=\"true\"></sg-text-input>\n        <!-- <div class=\"input-field col s6\">\n          <input id=\"new-property-name\" type=\"text\" ng-model=\"schema.newProperty.name\" required aria-required=\"true\">\n          <label for=\"new-property-name\">Property Name</label>\n        </div> -->\n        \n        <div class=\"input-field col s6\">\n          <!-- <button type=\"submit\" name=\"action\" close-path-modal ng-class=\"{'disabled': propertyCreator.$invalid}\"\n            class=\" waves-effect waves-green btn\">\n            Create\n          </button> -->\n          <button type=\"submit\"\n            ng-if=\"!schema.newProperty.name\"\n            ng-click=\"schema.toast('Name cannot be empty')\"\n            class=\" waves-effect waves-green btn disabled\">\n            <i class=\"material-icons\">add</i>\n          </button>\n          <button\n            ng-if=\"schema.newProperty.name\"\n            ng-class=\"{'disabled': !schema.newProperty.name}\"\n            ng-click=\"schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);\"\n            class=\" waves-effect waves-green btn\">\n            <i class=\"material-icons\">add</i>\n          </button>\n        </div>\n      </form>\n    </div>\n  </div>\n  <ul ng-repeat=\"(property, pValue) in schema.sgSchemaObject.properties | orderBy:'property'\"\n      class=\"collapsible \"\n      init-collapse\n      data-collapsible=\"accordion\">\n    <li>\n      <div class=\"collapsible-header \">\n        {{property}}\n      </div>\n      <div class=\"collapsible-body \">\n        <div class=\" valign-wrapper section\">\n          <sg-text-input class=\"input-field col col s3 valign\" sg-unique-input sg-label=\"Description\" ng-model=\"pValue.description\" required=\"true\"></sg-text-input>\n          <!-- <div class=\"input-field col s3 valign\">\n            <input id=\"new-property-name\" type=\"text\" ng-model=\"pValue.description\" required aria-required=\"true\">\n            <label for=\"new-property-name\">Description</label>\n          </div> -->\n          <div class=\"input-field col s2 valign\">\n            <!-- <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"pValue.type\" sg-choices=\"schema.types\" sg-default-option=\"Choose a Type\"></sg-dropdown> -->\n            <select class=\"browser-default\"  select-value\n                    ng-model=\"pValue.type\">\n              <option value=\"\" selected>Choose a Type</option>\n              <option ng-repeat=\"type in schema.types\"\n                      ng-attr-value=\"{{ type }}\"\n                      ng-attr-id=\"{{ type }}\">{{ type }}</option>\n            </select>\n          </div>\n          <div class=\"input-field col s2 valign\">\n            <!-- <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"pValue.format\" sg-choices=\"schema.formats\" sg-default-option=\"Property Format\"></sg-dropdown> -->\n            <select class=\"browser-default\"  select-value ng-model=\"pValue.format\">\n              <option value=\"\" selected>Property Format</option>\n              <option ng-repeat=\"format in schema.formats\"\n                      ng-attr-value=\"{{ format }}\"\n                      ng-attr-id=\"{{ format }}\">{{ format }}</option>\n            </select>\n          </div>\n          <div class=\"input-field col s4 valign\">\n            <input id=\"property-enum\" type=\"text\" placeholder=\"value,must,be,comma,separated\" value=\"\"\n            ng-model=\"pValue.enum\">\n            <label class=\"active\" for=\"property-enum\">Enum</label>\n          </div>\n          <div class=\"input-field col s2 valign valign-wrapper\">\n            <p sg-unique-input class=\"valign\">\n              <input type=\"checkbox\" id=\"input\" ng-model=\"schema[property].required\" ng-click=\"schema.toggleRequired(property, schema[property].required)\"/>\n              <label id=\"label\" for=\"label\">Required</label>\n            </p>\n          </div>\n        </div>\n        <div class=\"valign-wrapper section\" >\n          <div class=\"input-field col s1 offset-s11 valign\">\n            <button tooltipped\n                    class=\"btn col \"\n                    data-position=\"top\"\n                    data-delay=\"50\"\n                    data-tooltip=\"Delete Property\"\n                    ng-click=\"schema.deleteProperty(property)\">\n            <i class=\"material-icons\">delete</i>\n            </button>\n          </div>\n          <!--div class=\"input-field col s1 valign\">\n            <button tooltipped\n                    class=\"btn col \"\n                    data-position=\"top\"\n                    data-delay=\"50\"\n                    data-tooltip=\"Update Property Data\">\n            <i class=\"material-icons\">done</i>\n            </button>\n          </div-->\n        </div>\n      </div>\n    </li>\n  </ul>\n<!-- </form> -->\n"
+	module.exports = "<!-- <form name=\"editSchema\" ng-submit=\"\" novalidate> -->\n<!-- <div ng-init=\"scope.\"> -->\n  <div class=\"row\">\n    <div class=\"input-field col s12\">\n      <textarea id=\"sgSchemaObject-description\" ng-model=\"schema.sgSchemaObject.description\" class=\"materialize-textarea\"></textarea>\n      <label for=\"sgSchemaObject-description\">Description</label>\n    </div>\n      <sg-text-input class=\"input-field col col s4\" sg-unique-input sg-label=\"$ref\" ng-model=\"schema.sgSchemaObject.$ref\"></sg-text-input>\n    <!-- <div class=\"input-field col s4\">\n      <input id=\"sgSchemaObject-ref\" type=\"text\" ng-model=\"schema.sgSchemaObject.$ref\" >\n      <label for=\"sgSchemaObject-ref\">$ref</label>\n    </div> -->\n    <!-- <sg-text-input class=\"input-field col col s4\" sg-unique-input sg-label=\"Type\" ng-model=\"schema.sgSchemaObject.type\"></sg-text-input> -->\n    <div ng-show=\"schema.sgRestrictTypeToObject === 'true'\" class=\"input-field col s4\">\n      <input id=\"sgSchemaObject-type\" type=\"text\"\n              ng-model=\"schema.sgSchemaObject.type\"\n              disabled>\n      <label for=\"sgSchemaObject-type\">Type</label>\n    </div>\n    <sg-text-input ng-hide=\"schema.sgRestrictTypeToObject === 'true'\" class=\"input-field col col s4\" sg-unique-input sg-label=\"Type\" ng-model=\"schema.sgSchemaObject.type\"></sg-text-input>\n    <div class=\"input-field col s4\">\n      <input id=\"sgSchemaObject-enum\" type=\"text\" disabled value=\"\" ng-model=\"schema.sgSchemaObject.required\">\n      <label class=\"active\" for=\"sgSchemaObject-enum\">Required</label>\n    </div>\n  </div>\n  <div class=\"display:flex; flex-flow:column nowrap;\">\n        <div >\n          <h5>Properties</h5>\n        </div>\n\n        <form novalidate name=\"propertyCreator\" style=\"display:flex; flex-direction:row; align-items:center;\">\n\n          <md-input-container style=\"display:flex; flex-flow:column nowrap;  flex-grow:2;\">\n            <label>Property Name</label>\n            <input  type=\"text\"\n                    name=\"propertyName\"\n                    ng-model=\"schema.newProperty.name\"\n                    required>\n\n            <div ng-if=\"propertyCreator.propertyName.$dirty\"\n                ng-messages=\"propertyCreator.propertyName.$error\"\n                role=\"alert\" >\n              <div ng-message=\"required\">\n                Property name is required.\n              </div>\n            </div>\n\n          </md-input-container>\n\n          <md-button style=\"display:flex; justify-content:center; align-items:center;\"\n                    ng-click=\"propertyCreator.$valid && schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);\">\n              <i class=\"material-icons\">add</i>\n          </md-button>\n        </form>\n  </div>\n  <ul ng-repeat=\"(property, pValue) in schema.sgSchemaObject.properties | orderBy:'property'\"\n      class=\"collapsible \"\n      init-collapse\n      data-collapsible=\"accordion\">\n    <li>\n      <div class=\"collapsible-header \">\n        {{property}}\n      </div>\n      <div class=\"collapsible-body \">\n        <div class=\" valign-wrapper section\">\n          <sg-text-input class=\"input-field col col s3 valign\" sg-unique-input sg-label=\"Description\" ng-model=\"pValue.description\" required=\"true\"></sg-text-input>\n          <!-- <div class=\"input-field col s3 valign\">\n            <input id=\"new-property-name\" type=\"text\" ng-model=\"pValue.description\" required aria-required=\"true\">\n            <label for=\"new-property-name\">Description</label>\n          </div> -->\n          <div class=\"input-field col s2 valign\">\n            <!-- <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"pValue.type\" sg-choices=\"schema.types\" sg-default-option=\"Choose a Type\"></sg-dropdown> -->\n            <select class=\"browser-default\"  select-value\n                    ng-model=\"pValue.type\">\n              <option value=\"\" selected>Choose a Type</option>\n              <option ng-repeat=\"type in schema.types\"\n                      ng-attr-value=\"{{ type }}\"\n                      ng-attr-id=\"{{ type }}\">{{ type }}</option>\n            </select>\n          </div>\n          <div class=\"input-field col s2 valign\">\n            <!-- <sg-dropdown class=\"browser-default\" style=\"background-color: #455a64;\" ng-model=\"pValue.format\" sg-choices=\"schema.formats\" sg-default-option=\"Property Format\"></sg-dropdown> -->\n            <select class=\"browser-default\"  select-value ng-model=\"pValue.format\">\n              <option value=\"\" selected>Property Format</option>\n              <option ng-repeat=\"format in schema.formats\"\n                      ng-attr-value=\"{{ format }}\"\n                      ng-attr-id=\"{{ format }}\">{{ format }}</option>\n            </select>\n          </div>\n          <div class=\"input-field col s4 valign\">\n            <input id=\"property-enum\" type=\"text\" placeholder=\"value,must,be,comma,separated\" value=\"\"\n            ng-model=\"pValue.enum\">\n            <label class=\"active\" for=\"property-enum\">Enum</label>\n          </div>\n          <div class=\"input-field col s2 valign valign-wrapper\">\n            <p sg-unique-input class=\"valign\">\n              <input type=\"checkbox\" id=\"input\" ng-model=\"schema[property].required\" ng-click=\"schema.toggleRequired(property, schema[property].required)\"/>\n              <label id=\"label\" for=\"label\">Required</label>\n            </p>\n          </div>\n        </div>\n        <div class=\"valign-wrapper section\" >\n          <div class=\"input-field col s1 offset-s11 valign\">\n            <button tooltipped\n                    class=\"btn col \"\n                    data-position=\"top\"\n                    data-delay=\"50\"\n                    data-tooltip=\"Delete Property\"\n                    ng-click=\"schema.deleteProperty(property)\">\n            <i class=\"material-icons\">delete</i>\n            </button>\n          </div>\n          <!--div class=\"input-field col s1 valign\">\n            <button tooltipped\n                    class=\"btn col \"\n                    data-position=\"top\"\n                    data-delay=\"50\"\n                    data-tooltip=\"Update Property Data\">\n            <i class=\"material-icons\">done</i>\n            </button>\n          </div-->\n        </div>\n      </div>\n    </li>\n  </ul>\n<!-- </form> -->\n"
 
 /***/ },
 /* 40 */
@@ -30825,6 +30825,7 @@
 	        //if(tempDefniition.properties.hasOwnProperty)
 	
 	        this.newProperty.name = "";
+	        $scope.propertyCreator.setPristine();
 	    };
 	
 	    this.deleteProperty = function (propertyName) {
@@ -31302,7 +31303,7 @@
 	    this.updatePathName = function (oldPathName, newPathName) {
 	        if (oldPathName === newPathName) return;
 	
-	        if (hasPath(oldPathName)) {
+	        if (!hasPath(newPathName)) {
 	            paths[newPathName] = _angular2.default.copy(paths[oldPathName]);
 	            delete paths[oldPathName];
 	        } else {
@@ -32607,11 +32608,11 @@
 /* 75 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"md-dialog-container\" style=\"top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;\"> \n  <md-dialog aria-label=\"New Path\" style=\"width:50%;\" ng-cloak>\n    <form name=\"editParam\">\n      <md-toolbar style=\"background-color:#3F1C3E;\">\n        <div class=\"md-toolbar-tools\">\n          <h2>Parameter Options</h2>\n          <span flex></span>\n         <!--  <md-button class=\"md-icon-button\" ng-click=\"cancel()\">\n            <md-icon md-svg-src=\"img/icons/ic_close_24px.svg\" aria-label=\"Close dialog\"></md-icon>\n          </md-button> -->\n        </div>\n      </md-toolbar>\n      <md-dialog-content>\n        <div class=\"md-dialog-content\">\n          <div style=\"display: flex; flex-direction:row; justify-content:space-around; flex-wrap:nowrap;\">\n            <md-input-container style=\"\">\n              <label>Title</label>\n              <input  type=\"text\"\n                      name=\"paramName\"\n                      ng-model=\"paramModalControl.tempParam.name\"\n                      required>\n              <div ng-messages=\"editParam.paramName.$error\" role=\"alert\" >\n                <div ng-message=\"required\">\n                  Name is required.\n                </div>\n              </div>\n            </md-input-container>\n            \n            <md-input-container>\n              <label>Parameter Location</label>\n              <md-select ng-model=\"paramModalControl.tempParam.inLocation\">\n                <md-option ng-repeat=\"locationType in paramModalControl.locationTypes\" value=\"{{locationType}}\">\n                  {{locationType | capitalize}}\n                </md-option>\n              </md-select>\n            </md-input-container>\n           \n            <md-checkbox \n                ng-model=\"paramModalControl.tempParam.allowEmptyValue\" \n                aria-label=\"Allow Empty Value\">\n              Allow Empty Value\n            </md-checkbox>\n         \n            <md-checkbox \n                ng-if=\"paramModalControl.tempParam.inLocation !== 'path'\"\n                ng-model=\"paramModalControl.tempParam.required\" \n                aria-label=\"required\">\n              required\n            </md-checkbox>\n        \n          </div>\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n            <label for=\"param-description\">Description</label>\n          </div>\n          <div class=\"input-field col s4 valign\"\n                ng-repeat=\"(optionTypeName, optionTypeValue) in paramModalControl.paramOptions\">\n            <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam[optionTypeName]\" >\n              <option value=\"\" selected>Parameter {{ optionTypeName | capitalize }}</option>\n              <option ng-repeat=\"type in optionTypeValue\"\n                      ng-if=\"(collection === 'multi' && (paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData')) || collection !== 'multi' \"\n                      ng-attr-value=\"{{ type }}\"\n                      ng-attr-id=\"{{ type }}\">{{ type }}</option>\n            </select>\n          </div>\n          <div class=\"input-field col s12 valign\" >\n            <div ng-if=\"paramModalControl.tempParam.type === 'array'\">\n              <textarea id=\"param-items\" ng-model=\"paramModalControl.tempParam.items\" class=\"materialize-textarea\" required=\"\" aria-required=\"true\"></textarea>\n              <label for=\"param-items\">Items</label>\n            </div>\n          </div>\n          <div  class=\"input-field col s12 l6\">\n            <textarea id=\"param-extra\" ng-model=\"paramModalControl.tempParam.extra\" class=\"materialize-textarea\"></textarea>\n            <label for=\"param-extra\">Extra values</label>\n          </div>\n        </div>\n        <div  ng-if=\"paramModalControl.tempParam.inLocation === 'body'\" class=\"row\">\n          <!-- <div class=\"input-field col s12 l6\">\n            <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n            <label for=\"param-description\">Description</label>\n          </div>\n          <div class=\"input-field col s12 l6\">\n            <textarea id=\"param-schema\" ng-model=\"paramModalControl.tempParam.schema\" class=\"materialize-textarea\"></textarea>\n            <label for=\"param-schema\">Schema</label>\n          </div> -->\n          <div>\n            <h4>Schema</h4>\n          </div>\n          <sg-schema-editor sg-schema-object=\"paramModalControl.tempParam.schema\" sg-restrict-type-to-object=\"false\"></sg-schema-editor>\n        </div>\n        </div>\n      </md-dialog-content>\n      <md-dialog-actions layout=\"row\">\n        <span flex></span>\n        <md-button ng-click=\"paramModalControl.cancel()\">\n         Cancel\n        </md-button>\n        <md-button ng-click=\"paramModalControl.updateParameter(paramModalControl.tempParam)\" style=\"margin-right:20px;\">\n          Update\n        </md-button>\n      </md-dialog-actions>\n    </form>\n  </md-dialog>\n  <!-- <div id=\"param-modal\" class=\"modal modal-fixed-footer\">\n  <form name=\"editParam\" novalidate ng-submit=\"paramModalControl.updateParameter()\">\n    <div class=\"modal-content \">\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Parameter Options</h4>\n        </div>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <div class=\"input-field col s3 valign\">\n          <input id=\"newParamUtil\" name\"paramName\" ng-model=\"paramModalControl.tempParam.name\" type=\"text\" required=\"\" aria-required=\"true\"/>\n          <label for=\"newParamUtil\">Parameter Name</label>\n        </div>\n        <div class=\"input-field col s3 valign\" >\n          \n          <md-input-container>\n            <label>Parameter Location</label>\n            <md-select ng-model=\"paramModalControl.tempParam.inLocation\">\n              <md-option ng-repeat=\"locationType in paramModalControl.locationTypes\" value=\"{{locationType}}\">\n                {{locationType | capitalize}}\n              </md-option>\n            </md-select>\n          </md-input-container>\n        </div>\n        \n        <div class=\" col s3 valign\" >\n          <p>\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.allowEmptyValue\" id=\"allowEmptyValue\" />\n            <label for=\"allowEmptyValue\">Allow Empty Value</label>\n          </p>\n        </div>\n        <div class=\"col s3 valign\" >\n          <p ng-if=\"paramModalControl.tempParam.inLocation !== 'path'\">\n            <input type=\"checkbox\" ng-model=\"paramModalControl.tempParam.required\" id=\"required\" />\n            <label for=\"required\">required</label>\n          </p>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"input-field col s12\">\n          <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-description\">Description</label>\n        </div>\n        <div class=\"input-field col s4 valign\"\n              ng-repeat=\"(optionTypeName, optionTypeValue) in paramModalControl.paramOptions\">\n          <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam[optionTypeName]\" >\n            <option value=\"\" selected>Parameter {{ optionTypeName | capitalize }}</option>\n            <option ng-repeat=\"type in optionTypeValue\"\n                    ng-if=\"(collection === 'multi' && (paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData')) || collection !== 'multi' \"\n                    ng-attr-value=\"{{ type }}\"\n                    ng-attr-id=\"{{ type }}\">{{ type }}</option>\n          </select>\n        </div>\n        <div class=\"input-field col s12 valign\" >\n          <div ng-if=\"paramModalControl.tempParam.type === 'array'\">\n            <textarea id=\"param-items\" ng-model=\"paramModalControl.tempParam.items\" class=\"materialize-textarea\" required=\"\" aria-required=\"true\"></textarea>\n            <label for=\"param-items\">Items</label>\n          </div>\n        </div>\n        <div  class=\"input-field col s12 l6\">\n          <textarea id=\"param-extra\" ng-model=\"paramModalControl.tempParam.extra\" class=\"materialize-textarea\"></textarea>\n          <label for=\"param-extra\">Extra values</label>\n        </div>\n      </div>\n      <div  ng-if=\"paramModalControl.tempParam.inLocation === 'body'\" class=\"row\">\n        \n        <div>\n          <h4>Schema</h4>\n        </div>\n        <sg-schema-editor sg-schema-object=\"paramModalControl.tempParam.schema\" sg-restrict-type-to-object=\"false\"></sg-schema-editor>\n      </div>\n    </div>\n    <div class=\"modal-footer \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Parameter\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Parameter\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div> -->\n</div>\n"
+	module.exports = "<div class=\"md-dialog-container\" style=\"top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;\">\n  <md-dialog aria-label=\"New Path\" style=\"width:50%;\" ng-cloak>\n    <form name=\"editParam\">\n      <md-toolbar style=\"background-color:#3F1C3E;\">\n        <div class=\"md-toolbar-tools\">\n          <h2>Parameter Options</h2>\n          <span flex></span>\n         <!--  <md-button class=\"md-icon-button\" ng-click=\"cancel()\">\n            <md-icon md-svg-src=\"img/icons/ic_close_24px.svg\" aria-label=\"Close dialog\"></md-icon>\n          </md-button> -->\n        </div>\n      </md-toolbar>\n      <md-dialog-content>\n        <div class=\"md-dialog-content\">\n            <div style=\"display:flex; flex-direction:column;\">\n                <div style=\"display:flex; flex-direction:row; align-items:baseline;\">\n                  <md-input-container style=\"display:flex; flex-flow:column nowrap; flex-grow:2;\">\n                    <label>Title</label>\n                    <input  type=\"text\"\n                            name=\"paramName\"\n                            ng-model=\"paramModalControl.tempParam.name\"\n                            required />\n                    <div ng-if=\"editParam.paramName.$dirty\" ng-messages=\"editParam.paramName.$error\" role=\"alert\" >\n                      <div ng-message=\"required\">\n                        Name is required.\n                      </div>\n                    </div>\n                  </md-input-container>\n\n\n                  <md-input-container style=\"display:flex; flex-flow:column nowrap; flex-grow:2;\">\n                    <label>Parameter Location</label>\n                    <md-select ng-model=\"paramModalControl.tempParam.inLocation\">\n                      <md-option ng-repeat=\"locationType in paramModalControl.locationTypes\" value=\"{{locationType}}\">\n                        {{locationType | capitalize}}\n                      </md-option>\n                    </md-select>\n                  </md-input-container>\n\n\n\n                </div>\n                <div style=\"display:flex; flex-direction:row; align-items:center;\">\n\n                    <md-input-container style=\"display:flex; flex-grow:2;\">\n                      <label>Description</label>\n                      <input  type=\"text\"\n                              name=\"paramDescription\"\n                              ng-model=\"paramModalControl.tempParam.description\">\n                      <!-- <div ng-messages=\"editParam.paramName.$error\" role=\"alert\" >\n                        <div ng-message=\"required\">\n                          Name is required.\n                        </div>\n                      </div> -->\n                    </md-input-container>\n\n                    <md-checkbox\n\n                        ng-model=\"paramModalControl.tempParam.allowEmptyValue\"\n                        aria-label=\"Allow Empty Value\">\n                      Allow Empty Value\n                    </md-checkbox>\n\n                    <md-checkbox\n\n                        ng-if=\"paramModalControl.tempParam.inLocation !== 'path'\"\n                        ng-model=\"paramModalControl.tempParam.required\"\n                        aria-label=\"required\">\n                      required\n                    </md-checkbox>\n\n\n\n                </div>\n                <div style=\"display:flex; flex-direction:row;\">\n                    <sg-dropdown sg-label=\"Format\" ng-model=\"paramModalControl.tempParam.format\" sg-choices=\"paramModalControl.paramOptions.format\"></sg-dropdown>\n                    <sg-dropdown sg-label=\"Type\" ng-model=\"paramModalControl.tempParam.type\" sg-choices=\"paramModalControl.paramOptions.type\"></sg-dropdown>\n                    <md-input-container>\n                      <label>Collection Format</label>\n                      <md-select ng-model=\"paramModalControl.tempParam.collectionFormat\">\n                        <md-option ng-repeat=\"colFormat in paramModalControl.paramOptions.collectionFormat\" value=\"{{colFormat}}\"\n                        ng-if=\"(colFormat === 'multi' && (paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData')) || colFormat !== 'multi' \">\n                          {{colFormat}}\n                        </md-option>\n                      </md-select>\n                    </md-input-container>\n                </div>\n\n                <div  ng-if=\"paramModalControl.tempParam.inLocation === 'body'\" class=\"row\">\n                  <div>\n                    <h4>Schema</h4>\n                  </div>\n                  <sg-schema-editor sg-schema-object=\"paramModalControl.tempParam.schema\" sg-restrict-type-to-object=\"false\"></sg-schema-editor>\n                </div>\n            </div>\n\n        <!-- <div class=\"row\">\n\n          <div class=\"input-field col s12\">\n            <textarea id=\"param-description\" ng-model=\"paramModalControl.tempParam.description\" class=\"materialize-textarea\"></textarea>\n            <label for=\"param-description\">Description</label>\n          </div>\n          <div class=\"input-field col s4 valign\"\n                ng-repeat=\"(optionTypeName, optionTypeValue) in paramModalControl.paramOptions\">\n            <select class=\"browser-default\" style=\"background-color: #455a64;\" select-value ng-model=\"paramModalControl.tempParam[optionTypeName]\" >\n              <option value=\"\" selected>Parameter {{ optionTypeName | capitalize }}</option>\n              <option ng-repeat=\"type in optionTypeValue\"\n                      ng-if=\"(collection === 'multi' && (paramModalControl.tempParam.inLocation === 'query' || paramModalControl.tempParam.inLocation === 'formData')) || collection !== 'multi' \"\n                      ng-attr-value=\"{{ type }}\"\n                      ng-attr-id=\"{{ type }}\">{{ type }}</option>\n            </select>\n          </div>\n          <div class=\"input-field col s12 valign\" >\n            <div ng-if=\"paramModalControl.tempParam.type === 'array'\">\n              <textarea id=\"param-items\" ng-model=\"paramModalControl.tempParam.items\" class=\"materialize-textarea\" required=\"\" aria-required=\"true\"></textarea>\n              <label for=\"param-items\">Items</label>\n            </div>\n          </div>\n          <div  class=\"input-field col s12 l6\">\n            <textarea id=\"param-extra\" ng-model=\"paramModalControl.tempParam.extra\" class=\"materialize-textarea\"></textarea>\n            <label for=\"param-extra\">Extra values</label>\n          </div>\n        </div> -->\n\n        </div>\n      </md-dialog-content>\n      <md-dialog-actions layout=\"row\">\n        <span flex></span>\n        <md-button ng-click=\"paramModalControl.cancel()\">\n         Cancel\n        </md-button>\n        <md-button ng-click=\"paramModalControl.updateParameter(paramModalControl.tempParam)\" style=\"margin-right:20px;\">\n          Update\n        </md-button>\n      </md-dialog-actions>\n    </form>\n  </md-dialog>\n \n</div>\n"
 
 /***/ },
 /* 76 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	"use strict";
 	
@@ -32619,24 +32620,18 @@
 	    value: true
 	});
 	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ParameterEditorController = ["$scope", "$log", "$mdDialog", "PathService", "ParameterModalService", ParameterModalCtrl];
+	var ParameterEditorController = ["$scope", "$log", "$mdDialog", ParameterModalCtrl];
 	
 	exports.default = ParameterEditorController;
 	
-	function ParameterModalCtrl($scope, $log, $mdDialog, swaggerPaths, pms) {
+	function ParameterModalCtrl($scope, $log, $mdDialog) {
 	
-	    var originalParamContext = {
-	        operation: null,
-	        parameter: null
-	    };
+	    // let originalParamContext = {
+	    //     operation:null,
+	    //     parameter:null
+	    // };
 	
-	    this.scope = $scope;
+	    // this.scope = $scope;
 	
 	    this.paramOptions = {
 	        format: ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password"],
@@ -32647,32 +32642,41 @@
 	    this.locationTypes = ["path", "query", "header", "body", "formData"];
 	
 	    $scope.$watch(function () {
-	        return pms.parameterContext;
-	    }, onModalInit.bind(this), true);
-	
-	    function onModalInit(newVal) {
-	
-	        if (newVal.parameter) {
-	            // this.currentParam = pms.currentParameter;
-	            //
-	            // var currentParam = newVal;
-	            // originalParamData.pathName = currentParam.pathName;
-	            // originalParamData.operation = currentParam.operation;
-	            // originalParamData.parameter = currentParam.parameter;
-	            //
-	            // this.tempParam = angular.copy(currentParam.parameter);
-	            // this.tempParam.Operation = currentParameter.Operation;
-	            //
-	            // if(this.tempParam.schema){
-	            //   this.tempParam.schema = JSON.stringify(this.tempParam.schema);
-	            // }
-	
-	            //debugger;
-	            originalParamContext = pms.parameterContext;
-	
-	            this.tempParam = _angular2.default.copy(originalParamContext.parameter);
+	        if (this.tempParam) {
+	            return this.tempParam.inLocation;
 	        }
-	    }
+	    }.bind(this), function (newVal) {
+	        if (newVal === "path") {
+	            this.tempParam.required = true;
+	        }
+	    }.bind(this));
+	
+	    // $scope.$watch(function(){return pms.parameterContext;}, onModalInit.bind(this), true);
+	    //
+	    // function onModalInit(newVal){
+	    //
+	    //     if(newVal.parameter){
+	    //         // this.currentParam = pms.currentParameter;
+	    //         //
+	    //         // var currentParam = newVal;
+	    //         // originalParamData.pathName = currentParam.pathName;
+	    //         // originalParamData.operation = currentParam.operation;
+	    //         // originalParamData.parameter = currentParam.parameter;
+	    //         //
+	    //         // this.tempParam = angular.copy(currentParam.parameter);
+	    //         // this.tempParam.Operation = currentParameter.Operation;
+	    //         //
+	    //         // if(this.tempParam.schema){
+	    //         //   this.tempParam.schema = JSON.stringify(this.tempParam.schema);
+	    //         // }
+	    //
+	    //         //debugger;
+	    //         originalParamContext = pms.parameterContext;
+	    //
+	    //         this.tempParam = angular.copy(originalParamContext.parameter);
+	    //     }
+	    //
+	    // }
 	
 	    this.updateParameter = function (newParameter) {
 	        // try{
@@ -32691,13 +32695,14 @@
 	        $mdDialog.cancel();
 	    };
 	
-	    this.setParamInModal = function (inLocation) {
-	        //$log.log("setting param modal");
-	        if (inLocation === "path") {
-	            this.tempParam.required = true;
-	            $log.log(this.tempParam);
-	        }
-	    };
+	    // this.setParamInModal = function(inLocation){
+	    //     //$log.log("setting param modal");
+	    //     if(inLocation === "path"){
+	    //         this.tempParam.required = true;
+	    //         $log.log(this.tempParam);
+	    //     }
+	    //
+	    // };
 	}
 
 /***/ },
@@ -32789,65 +32794,63 @@
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"response-modal\" class=\"modal modal-fixed-footer\">\n  <form ng-submit=\"rmControl.updateResponse(rmControl.tempResponse)\">\n    <div class=\"modal-content \">\n      <div class=\"row\">\n        <div class=\"left-align col s12\">\n          <h4>Response Options</h4>\n        </div>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <input id=\"response-modal-name\" ng-model=\"rmControl.tempResponse.httpCode\" type=\"text\" required=\"\" aria-required=\"true\"/>\n        <label for=\"response-modal-name\">Response Name</label>\n      </div>\n      <div class=\"input-field col s12 valign\">\n        <textarea id=\"response-modal-description\" ng-model=\"rmControl.tempResponse.response.description\" class=\"materialize-textarea\"></textarea>\n        <label for=\"response-modal-description\">Description</label>\n      </div>\n      <div class=\"row valign-wrapper\">\n        <!-- TODO ADD HEADERS AND EXAMPLES TEXT AREAS -->\n        <!-- <div class=\"input-field col s12 valign\"\n          ng-repeat=\"(key, value) in rmControl.tempResponse.response\"\n          ng-if=\"key !== 'description'\">\n          <textarea ng-attr-id=\"response-modal-{{key}}\" ng-model=\"rmControl.tempResponse.response[key]\" class=\"materialize-textarea\"></textarea>\n          <label ng-attr-for=\"response-modal-{{key}}\">{{ key | capitalize}}</label>\n        </div> -->\n      </div>\n      <div class=\"section\">\n        <div>\n          <h5>Schema</h5>\n        </div>\n        <sg-schema-editor sg-schema-object=\"rmControl.tempResponse.response.schema\" sg-restrict-type-to-object=\"false\"></sg-schema-editor>\n      </div>\n    </div>\n    <div class=\"modal-footer \">\n      <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn disabled\">\n      Update Response\n      </button>\n      <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n        class=\" waves-effect waves-green btn modal-action modal-close\">\n      Update Response\n      </button>\n      <div class=\"container\">\n        <button class=\" waves-effect waves-green btn modal-action modal-close\">\n        Cancel\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n"
+	module.exports = "<div class=\"md-dialog-container\" style=\"top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;\">\n  <md-dialog aria-label=\"Edit Response\" style=\"width:50%;\" ng-cloak>\n    <form name=\"editResponse\">\n      <md-toolbar style=\"background-color:#3F1C3E;\">\n        <div class=\"md-toolbar-tools\">\n          <h2>Edit Response</h2>\n          <span flex></span>\n         <!--  <md-button class=\"md-icon-button\" ng-click=\"cancel()\">\n            <md-icon md-svg-src=\"img/icons/ic_close_24px.svg\" aria-label=\"Close dialog\"></md-icon>\n          </md-button> -->\n        </div>\n      </md-toolbar>\n      <md-dialog-content>\n        <div class=\"md-dialog-content\" style=\"display:flex flex-direction:column;\">\n          <!-- <div class=\"input-field col s12 valign\">\n            <input id=\"response-modal-name\" ng-model=\"rmControl.tempResponse.httpCode\" type=\"text\" required=\"\" aria-required=\"true\"/>\n            <label for=\"response-modal-name\">Response Name</label>\n          </div> -->\n          <md-input-container style=\"display:flex; flex-flow:column nowrap;\">\n            <label>Response Code</label>\n            <input  type=\"text\"\n                    ng-model=\"rmControl.tempResponse.httpCode\"\n                    required>\n              <div ng-messages=\"updateName.pathName.$error\" role=\"alert\" >\n                  <div ng-message-exp=\"['minlength', 'maxlength', 'pattern']\">\n                    Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).\n                  </div>\n              </div>\n          </md-input-container>\n          <!-- <div class=\"input-field col s12 valign\">\n            <textarea id=\"response-modal-description\" ng-model=\"rmControl.tempResponse.response.description\" class=\"materialize-textarea\"></textarea>\n            <label for=\"response-modal-description\">Description</label>\n          </div> -->\n          <md-input-container style=\"display:flex; flex-flow:row nowrap;\">\n            <label>Description</label>\n            <input ng-model=\"rmControl.tempResponse.response.description\" type=\"text\" />\n            <!-- <textarea id=\"response-modal-description\" ng-model=\"rmControl.tempResponse.response.description\" ></textarea> -->\n              <!-- <div ng-if=\"updateName.pathName.$dirty\" ng-messages=\"updateName.pathName.$error\" role=\"alert\" >\n                  <div ng-message-exp=\"['minlength', 'maxlength', 'pattern']\">\n                    Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).\n                  </div>\n              </div> -->\n          </md-input-container>\n          <div class=\"row valign-wrapper\">\n            <!-- TODO ADD HEADERS AND EXAMPLES TEXT AREAS -->\n            <!-- <div class=\"input-field col s12 valign\"\n              ng-repeat=\"(key, value) in rmControl.tempResponse.response\"\n              ng-if=\"key !== 'description'\">\n              <textarea ng-attr-id=\"response-modal-{{key}}\" ng-model=\"rmControl.tempResponse.response[key]\" class=\"materialize-textarea\"></textarea>\n              <label ng-attr-for=\"response-modal-{{key}}\">{{ key | capitalize}}</label>\n            </div> -->\n          </div>\n          <div class=\"section\">\n            <div>\n              <h5>Schema</h5>\n            </div>\n            <sg-schema-editor sg-schema-object=\"rmControl.tempResponse.response.schema\" sg-restrict-type-to-object=\"false\"></sg-schema-editor>\n          </div>\n        </div>\n      </md-dialog-content>\n      <md-dialog-actions layout=\"row\">\n        <span flex></span>\n        <md-button ng-click=\"rmControl.cancel()\">\n         Cancel\n        </md-button>\n        <md-button ng-click=\" rmControl.updateResponse(rmControl.tempResponse)\" style=\"margin-right:20px;\">\n          Update\n        </md-button>\n      </md-dialog-actions>\n    </form>\n  </md-dialog>\n  <!-- <div id=\"response-modal\" class=\"modal modal-fixed-footer\">\n    <form ng-submit=\"rmControl.updateResponse(rmControl.tempResponse)\">\n      <div class=\"modal-content \">\n        <div class=\"row\">\n          <div class=\"left-align col s12\">\n            <h4>Response Options</h4>\n          </div>\n        </div>\n        <div class=\"input-field col s12 valign\">\n          <input id=\"response-modal-name\" ng-model=\"rmControl.tempResponse.httpCode\" type=\"text\" required=\"\" aria-required=\"true\"/>\n          <label for=\"response-modal-name\">Response Name</label>\n        </div>\n        <div class=\"input-field col s12 valign\">\n          <textarea id=\"response-modal-description\" ng-model=\"rmControl.tempResponse.response.description\" class=\"materialize-textarea\"></textarea>\n          <label for=\"response-modal-description\">Description</label>\n        </div>\n        <div class=\"row valign-wrapper\">\n\n        </div>\n        <div class=\"section\">\n          <div>\n            <h5>Schema</h5>\n          </div>\n          <sg-schema-editor sg-schema-object=\"rmControl.tempResponse.response.schema\" sg-restrict-type-to-object=\"false\"></sg-schema-editor>\n        </div>\n      </div>\n      <div class=\"modal-footer \">\n        <button type=\"submit\" ng-show=\"prevent.paramConfig\"\n          class=\" waves-effect waves-green btn disabled\">\n        Update Response\n        </button>\n        <button type=\"submit\" ng-hide=\"prevent.paramConfig\"\n          class=\" waves-effect waves-green btn modal-action modal-close\">\n        Update Response\n        </button>\n        <div class=\"container\">\n          <button class=\" waves-effect waves-green btn modal-action modal-close\">\n          Cancel\n          </button>\n        </div>\n      </div>\n    </form>\n  </div> -->\n</div>\n"
 
 /***/ },
 /* 81 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
+	// import angular from "angular";
+	
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	
-	var _angular = __webpack_require__(2);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	"use strict";
-	
-	var ResponseEditorController = ["ResponseModalService", "PathService", "UtilitiesService", "$scope", "$log", ResponseModalCtrl];
+	var ResponseEditorController = ["$scope", "$log", "$mdDialog", ResponseModalCtrl];
 	
 	exports.default = ResponseEditorController;
 	
-	function ResponseModalCtrl(rms, PathService, UtilitiesService, $scope, $log) {
+	function ResponseModalCtrl($scope, $log, $mdDialog) {
 	
-	    this.tempResponse = {
-	        httpCode: null,
-	        response: null
-	    };
+	    // this.tempResponse = {
+	    //     httpCode:null,
+	    //     response:null
+	    // };
+	    //
+	    // let originalResponse = {
+	    //     responses:null,
+	    //     httpCode:null
+	    // };
 	
-	    var originalResponse = {
-	        responses: null,
-	        httpCode: null
-	    };
-	
-	    $scope.$watch(function () {
-	        return rms.responseContext;
-	    }, onModalInit.bind(this), true);
-	
-	    function onModalInit(newVal) {
-	
-	        if (newVal.responses) {
-	            // debugger;
-	            originalResponse = newVal;
-	            this.tempResponse.httpCode = newVal.httpCode;
-	            this.tempResponse.response = _angular2.default.copy(newVal.responses.getResponse(newVal.httpCode));
-	        }
-	    }
+	    // $scope.$watch(function(){return rms.responseContext;}, onModalInit.bind(this), true);
+	    //
+	    // function onModalInit(newVal){
+	    //
+	    //     if(newVal.responses){
+	    //         // debugger;
+	    //         originalResponse = newVal;
+	    //         this.tempResponse.httpCode = newVal.httpCode;
+	    //         this.tempResponse.response = angular.copy(newVal.responses.getResponse(newVal.httpCode));
+	    //     }
+	    //
+	    // }
 	
 	    this.updateResponse = function (newResponse) {
-	        try {
-	            // swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
-	            PathService.updateResponse(originalResponse, newResponse);
-	        } catch (e) {
-	            $log.log(e);
-	            // Materialize.toast("Parameter name/query combo' already exists", 3000);
-	            UtilitiesService.toast(e);
-	        }
+	        // try{
+	        //     // swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
+	        //     PathService.updateResponse(originalResponse, newResponse);
+	        // }catch(e){
+	        //     $log.log(e);
+	        //     // Materialize.toast("Parameter name/query combo' already exists", 3000);
+	        //     UtilitiesService.toast(e);
+	        // }
+	        debugger;
+	        $mdDialog.hide(newResponse);
+	    };
+	
+	    this.cancel = function () {
+	        $mdDialog.cancel();
 	    };
 	
 	    // this.setResponseInModal = function(inLocation){
@@ -33098,7 +33101,7 @@
 /* 89 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"section\" ng-cloak>\n  <!-- <sg-path-creator-modal></sg-path-creator-modal> -->\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      <div class=\"card \">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Paths</span>\n            </h2>\n            <div style=\"margin-top: 55px;\" class=\"right-align\">\n              <a ng-click=\"pathCtl.showPathCreator($event)\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                >\n                <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div  style=\"display: flex; flex-flow:row nowrap; justify-content:flex-start;\">\n                <md-button  class=\"path-title\"\n                    style=\"display: flex; flex-grow: 1; color: #3F1C3E;\" ng-click=\"pathCtl.toggleShowPath(pathName);\" href=\"\">\n                    <h4  style=\"text-transform:none; display: flex; flex-grow: 1;\">{{pathName}}</h4>\n                </md-button>\n            </div>\n            <div style=\"display: flex; flex-flow:column nowrap; justify-content:flex-start;\" ng-hide=\"pathCtl.dontShowPaths[pathName]\">\n                <form name=\"updateName\" style=\"display: flex; flex-flow:row nowrap;  margin-left: 16px;\">\n                    <md-input-container style=\"display:flex; flex-grow:2;\">\n                      <label>Change Path Name</label>\n                      <input  type=\"text\"\n                            name=\"pathName\"\n                            ng-model=\"pathCtl[pathName].newName\"\n                            ng-pattern=\"/^\\/[0-9a-zA-Z\\/\\.\\_\\-\\{\\}]*$/\"\n                            minlength=\"3\"\n                            maxlength=\"45\"\n                            required>\n                        <div ng-messages=\"updateName.pathName.$error && updateName.pathName.$dirty\" role=\"alert\" >\n                            <div ng-message-exp=\"['required', 'minlength', 'maxlength', 'pattern']\">\n                              Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).\n                            </div>\n                        </div>\n                    </md-input-container>\n                    <div style=\"display: flex; flex-flow:row nowrap; justify-content:space-between;\">\n                        <md-button\n                            type=\"submit\"\n                            ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\"\n                            style=\"\">\n                            Update\n                        </md-button>\n\n                        <md-button style=\"\"\n                            ng-click=\"pathCtl.deletePath(pathName)\">\n                            Delete\n                        </md-button>\n                    </div>\n                </form>\n\n                  <div style=\"display:flex; flex-direction:row; justify-content:flex-start; align-items: center; margin-left: 16px;\">\n                    <!-- <div>Operations:</div> -->\n                    <md-button\n                      sg-operation-colorer=\"{{operation}}\"\n                      ng-repeat=\"operation in pathCtl.operations | orderBy:operation\"\n                      ng-click=\"pathCtl.addOperation(pathName, operation)\"\n                      ng-hide=\"pathCtl.paths[pathName].hasOwnProperty(operation)\"\n                      style=\"margin-right:20px; color:white;\">\n                      {{operation | uppercase}}\n                    </md-button>\n                  </div>\n\n                <div class=\"\" layout=\"column\">\n                  <ul class=\"collapsible popout\" data-collapsible=\"accordion\" watch>\n                      <!-- <li class=\"\" sg-operation sg-operation-name=\"{{operation}}\" sg-operation-object=\"value\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\">\n                      </li> -->\n                      <sg-operation sg-operation-name=\"{{operation}}\"\n                                    sg-operation-object=\"value\"\n                                    ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\">\n                        <div style=\"display:flex; flex-direction:row-reverse;\">\n\n                        </div>\n                      </sg-operation>\n                    </ul>\n                </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
+	module.exports = "<div class=\"section\" ng-cloak>\n  <!-- <sg-path-creator-modal></sg-path-creator-modal> -->\n  <div class=\"row\">\n    <div class=\"col s12 m7\" style=\"margin-left:2.33%;\">\n      <div class=\"card \">\n        <md-toolbar style=\"background-color:#3F1C3E;\">\n          <div class=\"md-toolbar-tools\" style=\"display:flex; justify-content:space-between;\">\n            <h2>\n              <span>Paths</span>\n            </h2>\n            <div style=\"margin-top: 55px;\" class=\"right-align\">\n              <a ng-click=\"pathCtl.showPathCreator($event)\"\n                class=\"btn-floating btn-large waves-effect waves-light purple accent-4\"\n                >\n                <i class=\"material-icons\">add</i>\n              </a>\n            </div>\n          </div>\n        </md-toolbar>\n        <div class=\"card-content\">\n          <div ng-repeat=\"(pathName, pathValue) in pathCtl.paths\">\n            <div  style=\"display: flex; flex-flow:row nowrap; justify-content:flex-start;\">\n                <md-button  class=\"path-title\"\n                    style=\"display: flex; flex-grow: 1; color: #3F1C3E;\" ng-click=\"pathCtl.toggleShowPath(pathName);\" href=\"\">\n                    <h4  style=\"text-transform:none; display: flex; flex-grow: 1;\">{{pathName}}</h4>\n                </md-button>\n            </div>\n            <div style=\"display: flex; flex-flow:column nowrap; justify-content:flex-start;\" ng-hide=\"pathCtl.dontShowPaths[pathName]\" class=\"fade\">\n                <form name=\"updateName\" style=\"display: flex; flex-flow:row nowrap;  margin-left: 16px; align-items: center;\">\n                    <md-input-container style=\"display:flex; flex-flow:column nowrap; flex-grow:2;\">\n                      <label>Change Path Name</label>\n                      <input  type=\"text\"\n                            name=\"pathName\"\n                            ng-model=\"pathCtl[pathName].newName\"\n                            ng-pattern=\"/^\\/[0-9a-zA-Z\\/\\.\\_\\-\\{\\}]*$/\"\n                            minlength=\"3\"\n                            maxlength=\"45\" />\n                        <div ng-if=\"updateName.pathName.$dirty\" ng-messages=\"updateName.pathName.$error\" role=\"alert\" >\n                            <div ng-message-exp=\"['minlength', 'maxlength', 'pattern']\">\n                              Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).\n                            </div>\n                        </div>\n                    </md-input-container>\n                    <div style=\"display: flex; flex-flow:row nowrap; justify-content:space-between;\">\n                        <md-button type=\"submit\"\n                            ng-click=\"pathCtl.updatePathName(pathName, pathCtl[pathName].newName)\"\n                            style=\"display:flex; justify-content:center; align-items:center;\">\n                            <i class=\"material-icons\">loop</i>\n                            <md-tooltip>\n                                Update Path Name\n                            </md-tooltip>\n                        </md-button>\n\n                        <md-button style=\"display:flex; justify-content:center; align-items:center;\"\n                            ng-click=\"pathCtl.deletePath(pathName)\">\n                            <i class=\"material-icons\">delete</i>\n                            <md-tooltip>\n                                Delete Path\n                            </md-tooltip>\n                        </md-button>\n                    </div>\n                </form>\n\n                  <div style=\"display:flex; flex-direction:row; justify-content:flex-start; align-items: center; margin-left: 16px;\">\n                    <!-- <div>Operations:</div> -->\n                    <md-button\n                      sg-operation-colorer=\"{{operation}}\"\n                      ng-repeat=\"operation in pathCtl.operations | orderBy:operation\"\n                      ng-click=\"pathCtl.addOperation(pathName, operation)\"\n                      ng-hide=\"pathCtl.paths[pathName].hasOwnProperty(operation)\"\n                      style=\"margin-right:20px; color:white;\">\n                      {{operation | uppercase}}\n                    </md-button>\n                  </div>\n\n                <div class=\"\" layout=\"column\">\n                  <ul class=\"collapsible popout\" data-collapsible=\"accordion\" watch>\n                      <!-- <li class=\"\" sg-operation sg-operation-name=\"{{operation}}\" sg-operation-object=\"value\" ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\" ng-show=\"pathCtl.paths[pathName][operation]\">\n                      </li> -->\n                      <sg-operation sg-operation-name=\"{{operation}}\"\n                                    sg-operation-object=\"value\"\n                                    ng-repeat=\"(operation, value) in pathCtl.paths[pathName]\">\n                        <md-button style=\"display:flex; justify-content:center; align-items:center;\"\n                            ng-click=\"pathCtl.deletePath(pathName)\">\n                            <i class=\"material-icons\">delete</i>\n                            <md-tooltip>\n                                Delete Path\n                            </md-tooltip>\n                        </md-button>\n                      </sg-operation>\n                    </ul>\n                </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- MODAL FOR PARAM SPECIFICATION -->\n  <sg-parameter-editor-modal></sg-parameter-editor-modal>\n  <!-- MODAL for RESPONSE UPDATE -->\n  <sg-response-editor-modal></sg-response-editor-modal>\n</div>\n"
 
 /***/ },
 /* 90 */
@@ -33204,16 +33207,16 @@
 	            return;
 	        }
 	
+	        debugger;
 	        try {
 	            swaggerPaths.updatePathName(originalPathName, newPathName);
 	            //delete the old pathName saved on the Object
-	            //delete this[originalPathName];
-	            this[newPathName] = "";
+	            delete this[originalPathName];
+	            //$scope.updateName.$setPristine();
 	        } catch (e) {
 	            $log.log(e);
 	            UtilitiesService.toast(e, 3000);
 	        }
-	        this.toggleUpdateName();
 	    };
 	
 	    this.deletePath = function (pathName) {
@@ -33221,7 +33224,6 @@
 	
 	            try {
 	                swaggerPaths.removePath(pathName);
-	                this.toggleUpdateName();
 	            } catch (e) {
 	                $log.log(e);
 	                UtilitiesService.toast(e, 3000);
@@ -33341,7 +33343,7 @@
 /* 93 */
 /***/ function(module, exports) {
 
-	module.exports = "<li>\n  <!-- <div sgOperationColorer=\"operationCtl.sgOperationName\" operationTitle=\"{{operationCtl.sgOperationName}}\" id=\"operation-header\" class=\"collapsible-header white-text\"> -->\n  <div sg-operation-colorer=\"{{operationCtl.sgOperationName}}\" class=\"collapsible-header white-text\">\n    <i class=\"material-icons\">filter_drama</i>{{ operationCtl.sgOperationName | uppercase }}\n  </div>\n  <div class=\"collapsible-body\" style=\"margin-left:2%; margin-right:2%;\">\n    <div class=\"\" style=\"display:flex; flex-direction:column;\">\n      <div sg-unique-input class=\"input-field\">\n        <input id=\"input\"\n          ng-attr-placeholder=\"operationCtl.sgOperationObject.summary\"\n          ng-model=\"operationCtl.sgOperationObject.summary\"\n          maxlength=\"150\" type=\"text\"/>\n        <label id=\"label\"  for=\"label\">Summary</label>\n      </div>\n      <div sg-unique-input class=\"input-field\">\n        <textarea id=\"input\"\n          ng-attr-placeholder=\"operationCtl.sgOperationObject.description\"\n          ng-model=\"operationCtl.sgOperationObject.description\"\n          class=\"materialize-textarea\"></textarea>\n        <label id=\"label\" for=\"label\">Description</label>\n      </div>\n    </div>\n    <sg-parameter sg-this-operation=\"{{operationCtl.sgOperationName}}\" sg-context=\"operationCtl.sgOperationObject\"></sg-parameter>\n    <sg-response sg-this-operation=\"{{operationCtl.sgOperationName}}\" sg-context=\"operationCtl.sgOperationObject.responses\"></sg-response>\n    <ng-transclude></ng-transclude>\n  </div>\n</li>\n"
+	module.exports = "<li >\n  <!-- <div sgOperationColorer=\"operationCtl.sgOperationName\" operationTitle=\"{{operationCtl.sgOperationName}}\" id=\"operation-header\" class=\"collapsible-header white-text\"> -->\n  <div  sg-operation-colorer=\"{{operationCtl.sgOperationName}}\" class=\"collapsible-header white-text\">\n    <i class=\"material-icons\">filter_drama</i>{{ operationCtl.sgOperationName | uppercase }}\n  </div>\n  <ng-transclude></ng-transclude>\n  <div class=\"collapsible-body\" style=\"margin-left:2%; margin-right:2%;\">\n    <div class=\"\" style=\"display:flex; flex-direction:column;\">\n      <div sg-unique-input class=\"input-field\">\n        <input id=\"input\"\n          ng-attr-placeholder=\"operationCtl.sgOperationObject.summary\"\n          ng-model=\"operationCtl.sgOperationObject.summary\"\n          maxlength=\"150\" type=\"text\"/>\n        <label id=\"label\"  for=\"label\">Summary</label>\n      </div>\n      <div sg-unique-input class=\"input-field\">\n        <textarea id=\"input\"\n          ng-attr-placeholder=\"operationCtl.sgOperationObject.description\"\n          ng-model=\"operationCtl.sgOperationObject.description\"\n          class=\"materialize-textarea\"></textarea>\n        <label id=\"label\" for=\"label\">Description</label>\n      </div>\n    </div>\n    <sg-parameter sg-this-operation=\"{{operationCtl.sgOperationName}}\" sg-context=\"operationCtl.sgOperationObject\"></sg-parameter>\n    <sg-response sg-this-operation=\"{{operationCtl.sgOperationName}}\" sg-context=\"operationCtl.sgOperationObject.responses\"></sg-response>\n\n  </div>\n\n</li>\n"
 
 /***/ },
 /* 94 */
@@ -33459,11 +33461,11 @@
 	
 	"use strict";
 	
-	var ParameterController = ["$scope", "$log", "$mdDialog", "$document", "$mdMedia", "UtilitiesService", "PathService", "ParameterModalService", ParameterCtrl];
+	var ParameterController = ["$scope", "$log", "$mdDialog", "$document", "$mdMedia", "UtilitiesService", "PathService", ParameterCtrl];
 	
 	exports.default = ParameterController;
 	
-	function ParameterCtrl($scope, $log, $mdDialog, $document, $mdMedia, UtilitiesService, PathService, pms) {
+	function ParameterCtrl($scope, $log, $mdDialog, $document, $mdMedia, UtilitiesService, PathService) {
 	
 	    this.inLocationList = ["path", "query", "header", "body", "formData"];
 	
@@ -33488,8 +33490,8 @@
 	    this.showParamEditor = function (ev, paramName, paramInLocation) {
 	
 	        var useFullScreen = ($mdMedia("sm") || $mdMedia("xs")) && $scope.customFullscreen;
-	        var param = this.sgContext.getParameter(paramName, paramInLocation);
-	        var tempParam = _angular2.default.copy(param);
+	        var originalParam = this.sgContext.getParameter(paramName, paramInLocation);
+	        var tempParam = _angular2.default.copy(originalParam);
 	        var dialogeContext = {
 	            controller: _parameterEditor4.default,
 	            controllerAs: "paramModalControl",
@@ -33502,7 +33504,7 @@
 	            fullscreen: useFullScreen
 	        };
 	
-	        $mdDialog.show(dialogeContext).then(updateParamFromModal, cancelled);
+	        $mdDialog.show(dialogeContext).then(updateParamFromModal.call(this, originalParam), cancelled);
 	
 	        // $scope.$watch(function() {
 	        //     return $mdMedia("xs") || $mdMedia("sm");
@@ -33511,25 +33513,37 @@
 	        // });
 	    };
 	
-	    function updateParamFromModal(newParameter) {
-	        $log.log("RETURNING DIALOGE accept" + newParameter);
+	    function updateParamFromModal(originalParameter) {
+	
+	        return function updateFromReturn(newParameter) {
+	            $log.log("RETURNING DIALOGE accept", newParameter);
+	
+	            try {
+	                debugger;
+	                this.sgContext.updateParameter(originalParameter, newParameter);
+	            } catch (e) {
+	                $log.log(e);
+	                UtilitiesService.toast("Parameter name/query combo' already exists", 3000);
+	            }
+	        }.bind(this);
 	    }
 	
 	    function cancelled() {
 	        $log.log("You cancelled the dialog. RETURNING DIALOGE -- CANCELLED");
 	    }
 	
-	    this.editParamData = function (pathName, operation, paramName, paramInLocation) {
-	
-	        var param = this.sgContext.getParameter(paramName, paramInLocation);
-	
-	        //debugger;
-	        //pms.initParameter(this.sgContext, paramName, paramInLocation);
-	
-	        pms.initParameter(this.sgContext, param);
-	
-	        //pms.parameterToUpdate(pathName, operation, param);
-	    };
+	    // this.editParamData = function(pathName, operation, paramName, paramInLocation){
+	    //
+	    //     var param = this.sgContext.getParameter(paramName, paramInLocation);
+	    //
+	    //     //debugger;
+	    //     //pms.initParameter(this.sgContext, paramName, paramInLocation);
+	    //
+	    //     pms.initParameter(this.sgContext, param);
+	    //
+	    //     //pms.parameterToUpdate(pathName, operation, param);
+	    //
+	    // };
 	
 	    /**
 	      * @name resetNewParamData
@@ -33618,22 +33632,39 @@
 /* 101 */
 /***/ function(module, exports) {
 
-	module.exports = "<h5>Response</h5>\n<table  class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" href=\"#response-modal\" modal ng-click=\"responseControl.initResponseModal(responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[responseControl.sgThisOperation].httpCode\"\n              ng-pattern=\"/^(Default|default)?([0-9]+)?$/\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[responseControl.sgThisOperation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n  <div class=\"valign-wrapper\">\n    <div class=\"col s4\">\n      <div  class=\"error valign\" ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          Response code is required.\n        </small>\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.pattern\">\n          Response code can either be a number or set to 'default'\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\">\n      <div class=\"error valign\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          Response description is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\"></div>\n  </div>\n  <div class=\"row\"></div>\n</form>\n"
+	module.exports = "<h5>Response</h5>\n<table  class=\"section bordered responsive-table\">\n  <thead>\n    <tr>\n      <th data-field=\"code\">Code</th>\n      <th data-field=\"description\">Description</th>\n      <th data-field=\"Schema\">Schema</th>\n      <th data-field=\"Edit\">Edit</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"(responseCode, response) in responseControl.sgContext | orderBy:'responseCode'\">\n      <div >\n        <td>{{responseCode}}</td>\n        <td class=\"shrink\">{{response.description}}</td>\n        <td class=\"shrink\">{{response.schema}}</td>\n        <td>\n          <a class=\"disabled\" ng-click=\"responseControl.showResponseEditor($event, responseCode)\">\n          <i class=\"material-icons\">settings</i>\n          </a>\n        </td>\n      </div>\n    </tr>\n  </tbody>\n</table>\n<form name=\"addResponse\" novalidate ng-submit=\"addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)\">\n  <div class=\"valign-wrapper\">\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[responseControl.sgThisOperation].httpCode\"\n              ng-pattern=\"/^(Default|default)?([0-9]+)?$/\" name=\"code\" type=\"text\" required=\"\"/>\n      <label id=\"label\" for=\"label\">Response Code</label>\n    </div>\n    <div unique-checkbox class=\"input-field col s4 valign\">\n      <input id=\"input\" ng-model=\"responseControl.newResponseData[responseControl.sgThisOperation].description\" name=\"description\" type=\"text\" required=\"\" />\n      <label id=\"label\" for=\"label\">Response Description</label>\n    </div>\n    <div class=\"col s4 valign\">\n      <button  class=\"waves-effect waves-light btn\"\n        ng-class=\"{ 'disabled': addResponse.$invalid}\">\n      <i class=\"material-icons\">add</i>\n      </button>\n    </div>\n  </div>\n  <div class=\"valign-wrapper\">\n    <div class=\"col s4\">\n      <div  class=\"error valign\" ng-show=\"addResponse.code.$dirty && addResponse.code.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.required\">\n          Response code is required.\n        </small>\n        <small class=\"error\"\n              ng-show=\"addResponse.code.$error.pattern\">\n          Response code can either be a number or set to 'default'\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\">\n      <div class=\"error valign\"\n            ng-show=\"addResponse.description.$dirty && addResponse.description.$invalid\">\n        <small class=\"error\"\n              ng-show=\"addResponse.description.$error.required\">\n          Response description is required.\n        </small>\n      </div>\n    </div>\n    <div class=\"col s4\"></div>\n  </div>\n  <div class=\"row\"></div>\n</form>\n"
 
 /***/ },
 /* 102 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var ResponseController = ["$scope", "$log", "UtilitiesService", "PathService", "ResponseModalService", ResponseCtrl];
+	
+	var _angular = __webpack_require__(2);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _responseEditor = __webpack_require__(80);
+	
+	var _responseEditor2 = _interopRequireDefault(_responseEditor);
+	
+	var _responseEditor3 = __webpack_require__(81);
+	
+	var _responseEditor4 = _interopRequireDefault(_responseEditor3);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	"use strict";
+	
+	var ResponseController = ["$scope", "$log", "$mdMedia", "$mdDialog", "$document", "UtilitiesService", "PathService", ResponseCtrl];
 	
 	exports.default = ResponseController;
 	
-	function ResponseCtrl($scope, $log, UtilitiesService, PathService, rms) {
+	function ResponseCtrl($scope, $log, $mdMedia, $mdDialog, $document, UtilitiesService, PathService) {
 	    //debugger;
 	    /**
 	      * @name newResponseData
@@ -33656,21 +33687,73 @@
 	    **/
 	    this.rKeys = null;
 	
+	    this.showResponseEditor = function (ev, httpCode) {
+	
+	        var useFullScreen = ($mdMedia("sm") || $mdMedia("xs")) && $scope.customFullscreen,
+	            originalResponseContext = {
+	            httpCode: httpCode,
+	            responses: this.sgContext
+	        },
+	            tempResponse = {
+	            httpCode: httpCode,
+	            response: _angular2.default.copy(this.sgContext.getResponse(httpCode))
+	        },
+	            dialogeContext = {
+	            controller: _responseEditor4.default,
+	            controllerAs: "rmControl",
+	            locals: { tempResponse: tempResponse },
+	            bindToController: true,
+	            template: _responseEditor2.default,
+	            parent: _angular2.default.element($document.body),
+	            targetEvent: ev,
+	            clickOutsideToClose: true,
+	            fullscreen: useFullScreen
+	        };
+	
+	        $mdDialog.show(dialogeContext).then(updateResponseFromModal.call(this, originalResponseContext), cancelled);
+	
+	        // $scope.$watch(function() {
+	        //     return $mdMedia("xs") || $mdMedia("sm");
+	        // }, function(wantsFullScreen) {
+	        //     $scope.customFullscreen = (wantsFullScreen === true);
+	        // });
+	    };
+	
+	    function updateResponseFromModal(originalResponse) {
+	
+	        return function updateResponse(newResponse) {
+	            debugger;
+	            $log.log("RETURNING DIALOGE accept", newResponse);
+	            try {
+	                // swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
+	                PathService.updateResponse(originalResponse, newResponse);
+	            } catch (e) {
+	                $log.log(e);
+	                // Materialize.toast("Parameter name/query combo' already exists", 3000);
+	                UtilitiesService.toast(e);
+	            }
+	        }.bind(this);
+	    }
+	
+	    function cancelled() {
+	        $log.log("You cancelled the dialog. RETURNING DIALOGE -- CANCELLED");
+	    }
+	
 	    /**
 	      * @name initResponseModal
 	      * @desc Sends the chosen response code and "responses" object to the
 	      *        ResponseModalService to be processed.
 	      * @type {Function}
 	     **/
-	    this.initResponseModal = function (httpCode) {
-	        try {
-	            rms.responseToUpdate(httpCode, this.sgContext);
-	        } catch (e) {
-	            $log.log(e);
-	            UtilitiesService.toast(e, 3000);
-	            return;
-	        }
-	    };
+	    // this.initResponseModal = function(httpCode){
+	    //     try {
+	    //         rms.responseToUpdate(httpCode, this.sgContext);
+	    //     } catch (e) {
+	    //         $log.log(e);
+	    //         UtilitiesService.toast(e, 3000);
+	    //         return;
+	    //     }
+	    // };
 	
 	    /**
 	      * @name addResponse
@@ -65277,7 +65360,7 @@
 	
 	
 	// module
-	exports.push([module.id, "/*.container-padding {\n    margin-left: 5px;\n}\n\nhtml, body {\n  font-family: 'Roboto', 'Helvetica', sans-serif;\n  margin: 0;\n  padding: 0;\n}\n\n.white-text {\n     color: black !important;\n}*/\n\n/*nav.top-nav {\n    height: 122px;\n    box-shadow: none;\n}*/\n/*ul.side-nav.fixed li.logo {\n    text-align: center;\n    margin-top: 32px;\n    margin-bottom: 80px;\n}*/\n/*#logo-container {\n    height: 57px;\n    margin-bottom: 32px;\n}*/\n\n#nav-mobile li.search {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 120px;\n    margin-top: 1px;\n    padding: 1px 0 0 0;\n    z-index: 2;\n}\n\nul.side-nav.fixed li {\n    line-height: 44px;\n}\n\n#nav-mobile li.search .search-wrapper input#search {\n    display: block;\n    font-size: 16px;\n    font-weight: 300;\n    width: 100%;\n    height: 45px;\n    margin: 0;\n    padding: 0 45px 0 15px;\n    border: 0;\n}\n\n#nav-mobile li.search .search-wrapper.focused {\n    margin: 0;\n}\n\n#nav-mobile li.search .search-wrapper {\n    margin: 0 12px;\n    transition: margin .25s ease;\n}\n\n#view-source {\n  position: fixed;\n  display: block;\n  right: 0;\n  bottom: 0;\n  margin-right: 40px;\n  margin-bottom: 40px;\n  z-index: 900;\n}\n\nheader, main, footer {\n  padding-left: 240px;\n}\n\n@media only screen and (max-width : 992px) {\n  header, main, footer {\n    padding-left: 0;\n  }\n}\n\n\n.shrink{\n  max-width:100px;\n  white-space:nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n[type=\"checkbox\"]+label:before {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 18px;\n    height: 18px;\n    z-index: 0;\n    border: 2px solid #9e9e9e;\n    border-radius: 1px;\n    margin-top: 2px;\n    transition: .2s;\n}\n\n.input-field label {\n    /*color: white;*/\n    position: absolute;\n    top: 0.8rem;\n    left: 0.75rem;\n    font-size: 1rem;\n    cursor: text;\n    transition: .2s ease-out;\n}\ninput.ng-invalid {\nborder-bottom: 1px solid #ff5252;\n}\n\n.error {\n  color: #ff5252;\n}\n", ""]);
+	exports.push([module.id, "/*.container-padding {\n    margin-left: 5px;\n}\n\nhtml, body {\n  font-family: 'Roboto', 'Helvetica', sans-serif;\n  margin: 0;\n  padding: 0;\n}\n\n.white-text {\n     color: black !important;\n}*/\n\n/*nav.top-nav {\n    height: 122px;\n    box-shadow: none;\n}*/\n/*ul.side-nav.fixed li.logo {\n    text-align: center;\n    margin-top: 32px;\n    margin-bottom: 80px;\n}*/\n/*#logo-container {\n    height: 57px;\n    margin-bottom: 32px;\n}*/\n\n/*@keyframes appear {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes disappear {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n\n.fade {\n  transition: 0.5s linear all;\n  -webkit-transition: 0.5s linear all;\n  transform: scaleY(0);\n transition: transform 500ms ease-in-out;\n}\n\n.fade[aria-fade=\"true\"] {\n  transform: scaleY(1);\n}\n\n.fade.ng-show {\n  opacity: 0;\n}\n\n.fade.ng-show.ng-show-active {\n  opacity: 1;\n}\n\n.fade.ng-hide {\n  opacity: 1;\n}\n\n.fade.ng-hide.ng-hide-active {\n  opacity: 0;\n}\n\n.path-title:hover {\n\n}*/\n\n#nav-mobile li.search {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 120px;\n    margin-top: 1px;\n    padding: 1px 0 0 0;\n    z-index: 2;\n}\n\nul.side-nav.fixed li {\n    line-height: 44px;\n}\n\n#nav-mobile li.search .search-wrapper input#search {\n    display: block;\n    font-size: 16px;\n    font-weight: 300;\n    width: 100%;\n    height: 45px;\n    margin: 0;\n    padding: 0 45px 0 15px;\n    border: 0;\n}\n\n#nav-mobile li.search .search-wrapper.focused {\n    margin: 0;\n}\n\n#nav-mobile li.search .search-wrapper {\n    margin: 0 12px;\n    transition: margin .25s ease;\n}\n\n#view-source {\n  position: fixed;\n  display: block;\n  right: 0;\n  bottom: 0;\n  margin-right: 40px;\n  margin-bottom: 40px;\n  z-index: 900;\n}\n\nheader, main, footer {\n  padding-left: 240px;\n}\n\n@media only screen and (max-width : 992px) {\n  header, main, footer {\n    padding-left: 0;\n  }\n}\n\n\n.shrink{\n  max-width:100px;\n  white-space:nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n[type=\"checkbox\"]+label:before {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 18px;\n    height: 18px;\n    z-index: 0;\n    border: 2px solid #9e9e9e;\n    border-radius: 1px;\n    margin-top: 2px;\n    transition: .2s;\n}\n\n.input-field label {\n    /*color: white;*/\n    position: absolute;\n    top: 0.8rem;\n    left: 0.75rem;\n    font-size: 1rem;\n    cursor: text;\n    transition: .2s ease-out;\n}\ninput.ng-invalid {\nborder-bottom: 1px solid #ff5252;\n}\n\n.error {\n  color: #ff5252;\n}\n", ""]);
 	
 	// exports
 

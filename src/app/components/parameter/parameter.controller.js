@@ -4,11 +4,11 @@ import controller from "../modals/parameterEditor/parameterEditor.controller";
 
 "use strict";
 
-let ParameterController = ["$scope", "$log", "$mdDialog", "$document", "$mdMedia", "UtilitiesService", "PathService", "ParameterModalService", ParameterCtrl];
+let ParameterController = ["$scope", "$log", "$mdDialog", "$document", "$mdMedia", "UtilitiesService", "PathService", ParameterCtrl];
 
 export default ParameterController;
 
-function ParameterCtrl($scope, $log, $mdDialog, $document, $mdMedia, UtilitiesService, PathService, pms){
+function ParameterCtrl($scope, $log, $mdDialog, $document, $mdMedia, UtilitiesService, PathService){
 
     this.inLocationList = ["path", "query", "header", "body", "formData"];
 
@@ -33,8 +33,8 @@ function ParameterCtrl($scope, $log, $mdDialog, $document, $mdMedia, UtilitiesSe
     this.showParamEditor = function(ev, paramName, paramInLocation) {
 
         var useFullScreen = ($mdMedia("sm") || $mdMedia("xs"))  && $scope.customFullscreen;
-        var param = this.sgContext.getParameter(paramName, paramInLocation);
-        var tempParam = angular.copy(param);
+        var originalParam = this.sgContext.getParameter(paramName, paramInLocation);
+        var tempParam = angular.copy(originalParam);
         var dialogeContext = {
             controller,
             controllerAs: "paramModalControl",
@@ -49,7 +49,7 @@ function ParameterCtrl($scope, $log, $mdDialog, $document, $mdMedia, UtilitiesSe
 
         $mdDialog
             .show(dialogeContext)
-            .then(updateParamFromModal, cancelled);
+            .then(updateParamFromModal.call(this, originalParam), cancelled);
 
         // $scope.$watch(function() {
         //     return $mdMedia("xs") || $mdMedia("sm");
@@ -58,26 +58,38 @@ function ParameterCtrl($scope, $log, $mdDialog, $document, $mdMedia, UtilitiesSe
         // });
     };
 
-    function updateParamFromModal(newParameter){
-        $log.log("RETURNING DIALOGE accept" + newParameter);
+    function updateParamFromModal(originalParameter){
+
+        return function updateFromReturn(newParameter){
+            $log.log("RETURNING DIALOGE accept", newParameter);
+
+            try {
+                debugger;
+                this.sgContext.updateParameter(originalParameter, newParameter);
+
+            } catch (e) {
+                $log.log(e);
+                UtilitiesService.toast("Parameter name/query combo' already exists", 3000);
+            }
+        }.bind(this);
     }
 
     function cancelled(){
         $log.log("You cancelled the dialog. RETURNING DIALOGE -- CANCELLED");
     }
 
-    this.editParamData = function(pathName, operation, paramName, paramInLocation){
-
-        var param = this.sgContext.getParameter(paramName, paramInLocation);
-
-        //debugger;
-        //pms.initParameter(this.sgContext, paramName, paramInLocation);
-
-        pms.initParameter(this.sgContext, param);
-
-        //pms.parameterToUpdate(pathName, operation, param);
-
-    };
+    // this.editParamData = function(pathName, operation, paramName, paramInLocation){
+    //
+    //     var param = this.sgContext.getParameter(paramName, paramInLocation);
+    //
+    //     //debugger;
+    //     //pms.initParameter(this.sgContext, paramName, paramInLocation);
+    //
+    //     pms.initParameter(this.sgContext, param);
+    //
+    //     //pms.parameterToUpdate(pathName, operation, param);
+    //
+    // };
 
     /**
       * @name resetNewParamData

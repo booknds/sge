@@ -47,7 +47,7 @@ function PathService($log, ObjectFactory){
     this.updatePathName = function(oldPathName, newPathName){
         if (oldPathName === newPathName) return;
 
-        if (hasPath(oldPathName)) {
+        if (!hasPath(newPathName)) {
             paths[newPathName] = angular.copy(paths[oldPathName]);
             delete paths[oldPathName];
         } else {

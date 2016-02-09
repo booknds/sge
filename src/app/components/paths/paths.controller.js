@@ -42,7 +42,7 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
     this.toggleShowPath = function toggle(pathName){
         if (angular.isUndefined(pathName)) {
             this.dontShowPaths[pathName] = true;
-            
+
         } else {
             this.dontShowPaths[pathName] = !this.dontShowPaths[pathName];
         }
@@ -84,16 +84,17 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
             return;
         }
 
+        debugger;
         try {
             swaggerPaths.updatePathName(originalPathName, newPathName);
             //delete the old pathName saved on the Object
-            //delete this[originalPathName];
-            this[newPathName]="";
+            delete this[originalPathName];
+            //$scope.updateName.$setPristine();
         } catch (e) {
             $log.log(e);
             UtilitiesService.toast(e, 3000);
         }
-        this.toggleUpdateName();
+
     };
 
     this.deletePath = function(pathName){
@@ -101,7 +102,7 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
 
             try{
                 swaggerPaths.removePath(pathName);
-                this.toggleUpdateName();
+
             } catch (e) {
                 $log.log(e);
                 UtilitiesService.toast(e, 3000);

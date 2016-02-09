@@ -25,34 +25,38 @@
                     <h4  style="text-transform:none; display: flex; flex-grow: 1;">{{pathName}}</h4>
                 </md-button>
             </div>
-            <div style="display: flex; flex-flow:column nowrap; justify-content:flex-start;" ng-hide="pathCtl.dontShowPaths[pathName]">
-                <form name="updateName" style="display: flex; flex-flow:row nowrap;  margin-left: 16px;">
-                    <md-input-container style="display:flex; flex-grow:2;">
+            <div style="display: flex; flex-flow:column nowrap; justify-content:flex-start;" ng-hide="pathCtl.dontShowPaths[pathName]" class="fade">
+                <form name="updateName" style="display: flex; flex-flow:row nowrap;  margin-left: 16px; align-items: center;">
+                    <md-input-container style="display:flex; flex-flow:column nowrap; flex-grow:2;">
                       <label>Change Path Name</label>
                       <input  type="text"
                             name="pathName"
                             ng-model="pathCtl[pathName].newName"
                             ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
                             minlength="3"
-                            maxlength="45"
-                            required>
-                        <div ng-messages="updateName.pathName.$error && updateName.pathName.$dirty" role="alert" >
-                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                            maxlength="45" />
+                        <div ng-if="updateName.pathName.$dirty" ng-messages="updateName.pathName.$error" role="alert" >
+                            <div ng-message-exp="['minlength', 'maxlength', 'pattern']">
                               Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).
                             </div>
                         </div>
                     </md-input-container>
                     <div style="display: flex; flex-flow:row nowrap; justify-content:space-between;">
-                        <md-button
-                            type="submit"
+                        <md-button type="submit"
                             ng-click="pathCtl.updatePathName(pathName, pathCtl[pathName].newName)"
-                            style="">
-                            Update
+                            style="display:flex; justify-content:center; align-items:center;">
+                            <i class="material-icons">loop</i>
+                            <md-tooltip>
+                                Update Path Name
+                            </md-tooltip>
                         </md-button>
 
-                        <md-button style=""
+                        <md-button style="display:flex; justify-content:center; align-items:center;"
                             ng-click="pathCtl.deletePath(pathName)">
-                            Delete
+                            <i class="material-icons">delete</i>
+                            <md-tooltip>
+                                Delete Path
+                            </md-tooltip>
                         </md-button>
                     </div>
                 </form>
@@ -76,9 +80,13 @@
                       <sg-operation sg-operation-name="{{operation}}"
                                     sg-operation-object="value"
                                     ng-repeat="(operation, value) in pathCtl.paths[pathName]">
-                        <div style="display:flex; flex-direction:row-reverse;">
-
-                        </div>
+                        <md-button style="display:flex; justify-content:center; align-items:center;"
+                            ng-click="pathCtl.deletePath(pathName)">
+                            <i class="material-icons">delete</i>
+                            <md-tooltip>
+                                Delete Path
+                            </md-tooltip>
+                        </md-button>
                       </sg-operation>
                     </ul>
                 </div>

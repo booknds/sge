@@ -51,6 +51,7 @@ function schemaEditorCtrl($scope, $log, $window, UtilitiesService, PathService, 
         //if(tempDefniition.properties.hasOwnProperty)
 
         this.newProperty.name = "";
+        $scope.propertyCreator.setPristine();
 
     };
 
