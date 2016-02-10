@@ -41,38 +41,77 @@ html, body {
   to {
     opacity: 0;
   }
-}
+}*/
 
 .fade {
   transition: 0.5s linear all;
+  transition: max-height 0.5s;
   -webkit-transition: 0.5s linear all;
-  transform: scaleY(0);
- transition: transform 500ms ease-in-out;
+  /*transform: scaleY(0);*/
+ /*transition: transform 500ms ease-in-out;*/
 }
 
-.fade[aria-fade="true"] {
+/*.fade[aria-fade="true"] {
   transform: scaleY(1);
+}*/
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    max-height: 0px;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+@keyframes disappear {
+  from {
+    opacity: 1;
+    max-height: 1000px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0px;
+  }
 }
 
-.fade.ng-show {
+.fade.ng-hide-add {
+    animation:1s disappear;
+}
+
+.fade.ng-hide-remove {
+    animation: 1s appear;
+}
+
+/*.fade.ng-hide{
+    opacity: 0;
+}*/
+
+/*.fade.ng-hide-add {
   opacity: 0;
+  max-height: 0;
+  overflow: hidden;
 }
 
-.fade.ng-show.ng-show-active {
+.fade..ng-hide.ng-hide-add {
   opacity: 1;
 }
 
-.fade.ng-hide {
+.fade.ng-hide-remove {
   opacity: 1;
 }
 
-.fade.ng-hide.ng-hide-active {
+.fade.ng-hide.ng-hide-remove {
   opacity: 0;
-}
+  max-height: 0;
+  overflow: hidden;
+}*/
 
 .path-title:hover {
 
-}*/
+}
+
 
 #nav-mobile li.search {
     position: absolute;
