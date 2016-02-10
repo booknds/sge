@@ -32,7 +32,7 @@ function PathModalCtrl($scope, PathService, UtilitiesService, $log, $mdDialog){
         }
 
         this.newPath = newPathCreator();
-        $mdDialog.hide("added path");
+        $mdDialog.hide(pathName);
 
     };
 

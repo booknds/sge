@@ -13,23 +13,28 @@ function colorerComponent(){
     return {
         restrict: "A",
         scope:{
-            sgOperationColorer: "@"
+            sgOperationColorer: "@",
+            sgSelector: "@"
         },
         link: function(scope, element){
-            //debugger;
+            
 
             switch (scope.sgOperationColorer) {
             case "get":
-                element.addClass("blue");
+                //element.addClass("blue");
+                element.css(scope.sgSelector, "#2196F3");
                 break;
             case "post":
-                element.addClass("green");
+                // element.addClass("green");
+                element.css(scope.sgSelector, "#4CAF50");
                 break;
             case "put":
-                element.addClass("orange");
+                // element.addClass("orange");
+                element.css(scope.sgSelector, "#ff9800");
                 break;
             case "delete":
-                element.addClass("red");
+                // element.addClass("red");
+                element.css(scope.sgSelector, "#F44336");
                 break;
             }
 

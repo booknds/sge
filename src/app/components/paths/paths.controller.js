@@ -22,6 +22,8 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
 
     this.dontShowPaths = {};
 
+    this.prevent = {};
+
     // this.hasOperation = function(pathName, operation){
     //     debugger;
     //     return this.paths[pathName].hasOwnProperty(operation);
@@ -48,6 +50,15 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
         }
     };
 
+    this.toggleShowPathInfo = function toggle(pathName, operation){
+        if (angular.isUndefined(operation)) {
+            this.prevent[pathName][operation] = true;
+
+        } else {
+            this.prevent[pathName][operation] = !this.prevent[pathName][operation];
+        }
+    };
+
     this.showPathCreator = function(ev) {
         //debugger;
         var useFullScreen = ($mdMedia("sm") || $mdMedia("xs"))  && $scope.customFullscreen;
@@ -66,7 +77,13 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
             //debugger;
             $scope.status = "You said the information was '" + answer + "'.";
             $log.log("RETURNING DIALOGE" + $scope.status);
-        }, function() {
+            this.prevent[answer] = {
+                get:true,
+                post:true,
+                put:true,
+                delete:true
+            };
+        }.bind(this), function() {
             $scope.status = "You cancelled the dialog.";
             $log.log("RETURNING DIALOGE -- CANCELLED");
         });
@@ -76,7 +93,7 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
         // }, function(wantsFullScreen) {
         //     $scope.customFullscreen = (wantsFullScreen === true);
         // });
-    };
+    }.bind(this);
 
     this.updatePathName = function(originalPathName, newPathName){
         if (angular.isUndefined(newPathName)) {

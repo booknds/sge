@@ -40,7 +40,7 @@ function schemaEditorCtrl($scope, $log, $window, UtilitiesService, PathService, 
     };
 
     this.addProperty = function(definitionName, propertyName){
-        // debugger;
+        debugger;
         if (this.sgSchemaObject.properties.hasOwnProperty(propertyName)) {
             UtilitiesService.toast("Property already exists on this definition.");
         } else {
@@ -51,7 +51,7 @@ function schemaEditorCtrl($scope, $log, $window, UtilitiesService, PathService, 
         //if(tempDefniition.properties.hasOwnProperty)
 
         this.newProperty.name = "";
-        $scope.propertyCreator.setPristine();
+        // $scope.propertyCreator.setPristine();
 
     };
 

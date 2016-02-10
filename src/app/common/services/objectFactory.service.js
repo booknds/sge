@@ -21,8 +21,8 @@ function ObjectFactory(){
 
         removeOperation: function(operation){
             delete this[operation];
-            this[operation] = null;
-        }   
+            //this[operation] = null;
+        }
     };
 
     let Definitions = {

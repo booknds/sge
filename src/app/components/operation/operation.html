@@ -1,10 +1,17 @@
 <li >
   <!-- <div sgOperationColorer="operationCtl.sgOperationName" operationTitle="{{operationCtl.sgOperationName}}" id="operation-header" class="collapsible-header white-text"> -->
-  <div  sg-operation-colorer="{{operationCtl.sgOperationName}}" class="collapsible-header white-text">
-    <i class="material-icons">filter_drama</i>{{ operationCtl.sgOperationName | uppercase }}
+  <div sg-operation-colorer-component sg-selector="background-color" sg-operation-colorer="{{operationCtl.sgOperationName}}" style="display:flex; justify-content:space-between; align-items: center;" class="collapsible-header white-text">
+    <div>
+        <i class="material-icons">filter_drama</i>{{ operationCtl.sgOperationName | uppercase }}
+    </div>
+    <div >
+      <ng-transclude ></ng-transclude>
+    </div>
   </div>
-  <ng-transclude></ng-transclude>
+
   <div class="collapsible-body" style="margin-left:2%; margin-right:2%;">
+
+
     <div class="" style="display:flex; flex-direction:column;">
       <div sg-unique-input class="input-field">
         <input id="input"

@@ -83,7 +83,7 @@ function PathService($log, ObjectFactory){
         Deletes an operation from a given service.
     */
     this.removeOperation = function(pathName, operation){
-
+        debugger;
         paths[pathName].removeOperation(operation);
 
     };

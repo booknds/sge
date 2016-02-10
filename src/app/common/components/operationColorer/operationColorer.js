@@ -4,6 +4,6 @@ import OperationColorerComponent from "./operationColorer.component";
 
 let OperationColorerModule = angular
     .module("OperationColorerModule", [])
-    .directive("sgOperationColorer", OperationColorerComponent);
+    .directive("sgOperationColorerComponent", OperationColorerComponent);
 
 export default OperationColorerModule;
