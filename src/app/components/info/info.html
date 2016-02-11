@@ -1,6 +1,6 @@
 <div class="section" ng-cloak>
   <div class="row">
-    <form name="infoForm" novalidate ng-submit="infoForm.$valid">
+    <form name="infoForm" >
       <div class="col s12 m7" style="margin-left:2.33%;">
         <div class="card ">
           <md-toolbar style="background-color:#3F1C3E;">
@@ -12,68 +12,187 @@
             </div>
           </md-toolbar>
           <div class="card-content">
-            <div class="section">
+            <div style="display:flex flex-flow:column nowrap">
+                <p>Start building your Swagger definition by describing some basic info. Watch out some
+                  fields are required to enter, but don't worry we will prompt you if anything is missing.
+                </p>
+                <div style="display:flex; flex-flow:row nowrap;">
+                    <div style="display:flex; flex-flow:column nowrap; margin-right:10px;">
+                      <span class="card-title">Info</span>
+                      <div style="display:flex; flex-flow:column nowrap">
+                          <div style="display:flex; flex-flow:row nowrap;">
+                              <md-input-container style="flex-grow:1;">
+                                  <label>Title</label>
+                                  <input
+                                      type="text"
+                                      ng-model="basicInfo.sgBase.info.title"
+                                      name="apiName"
+                                      required>
+                                  <div ng-if="infoForm.apiName.$dirty">
+                                      <div ng-messages="infoForm.apiName.$error" role="alert" >
+                                          <div ng-message="required">
+                                              The API name is required.
+                                          </div>
+                                      </div>
+                                  </div>
+                              </md-input-container>
+                              <md-input-container style="flex-grow:1;">
+                                  <label>Version</label>
+                                  <input
+                                      type="text"
+                                      ng-model="basicInfo.sgBase.info.version"
+                                      ng-pattern="/^([v]?)([0-9]+)((\.([0-9]+))*)?$/"
+                                      name="version"
+                                      required>
+                                  <div ng-if="infoForm.version.$dirty">
+                                      <div  ng-messages="infoForm.version.$error" role="alert" >
+                                          <div ng-message-exp="['required','pattern']">
+                                              not an allowed format.
+                                          </div>
+                                      </div>
+                                  </div>
+                              </md-input-container>
+                          </div>
+                          <md-input-container style="flex-grow:1;">
+                              <label>Description</label>
+                              <textarea ng-model="basicInfo.sgBase.info.description"
+                              md-maxlength="150"
+                              rows="5"
+                              md-select-on-focus></textarea>
+                          </md-input-container>
+                          <div style="display:flex; flex-flow:row nowrap;">
+                              <md-input-container style="flex-grow:1;">
+                                  <label>Host</label>
+                                  <input
+                                      type="text"
+                                      ng-model="basicInfo.sgBase.host">
+                              </md-input-container>
+                              <md-input-container style="flex-grow:1;">
+                                  <label>Base Path</label>
+                                  <input
+                                      type="text"
+                                      ng-model="basicInfo.sgBase.basePath">
+                              </md-input-container>
+                          </div>
+                        <!-- <div class="col s12">
+                          <div class="row">
+                            <div class="input-field col s12 m6">
+                              <input id="title" type="text"
+                                ng-model="basicInfo.sgBase.info.title"
+                                name="apiName"
+                                required="" >
+                              <label for="title">Title</label>
+                              <div class="error" ng-show="infoForm.apiName.$dirty && infoForm.apiName.$invalid">
+                                <small class="error" ng-show="infoForm.apiName.$error.required">
+                                  The API name is required.
+                                </small>
+                              </div>
+                            </div>
+
+                            <div class="input-field col s12 m6">
+                              <input id="version" type="text"
+                                ng-model="basicInfo.sgBase.info.version"
+                                ng-pattern="/^([v]?)([0-9]+)((\.([0-9]+))*)?$/"
+                                name="version"
+                                required="" >
+                              <label for="version">Version</label>
+                              <div class="error" ng-show="infoForm.version.$dirty && infoForm.version.$invalid">
+                                <small class="error" ng-show="infoForm.version.$error.required">
+                                  The version is required.
+                                </small>
+                                <small class="error" ng-show="infoForm.version.$error.pattern">
+                                  Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
+                                </small>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <sg-textarea class="input-field col s12" sg-unique-input sg-label="Description" ng-model="basicInfo.sgBase.info.description"></sg-textarea>
+                          </div>
+                          <div class="row">
+                            <sg-text-input class="input-field col s12 m6" unique-input sg-label="Host"  ng-model="basicInfo.sgBase.host"></sg-text-input>
+                            <sg-text-input class="input-field col s12 m6" unique-input sg-label="BasePath" ng-model="basicInfo.sgBase.basePath">
+                              <div class="error" ng-show="infoForm.BasePath.$dirty && infoForm.BasePath.$invalid">
+                                <small class="error" ng-show="infoForm.BasePath.$error.pattern">
+                                  Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
+                                </small>
+                              </div>
+                           </sg-text-input>
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                    <div style="display:flex; flex-flow:column nowrap; justify-content:space-between; margin-left:10px;">
+                        <div style="display:flex; flex-flow:column nowrap">
+                            <span class="card-title">Contact</span>
+                            <div style="display:flex; flex-flow:row nowrap">
+                                <md-input-container style="flex-grow:1;">
+                                    <label>Name</label>
+                                    <input
+                                        type="text"
+                                        ng-model="basicInfo.sgBase.info.contact.name">
+                                </md-input-container>
+                                <md-input-container style="flex-grow:1;">
+                                    <label>Url</label>
+                                    <input
+                                        type="text"
+                                        ng-model="basicInfo.sgBase.info.contact.url">
+                                </md-input-container>
+                                <md-input-container style="flex-grow:1;">
+                                    <label>eMail</label>
+                                    <input
+                                        type="text"
+                                        ng-model="basicInfo.sgBase.info.contact.email">
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-flow:column nowrap">
+                            <span class="card-title">License</span>
+                            <div style="display:flex; flex-flow:row nowrap">
+                                <md-input-container
+                                    ng-if="basicInfo.sgBase.info.license.url"
+                                    style="flex-grow:1;"
+                                    require>
+                                    <label>Name</label>
+                                    <input
+                                        type="text"
+                                        name="licenseUrl"
+                                        ng-model="basicInfo.sgBase.info.license.name">
+                                    <div ng-if="infoForm.licenseUrl.$dirty">
+                                        <div ng-messages="infoForm.licenseUrl.$error" role="alert" >
+                                            <div ng-message="required">
+                                                The license name is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container
+                                    ng-if="!basicInfo.sgBase.info.license.url"
+                                    style="flex-grow:1;">
+                                    <label>Name</label>
+                                    <input
+                                        type="text"
+                                        ng-model="basicInfo.sgBase.info.license.name">
+                                </md-input-container>
+                                <md-input-container style="flex-grow:1;">
+                                    <label>Url</label>
+                                    <input
+                                        type="text"
+                                        ng-model="basicInfo.sgBase.info.license.url">
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="section">
               <div class="section">
                 <p>Start building your Swagger definition by describing some basic info. Watch out some
                   fields are required to enter, but don't worry we will prompt you if anything is missing.
                 </p>
               </div>
-              <div class="col s12 m6">
-                <span class="card-title">Info</span>
-                <div class="row">
-                  <div class="col s12">
-                    <div class="row">
-                      <div class="input-field col s12 m6">
-                        <input id="title" type="text"
-                          ng-model="basicInfo.sgBase.info.title"
-                          name="apiName"
-                          required="" >
-                        <label for="title">Title</label>
-                        <div class="error" ng-show="infoForm.apiName.$dirty && infoForm.apiName.$invalid">
-                          <small class="error" ng-show="infoForm.apiName.$error.required">
-                            The API name is required.
-                          </small>
-                        </div>
-                      </div>
-                      <!-- <div>
-                        <md-button>
-                          <label for="file-input">Select</label>
-                        </md-button>
-                        <input style="display:none;" id="file-input" type="file">
-                      </div> -->
-                      <div class="input-field col s12 m6">
-                        <input id="version" type="text"
-                          ng-model="basicInfo.sgBase.info.version"
-                          ng-pattern="/^([v]?)([0-9]+)((\.([0-9]+))*)?$/"
-                          name="version"
-                          required="" >
-                        <label for="version">Version</label>
-                        <div class="error" ng-show="infoForm.version.$dirty && infoForm.version.$invalid">
-                          <small class="error" ng-show="infoForm.version.$error.required">
-                            The version is required.
-                          </small>
-                          <small class="error" ng-show="infoForm.version.$error.pattern">
-                            Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
-                          </small>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <sg-textarea class="input-field col s12" sg-unique-input sg-label="Description" ng-model="basicInfo.sgBase.info.description"></sg-textarea>
-                    </div>
-                    <div class="row">
-                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="Host"  ng-model="basicInfo.sgBase.host"></sg-text-input>
-                      <sg-text-input class="input-field col s12 m6" unique-input sg-label="BasePath" ng-model="basicInfo.sgBase.basePath">
-                        <div class="error" ng-show="infoForm.BasePath.$dirty && infoForm.BasePath.$invalid">
-                          <small class="error" ng-show="infoForm.BasePath.$error.pattern">
-                            Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
-                          </small>
-                        </div>
-                     </sg-text-input>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
               <div class="col s12 m6">
                 <span class="card-title">Contact</span>
                 <div class="row">
@@ -91,9 +210,8 @@
                   <sg-text-input class="input-field col s12 " unique-input sg-label="Terms Of Service" ng-model="basicInfo.sgBase.info.termsOfService"> </sg-text-input>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
+            </div> -->
+            
                 <span class="card-title">Types</span>
                 <div style="display:flex; flex-direction:column; justify-content:space-between;" >
                   <div style="display:flex; flex-direction:row;" >
@@ -213,8 +331,7 @@
                       </li>
                     </ul>
                   </div> -->
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
