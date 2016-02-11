@@ -23,25 +23,69 @@
     </tr>
   </tbody>
 </table>
-<form name="addResponse" novalidate ng-submit="addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)">
-  <div class="valign-wrapper">
-    <div unique-checkbox class="input-field col s4 valign">
+<!-- <form name="addResponse" novalidate ng-submit="addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)"> -->
+<form name="addResponse" >
+  <div style="display:flex; flex-direction:row;">
+        <md-input-container style="flex-grow:1;">
+            <label>Http Code</label>
+            <input
+                ng-model="responseControl.newResponseData[responseControl.sgThisOperation].httpCode"
+                ng-pattern="/^(Default|default)?([0-9]+)?$/"
+                name="code"
+                type="text"
+                required>
+            <div ng-if="addResponse.code.$dirty">
+                <div  ng-messages="addResponse.code.$error" role="alert" >
+                    <div ng-message-exp="['required', 'pattern']">
+                        Http code is required and must by a number or 'default'
+                    </div>
+                </div>
+            </div>
+
+        </md-input-container>
+        <md-input-container style="flex-grow:1;">
+            <label>Code Description</label>
+            <input
+                ng-model="responseControl.newResponseData[responseControl.sgThisOperation].description"
+                name="description"
+                type="text"
+                required>
+            <div ng-if="addResponse.description.$dirty">
+                <div ng-messages="addResponse.description.$error" role="alert" >
+                    <div ng-message="required">
+                        Code description is required.
+                    </div>
+                </div>
+            </div>
+        </md-input-container>
+        <div style="display:flex; align-items: flex-start; margin-top: 20px;">
+            <md-button
+              style="display: flex; align-items: center; justify-content: center;"
+              ng-click="addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)">
+              <i class="material-icons">add</i>
+              <md-tooltip>
+                  Add Response
+              </md-tooltip>
+            </md-button>
+        </div>
+
+    <!-- <div unique-checkbox class="input-field col s4 valign">
       <input id="input" ng-model="responseControl.newResponseData[responseControl.sgThisOperation].httpCode"
               ng-pattern="/^(Default|default)?([0-9]+)?$/" name="code" type="text" required=""/>
-      <label id="label" for="label">Response Code</label>
-    </div>
-    <div unique-checkbox class="input-field col s4 valign">
+      <label id="label" for="label">Http Code</label>
+    </div> -->
+    <!-- <div unique-checkbox class="input-field col s4 valign">
       <input id="input" ng-model="responseControl.newResponseData[responseControl.sgThisOperation].description" name="description" type="text" required="" />
-      <label id="label" for="label">Response Description</label>
-    </div>
-    <div class="col s4 valign">
+      <label id="label" for="label">Description</label>
+    </div> -->
+    <!-- <div class="col s4 valign">
       <button  class="waves-effect waves-light btn"
         ng-class="{ 'disabled': addResponse.$invalid}">
       <i class="material-icons">add</i>
       </button>
-    </div>
+    </div> -->
   </div>
-  <div class="valign-wrapper">
+  <!-- <div class="valign-wrapper">
     <div class="col s4">
       <div  class="error valign" ng-show="addResponse.code.$dirty && addResponse.code.$invalid">
         <small class="error"
@@ -65,5 +109,5 @@
     </div>
     <div class="col s4"></div>
   </div>
-  <div class="row"></div>
+  <div class="row"></div> -->
 </form>

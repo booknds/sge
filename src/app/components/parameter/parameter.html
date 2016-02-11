@@ -1,5 +1,5 @@
 <h5>Parameters</h5>
-<table ng-if="paramControl.sgContext.parameters.length > 0;" class=" section bordered responsive-table">
+<table class=" section bordered responsive-table">
   <thead>
     <tr>
       <th data-field="name">Name</th>
@@ -19,7 +19,7 @@
         <td class="">{{param.required}}</td>
         <td class="shrink">{{param.schema}}</td>
         <td class="">
-          <!-- <a class="disabled" href="#param-modal" modal 
+          <!-- <a class="disabled" href="#param-modal" modal
           ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)"
           ng-click="paramControl.showPathCreator($event)" >
           <i class="material-icons">settings</i> -->
@@ -34,9 +34,40 @@
     </tr>
   </tbody>
 </table>
-<form name="addParameter" novalidate ng-submit="addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation)">
-  <div class="valign-wrapper">
-    <div sg-unique-input class="input-field col s4 valign">
+<!-- <form name="addParameter" ng-submit="addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation)"> -->
+<form name="addParameter" >
+    <div style="display:flex; flex-direction:row;">
+        <md-input-container style="flex-grow:1;">
+            <label>Parameter Name</label>
+            <input
+                name="name"
+                ng-model="paramControl.newParamData[paramControl.sgThisOperation].name" type="text" required>
+            <div ng-if="addParameter.name.$dirty">
+                <div  ng-messages="addParameter.name.$error" role="alert" >
+                    <div ng-message="required">
+                        Parameter name is required.
+                    </div>
+                </div>
+            </div>
+
+        </md-input-container>
+        <sg-dropdown
+            sg-label="In Location"
+            ng-model="paramControl.newParamData[paramControl.sgThisOperation].inLocation" sg-default-option="Choose Parameter Location" sg-choices="paramControl.inLocationList">
+        </sg-dropdown>
+
+        <div style="display:flex; align-items: flex-start; margin-top: 20px;">
+            <md-button
+              style="display: flex; align-items: center; justify-content: center;"
+              ng-click="addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation)">
+              <i class="material-icons">add</i>
+              <md-tooltip>
+                  Add Parameter
+              </md-tooltip>
+            </md-button>
+        </div>
+
+    <!-- <div sg-unique-input class="input-field col s4 valign">
       <input id="input" name="name" ng-model="paramControl.newParamData[paramControl.sgThisOperation].name" type="text" required=""/>
       <label id="label" for="label">Parameter Name</label>
     </div>
@@ -61,7 +92,6 @@
     </div>
     <div class="col s4"></div>
     <div class="col s4">
-    </div>
+    </div> -->
   </div>
 </form>
-{{paramControl.paths}}

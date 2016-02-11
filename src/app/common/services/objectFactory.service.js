@@ -61,7 +61,7 @@ function ObjectFactory(){
             for (var definition in newDefinitions) {
                 this[definition] = Object.create(Schema);
                 this[definition].init(definition);
-                this[definition].setSchema(newDefinitions[definition])
+                this[definition].setSchema(newDefinitions[definition]);
                 // temp.init(definitionName, description, type);
                 // this[key] = newDefinitions[key];
             }

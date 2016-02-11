@@ -1,4 +1,4 @@
-<li >
+<li>
   <!-- <div sgOperationColorer="operationCtl.sgOperationName" operationTitle="{{operationCtl.sgOperationName}}" id="operation-header" class="collapsible-header white-text"> -->
   <div sg-operation-colorer-component sg-selector="background-color" sg-operation-colorer="{{operationCtl.sgOperationName}}" style="display:flex; justify-content:space-between; align-items: center;" class="collapsible-header white-text">
     <div>
@@ -13,24 +13,38 @@
 
 
     <div class="" style="display:flex; flex-direction:column;">
-      <div sg-unique-input class="input-field">
+      <!-- <div sg-unique-input class="input-field">
         <input id="input"
           ng-attr-placeholder="operationCtl.sgOperationObject.summary"
           ng-model="operationCtl.sgOperationObject.summary"
           maxlength="150" type="text"/>
         <label id="label"  for="label">Summary</label>
-      </div>
-      <div sg-unique-input class="input-field">
+      </div> -->
+
+      <!-- <div sg-unique-input class="input-field">
         <textarea id="input"
           ng-attr-placeholder="operationCtl.sgOperationObject.description"
           ng-model="operationCtl.sgOperationObject.description"
           class="materialize-textarea"></textarea>
         <label id="label" for="label">Description</label>
-      </div>
-    </div>
-    <sg-parameter sg-this-operation="{{operationCtl.sgOperationName}}" sg-context="operationCtl.sgOperationObject"></sg-parameter>
-    <sg-response sg-this-operation="{{operationCtl.sgOperationName}}" sg-context="operationCtl.sgOperationObject.responses"></sg-response>
+      </div> -->
+        <md-input-container style="flex-grow:1;">
+            <label>Summary</label>
+            <input
+                ng-model="operationCtl.sgOperationObject.summary"
+                type="text">
+        </md-input-container>
+        <md-input-container style="flex-grow:1;">
+            <label>Description</label>
+            <textarea ng-model="operationCtl.sgOperationObject.description"
+            md-maxlength="150"
+            rows="5"
+            md-select-on-focus></textarea>
+        </md-input-container>
 
+        <sg-parameter sg-this-operation="{{operationCtl.sgOperationName}}" sg-context="operationCtl.sgOperationObject"></sg-parameter>
+        <sg-response sg-this-operation="{{operationCtl.sgOperationName}}" sg-context="operationCtl.sgOperationObject.responses"></sg-response>
+    </div>
   </div>
 
 </li>
