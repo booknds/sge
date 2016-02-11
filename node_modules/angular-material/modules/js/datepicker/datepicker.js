@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.0.4
+ * v1.0.5
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -174,7 +174,7 @@
 
     /**
      * The selected date. Keep track of this separately from the ng-model value so that we
-     * can know, when the ng-model value changes, what the previous value was before its updated
+     * can know, when the ng-model value changes, what the previous value was before it's updated
      * in the component's UI.
      *
      * @type {Date}
@@ -285,7 +285,7 @@
     // Keyboard interaction.
     this.$element.on('keydown', angular.bind(this, this.handleKeyEvent));
   };
-  
+
   /*** User input handling ***/
 
   /**
@@ -843,7 +843,7 @@
    * The `$mdDateLocaleProvider` is the provider that creates the `$mdDateLocale` service.
    * This provider that allows the user to specify messages, formatters, and parsers for date
    * internationalization. The `$mdDateLocale` service itself is consumed by Angular Material
-   * components that that deal with dates.
+   * components that deal with dates.
    *
    * @property {(Array<string>)=} months Array of month names (in order).
    * @property {(Array<string>)=} shortMonths Array of abbreviated month names.

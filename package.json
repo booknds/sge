@@ -9,13 +9,10 @@
   "author": "",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "angular": "^1.4.8",
-    "angular-animate": "^1.4.8",
-    "angular-aria": "^1.4.8",
+
     "angular-file-saver": "~1.0.2",
     "angular-material": "^1.0.4",
     "angular-materialize": "~0.1.2",
-    "angular-messages": "^1.4.8",
     "babel-core": "~6.4.0",
     "babel-loader": "~6.2.1",
     "babel-preset-es2015": "~6.3.13",
@@ -41,7 +38,10 @@
     "webpack": "~1.12.10"
   },
   "dependencies": {
-    "angular": "^1.4.8",
+    "angular": "^1.5.0",
+    "angular-animate": "^1.5.0",
+    "angular-aria": "^1.5.0",
+    "angular-messages": "^1.5.0",
     "jquery": "~2.2.0"
   }
 }

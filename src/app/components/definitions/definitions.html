@@ -7,8 +7,8 @@
             <h2>
               <span>Definitions</span>
             </h2>
-            <div style="padding-top:6%" class="right-align">
-              <a 
+            <div style="margin-top: 55px;" class="right-align">
+              <a
                   class="btn-floating btn-large waves-effect waves-light purple accent-4"
                   ng-click="showAdvanced($event)">
               <i class="material-icons">add</i>
@@ -62,7 +62,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="(propertyName, propertyValue) in defValue.properties | orderBy:'defValue.properties[propertyName]'">
+                          <tr ng-repeat="(propertyName, propertyValue) in defValue.properties">
                             <td class="">{{propertyName}}</td>
                             <td class=" shrink">{{propertyValue.description}}</td>
                             <td class="">{{propertyValue.type}}</td>

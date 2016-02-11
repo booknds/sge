@@ -1,4 +1,5 @@
 "use strict";
+
 import angular from "angular";
 
 let path = ["$log", "ObjectFactory", PathService];
@@ -17,8 +18,10 @@ function PathService($log, ObjectFactory){
         //paths = angular.copy(newPaths);
         //this.paths = paths;
         //console.log(paths);
-        for(var key in newPaths){
-            paths[key] = newPaths[key];
+        for (var key in newPaths) {
+            paths[key] = ObjectFactory.newPath();
+            // paths[key] = newPaths[key];
+            paths[key].setPath(newPaths[key]);
         }
     };
 

@@ -1,5 +1,4 @@
 import angular from "angular";
-
 "use strict";
 
 let sideNavArray = ["$scope", "$log", "UtilitiesService", "CompilerService", "FileSaver", "Blob", SidenavCtrl];
@@ -14,8 +13,8 @@ function SidenavCtrl($scope, $log, UtilitiesService, cs, FileSaver, Blob){
 
     this.onChange = function onChange_handler(event) {
         //return if the even is unidentified or null
-        if (!event) { 
-            return; 
+        if (!event) {
+            return;
         }
 
         //debugger;
@@ -29,9 +28,12 @@ function SidenavCtrl($scope, $log, UtilitiesService, cs, FileSaver, Blob){
 
             $scope.$apply(function __apply_handler__(){
                 //use $apply() to fire manual watchers to this.pickedFile
+                // debugger;
                 let file_content = angular.copy(reader.result);
-                this.pickedFile = angular.fromJSON(file_content);
-                let parsed_file_content = angular.fromJSON(file_content);
+                // this.pickedFile = angular.fromJSON(file_content);
+                // this.pickedFile = JSON.parse(file_content);
+                let parsed_file_content = angular.fromJson(file_content);
+                //let parsed_file_content = JSON.parse(file_content);
 
                 cs.distributeImportedDefinitionToServices(parsed_file_content);
 
@@ -44,7 +46,7 @@ function SidenavCtrl($scope, $log, UtilitiesService, cs, FileSaver, Blob){
 
     }.bind(this);
 
-  
+
     this.recompile = function recompile(){
         cs.recompile();
     };

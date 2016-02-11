@@ -22,10 +22,21 @@ function ObjectFactory(){
         removeOperation: function(operation){
             delete this[operation];
             //this[operation] = null;
+        },
+
+        setPath: function setPath(newPath){
+            debugger;
+            for (var key in newPath) {
+                if (newPath.hasOwnProperty(key)) {
+                    this[key] = newOperation();
+                    this[key].setOperation(newPath[key]);
+                }
+            }
         }
     };
 
     let Definitions = {
+
         addDefinition:function(definitionName, description, type){
             let temp = Object.create(Schema);
             temp.init(definitionName, description, type);
@@ -47,8 +58,12 @@ function ObjectFactory(){
         },
 
         setDefinitions: function(newDefinitions){
-            for (var key in newDefinitions) {
-                this[key] = newDefinitions[key];
+            for (var definition in newDefinitions) {
+                this[definition] = Object.create(Schema);
+                this[definition].init(definition);
+                this[definition].setSchema(newDefinitions[definition])
+                // temp.init(definitionName, description, type);
+                // this[key] = newDefinitions[key];
             }
         },
 
@@ -75,6 +90,33 @@ function ObjectFactory(){
 
         addParameter: function(paramName, paramIn){
             this.parameters.push(newParameter(paramName, paramIn));
+        },
+
+        setOperation: function setOperation(newOperation){
+            for (var key in newOperation) {
+                if (this.hasOwnProperty(key) && newOperation.hasOwnProperty(key)) {
+
+                    if (key === "responses") {
+                        this[key] = newResponses();
+                        debugger;
+                        this[key].setResponses(newOperation[key]);
+
+                    } else if (key === "parameters") {
+                        var i = 0,
+                            max = newOperation[key].length;
+
+                        //go through each parameter create a new one and copy the passed parameter to the newly created one
+                        for (i; i < max; i += 1) {
+                            this[key].push(newParameter());
+                            this[key][i].setParameter(newOperation[key][i]);
+                        }
+                        // this[key].push(newParameter()); //addParameter();
+
+                    } else {
+                        this[key] = newOperation[key];
+                    }
+                }
+            }
         },
 
         getParameter: function(name, inLoc){
@@ -147,6 +189,20 @@ function ObjectFactory(){
             this.collectionFormat = "";
         },
 
+        setParameter: function setParameter(newParameter) {
+            for (var key in newParameter) {
+                if (this.hasOwnProperty(key) && newParameter.hasOwnProperty(key)) {
+                    if (key === "schema") {
+                        this[key].setSchema(newParameter[key]);
+                    } else {
+                        this[key] = newParameter[key];
+                    }
+                }
+
+
+            }
+        },
+
         getJSON: function(){
 
             var paramJSON = {};
@@ -170,6 +226,14 @@ function ObjectFactory(){
     };
 
     let Responses = {
+
+        setResponses: function setResponses(newResponses) {
+            for (var httpCode in newResponses) {
+                this[httpCode] = Object.create(Response);
+                this[httpCode].init();
+                this[httpCode].setResponse(newResponses[httpCode]);
+            }
+        },
 
         addResponse: function(httpCode, description){
 
@@ -231,6 +295,20 @@ function ObjectFactory(){
             this.schema = newSchema();
             this.headers = {};
             this.examples = {};
+        },
+
+        setResponse: function setReposne(newResponse) {
+            for (var key in newResponse) {
+                if (this.hasOwnProperty(key) && newResponse.hasOwnProperty(key)) {
+                    if (key === "schema") {
+                        this[key].setSchema(newResponse[key]);
+                    } else {
+                        this[key] = newResponse[key];
+                    }
+                }
+
+
+            }
         }
     };
 
@@ -244,6 +322,14 @@ function ObjectFactory(){
             this.enum = null;
             this.type = type || "";
             this.properties = {};
+        },
+
+        setSchema: function setSchema(newSchema) {
+            for (var key in newSchema) {
+                if (this.hasOwnProperty(key) && newSchema.hasOwnProperty(key)) {
+                    this[key] = newSchema[key];
+                }
+            }
         }
     };
 
