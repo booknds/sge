@@ -1,23 +1,23 @@
-import angular from "angular";
+// import angular from "angular";
 
-let DefinitionEditorController = ["$scope", "$log", "$window", "UtilitiesService", "DefinitionsService", "DefinitionEditorModalService", DefinitionEditorCtrl];
+let DefinitionEditorController = ["$scope", "$log", "$window", "UtilitiesService", "DefinitionsService", "$mdDialog", DefinitionEditorCtrl];
 
 export default DefinitionEditorController;
 
-function DefinitionEditorCtrl($scope, $log, $window, UtilitiesService, ds, dems){
+function DefinitionEditorCtrl($scope, $log, $window, UtilitiesService, ds, $mdDialog){
 
-    var vm = this;
+    // var vm = this;
 
-    vm.tempDefinition = {
-        name:null,
-        value:null
-    };
-  
-    vm.originalDefinition = null;
+    // vm.tempDefinition = {
+    //     name:null,
+    //     value:null
+    // };
+    //
+    // vm.originalDefinition = null;
 
-    vm.newProperty = {
-        name: null
-    };
+    // this.newProperty = {
+    //     name: null
+    // };
 
   // vm.formats = ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
   // vm.types = ["integer", "number", "string", "boolean"];
@@ -68,15 +68,22 @@ function DefinitionEditorCtrl($scope, $log, $window, UtilitiesService, ds, dems)
   //   }
   // }
 
-    vm.updateDefinition = function(originalDefinition, newDefinition){
-        $log.log("CONTROLLER - Update definition");
-        try{
-            ds.updateDefinition(originalDefinition, newDefinition);
-            this.closeModal = true;
-        }catch(e){
-            $log.log(e);
-            UtilitiesService.toast(e, 3000);
-        }
+    this.updateDefinition = function(newDefinition){
+        // $log.log("CONTROLLER - Update definition");
+        // try{
+        //     ds.updateDefinition(originalDefinition, newDefinition);
+        //     this.closeModal = true;
+        // }catch(e){
+        //     $log.log(e);
+        //     UtilitiesService.toast(e, 3000);
+        // }
+        debugger;
+        $mdDialog.hide(newDefinition);
+
+    };
+
+    this.cancel = function(){
+        $mdDialog.cancel();
     };
 
   // vm.deleteProperty = function(propertyName){
@@ -87,17 +94,17 @@ function DefinitionEditorCtrl($scope, $log, $window, UtilitiesService, ds, dems)
   //   }
   // }
 
-    $scope.$watch(function(){return dems.currentDefinition;}, function(newVal){
-
-        if(newVal.name){
-            $log.log("hit current definition updated");
-            var currentDefinition = newVal;
-            vm.originalDefinition = currentDefinition;
-
-            vm.tempDefinition.name = vm.originalDefinition.name;
-            vm.tempDefinition.value = angular.copy(vm.originalDefinition.value) ;
-        }
-
-    }, true);
+    // $scope.$watch(function(){return dems.currentDefinition;}, function(newVal){
+    //
+    //     if(newVal.name){
+    //         $log.log("hit current definition updated");
+    //         var currentDefinition = newVal;
+    //         vm.originalDefinition = currentDefinition;
+    //
+    //         vm.tempDefinition.name = vm.originalDefinition.name;
+    //         vm.tempDefinition.value = angular.copy(vm.originalDefinition.value) ;
+    //     }
+    //
+    // }, true);
 
 }

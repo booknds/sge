@@ -5,17 +5,12 @@
         <div class="md-toolbar-tools">
           <h2>Edit Response</h2>
           <span flex></span>
-         <!--  <md-button class="md-icon-button" ng-click="cancel()">
-            <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-          </md-button> -->
+         
         </div>
       </md-toolbar>
       <md-dialog-content>
         <div class="md-dialog-content" style="display:flex flex-direction:column;">
-          <!-- <div class="input-field col s12 valign">
-            <input id="response-modal-name" ng-model="rmControl.tempResponse.httpCode" type="text" required="" aria-required="true"/>
-            <label for="response-modal-name">Response Name</label>
-          </div> -->
+
           <md-input-container style="display:flex; flex-flow:column nowrap;">
             <label>Response Code</label>
             <input  type="text"
@@ -27,28 +22,13 @@
                   </div>
               </div>
           </md-input-container>
-          <!-- <div class="input-field col s12 valign">
-            <textarea id="response-modal-description" ng-model="rmControl.tempResponse.response.description" class="materialize-textarea"></textarea>
-            <label for="response-modal-description">Description</label>
-          </div> -->
+
           <md-input-container style="display:flex; flex-flow:row nowrap;">
             <label>Description</label>
             <input ng-model="rmControl.tempResponse.response.description" type="text" />
-            <!-- <textarea id="response-modal-description" ng-model="rmControl.tempResponse.response.description" ></textarea> -->
-              <!-- <div ng-if="updateName.pathName.$dirty" ng-messages="updateName.pathName.$error" role="alert" >
-                  <div ng-message-exp="['minlength', 'maxlength', 'pattern']">
-                    Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).
-                  </div>
-              </div> -->
+
           </md-input-container>
           <div class="row valign-wrapper">
-            <!-- TODO ADD HEADERS AND EXAMPLES TEXT AREAS -->
-            <!-- <div class="input-field col s12 valign"
-              ng-repeat="(key, value) in rmControl.tempResponse.response"
-              ng-if="key !== 'description'">
-              <textarea ng-attr-id="response-modal-{{key}}" ng-model="rmControl.tempResponse.response[key]" class="materialize-textarea"></textarea>
-              <label ng-attr-for="response-modal-{{key}}">{{ key | capitalize}}</label>
-            </div> -->
           </div>
           <div class="section">
             <div>
@@ -69,47 +49,4 @@
       </md-dialog-actions>
     </form>
   </md-dialog>
-  <!-- <div id="response-modal" class="modal modal-fixed-footer">
-    <form ng-submit="rmControl.updateResponse(rmControl.tempResponse)">
-      <div class="modal-content ">
-        <div class="row">
-          <div class="left-align col s12">
-            <h4>Response Options</h4>
-          </div>
-        </div>
-        <div class="input-field col s12 valign">
-          <input id="response-modal-name" ng-model="rmControl.tempResponse.httpCode" type="text" required="" aria-required="true"/>
-          <label for="response-modal-name">Response Name</label>
-        </div>
-        <div class="input-field col s12 valign">
-          <textarea id="response-modal-description" ng-model="rmControl.tempResponse.response.description" class="materialize-textarea"></textarea>
-          <label for="response-modal-description">Description</label>
-        </div>
-        <div class="row valign-wrapper">
-
-        </div>
-        <div class="section">
-          <div>
-            <h5>Schema</h5>
-          </div>
-          <sg-schema-editor sg-schema-object="rmControl.tempResponse.response.schema" sg-restrict-type-to-object="false"></sg-schema-editor>
-        </div>
-      </div>
-      <div class="modal-footer ">
-        <button type="submit" ng-show="prevent.paramConfig"
-          class=" waves-effect waves-green btn disabled">
-        Update Response
-        </button>
-        <button type="submit" ng-hide="prevent.paramConfig"
-          class=" waves-effect waves-green btn modal-action modal-close">
-        Update Response
-        </button>
-        <div class="container">
-          <button class=" waves-effect waves-green btn modal-action modal-close">
-          Cancel
-          </button>
-        </div>
-      </div>
-    </form>
-  </div> -->
 </div>

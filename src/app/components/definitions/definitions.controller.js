@@ -1,22 +1,22 @@
 import angular from "angular";
-import template from "../modals/definitionCreator/definitionCreator.html";
-import controller from "../modals/definitionCreator/definitionCreator.controller";
+import creatorTemplate from "../modals/definitionCreator/definitionCreator.html";
+import creatorController from "../modals/definitionCreator/definitionCreator.controller";
+import editorTemplate from "../modals/definitionEditor/definitionEditor.html";
+import editorController from "../modals/definitionEditor/definitionEditor.controller";
 
 "use strict";
 
-let definitionsController = ["$scope", "$window", "$document", "$log", "UtilitiesService", "DefinitionsService", "DefinitionEditorModalService", "$mdDialog", "$mdMedia", DefinitionsCtrl];
+let definitionsController = ["$scope", "$window", "$document", "$log", "UtilitiesService", "DefinitionsService", "$mdDialog", "$mdMedia", DefinitionsCtrl];
 
 export default definitionsController;
 
-function DefinitionsCtrl($scope, $window, $document, $log, UtilitiesService, ds, dems, $mdDialog, $mdMedia){
+function DefinitionsCtrl($scope, $window, $document, $log, UtilitiesService, ds, $mdDialog, $mdMedia){
 
-    var vm = this;
+    // var vm = this;
 
-    // debugger;
-
-    vm.definitions = ds.definitions;
-    vm.headers = ["Name", "Description", "Type", "Required", "Enum"];
-    vm.Types = ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password"];
+    this.definitions = ds.definitions;
+    this.headers = ["Name", "Description", "Type", "Required", "Enum"];
+    this.Types = ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password"];
 
     $scope.focusDefinitionModal = false;
     $scope.customFullscreen = $mdMedia("xs") || $mdMedia("sm");
@@ -25,21 +25,21 @@ function DefinitionsCtrl($scope, $window, $document, $log, UtilitiesService, ds,
     //     Materialize.toast(message, 3000);
     // }
 
-    $scope.openFocusDefinitionModal = function(){
-        $scope.focusDefinitionModal = true;
-        $log.log("toggle focus: focusPathModal ==" + $scope.focusDefinitionModal);
-        //$scope.focusPathModal = !$scope.focusPathModal;
-    };
+    // $scope.openFocusDefinitionModal = function(){
+    //     $scope.focusDefinitionModal = true;
+    //     $log.log("toggle focus: focusPathModal ==" + $scope.focusDefinitionModal);
+    //     //$scope.focusPathModal = !$scope.focusPathModal;
+    // };
 
-    $scope.showAdvanced = function(ev) {
+    this.showDefinitionCreator = function(ev) {
         //debugger;
         var useFullScreen = ($mdMedia("sm") || $mdMedia("xs"))  && $scope.customFullscreen;
         $mdDialog.show({
             // controller: DialogController,
             // templateUrl: "dialog1.tmpl.html",
-            controller,
+            controller: creatorController,
             controllerAs: "definitionCreation",
-            template,
+            template: creatorTemplate,
             parent: angular.element($document.body),
             targetEvent: ev,
             clickOutsideToClose:true,
@@ -61,21 +61,77 @@ function DefinitionsCtrl($scope, $window, $document, $log, UtilitiesService, ds,
         // });
     };
 
-    vm.initDefinitionEditorModal = function(definitionName, definitionValue){
-        $log.log("initDefinitionEditorModal");
-        try {
-            //var currentResponse = PathService.getResponse(pathName, operation, httpCode);
-            $log.log(definitionName);
-            $log.log(definitionValue);
-            dems.definitionToUpdate(definitionName, definitionValue);
-        } catch (e) {
-            $log.log(e);
-            UtilitiesService.toast(e, 3000);
-            return;
-        }
+    this.showDefinitionEditor = function(ev, definitionName, definitionValue) {
+
+        var useFullScreen = ($mdMedia("sm") || $mdMedia("xs"))  && $scope.customFullscreen,
+        //var originalParam = this.sgContext.getParameter(paramName, paramInLocation);
+        //var tempParam = angular.copy(originalParam);
+            originalDefinition = {
+                name: definitionName,
+                value: definitionValue
+            },
+            tempDefinition = angular.copy(originalDefinition),
+            dialogeContext = {
+                controller: editorController,
+                controllerAs: "definitionEditor",
+                locals: {
+                    tempDefinition
+                },
+                bindToController: true,
+                template: editorTemplate,
+                parent: angular.element($document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true,
+                fullscreen: useFullScreen
+            };
+
+        debugger;
+        $mdDialog
+            .show(dialogeContext)
+            .then(updateDefinitionFromModal(originalDefinition), cancelled);
+
+        // $scope.$watch(function() {
+        //     return $mdMedia("xs") || $mdMedia("sm");
+        // }, function(wantsFullScreen) {
+        //     $scope.customFullscreen = (wantsFullScreen === true);
+        // });
     };
 
-    vm.deleteDefinition = function(definitionName){
+    function updateDefinitionFromModal(originalDefinition){
+
+        return function updateFromReturn(newDefinition){
+            $log.log("RETURNING DIALOGE accept", newDefinition);
+
+            try {
+                debugger;
+                ds.updateDefinition(originalDefinition, newDefinition);
+
+            } catch (e) {
+                $log.log(e);
+                UtilitiesService.toast("Parameter name/query combo' already exists", 3000);
+            }
+        };
+    }
+
+    function cancelled(){
+        $log.log("You cancelled the dialog. RETURNING DIALOGE -- CANCELLED");
+    }
+
+    // vm.initDefinitionEditorModal = function(definitionName, definitionValue){
+    //     $log.log("initDefinitionEditorModal");
+    //     try {
+    //         //var currentResponse = PathService.getResponse(pathName, operation, httpCode);
+    //         $log.log(definitionName);
+    //         $log.log(definitionValue);
+    //         dems.definitionToUpdate(definitionName, definitionValue);
+    //     } catch (e) {
+    //         $log.log(e);
+    //         UtilitiesService.toast(e, 3000);
+    //         return;
+    //     }
+    // };
+
+    this.deleteDefinition = function(definitionName){
         if ($window.confirm("Are you sure you want to delete the definition?")) {
             ds.deleteDefinition(definitionName);
         } else {
