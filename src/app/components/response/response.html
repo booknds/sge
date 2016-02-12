@@ -23,7 +23,6 @@
     </tr>
   </tbody>
 </table>
-<!-- <form name="addResponse" novalidate ng-submit="addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)"> -->
 <form name="addResponse" >
   <div style="display:flex; flex-direction:row;">
         <md-input-container style="flex-grow:1;">
@@ -68,46 +67,5 @@
               </md-tooltip>
             </md-button>
         </div>
-
-    <!-- <div unique-checkbox class="input-field col s4 valign">
-      <input id="input" ng-model="responseControl.newResponseData[responseControl.sgThisOperation].httpCode"
-              ng-pattern="/^(Default|default)?([0-9]+)?$/" name="code" type="text" required=""/>
-      <label id="label" for="label">Http Code</label>
-    </div> -->
-    <!-- <div unique-checkbox class="input-field col s4 valign">
-      <input id="input" ng-model="responseControl.newResponseData[responseControl.sgThisOperation].description" name="description" type="text" required="" />
-      <label id="label" for="label">Description</label>
-    </div> -->
-    <!-- <div class="col s4 valign">
-      <button  class="waves-effect waves-light btn"
-        ng-class="{ 'disabled': addResponse.$invalid}">
-      <i class="material-icons">add</i>
-      </button>
-    </div> -->
   </div>
-  <!-- <div class="valign-wrapper">
-    <div class="col s4">
-      <div  class="error valign" ng-show="addResponse.code.$dirty && addResponse.code.$invalid">
-        <small class="error"
-              ng-show="addResponse.code.$error.required">
-          Response code is required.
-        </small>
-        <small class="error"
-              ng-show="addResponse.code.$error.pattern">
-          Response code can either be a number or set to 'default'
-        </small>
-      </div>
-    </div>
-    <div class="col s4">
-      <div class="error valign"
-            ng-show="addResponse.description.$dirty && addResponse.description.$invalid">
-        <small class="error"
-              ng-show="addResponse.description.$error.required">
-          Response description is required.
-        </small>
-      </div>
-    </div>
-    <div class="col s4"></div>
-  </div>
-  <div class="row"></div> -->
 </form>

@@ -19,13 +19,6 @@
         <td class="">{{param.required}}</td>
         <td class="shrink">{{param.schema}}</td>
         <td class="">
-          <!-- <a class="disabled" href="#param-modal" modal
-          ng-click="paramControl.editParamData(pathName, operation, param.name, param.inLocation, $index)"
-          ng-click="paramControl.showPathCreator($event)" >
-          <i class="material-icons">settings</i> -->
-          <!-- <a class="disabled" ng-click="paramControl.showParamEditor($event, param.name, param.inLocation)" >
-          <i class="material-icons">settings</i>
-          </a> -->
           <md-button ng-click="paramControl.showParamEditor($event, param.name, param.inLocation)">
             <i class="material-icons">settings</i>
           </md-button>
@@ -34,7 +27,6 @@
     </tr>
   </tbody>
 </table>
-<!-- <form name="addParameter" ng-submit="addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation)"> -->
 <form name="addParameter" >
     <div style="display:flex; flex-direction:row;">
         <md-input-container style="flex-grow:1;">
@@ -66,32 +58,5 @@
               </md-tooltip>
             </md-button>
         </div>
-
-    <!-- <div sg-unique-input class="input-field col s4 valign">
-      <input id="input" name="name" ng-model="paramControl.newParamData[paramControl.sgThisOperation].name" type="text" required=""/>
-      <label id="label" for="label">Parameter Name</label>
-    </div>
-    <div class="input-field col s4 valign" >
-      <sg-dropdown sg-label="In Location" ng-model="paramControl.newParamData[paramControl.sgThisOperation].inLocation" sg-default-option="Choose Parameter Location" sg-choices="paramControl.inLocationList"></sg-dropdown>
-    </div>
-    <div class="col s4 valign">
-      <button  class="waves-effect waves-light btn" ng-class="{ 'disabled': addParameter.name.$invalid }">
-      <i class="material-icons">add</i>
-      </button>
-    </div>
-  </div>
-  <div class="valign-wrapper">
-    <div class="col s4 valign">
-      <div  class="error"
-            ng-show="addParameter.name.$dirty && addParameter.name.$invalid">
-        <small class="error"
-              ng-show="addParameter.name.$error.required">
-          Parameter name is required.
-        </small>
-      </div>
-    </div>
-    <div class="col s4"></div>
-    <div class="col s4">
-    </div> -->
   </div>
 </form>
