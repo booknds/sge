@@ -14,7 +14,7 @@
           <div class="card-content">
             <div style="display:flex flex-flow:column nowrap">
                 <p>Start building your Swagger definition by describing some basic info. Watch out some
-                  fields are required to enter, but don't worry we will prompt you if anything is missing.
+                  fields are required to enter, but don't worry we will prompt you if anything is missing. For more info on <a href="http://swagger.io/specification/">Swagger Specification</a> or the <a href="https://openapis.org/">Open API</a> initiative.
                 </p>
                 <div style="display:flex; flex-flow:row nowrap;">
                     <div style="display:flex; flex-flow:column nowrap; margin-right:10px;">
@@ -74,52 +74,6 @@
                                       ng-model="basicInfo.sgBase.basePath">
                               </md-input-container>
                           </div>
-                        <!-- <div class="col s12">
-                          <div class="row">
-                            <div class="input-field col s12 m6">
-                              <input id="title" type="text"
-                                ng-model="basicInfo.sgBase.info.title"
-                                name="apiName"
-                                required="" >
-                              <label for="title">Title</label>
-                              <div class="error" ng-show="infoForm.apiName.$dirty && infoForm.apiName.$invalid">
-                                <small class="error" ng-show="infoForm.apiName.$error.required">
-                                  The API name is required.
-                                </small>
-                              </div>
-                            </div>
-
-                            <div class="input-field col s12 m6">
-                              <input id="version" type="text"
-                                ng-model="basicInfo.sgBase.info.version"
-                                ng-pattern="/^([v]?)([0-9]+)((\.([0-9]+))*)?$/"
-                                name="version"
-                                required="" >
-                              <label for="version">Version</label>
-                              <div class="error" ng-show="infoForm.version.$dirty && infoForm.version.$invalid">
-                                <small class="error" ng-show="infoForm.version.$error.required">
-                                  The version is required.
-                                </small>
-                                <small class="error" ng-show="infoForm.version.$error.pattern">
-                                  Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
-                                </small>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <sg-textarea class="input-field col s12" sg-unique-input sg-label="Description" ng-model="basicInfo.sgBase.info.description"></sg-textarea>
-                          </div>
-                          <div class="row">
-                            <sg-text-input class="input-field col s12 m6" unique-input sg-label="Host"  ng-model="basicInfo.sgBase.host"></sg-text-input>
-                            <sg-text-input class="input-field col s12 m6" unique-input sg-label="BasePath" ng-model="basicInfo.sgBase.basePath">
-                              <div class="error" ng-show="infoForm.BasePath.$dirty && infoForm.BasePath.$invalid">
-                                <small class="error" ng-show="infoForm.BasePath.$error.pattern">
-                                  Allowed format "v1", "v1.0", "v1.0.0", "1", "1.0.0"
-                                </small>
-                              </div>
-                           </sg-text-input>
-                          </div>
-                        </div> -->
                       </div>
                     </div>
                     <div style="display:flex; flex-flow:column nowrap; justify-content:space-between; margin-left:10px;">
@@ -186,32 +140,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="section">
-              <div class="section">
-                <p>Start building your Swagger definition by describing some basic info. Watch out some
-                  fields are required to enter, but don't worry we will prompt you if anything is missing.
-                </p>
-              </div>
-
-              <div class="col s12 m6">
-                <span class="card-title">Contact</span>
-                <div class="row">
-                  <sg-text-input class="input-field col s12 m4" unique-input sg-label="Name" ng-model="basicInfo.sgBase.info.contact.name"> </sg-text-input>
-                  <sg-text-input class="input-field col s12 m4" unique-input sg-label="Url" ng-model="basicInfo.sgBase.info.contact.url"> </sg-text-input>
-                  <sg-text-input class="input-field col s12 m4" unique-input sg-label="Email" ng-model="basicInfo.sgBase.info.contact.email"> </sg-text-input>
-                </div>
-                <span class="card-title">License</span>
-                <div class="row">
-                  <sg-text-input ng-if="basicInfo.sgBase.info.license.url" class="input-field col s12 m6" unique-input sg-label="Name" ng-model="basicInfo.sgBase.info.license.name" required="true"> </sg-text-input>
-                  <sg-text-input ng-if="!basicInfo.sgBase.info.license.url" class="input-field col s12 m6" unique-input sg-label="Name" ng-model="basicInfo.sgBase.info.license.name"> </sg-text-input>
-                  <sg-text-input class="input-field col s12 m6" unique-input sg-label="Url" ng-model="basicInfo.sgBase.info.license.url"> </sg-text-input>
-                </div>
-                <div class="row">
-                  <sg-text-input class="input-field col s12 " unique-input sg-label="Terms Of Service" ng-model="basicInfo.sgBase.info.termsOfService"> </sg-text-input>
-                </div>
-              </div>
-            </div> -->
-            
                 <span class="card-title">Types</span>
                 <div style="display:flex; flex-direction:column; justify-content:space-between;" >
                   <div style="display:flex; flex-direction:row;" >
@@ -230,13 +158,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div ng-if="basicInfo.sgBase.produces.length > 0;" style="display:flex; flex-direction:row; justify-content:space-around;">
-                    <ul class="col s12">
-                      <li class="valign-wrapper" ng-repeat="produce in basicInfo.sgBase.produces">
-                        <div class="valign"> {{produce}} </div>
-                      </li>
-                    </ul>
-                  </div> -->
                   <div style="display:flex; flex-direction:row;">
                     <sg-dropdown sg-label="Consumes" ng-model="basicInfo.consume" sg-choices="basicInfo.types.mime"></sg-dropdown>
                     <button class="btn-flat waves-effect waves-white white" ng-click="basicInfo.addType('consumes', basicInfo.consume);">
@@ -253,13 +174,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div ng-if="basicInfo.sgBase.consumes.length > 0;" style="display:flex; flex-direction:row; ">
-                    <ul class="">
-                      <li class="valign-wrapper" ng-repeat="consume in basicInfo.sgBase.consumes">
-                        <div class="valign"> {{consume}} </div>
-                      </li>
-                    </ul>
-                  </div> -->
                   <div style="display:flex; flex-direction:row;">
                     <sg-dropdown sg-label="Schemes" ng-model="basicInfo.scheme" sg-choices="basicInfo.types.scheme"></sg-dropdown>
                     <button class="btn-flat waves-effect waves-white white" type="submit" name="action" ng-click="basicInfo.addType('schemes', basicInfo.scheme);">
@@ -277,61 +191,6 @@
                     </div>
                   </div>
                 </div>
-                  <!-- <div class="input-field col s12 m4 l4 ">
-                    <div class="valign-wrapper">
-                      <button class="btn-flat waves-effect waves-white white col s2" ng-click="basicInfo.addType('produces', basicInfo.produce);">
-                        <i class="material-icons">add</i>
-                      </button>
-                      <sg-dropdown class="col s10" sg-label="Produces" ng-model="basicInfo.produce" sg-choices="basicInfo.types.mime"></sg-dropdown>
-                    </div>
-                    <ul class="col s12">
-                      <li class="valign-wrapper" ng-repeat="produce in basicInfo.sgBase.produces">
-                        <div class="col m10 valign"> {{produce}} </div>
-                        <button class="btn-flat waves-effect waves-white  col m2 valign" ng-click="basicInfo.removeType('produces', produce);">
-                          <i class="material-icons">delete</i>
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                  <div flex class="input-field col s12 m4 l4">
-                    <div class="col  s12">Consumes: </div>
-                    <div class="valign-wrapper">
-                      <button class="btn-flat waves-effect waves-white valign col m2" ng-click="basicInfo.addType('consumes', basicInfo.consume);">
-                        <i class="material-icons">add</i>
-                      </button>
-                      <sg-dropdown class=" browser-default col s10 valign" sg-label="Consumes" ng-model="basicInfo.consume" sg-choices="basicInfo.types.mime"></sg-dropdown>
-
-                    </div>
-                    <ul class="row">
-                      <li class="valign-wrapper" ng-repeat="consume in basicInfo.sgBase.consumes">
-                        <div class="col m10 valign ">
-                          <p class="shrink">{{consume}}</p>
-                        </div>
-                        <button class="btn-flat waves-effect waves-white  col m2 valign" ng-click="basicInfo.removeType('consumes', consume);">
-                          <i class="material-icons">delete</i>
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="input-field col s12 m4 l4">
-                    <div layout="row" class="valign-wrapper">
-                      <sg-dropdown class="col s10 valign" sg-label="Schemes" ng-model="basicInfo.scheme" sg-choices="basicInfo.types.scheme"></sg-dropdown>
-                      <button class="btn-flat waves-effect waves-white valign col m2 " type="submit" name="action" ng-click="basicInfo.addType('schemes', basicInfo.scheme);">
-                        <i class="material-icons" >add</i>
-                      </button>
-                    </div>
-                    <ul class="col s12">
-                      <li class="valign-wrapper" ng-repeat="scheme in basicInfo.sgBase.schemes">
-                        <div class="col s10 valign">
-                          <p>{{scheme}}</p>
-                         </div>
-                        <button class="btn-flat waves-white col s2 valign" type="submit" name="action" ng-click="basicInfo.removeType('schemes', scheme);">
-                          <i class="material-icons">delete</i>
-                        </button>
-                      </li>
-                    </ul>
-                  </div> -->
-
             </div>
           </div>
         </div>
