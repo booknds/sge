@@ -104,4 +104,26 @@ function ParameterCtrl($scope, $log, $mdDialog, $document, $mdMedia, UtilitiesSe
         };
     }
 
+    this.reduce = function(obj){
+        let cleaned = {};
+
+        for (var key in obj) {
+            if (obj[key] !== null || angular.isDefined(obj[key])) {
+                cleaned[key] = obj[key];
+            }
+        }
+
+        return cleaned;
+    };
+
+    // this.reduce = function reduce(obj, reduceBy) {
+    //     let reduced = {};
+
+    //     for (var key in obj) {
+
+    //     }
+
+    //     return reduced;
+    // };
+
 }

@@ -26,8 +26,6 @@
                       </div>
                     </div>
                   </md-input-container>
-
-
                   <md-input-container style="display:flex; flex-flow:column nowrap; flex-grow:2;">
                     <label>Parameter Location</label>
                     <md-select ng-model="paramModalControl.tempParam.inLocation">
@@ -36,9 +34,6 @@
                       </md-option>
                     </md-select>
                   </md-input-container>
-
-
-
                 </div>
                 <div style="display:flex; flex-direction:row; align-items:center;">
 
@@ -86,7 +81,7 @@
                     </md-input-container>
                 </div>
 
-                <div  ng-if="paramModalControl.tempParam.inLocation === 'body'" class="row">
+                <div  ng-if="paramModalControl.tempParam.inLocation === 'body'" style="display:flex; flex-direction:column;">
                   <div>
                     <h4>Schema</h4>
                   </div>

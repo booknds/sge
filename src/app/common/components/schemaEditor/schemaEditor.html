@@ -1,17 +1,17 @@
 <!-- <form name="editSchema" ng-submit="" novalidate> -->
 <!-- <div ng-init="scope."> -->
-  <div class="row">
-    <div class="input-field col s12">
+<!--   <div class="row"> -->
+    <!-- <div class="input-field col s12">
       <textarea id="sgSchemaObject-description" ng-model="schema.sgSchemaObject.description" class="materialize-textarea"></textarea>
       <label for="sgSchemaObject-description">Description</label>
-    </div>
-      <sg-text-input class="input-field col col s4" sg-unique-input sg-label="$ref" ng-model="schema.sgSchemaObject.$ref"></sg-text-input>
+    </div> -->
+    <!--   <sg-text-input class="input-field col col s4" sg-unique-input sg-label="$ref" ng-model="schema.sgSchemaObject.$ref"></sg-text-input> -->
     <!-- <div class="input-field col s4">
       <input id="sgSchemaObject-ref" type="text" ng-model="schema.sgSchemaObject.$ref" >
       <label for="sgSchemaObject-ref">$ref</label>
     </div> -->
     <!-- <sg-text-input class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgSchemaObject.type"></sg-text-input> -->
-    <div ng-show="schema.sgRestrictTypeToObject === 'true'" class="input-field col s4">
+    <!-- <div ng-show="schema.sgRestrictTypeToObject === 'true'" class="input-field col s4">
       <input id="sgSchemaObject-type" type="text"
               ng-model="schema.sgSchemaObject.type"
               disabled>
@@ -21,112 +21,123 @@
     <div class="input-field col s4">
       <input id="sgSchemaObject-enum" type="text" disabled value="" ng-model="schema.sgSchemaObject.required">
       <label class="active" for="sgSchemaObject-enum">Required</label>
-    </div>
+    </div> -->
+<!--   </div> -->
+<div style="display:flex; flex-flow: column nowrap;">
+  <div style="display:flex; flex-flow: row nowrap;">
+    <md-input-container style="flex-grow:1;">
+        <label>Description</label>
+        <textarea ng-model="schema.sgSchemaObject.description"
+        md-maxlength="150"
+        rows="5"
+        md-select-on-focus></textarea>
+    </md-input-container>
   </div>
-  <div class="display:flex; flex-flow:column nowrap;">
-        <div >
-          <h5>Properties</h5>
-        </div>
+  <div style="display:flex; flex-flow: row nowrap;">
+    <md-input-container style="flex-grow:1;">
+          <label>$ref</label>
+          <input name="$ref" type="text" ng-model="schema.sgSchemaObject.$ref">
+      </md-input-container>
+      <md-input-container style="flex-grow:1;">
+          <label>Type</label>
+          <input name="type" ng-disabled="schema.sgRestrictTypeToObject" 
+                  ng-model="schema.sgSchemaObject.type" type="text">
+      </md-input-container>
+      <md-input-container style="flex-grow:1;">
+          <label>Required</label>
+          <input name="required" disabled ng-model="schema.sgSchemaObject.required" type="text">
+      </md-input-container>
+  </div>
+  
+  <div >
+    <h5>Properties</h5>
+  </div>
 
-        <form novalidate name="propertyCreator" style="display:flex; ">
-            <div style="display:flex; flex-direction:row; align-items:center;">
-                <md-input-container style="display:flex; flex-flow:column nowrap;  flex-grow:2;">
-                  <label>Property Name</label>
-                  <input  type="text"
-                          name="propertyName"
-                          ng-model="schema.newProperty.name"
-                          required>
+  <form name="propertyCreator" style="display:flex; ">
+      <div style="display:flex; flex-direction:row; align-items:center; flex-grow:2">
+          <md-input-container style="display:flex; flex-flow:column nowrap;  flex-grow:2;">
+            <label>Property Name</label>
+            <input  type="text"
+                    name="propertyName"
+                    ng-model="schema.newProperty.name"
+                    required>
 
-                  <div ng-if="propertyCreator.propertyName.$dirty"
-                      ng-messages="propertyCreator.propertyName.$error"
-                      role="alert" >
-                    <div ng-message="required">
-                      Property name is required.
-                    </div>
-                  </div>
-
-                </md-input-container>
-
-                <!-- <md-button style="display:flex; justify-content:center; align-items:center;"
-                          ng-click="propertyCreator.$valid && schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);">
-                    <i class="material-icons">add</i>
-                </md-button> -->
-                <md-button style="display:flex; justify-content:center; align-items:center;"
-                          ng-click="schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);">
-                    <i class="material-icons">add</i>
-                </md-button>
+            <div ng-if="propertyCreator.propertyName.$dirty"
+                ng-messages="propertyCreator.propertyName.$error"
+                role="alert" >
+              <div ng-message="required">
+                Property name is required.
+              </div>
             </div>
 
-        </form>
-  </div>
-  <ul ng-repeat="(property, pValue) in schema.sgSchemaObject.properties"
-      class="collapsible "
-      init-collapse
-      data-collapsible="accordion">
-    <li>
-      <div class="collapsible-header ">
-        {{property}}
+          </md-input-container>
+          <md-button style="display:flex; justify-content:center; align-items:center;"
+                    ng-click="schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);">
+              <i class="material-icons">add</i>
+          </md-button>
       </div>
-      <div class="collapsible-body ">
-        <div class=" valign-wrapper section">
-          <sg-text-input class="input-field col col s3 valign" sg-unique-input sg-label="Description" ng-model="pValue.description" required="true"></sg-text-input>
-          <!-- <div class="input-field col s3 valign">
-            <input id="new-property-name" type="text" ng-model="pValue.description" required aria-required="true">
-            <label for="new-property-name">Description</label>
-          </div> -->
-          <div class="input-field col s2 valign">
-            <!-- <sg-dropdown class="browser-default" style="background-color: #455a64;" ng-model="pValue.type" sg-choices="schema.types" sg-default-option="Choose a Type"></sg-dropdown> -->
-            <select class="browser-default"  select-value
-                    ng-model="pValue.type">
-              <option value="" selected>Choose a Type</option>
-              <option ng-repeat="type in schema.types"
-                      ng-attr-value="{{ type }}"
-                      ng-attr-id="{{ type }}">{{ type }}</option>
-            </select>
-          </div>
-          <div class="input-field col s2 valign">
-            <!-- <sg-dropdown class="browser-default" style="background-color: #455a64;" ng-model="pValue.format" sg-choices="schema.formats" sg-default-option="Property Format"></sg-dropdown> -->
-            <select class="browser-default"  select-value ng-model="pValue.format">
-              <option value="" selected>Property Format</option>
-              <option ng-repeat="format in schema.formats"
-                      ng-attr-value="{{ format }}"
-                      ng-attr-id="{{ format }}">{{ format }}</option>
-            </select>
-          </div>
-          <div class="input-field col s4 valign">
-            <input id="property-enum" type="text" placeholder="value,must,be,comma,separated" value=""
-            ng-model="pValue.enum">
-            <label class="active" for="property-enum">Enum</label>
-          </div>
-          <div class="input-field col s2 valign valign-wrapper">
-            <p sg-unique-input class="valign">
-              <input type="checkbox" id="input" ng-model="schema[property].required" ng-click="schema.toggleRequired(property, schema[property].required)"/>
-              <label id="label" for="label">Required</label>
-            </p>
-          </div>
+
+  </form>
+
+  <ul  ng-repeat="(property, pValue) in schema.sgSchemaObject.properties"
+    class="collapsible "
+    init-collapse
+    data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header" style="display:flex; justify-content:space-between; align-items: center;">
+        <div>
+          {{property}}
         </div>
-        <div class="valign-wrapper section" >
-          <div class="input-field col s1 offset-s11 valign">
-            <button tooltipped
-                    class="btn col "
-                    data-position="top"
-                    data-delay="50"
-                    data-tooltip="Delete Property"
-                    ng-click="schema.deleteProperty(property)">
-            <i class="material-icons">delete</i>
-            </button>
+        <div>
+          <md-button style="display:flex; justify-content:center; align-items:center;"
+              ng-click="schema.deleteProperty(property)">
+              <i class="material-icons">delete</i>
+              <md-tooltip>
+                  Delete Property
+              </md-tooltip>
+          </md-button>
+        </div>
+      </div>
+      <div class="collapsible-body" style="display:flex; flex-flow: column nowrap;">
+        <!-- <div class=" valign-wrapper section"> -->
+        <div style="display:flex; flex-flow: row nowrap;  align-items: center;">
+          <md-input-container style="">
+            <label>Description</label>
+            <textarea ng-model="pValue.description" 
+            md-maxlength="150"
+            rows="1"
+            md-select-on-focus></textarea>
+          </md-input-container>
+          <md-input-container style="">
+            <label>$ref</label>
+            <input  type="text" name="$ref" ng-model="pValue.$ref">
+          </md-input-container>
+          <div style="display:flex; flex-flow: row nowrap; justify-content:center;  align-items: center; flex-grow:1;">
+            <md-checkbox 
+              ng-model="schema[property].required"
+              ng-click="schema.toggleRequired(property, schema[property].required)"
+              aria-label="Property required">
+            Required
+          </md-checkbox>
           </div>
-          <!--div class="input-field col s1 valign">
-            <button tooltipped
-                    class="btn col "
-                    data-position="top"
-                    data-delay="50"
-                    data-tooltip="Update Property Data">
-            <i class="material-icons">done</i>
-            </button>
-          </div-->
+          
+        </div>
+        <div style="display:flex; flex-flow:row nowrap;">
+          <sg-dropdown
+              sg-label="Type"
+              ng-model="pValue.type" sg-default-option="Choose a Type" sg-choices="schema.types">
+          </sg-dropdown>
+          <sg-dropdown
+              sg-label="Format"
+              ng-model="pValue.format" sg-default-option="Property Format" sg-choices="schema.formats">
+          </sg-dropdown>
+          <md-input-container style="">
+            <label>enum</label>
+            <input  type="text" name="enum" ng-model="pValue.enum" placeholder="value,must,be,comma,separated">
+          </md-input-container>
         </div>
       </div>
     </li>
   </ul>
-<!-- </form> -->
+
+</div>

@@ -16,7 +16,7 @@ function schemaEditorComponent(){
         scope:{},
         bindToController:{
             sgSchemaObject: "=",             //passed in schema object to manipulate
-            sgRestrictTypeToObject: "@?"     //used when creating a definition to restrict the type to an object
+            sgRestrictTypeToObject: "=?"     //used when creating a definition to restrict the type to an object
             // sgFormObject: "=",
         },
         // replace: true,

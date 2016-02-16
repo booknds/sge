@@ -16,12 +16,14 @@ function schemaEditorCtrl($scope, $log, $window, UtilitiesService, PathService, 
     };
 
     this.formats = ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
-    this.types = ["integer", "number", "string", "boolean"];
+    this.types = ["string","number", "integer", "boolean", "array", "file", "object"];
 
     this.toggleRequired = function(propertyName, isRequired){
-        // debugger;
-        $log.log("TOGGLE PROPERTY REQUIRED");
-        $log.log(propertyName, isRequired);
+
+        if (angular.isUndefined(isRequired)) {
+            isRequired = true;
+        }
+
         if (isRequired) {
             this.sgSchemaObject.required.push(propertyName);
         } else {
@@ -51,6 +53,7 @@ function schemaEditorCtrl($scope, $log, $window, UtilitiesService, PathService, 
         //if(tempDefniition.properties.hasOwnProperty)
 
         this.newProperty.name = "";
+        // this[propertyName].required = false;
         // $scope.propertyCreator.setPristine();
 
     };

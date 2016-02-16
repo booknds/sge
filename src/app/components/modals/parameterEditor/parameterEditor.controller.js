@@ -22,17 +22,17 @@ function ParameterModalCtrl($scope, $log, $mdDialog){
 
     this.locationTypes = ["path", "query", "header", "body", "formData"];
 
-    // $scope.$watch(
-    //     function() {
-    //         if(this.tempParam) {
-    //             return this.tempParam.inLocation;
-    //         }
-    //     }.bind(this),
-    //     function(newVal) {
-    //         if (newVal === "path") {
-    //             this.tempParam.required = true;
-    //         }
-    //     }.bind(this));
+    $scope.$watch(
+        function() {
+            if(this.tempParam) {
+                return this.tempParam.inLocation;
+            }
+        }.bind(this),
+        function(newVal) {
+            if (newVal === "path") {
+                this.tempParam.required = true;
+            }
+        }.bind(this));
 
     // $scope.$watch(function(){return pms.parameterContext;}, onModalInit.bind(this), true);
     //

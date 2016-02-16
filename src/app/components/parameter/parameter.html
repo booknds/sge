@@ -17,7 +17,7 @@
         <td class="">{{param.inLocation}}</td>
         <td class="shrink ">{{param.description}}</td>
         <td class="">{{param.required}}</td>
-        <td class="shrink">{{param.schema}}</td>
+        <td class="shrink">{{param.schema | removeEmpty}}</td>
         <td class="">
           <md-button ng-click="paramControl.showParamEditor($event, param.name, param.inLocation)">
             <i class="material-icons">settings</i>
