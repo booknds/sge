@@ -34,4 +34,8 @@ function DefinitionCreationCtrl($scope, $log, UtilitiesService, ds, $mdDialog){
         $mdDialog.hide("added definition");
 
     };
+
+    this.cancel = function(){
+        $mdDialog.cancel();
+    };
 }
