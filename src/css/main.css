@@ -223,9 +223,9 @@ ul.side-nav.fixed li {
   z-index: 900;
 }
 
-header, main, footer {
+/*header, main, footer {
   padding-left: 240px;
-}
+}*/
 
 @media only screen and (max-width : 992px) {
   header, main, footer {

@@ -1,5 +1,4 @@
 <div class="section" ng-cloak>
-  <!-- <sg-path-creator-modal></sg-path-creator-modal> -->
   <div class="row">
     <div class="col s12 m7" style="margin-left:2.33%;">
       <div class="card ">
@@ -10,7 +9,8 @@
             </h2>
             <div style="margin-top: 55px;" class="right-align">
               <a ng-click="pathCtl.showPathCreator($event)"
-                class="btn-floating btn-large waves-effect waves-light purple accent-4"
+                class="btn-floating btn-large waves-effect waves-light"
+                style="background-color:#70326E"
                 >
                 <i class="material-icons">add</i>
               </a>
@@ -66,7 +66,7 @@
                         sg-operation-colorer-component
                         sg-operation-colorer="{{operation}}"
                         sg-selector="background-color"
-                      ng-repeat="operation in pathCtl.operations | orderBy:operation"
+                      ng-repeat="operation in pathCtl.operations"
                       ng-click="pathCtl.addOperation(pathName, operation)"
                       ng-hide="pathCtl.paths[pathName].hasOwnProperty(operation)"
                       style="margin-right:20px; color:white;">
@@ -134,7 +134,7 @@
                                           sg-operation-object="value"
                                           ng-repeat="(operation, value) in pathCtl.paths[pathName]">
                               <md-button style="display:flex; justify-content:center; align-items:center;"
-                                  ng-click="pathCtl.deletePath(pathName)">
+                                  ng-click="pathCtl.deleteOperation(pathName, operation)">
                                   <i class="material-icons">delete</i>
                                   <md-tooltip>
                                       Delete Operation

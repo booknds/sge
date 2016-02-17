@@ -10,6 +10,7 @@ function SidenavComponent($document){
         restrict: "E",
         template,
         controller,
+        replace:true,
         controllerAs:"sidenav",
         link:function(scope, element){
             // Initialize collapse button
