@@ -1,15 +1,25 @@
 import angular from "angular";
 "use strict";
 
-let sideNavArray = ["$scope", "$log", "UtilitiesService", "CompilerService", "FileSaver", "Blob", SidenavCtrl];
+let sideNavArray = ["$scope", "$log", "$element", "$timeout", "UtilitiesService", "CompilerService", "FileSaver", "Blob", SidenavCtrl];
 
 export default sideNavArray;
 
-function SidenavCtrl($scope, $log, UtilitiesService, cs, FileSaver, Blob){
+function SidenavCtrl($scope, $log, $element, $timeout, UtilitiesService, cs, FileSaver, Blob){
 
     this.compiledDocument = cs.compiled;
 
     this.pickedFile = "";
+
+    this.openFile = function openFile(){
+        // debugger;
+        let opener = $element.find("#file-input");
+
+        $timeout(function() {
+            opener.click();
+        });
+        
+    };
 
     this.onChange = function onChange_handler(event) {
         //return if the even is unidentified or null
