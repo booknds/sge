@@ -38,6 +38,13 @@ function InfoService(){
         produces: []
     };
 
+    return {
+        getBaseInfo,
+        setBaseInfo,
+        addType,
+        removeType
+    };
+
     /**
       * @name addType
       * @desc Adds a type to one of the three lists 'schemes', 'consumes', or 'produces'
@@ -122,12 +129,5 @@ function InfoService(){
             return false;
         }
     }
-
-    return {
-        getBaseInfo,
-        setBaseInfo,
-        addType,
-        removeType
-    };
 
 }

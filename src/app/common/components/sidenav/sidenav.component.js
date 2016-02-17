@@ -24,6 +24,8 @@ function SidenavComponent($document){
                 }
             );
 
+            
+
             //console.log(element);
             //console.log(get)
 

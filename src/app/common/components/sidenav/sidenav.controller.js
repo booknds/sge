@@ -19,7 +19,7 @@ function SidenavCtrl($scope, $log, $element, $timeout, UtilitiesService, cs, Fil
             opener.click();
         });
         
-    }
+    };
 
     this.onChange = function onChange_handler(event) {
         //return if the even is unidentified or null
