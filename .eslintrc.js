@@ -89,5 +89,11 @@ module.exports = {
     "ecmaFeatures": {
         "jsx": true,
         "modules": true
+    },
+    "globals": {
+        "describe": false,
+        "it": false,
+        "expect": false,
+        "angular": false
     }
 };

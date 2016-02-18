@@ -4,7 +4,7 @@ function callback(){
     return function removeEmpty(obj) {
         // debugger;
 
-        if (typeof obj !== "object") {
+        if (/*typeof obj !== "object"*/!angular.isObject(obj)) {
             return;
         }
 

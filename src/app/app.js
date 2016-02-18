@@ -8,12 +8,13 @@ import AngularMaterial from "angular-material";
 import AngularAnimate from "angular-animate";
 import AngularAria from "angular-aria";
 import AngularMessages from "angular-messages";
+// import AngularMocks from "angular-mocks/ngMock";
 import "angular-material/angular-material.css";
 import "../css/main.css";
 
 "use strict";
 
-//console.log(FileSaver);
+// console.log(AngularMocks);
 
 angular
     .module("SwaggerGraphicalEditor", [
@@ -26,6 +27,7 @@ angular
         AngularAnimate,
         AngularAria,
         AngularMessages
+        // AngularMocks
         // 'ngMaterial',
         // 'ngAnimate',
         // 'ngAria'
