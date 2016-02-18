@@ -1,6 +1,6 @@
 export default ObjectFactory;
 
-function ObjectFactory(){
+function ObjectFactory($log, $window, UtilitiesService){
 
     let Path ={
         init:function(){
@@ -77,15 +77,15 @@ function ObjectFactory(){
             this.tags = null;
             this.summary = null;
             this.description = null;
-            this.externalDocs = new Object();
+            this.externalDocs = {};
             this.operationId = null;
-            this.consumes = null;
-            this.produces = null;
-            this.parameters = new Array();
+            this.consumes = [];
+            this.produces = [];
+            this.parameters = [];
             this.responses = newResponses();
-            this.schemes = null;
+            this.schemes = [];
             this.deprecated = false;
-            this.security = new Object();
+            this.security = {};
         },
 
         addParameter: function(paramName, paramIn){
@@ -98,7 +98,6 @@ function ObjectFactory(){
 
                     if (key === "responses") {
                         this[key] = newResponses();
-                        debugger;
                         this[key].setResponses(newOperation[key]);
 
                     } else if (key === "parameters") {
@@ -156,6 +155,50 @@ function ObjectFactory(){
                 original[key] = newParameter[key];
             }
 
+        },
+
+        addType: function addType(listType, type){
+            //check if list exists
+            if (listType !== "consumes" && listType !== "produces" && listType !== "schemes"){
+                $log.warn("List does not exist");
+                UtilitiesService.toast("List does not exist", 3000);
+
+            }
+
+            //check if type exists
+            if(type){
+                //check if type is already in the list
+                if(this[listType].indexOf(type) === -1){
+                    this[listType].push(type);
+
+                } else {
+                    $log.warn("Type already exists in this list");
+                    UtilitiesService.toast("Type already exists in this list", 3000);
+                }
+
+            } else {
+                $log.warn("Type not chosen!");
+                UtilitiesService.toast("Type not chosen!", 3000);
+
+            }
+        },
+
+        removeType: function removeType(listType, type){
+            //check if list exists
+            if (listType !== "consumes" && listType !== "produces" && listType !== "schemes"){
+                $log.warn("List does not exist");
+                UtilitiesService.toast("List does not exist", 3000);
+            }
+
+            let index = this[listType].indexOf(type);
+
+            if(index >= 0){
+                this[listType].splice(index, 1);
+            
+            } else {
+                $log.warn("Type already deleted");
+                UtilitiesService.toast("Type already deleted", 3000);
+            }
         },
 
         getJSON: function(){
@@ -318,19 +361,72 @@ function ObjectFactory(){
             this.format = null;
             this.title = title || "";
             this.description = description || "";
-            this.required = new Array();
-            this.enum = null;
+            this.required = [];
+            this.enum = [];
             this.type = type || "";
             this.properties = {};
+            // this._isRequired
         },
 
         setSchema: function setSchema(newSchema) {
+            // let privateProperties = 
+
             for (var key in newSchema) {
                 if (this.hasOwnProperty(key) && newSchema.hasOwnProperty(key)) {
                     this[key] = newSchema[key];
                 }
             }
+        },
+
+        addProperty: function addProperty(propertyName){
+            // debugger;
+            if (this.properties.hasOwnProperty(propertyName)) {
+                UtilitiesService.toast("Property already exists on this definition.");
+            } else {
+                this.properties[propertyName] = newSchema();
+                //this.sgSchemaObject.properties[propertyName].type = null;
+            }
+
+            //if(tempDefniition.properties.hasOwnProperty)
+
+            // this.newProperty.name = "";
+            // this[propertyName].required = false;
+            // $scope.propertyCreator.setPristine();
+
+        },
+
+        deleteProperty: function deleteProperty(propertyName){
+            if ($window.confirm("Are you sure you want to delete the property?")) {
+                delete this.properties[propertyName];
+            } else {
+                $log.log("Don't delete property");
+            }
+
+        },
+
+        addEnum: function addEnum(enumItem){
+            if (this.enum.indexOf(enumItem) === -1) {
+                this.enum.push(enumItem); 
+
+            } else {
+                $log.warn("item already added");
+                UtilitiesService.toast("item already added", 3000);
+
+            }
+        },
+
+        removeEnum: function removeEnum(enumItem){
+            let indexOfEnumItem = this.enum.indexOf(enumItem);
+
+
+            if (indexOfEnumItem >= 0) {
+                this.enum.splice(indexOfEnumItem, 1);
+            }else {
+                $log.warn("item already added");
+                UtilitiesService.toast("item already added", 3000);
+            }
         }
+        
     };
 
     function newDefinitions(){

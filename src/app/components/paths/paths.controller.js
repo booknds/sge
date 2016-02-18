@@ -18,7 +18,7 @@ function PathCtrl($scope, $log, $document, UtilitiesService, swaggerPaths, $wind
     //     showPaths:false
     // };
 
-    this.operations = ["get", "post", "put", "delete"];
+    this.operations = ["post", "get", "put", "delete"];
 
     this.dontShowPaths = {};
 

@@ -13,14 +13,6 @@ function BaseInfoCtrl($log, UtilitiesService, InfoService){
      **/
     this.sgBase = InfoService.getBaseInfo();
 
-    // $scope.$watch(InfoService.getBaseInfo, function(newVal) {
-    //   if(newVal){
-    //     debugger;
-    //     console.log(newVal);
-    //     this.sgBase = InfoService.getBaseInfo();
-    //   }
-    // }, true)
-
     /**
       * @name types
       * @desc holds arrays that define lists. These lists are the types allowed for the key.
