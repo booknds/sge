@@ -1,6 +1,6 @@
 export default ObjectFactory;
 
-function ObjectFactory($log, UtilitiesService){
+function ObjectFactory($log, $window, UtilitiesService){
 
     let Path ={
         init:function(){
@@ -361,19 +361,72 @@ function ObjectFactory($log, UtilitiesService){
             this.format = null;
             this.title = title || "";
             this.description = description || "";
-            this.required = new Array();
-            this.enum = null;
+            this.required = [];
+            this.enum = [];
             this.type = type || "";
             this.properties = {};
+            // this._isRequired
         },
 
         setSchema: function setSchema(newSchema) {
+            // let privateProperties = 
+
             for (var key in newSchema) {
                 if (this.hasOwnProperty(key) && newSchema.hasOwnProperty(key)) {
                     this[key] = newSchema[key];
                 }
             }
+        },
+
+        addProperty: function addProperty(propertyName){
+            // debugger;
+            if (this.properties.hasOwnProperty(propertyName)) {
+                UtilitiesService.toast("Property already exists on this definition.");
+            } else {
+                this.properties[propertyName] = newSchema();
+                //this.sgSchemaObject.properties[propertyName].type = null;
+            }
+
+            //if(tempDefniition.properties.hasOwnProperty)
+
+            // this.newProperty.name = "";
+            // this[propertyName].required = false;
+            // $scope.propertyCreator.setPristine();
+
+        },
+
+        deleteProperty: function deleteProperty(propertyName){
+            if ($window.confirm("Are you sure you want to delete the property?")) {
+                delete this.properties[propertyName];
+            } else {
+                $log.log("Don't delete property");
+            }
+
+        },
+
+        addEnum: function addEnum(enumItem){
+            if (this.enum.indexOf(enumItem) === -1) {
+                this.enum.push(enumItem); 
+
+            } else {
+                $log.warn("item already added");
+                UtilitiesService.toast("item already added", 3000);
+
+            }
+        },
+
+        removeEnum: function removeEnum(enumItem){
+            let indexOfEnumItem = this.enum.indexOf(enumItem);
+
+
+            if (indexOfEnumItem >= 0) {
+                this.enum.splice(indexOfEnumItem, 1);
+            }else {
+                $log.warn("item already added");
+                UtilitiesService.toast("item already added", 3000);
+            }
         }
+        
     };
 
     function newDefinitions(){

@@ -1,10 +1,6 @@
 "use strict";
 
-let schemaEditorController = ["$scope", "$log", "$window", "UtilitiesService", "PathService", "ObjectFactory", schemaEditorCtrl];
-
-export default schemaEditorController;
-
-function schemaEditorCtrl($scope, $log, $window, UtilitiesService, PathService, ObjectFactory){
+export default  function schemaEditorCtrl(){
 
   /**
     * @name newResponseData
@@ -36,34 +32,24 @@ function schemaEditorCtrl($scope, $log, $window, UtilitiesService, PathService, 
         }
     };
 
-    this.toast = function(msg){
-        var message = msg || "No toast supplied, but hello!!";
-        UtilitiesService.toast(message, 2000);
+    this.addEnumToProperty = function addEnumToProperty(propertyName, enumItem){
+        this.sgSchemaObject.properties[propertyName].addEnum(enumItem);
+        this[propertyName].enum = "";
     };
 
-    this.addProperty = function(definitionName, propertyName){
-        // debugger;
-        if (this.sgSchemaObject.properties.hasOwnProperty(propertyName)) {
-            UtilitiesService.toast("Property already exists on this definition.");
-        } else {
-            this.sgSchemaObject.properties[propertyName] =  ObjectFactory.newSchema();
-            //this.sgSchemaObject.properties[propertyName].type = null;
-        }
+    this.removeEnumFromProperty = function removeEnumFromProperty(propertyName, enumItem){
+        this.sgSchemaObject.properties[propertyName].removeEnum(enumItem);
+        delete this[propertyName].enum;
+    };
 
-        //if(tempDefniition.properties.hasOwnProperty)
-
+    this.addProperty = function addProperty(propertyName){
+        this.sgSchemaObject.addProperty(propertyName);
         this.newProperty.name = "";
-        // this[propertyName].required = false;
-        // $scope.propertyCreator.setPristine();
-
     };
 
-    this.deleteProperty = function(propertyName){
-        if ($window.confirm("Are you sure you want to delete the property?")) {
-            delete this.sgSchemaObject.properties[propertyName];
-        } else {
-            $log.log("Don't delete property");
-        }
+    this.deleteProperty = function deleteProperty(propertyName){
+        this.sgSchemaObject.removeProperty(propertyName);
+        delete this[propertyName];
     };
 
 }

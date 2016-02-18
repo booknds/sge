@@ -72,7 +72,7 @@
 
           </md-input-container>
           <md-button style="display:flex; justify-content:center; align-items:center;"
-                    ng-click="schema.addProperty(schema.sgSchemaObject.name, schema.newProperty.name);">
+                    ng-click="schema.addProperty(schema.newProperty.name);">
               <i class="material-icons">add</i>
           </md-button>
       </div>
@@ -133,8 +133,20 @@
           </sg-dropdown>
           <md-input-container style="">
             <label>enum</label>
-            <input  type="text" name="enum" ng-model="pValue.enum" placeholder="value,must,be,comma,separated">
+            <input  type="text" disabled name="enum" ng-attr-placeholder="{{pValue.enum}}">
           </md-input-container>
+        </div>
+        <div style="display:flex; flex-flow:row nowrap; align-items: center;">
+          <md-input-container style="flex-grow: 1;">
+            <label>enum</label>
+            <input  type="text" name="enum" ng-model="schema[property].enum" placeholder="one item at a time">
+          </md-input-container>
+          <md-button ng-click="schema.addEnumToProperty(property, schema[property].enum)">
+            <i class="material-icons">add</i>
+          </md-button>
+          <md-button ng-click="schema.removeEnumFromProperty(property, schema[property].enum)">
+            <i class="material-icons">delete</i>
+          </md-button>
         </div>
       </div>
     </li>
