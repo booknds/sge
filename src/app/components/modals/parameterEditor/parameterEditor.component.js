@@ -1,16 +1,16 @@
 import template from "./parameterEditor.html";
 import controller from "./parameterEditor.controller";
 
-export default ParameterEditorComponent;
-
-function ParameterEditorComponent(){
+/**
+ */
+export default function ParameterEditorComponent() {
     return {
         restrict: "E",
         template,
         controller,
-        controllerAs:"paramModalControl"
-		// link: function(scope){
-
-		// }
+        controllerAs: "paramModalControl",
+        link: function(scope) {
+            console.log(scope);
+        }
     };
 }

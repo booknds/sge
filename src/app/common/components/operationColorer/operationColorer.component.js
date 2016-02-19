@@ -1,25 +1,14 @@
-// import template from "./operation.html";
-// import controller from "./operation.controller";
-
-export default colorerComponent;
-
-// angular 1.5 syntax for .component();
-// let appComponent = {
-//   template,
-//   restrict: "E"
-// }
-
-function colorerComponent(){
+/**
+ */
+export default function colorerComponent() {
     return {
         restrict: "A",
-        scope:{
+        scope: {
             sgOperationColorer: "@",
             sgSelector: "@",
             sgRandomize: "="
         },
-        link: function(scope, element){
-            
-
+        link: function(scope, element) {
             // switch (scope.sgOperationColorer) {
             // case "get":
             //     //element.addClass("blue");
@@ -45,7 +34,7 @@ function colorerComponent(){
                 var colorChoice = Math.floor(Math.random() * 4) + 1;
                 switch (colorChoice) {
                 case 1:
-                    //element.addClass("blue");
+                    // element.addClass("blue");
                     element.css(scope.sgSelector, "#378B80");
                     break;
                 case 2:
@@ -60,8 +49,10 @@ function colorerComponent(){
                     // element.addClass("red");
                     element.css(scope.sgSelector, "#8B3089");
                     break;
+                default:
+
                 }
-            } else { 
+            } else {
 
                 // switch (scope.sgOperationColorer) {
                 // case "get":
@@ -83,7 +74,7 @@ function colorerComponent(){
                 // }
                 switch (scope.sgOperationColorer) {
                 case "get":
-                    //element.addClass("blue");
+                    // element.addClass("blue");
                     element.css(scope.sgSelector, "#69812f");
                     break;
                 case "post":
@@ -98,12 +89,9 @@ function colorerComponent(){
                     // element.addClass("red");
                     element.css(scope.sgSelector, "#722827");
                     break;
+                default:
                 }
             }
-
-            
-
-
         }
     };
 }

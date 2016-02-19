@@ -1,10 +1,7 @@
-import angular from "angular";
 import InfoComponent from "./info.component";
 
-"use strict";
-
-let infoModule = angular
+export default angular
     .module("infoModule", [])
     .directive("sgInfo", InfoComponent);
 
-export default infoModule;
+// export default infoModule;

@@ -1,14 +1,11 @@
-import angular from "angular";
 import DefinitionCreator from "./definitionCreator/definitionCreator";
 import DefinitionEditor from "./definitionEditor/definitionEditor";
 import PathCreator from "./pathCreator/pathCreator";
 import ParameterEditor from "./parameterEditor/parameterEditor";
 import ResponseEditor from "./responseEditor/responseEditor";
 
-"use strict";
-
-let ModalsModule = angular
-    .module("modals",[
+export default angular
+    .module("modals", [
         DefinitionCreator.name,
         DefinitionEditor.name,
         PathCreator.name,
@@ -16,4 +13,4 @@ let ModalsModule = angular
         ResponseEditor.name
     ]);
 
-export default ModalsModule;
+// export default ModalsModule;

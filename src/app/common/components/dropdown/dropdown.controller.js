@@ -1,8 +1,6 @@
-let dropdownController = [DropdownCtrl];
-
-export default dropdownController;
-
-function DropdownCtrl(){
+/**
+ */
+export default function DropdownCtrl() {
   // add functionality as needed
 
 }

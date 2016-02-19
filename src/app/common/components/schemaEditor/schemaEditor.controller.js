@@ -1,20 +1,15 @@
-"use strict";
+/**
+ */
+export default function SchemaEditorCtrl() {
 
-export default  function schemaEditorCtrl(){
-
-  /**
-    * @name newResponseData
-    * @desc Holds the state of the inputs. Only manipulated in the DOM
-    * @type {Object}
-   **/
     this.schema = {
         definition: this.sgSchemaObject
     };
 
-    this.formats = ["int32","int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
-    this.types = ["string","number", "integer", "boolean", "array", "file", "object"];
+    this.formats = ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
+    this.types = ["string", "number", "integer", "boolean", "array", "file", "object"];
 
-    this.toggleRequired = function(propertyName, isRequired){
+    this.toggleRequired = function(propertyName, isRequired) {
 
         if (angular.isUndefined(isRequired)) {
             isRequired = true;
@@ -32,22 +27,22 @@ export default  function schemaEditorCtrl(){
         }
     };
 
-    this.addEnumToProperty = function addEnumToProperty(propertyName, enumItem){
+    this.addEnumToProperty = function addEnumToProperty(propertyName, enumItem) {
         this.sgSchemaObject.properties[propertyName].addEnum(enumItem);
         this[propertyName].enum = "";
     };
 
-    this.removeEnumFromProperty = function removeEnumFromProperty(propertyName, enumItem){
+    this.removeEnumFromProperty = function removeEnumFromProperty(propertyName, enumItem) {
         this.sgSchemaObject.properties[propertyName].removeEnum(enumItem);
         delete this[propertyName].enum;
     };
 
-    this.addProperty = function addProperty(propertyName){
+    this.addProperty = function addProperty(propertyName) {
         this.sgSchemaObject.addProperty(propertyName);
         this.newProperty.name = "";
     };
 
-    this.deleteProperty = function deleteProperty(propertyName){
+    this.deleteProperty = function deleteProperty(propertyName) {
         this.sgSchemaObject.removeProperty(propertyName);
         delete this[propertyName];
     };

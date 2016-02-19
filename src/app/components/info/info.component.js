@@ -7,8 +7,10 @@ import controller from "./info.controller";
 //   restrict: "E"
 // }
 
-function infoComponent(){
-    return{
+/**
+ */
+export default function infoComponent() {
+    return {
         template,
         restrict: "E",
         // replace: true,
@@ -16,5 +18,3 @@ function infoComponent(){
         controllerAs: "basicInfo"
     };
 }
-
-export default infoComponent;

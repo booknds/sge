@@ -1,10 +1,10 @@
-"use strict";
-
-let infoCtrl = ["$log", "UtilitiesService", "InfoService", BaseInfoCtrl];
+let infoCtrl = ["InfoService", InfoCtrl];
 
 export default infoCtrl;
 
-function BaseInfoCtrl($log, UtilitiesService, InfoService){
+/**
+ */
+function InfoCtrl(InfoService) {
 
     /**
       * @name InfoService
@@ -20,11 +20,7 @@ function BaseInfoCtrl($log, UtilitiesService, InfoService){
      **/
     this.types = {
         scheme: ["http", "https", "ws", "wws"],
-        mime:   ["text/plain; charset=utf-8", "application/json", "application/vnd.github+json",
-                        "application/vnd.github.v3+json", "application/vnd.github.v3.raw+json",
-                        "application/vnd.github.v3.text+json", "application/vnd.github.v3.html+json",
-                        "application/vnd.github.v3.full+json", "application/vnd.github.v3.diff",
-                        "application/vnd.github.v3.patch"]
+        mime: ["text/plain; charset=utf-8", "application/json", "application/vnd.github+json", "application/vnd.github.v3+json", "application/vnd.github.v3.raw+json", "application/vnd.github.v3.text+json", "application/vnd.github.v3.html+json", "application/vnd.github.v3.full+json", "application/vnd.github.v3.diff", "application/vnd.github.v3.patch"]
     };
 
     /**
@@ -32,13 +28,14 @@ function BaseInfoCtrl($log, UtilitiesService, InfoService){
       * @desc invokes a call to the InfoService service to handle the logic of adding types.
       * @type {Function}
      **/
-    this.addType = function addEvent(list, type){
-        try {
-            InfoService.addType(list, type);
-        } catch (e) {
-            $log.log(e);
-            UtilitiesService.toast(e, 3000);
-        }
+    this.addType = function addEvent(list, type) {
+        // try {
+        //     InfoService.addType(list, type);
+        // } catch (e) {
+        //     $log.log(e);
+        //     UtilitiesService.toast(e, 3000);
+        // }
+        InfoService.addType(list, type);
     };
 
     /**
@@ -46,13 +43,14 @@ function BaseInfoCtrl($log, UtilitiesService, InfoService){
       * @desc invokes a call to the InfoService service to handle the logic of removing types.
       * @type {Function}
      **/
-    this.removeType = function removeEvent(list, type){
-        try {
-            InfoService.removeType(list, type);
-        } catch (e) {
-            $log.log(e);
-            UtilitiesService.toast(e, 3000);
-        }
+    this.removeType = function removeEvent(list, type) {
+        // try {
+        //     InfoService.removeType(list, type);
+        // } catch (e) {
+        //     $log.log(e);
+        //     UtilitiesService.toast(e, 3000);
+        // }
+        InfoService.removeType(list, type);
     };
 
 }

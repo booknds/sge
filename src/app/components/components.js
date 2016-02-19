@@ -8,10 +8,8 @@ import Parameter from "./parameter/parameter";
 import Response from "./response/response";
 import Definitions from "./definitions/definitions";
 
-"use strict";
-
-let componentModule = angular
-    .module("app.components",[
+export default angular
+    .module("app.components", [
         Main.name,
         Modals.name,
         Info.name,
@@ -22,4 +20,4 @@ let componentModule = angular
         Definitions.name
     ]);
 
-export default componentModule;
+// export default componentModule;

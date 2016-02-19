@@ -1,9 +1,9 @@
 import template from "./definitions.html";
 import controller from "./definitions.controller";
 
-export default DefinitionsComponent;
-
-function DefinitionsComponent() {
+/**
+ */
+export default function DefinitionsComponent() {
     return {
         restrict: "E",
         template,
