@@ -1,41 +1,44 @@
-"use strict";
 
-let DefintionCreationController = ["$scope", "$log", "UtilitiesService", "DefinitionsService", "$mdDialog", DefinitionCreationCtrl];
+let DefintionCreationController = ["$log", "UtilitiesService", "DefinitionsService", "$mdDialog", DefinitionCreationCtrl];
 
 export default DefintionCreationController;
 
-function DefinitionCreationCtrl($scope, $log, UtilitiesService, ds, $mdDialog){
-    var vm = this;
+/**
+ */
+function DefinitionCreationCtrl($log, UtilitiesService, ds, $mdDialog) {
 
-    this.closeModal=false;
+    // this.closeModal=false;
 
-    vm.newDefinition = {
-        name:null,
-        description:null
-    };
+    this.newDefinition = setNewDefinition();
 
-    vm.addDefinition = function(definitionName, description){
+    this.addDefinition = function(definitionName, description) {
 
         debugger;
-        try {
-            //debugger;
-            ds.addDefinition.call(ds, definitionName, description, "object");
-        } catch (e) {
-            $log.log(e);
-            UtilitiesService.toast(e, 3000);
-        }
+        // try {
+        //     // debugger;
+        //     ds.addDefinition.call(ds, definitionName, description, "object");
+        // } catch (e) {
+        //     $log.log(e);
+        //     UtilitiesService.toast(e, 3000);
+        // }
+        // this.closeModal = true;
 
-        this.closeModal = true;
-        vm.newDefinition = {
-            name:null,
-            description:null
-        };
-
+        ds.addDefinition.call(ds, definitionName, description, "object");
+        this.newDefinition = setNewDefinition();
         $mdDialog.hide("added definition");
 
     };
 
-    this.cancel = function(){
+    this.cancel = function() {
         $mdDialog.cancel();
     };
+
+    /**
+     */
+    function setNewDefinition() {
+        return {
+            name: null,
+            description: null
+        };
+    }
 }

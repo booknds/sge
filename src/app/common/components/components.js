@@ -1,9 +1,8 @@
-import angular from "angular";
 import Header from "./header/header";
 import Footer from "./footer/footer";
 import Sidenav from "./sidenav/sidenav";
 import UniqueInput from "./uniqueInput/uniqueInput";
-import ModalCloser from "./modalCloser/modalCloser";
+// import ModalCloser from "./modalCloser/modalCloser";
 import Focus from "./focusOnClick/focusOnClick";
 import TextField from "./textInputField/textInputField";
 import Dropdown from "./dropdown/dropdown";
@@ -12,13 +11,13 @@ import SchemaEditor from "./schemaEditor/schemaEditor";
 import FileUpload from "./fileUpload/fileUpload";
 import OperationColorer from "./operationColorer/operationColorer";
 
-let CommonComponents = angular
+export default angular
     .module("common.components", [
         Header.name,
         Footer.name,
         Sidenav.name,
         UniqueInput.name,
-        ModalCloser.name,
+        // ModalCloser.name,
         Focus.name,
         TextField.name,
         Dropdown.name,
@@ -28,4 +27,4 @@ let CommonComponents = angular
         OperationColorer.name
     ]);
 
-export default CommonComponents;
+// export default CommonComponents;

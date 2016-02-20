@@ -1,9 +1,7 @@
-"use strict";
-import angular from "angular";
 import FileUploadComponent from "./fileUpload.component";
 
-let FileUploadModule = angular
+export default angular
     .module("FileUploadModule", [])
     .directive("customOnChange", FileUploadComponent);
 
-export default FileUploadModule;
+// export default FileUploadModule;

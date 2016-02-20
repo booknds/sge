@@ -1,14 +1,14 @@
 import template from "./textareaInput.html";
 import controller from "./textareaInput.controller";
 
-export default TextareaComponent;
-
-function TextareaComponent(){
+/**
+ */
+export default function TextareaComponent() {
     return {
-        restrict:"E",
+        restrict: "E",
         template,
-        scope:{},
-        bindToController:{
+        scope: {},
+        bindToController: {
             ngModel: "=",
             sgLabel: "@",
             required: "=?",
@@ -16,6 +16,6 @@ function TextareaComponent(){
         },
         controller,
         controllerAs: "textareaCtrl",
-        transclude:true
+        transclude: true
     };
 }

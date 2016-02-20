@@ -1,8 +1,10 @@
 /* @ngInject */
-let textareaCtrl = [textareaController];
+// let textareaCtrl = [textareaController];
 
-export default textareaCtrl;
+//  textareaCtrl;
 
-function textareaController(){
+/**
+ */
+export default function textareaController() {
 
 }

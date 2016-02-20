@@ -1,5 +1,3 @@
-"use strict";
-
 import angular from "angular";
 import CompilerService from "./compiler.service";
 import InfoService from "./info.service";
@@ -8,7 +6,7 @@ import DefinitionsService from "./definitions.service";
 import ObjectFactory from "./objectFactory.service";
 import UtilitiesService from "./util.service.js";
 
-let compilerModule = angular.module("compilerModule", [])
+export default angular.module("compilerModule", [])
                         .factory("CompilerService", CompilerService)
                         .factory("InfoService", InfoService)
                         .factory("PathService", PathService)
@@ -16,4 +14,4 @@ let compilerModule = angular.module("compilerModule", [])
                         .factory("ObjectFactory", ObjectFactory)
                         .factory("UtilitiesService", UtilitiesService);
 
-export default compilerModule;
+// export default compilerModule;

@@ -1,14 +1,14 @@
 import template from "./textInputField.html";
 import controller from "./textInputField.controller";
 
-export default TextInputComponent;
-
-function TextInputComponent(){
+/**
+ */
+export default function TextInputComponent() {
     return {
-        restrict:"E",
+        restrict: "E",
         template,
-        scope:{},
-        bindToController:{
+        scope: {},
+        bindToController: {
             ngModel: "=",
             sgLabel: "@",
             required: "=?",
@@ -16,6 +16,6 @@ function TextInputComponent(){
         },
         controller,
         controllerAs: "textInputCtrl",
-        transclude:true
+        transclude: true
     };
 }

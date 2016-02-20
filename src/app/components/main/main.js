@@ -1,10 +1,7 @@
-import angular from "angular";
 import MainComponent from "./main.component";
 
-"use strict";
-
-let mainModule = angular
+export default angular
     .module("mainModule", [])
     .directive("sgMain", MainComponent);
 
-export default mainModule;
+// export default mainModule;

@@ -1,11 +1,7 @@
-import angular from "angular";
-// import angularMaterialize from "angular-materialize";
 import DefinitionsComponent from "./definitions.component";
 
-"use strict";
-
-let DefinitionsModule = angular
+export default angular
     .module("definitionsModule", [])
     .directive("sgDefinitions", DefinitionsComponent);
 
-export default DefinitionsModule;
+// export default DefinitionsModule;
