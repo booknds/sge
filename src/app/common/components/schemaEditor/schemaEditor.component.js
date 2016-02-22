@@ -25,11 +25,6 @@ export default function schemaEditorComponent() {
 
             for (var property in properties) {
                 if (properties.hasOwnProperty(property)) {
-                    // if (schemaObj.required.indexOf(property) >= 0) {
-                    //     schema.required[property] = true;
-                    // } else {
-                    //     schema.required[property] = false;
-                    // }
                     schema.required[property] = (schemaObj.required.indexOf(property) >= 0);
                 }
             }

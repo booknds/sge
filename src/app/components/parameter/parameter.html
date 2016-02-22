@@ -45,13 +45,13 @@
         </md-input-container>
         <sg-dropdown
             sg-label="In Location"
-            ng-model="paramControl.newParamData[paramControl.sgThisOperation].inLocation" sg-default-option="Choose Parameter Location" sg-choices="paramControl.inLocationList">
+            ng-model="paramControl.newParamData[paramControl.sgThisOperation].inLocation" sg-default-option="Choose Parameter Location" sg-choices="paramControl.formData.inLocationList">
         </sg-dropdown>
-
+        <sg-dropdown ng-hide="paramControl.newParamData[paramControl.sgThisOperation].inLocation === 'body'" sg-label="Type" ng-model="paramControl.newParamData[paramControl.sgThisOperation].type" sg-choices="paramControl.formData.types"></sg-dropdown>
         <div style="display:flex; align-items: flex-start; margin-top: 20px;">
             <md-button
               style="display: flex; align-items: center; justify-content: center;"
-              ng-click="addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation)">
+              ng-click="addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation, paramControl.newParamData[paramControl.sgThisOperation].type)">
               <i class="material-icons">add</i>
               <md-tooltip>
                   Add Parameter
