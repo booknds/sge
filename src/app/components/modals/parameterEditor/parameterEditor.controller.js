@@ -1,10 +1,10 @@
-let ParameterEditorController = ["$scope", "$mdDialog", ParameterModalCtrl];
+let ParameterEditorController = ["$scope", "$mdDialog", "UtilitiesService", ParameterModalCtrl];
 
 export default ParameterEditorController;
 
 /**
  */
-function ParameterModalCtrl($scope, $mdDialog) {
+function ParameterModalCtrl($scope, $mdDialog, UtilitiesService) {
 
     this.paramOptions = {
         format: ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password"],
@@ -30,12 +30,26 @@ function ParameterModalCtrl($scope, $mdDialog) {
 
 
     this.updateParameter = function updateParameter(newParameter) {
+        // logic is placed here to verify the update before closing the dialog
+        debugger;
+        var inBody = (this.tempParam.inLocation === "body");
+        var hasType = (this.tempParam.type);
+
+        if (inBody && hasType) {
+            this.tempParam.type = null;
+            UtilitiesService.toast("inLocation: Body cannot have a type.");
+            return;
+        }
+        if (!inBody && !hasType) {
+            UtilitiesService.toast("Type is required if not in 'Body'");
+            return;
+        }
 
         $mdDialog.hide(newParameter);
     };
 
     this.deleteParameter = function deleteParamter() {
-        $mdDialog.hide("delete");
+        $mdDialog.hide("deleteParameter");
     };
 
     this.cancel = function cancel() {

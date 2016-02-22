@@ -35,6 +35,102 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
         }
     };
 
+    let Response = {
+        init: function(descrip) {
+            this.description = descrip;
+            this.schema = newSchema();
+            this.headers = {};
+            this.examples = {};
+        },
+
+        setResponse: function setReposne(newResponse) {
+            for (var key in newResponse) {
+                if (this.hasOwnProperty(key) && newResponse.hasOwnProperty(key)) {
+                    if (key === "schema") {
+                        this[key].setSchema(newResponse[key]);
+                    } else {
+                        this[key] = newResponse[key];
+                    }
+                }
+
+
+            }
+        }
+    };
+
+    let Schema = {
+        init: function(title, description, type) {
+            this.$ref = null;
+            this.format = null;
+            this.title = title || "";
+            this.description = description || "";
+            this.required = [];
+            this.enum = [];
+            this.type = type || "";
+            this.properties = {};
+            // this._isRequired
+        },
+
+        setSchema: function setSchema(schema) {
+            // let privateProperties =
+            for (var key in schema) {
+                if (this.hasOwnProperty(key) && schema.hasOwnProperty(key)) {
+                    this[key] = schema[key];
+                }
+            }
+        },
+
+        addProperty: function addProperty(propertyName) {
+            // debugger;
+            if (this.properties.hasOwnProperty(propertyName)) {
+                UtilitiesService.toast("Property already exists on this definition.");
+            } else {
+                this.properties[propertyName] = newSchema();
+                // this.sgSchemaObject.properties[propertyName].type = null;
+            }
+
+        },
+
+        deleteProperty: function deleteProperty(propertyName) {
+            if ($window.confirm("Are you sure you want to delete the property?")) {
+                delete this.properties[propertyName];
+
+                // delete from required if exists
+                var index = this.required.indexOf(propertyName);
+                if (index >= 0) {
+                    this.required.splice(index, 1);
+                }
+
+            } else {
+                $log.log("Don't delete property");
+            }
+
+        },
+
+        addEnum: function addEnum(enumItem) {
+            if (this.enum.indexOf(enumItem) === -1) {
+                this.enum.push(enumItem);
+
+            } else {
+                $log.warn("item already added");
+                UtilitiesService.toast("item already added", 3000);
+
+            }
+        },
+
+        removeEnum: function removeEnum(enumItem) {
+            let indexOfEnumItem = this.enum.indexOf(enumItem);
+
+
+            if (indexOfEnumItem >= 0) {
+                this.enum.splice(indexOfEnumItem, 1);
+            } else {
+                $log.warn("item already added");
+                UtilitiesService.toast("item already added", 3000);
+            }
+        }
+    };
+
     let Definitions = {
 
         addDefinition: function(definitionName, description, type) {
@@ -91,8 +187,8 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
             this.security = {};
         },
 
-        addParameter: function(paramName, paramIn) {
-            this.parameters.push(newParameter(paramName, paramIn));
+        addParameter: function(paramName, paramIn, paramType) {
+            this.parameters.push(newParameter(paramName, paramIn, paramType));
         },
 
         setOperation: function setOperation(operation) {
@@ -153,11 +249,6 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
                 }
             });
 
-            // if (found) {
-            //     return true;
-            // } else {
-            //     return false;
-            // }
             return found;
 
         },
@@ -236,17 +327,17 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
     };
 
     let Parameter = {
-        init: function(name, inLocation) {
-            this.name = name || "";
+        init: function(name, inLocation, type) {
+            this.name = name || null;
             this.inLocation = inLocation || "query";
             this.description = null;
             this.required = (this.inLocation === "path") ? true : false;
             this.schema = newSchema();
-            this.type = "";
-            this.format = "";
+            this.type = type || null;
+            this.format = null;
             this.allowEmptyValue = false;
             this.items = {};
-            this.collectionFormat = "";
+            this.collectionFormat = null;
         },
 
         setParameter: function setParameter(newParam) {
@@ -355,95 +446,6 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
 
     };
 
-    let Response = {
-        init: function(descrip) {
-            this.description = descrip;
-            this.schema = newSchema();
-            this.headers = {};
-            this.examples = {};
-        },
-
-        setResponse: function setReposne(newResponse) {
-            for (var key in newResponse) {
-                if (this.hasOwnProperty(key) && newResponse.hasOwnProperty(key)) {
-                    if (key === "schema") {
-                        this[key].setSchema(newResponse[key]);
-                    } else {
-                        this[key] = newResponse[key];
-                    }
-                }
-
-
-            }
-        }
-    };
-
-    let Schema = {
-        init: function(title, description, type) {
-            this.$ref = null;
-            this.format = null;
-            this.title = title || "";
-            this.description = description || "";
-            this.required = [];
-            this.enum = [];
-            this.type = type || "";
-            this.properties = {};
-            // this._isRequired
-        },
-
-        setSchema: function setSchema(schema) {
-            // let privateProperties =
-            for (var key in schema) {
-                if (this.hasOwnProperty(key) && schema.hasOwnProperty(key)) {
-                    this[key] = schema[key];
-                }
-            }
-        },
-
-        addProperty: function addProperty(propertyName) {
-            // debugger;
-            if (this.properties.hasOwnProperty(propertyName)) {
-                UtilitiesService.toast("Property already exists on this definition.");
-            } else {
-                this.properties[propertyName] = newSchema();
-                // this.sgSchemaObject.properties[propertyName].type = null;
-            }
-
-        },
-
-        deleteProperty: function deleteProperty(propertyName) {
-            if ($window.confirm("Are you sure you want to delete the property?")) {
-                delete this.properties[propertyName];
-            } else {
-                $log.log("Don't delete property");
-            }
-
-        },
-
-        addEnum: function addEnum(enumItem) {
-            if (this.enum.indexOf(enumItem) === -1) {
-                this.enum.push(enumItem);
-
-            } else {
-                $log.warn("item already added");
-                UtilitiesService.toast("item already added", 3000);
-
-            }
-        },
-
-        removeEnum: function removeEnum(enumItem) {
-            let indexOfEnumItem = this.enum.indexOf(enumItem);
-
-
-            if (indexOfEnumItem >= 0) {
-                this.enum.splice(indexOfEnumItem, 1);
-            } else {
-                $log.warn("item already added");
-                UtilitiesService.toast("item already added", 3000);
-            }
-        }
-    };
-
     /**
      */
     function newDefinitions() {
@@ -474,9 +476,9 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
 
     /**
      */
-    function newParameter(name, inLocation) {
+    function newParameter(name, inLocation, type) {
         var temp = Object.create(Parameter);
-        temp.init(name, inLocation);
+        temp.init(name, inLocation, type);
         return temp;
     }
 
