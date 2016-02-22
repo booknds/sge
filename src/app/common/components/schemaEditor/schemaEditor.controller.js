@@ -2,28 +2,17 @@
  */
 export default function SchemaEditorCtrl() {
 
-    this.schema = {
-        definition: this.sgSchemaObject
-    };
-
     this.formats = ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
     this.types = ["string", "number", "integer", "boolean", "array", "file", "object"];
 
-    this.toggleRequired = function(propertyName, isRequired) {
+    this.toggleRequired = function(propertyName, previousState) {
 
-        if (angular.isUndefined(isRequired)) {
-            isRequired = true;
-        }
-
-        if (isRequired) {
+        if (previousState === false || typeof previousState === "undefined") {
             this.sgSchemaObject.required.push(propertyName);
         } else {
-            for (var i = 0; i < this.sgSchemaObject.required.length; i++) {
-                if (this.sgSchemaObject.required[i] === propertyName) {
-                    this.sgSchemaObject.required.splice(i, 1);
-                    return;
-                }
-            }
+            var propertyLocation = this.sgSchemaObject.required.indexOf(propertyName);
+            this.sgSchemaObject.required.splice(propertyLocation, 1);
+
         }
     };
 
