@@ -21,7 +21,7 @@ module.exports = {
         "no-redeclare": 1,
         "no-debugger":1,
         "valid-jsdoc":0,
-        "no-use-before-define": 1,
+        "no-use-before-define": [2, {"functions": false}],
         "no-extra-bind": 1,
         "no-invalid-this": 1,
         "consistent-return": 1,

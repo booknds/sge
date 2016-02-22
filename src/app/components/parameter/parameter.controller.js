@@ -9,18 +9,20 @@ export default ParameterController;
  */
 function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
 
-    this.inLocationList = ["path", "query", "header", "body", "formData"];
+    this.formData = {
+        inLocationList: ["path", "query", "header", "body", "formData"],
+        types: ["string", "number", "integer", "boolean", "array", "file"]
+    };
 
     this.pLength = null;
 
-    this.addParam = function(paramName, paramInLocation) {
+    this.addParam = function(paramName, paramInLocation, paramType) {
 
-        PathService.addNewParam(this.sgContext, paramName, paramInLocation);
+        PathService.addNewParam(this.sgContext, paramName, paramInLocation, paramType);
 
         // reset input data
         // $scope.addParameter.$setPristine();
         resetNewParamData.call(this, this.sgThisOperation);
-
         this.pLength = this.sgContext.parameters.length;
     };
 
@@ -59,21 +61,11 @@ function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
 
         return function updateFromReturn(response) {
             debugger;
-            if (response !== "delete") {
+            if (response !== "deleteParameter") {
                 this.sgContext.updateParameter(originalParameter, response);
             } else {
                 this.sgContext.removeParameter(originalParameter.name, originalParameter.inLocation);
             }
-            // $log.log("RETURNING DIALOGE accept", newParameter);
-
-            // try {
-            //     debugger;
-            //     this.sgContext.updateParameter(originalParameter, newParameter);
-
-            // } catch (e) {
-            //     $log.log(e);
-            //     UtilitiesService.toast("Parameter name/query combo' already exists", 3000);
-            // }
         }.bind(this);
     }
 
@@ -84,18 +76,6 @@ function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
         console.log("closed Parameditor");
     }
 
-    // this.editParamData = function(pathName, operation, paramName, paramInLocation){
-    //
-    //     var param = this.sgContext.getParameter(paramName, paramInLocation);
-    //
-    //     //debugger;
-    //     //pms.initParameter(this.sgContext, paramName, paramInLocation);
-    //
-    //     pms.initParameter(this.sgContext, param);
-    //
-    //     //pms.parameterToUpdate(pathName, operation, param);
-    //
-    // };
 
     /**
       * @name resetNewParamData
@@ -106,30 +86,9 @@ function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
         // debugger;
         this.newParamData[operation] = {
             name: null,
-            inLocation: null
+            inLocation: null,
+            type: null
         };
     }
-
-    // this.reduce = function(obj){
-    //     let cleaned = {};
-
-    //     for (var key in obj) {
-    //         if (obj[key] !== null || angular.isDefined(obj[key])) {
-    //             cleaned[key] = obj[key];
-    //         }
-    //     }
-
-    //     return cleaned;
-    // };
-
-    // this.reduce = function reduce(obj, reduceBy) {
-    //     let reduced = {};
-
-    //     for (var key in obj) {
-
-    //     }
-
-    //     return reduced;
-    // };
 
 }

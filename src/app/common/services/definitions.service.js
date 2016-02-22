@@ -1,10 +1,10 @@
-let definitionService = ["$log", "ObjectFactory", DefinitionsService];
+let definitionService = ["$log", "ObjectFactory", "UtilitiesService", DefinitionsService];
 
 export default definitionService;
 
 /**
  */
-function DefinitionsService($log, ObjectFactory) {
+function DefinitionsService($log, ObjectFactory, UtilitiesService) {
 
     var definitions = ObjectFactory.newDefinitions();
 
