@@ -114,8 +114,8 @@
           </md-input-container>
           <div style="display:flex; flex-flow: row nowrap; justify-content:center;  align-items: center; flex-grow:1;">
             <md-checkbox 
-              ng-model="schema[property].required"
-              ng-click="schema.toggleRequired(property, schema[property].required)"
+              ng-model="schema.required[property]"
+              ng-click="schema.toggleRequired(property, schema.required[property])"
               aria-label="Property required">
             Required
           </md-checkbox>
