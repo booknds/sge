@@ -100,16 +100,29 @@ function PathService($log, ObjectFactory, UtilitiesService) {
     /*
         Tries to create and validate a new parameter object.
     */
-    this.addNewParam = function(operation, paramName, paramIn) {
-        var pIn = paramIn || "query";
+    this.addNewParam = function(operation, paramName, paramIn, paramType) {
+        // var pIn = paramIn || "query";
+        var inLocationIsEmpty = (typeof paramIn !== "string" ),
+            typeIsEmpty = (typeof paramType !== "string"),
+            inBody = (paramIn === "body");
 
-        if (!operation.hasParameter(paramName, pIn)) {
-            operation.addParameter(paramName, pIn);
+        if (inLocationIsEmpty || (typeIsEmpty && !inBody)) {
+            $log.warn("Param Location and Type are required.");
+            UtilitiesService.toast("Param Location and Type are required.", 3000);
+            return;
+        }
+
+        if (!operation.hasParameter(paramName, paramIn)) {
+
+            var type = (inBody) ? null : paramType;
+            operation.addParameter(paramName, paramIn, type);
+
         } else {
             // throw "Invalid Parameter Name-in combination, must be unique.";
             $log.warn("Invalid Parameter name/in combo, must be unique");
             UtilitiesService.toast("Invalid Parameter name/in combo, must be unique", 3000);
         }
+
     };
 
     this.removeResponse = function(pathName, operation, httpCode) {

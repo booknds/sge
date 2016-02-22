@@ -32,7 +32,7 @@ export default function SchemaEditorCtrl() {
     };
 
     this.deleteProperty = function deleteProperty(propertyName) {
-        this.sgSchemaObject.removeProperty(propertyName);
+        this.sgSchemaObject.deleteProperty(propertyName);
         delete this[propertyName];
     };
 
