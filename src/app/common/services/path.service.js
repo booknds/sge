@@ -106,7 +106,11 @@ function PathService($log, ObjectFactory, UtilitiesService) {
             typeIsEmpty = (typeof paramType !== "string"),
             inBody = (paramIn === "body");
 
+<<<<<<< HEAD
         if (inLocationIsEmpty || (typeIsEmpty)) {
+=======
+        if (inLocationIsEmpty || (typeIsEmpty && !inBody)) {
+>>>>>>> issue13
             $log.warn("Param Location and Type are required.");
             UtilitiesService.toast("Param Location and Type are required.", 3000);
             return;

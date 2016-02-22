@@ -94,6 +94,16 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
         deleteProperty: function deleteProperty(propertyName) {
             if ($window.confirm("Are you sure you want to delete the property?")) {
                 delete this.properties[propertyName];
+<<<<<<< HEAD
+=======
+
+                // delete from required if exists
+                var index = this.required.indexOf(propertyName);
+                if (index >= 0) {
+                    this.required.splice(index, 1);
+                }
+
+>>>>>>> issue13
             } else {
                 $log.log("Don't delete property");
             }
