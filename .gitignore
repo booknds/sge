@@ -3,3 +3,4 @@ node_modules
 .tmp
 .git
 dist
+Dockerfile
