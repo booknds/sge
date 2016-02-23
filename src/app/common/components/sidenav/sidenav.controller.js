@@ -7,41 +7,41 @@ export default sideNavArray;
  */
 function SidenavCtrl($scope, $log, $element, $timeout, cs, FileSaver, Blob) {
 
-    this.sideNavContent = {
+    this.content = {
         open: [
             {
                 title: "From Local",
-                function: this.openFile
-            },
-            {
-                title: "From SwaggerHub",
-                function: this.openFile
+                op: openFile
             }
+            // {
+            //     title: "From SwaggerHub",
+            //     op: null
+            // }
         ],
         save: [
             {
                 title: "To Local",
-                function: this.download
-            },
-            {
-                title: "To SwaggerHub",
-                function: this.download
+                op: download
             }
+            // {
+            //     title: "To SwaggerHub",
+            //     op: null
+            // }
         ]
     };
 
-    this.compiledDocument = cs.compiled;
+    this.show = {
+        open: false,
+        save: false
+    };
 
-    // this.pickedFile = "";
-
-    this.openFile = function openFile() {
+    this.toggleDropdown = function toggleDropdown(key) {
         // debugger;
-        let opener = $element.find("#file-input");
+        this.show[key] = !this.show[key];
+    };
 
-        $timeout(function() {
-            opener.click();
-        });
-
+    this.isOpenLocal = function isOpenLocal(key, title) {
+        return (key === "open" && title === "From Local");
     };
 
     this.onChange = function onChangeHandler(event) {
@@ -75,14 +75,10 @@ function SidenavCtrl($scope, $log, $element, $timeout, cs, FileSaver, Blob) {
 
     }.bind(this);
 
-
-    this.recompile = function recompile() {
+    /**
+    */
+    function download(text) {
         cs.recompile();
-    };
-
-    this.download = function download(text) {
-        this.compiledDocument = cs.compiled;
-        this.recompile();
         text = cs.compiled;
 
         $log.log(text);
@@ -94,6 +90,18 @@ function SidenavCtrl($scope, $log, $element, $timeout, cs, FileSaver, Blob) {
 
         var data = new Blob([angular.toJson(text, true)], { type: "application/json" });
         FileSaver.saveAs(data, "swagger.json");
-    };
+    }
+
+    /**
+     */
+    function openFile() {
+        // debugger;
+        let opener = $element.find("#file-input");
+
+        $timeout(function() {
+            opener.click();
+        });
+
+    }
 
 }
