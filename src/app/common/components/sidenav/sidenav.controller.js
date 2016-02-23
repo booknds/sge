@@ -7,6 +7,29 @@ export default sideNavArray;
  */
 function SidenavCtrl($scope, $log, $element, $timeout, cs, FileSaver, Blob) {
 
+    this.sideNavContent = {
+        open: [
+            {
+                title: "From Local",
+                function: this.openFile
+            },
+            {
+                title: "From SwaggerHub",
+                function: this.openFile
+            }
+        ],
+        save: [
+            {
+                title: "To Local",
+                function: this.download
+            },
+            {
+                title: "To SwaggerHub",
+                function: this.download
+            }
+        ]
+    };
+
     this.compiledDocument = cs.compiled;
 
     // this.pickedFile = "";

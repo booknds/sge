@@ -31,7 +31,7 @@ function ParameterModalCtrl($scope, $mdDialog, UtilitiesService) {
 
     this.updateParameter = function updateParameter(newParameter) {
         // logic is placed here to verify the update before closing the dialog
-        debugger;
+
         var inBody = (this.tempParam.inLocation === "body");
         var hasType = (this.tempParam.type);
 
