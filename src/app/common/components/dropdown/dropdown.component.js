@@ -1,15 +1,15 @@
 import template from "./dropdown.html";
 import controller from "./dropdown.controller";
 
-export default DropdownComponent;
-
-function DropdownComponent(){
+/**
+ */
+export default function DropdownComponent() {
     return {
-        restrict:"E",
+        restrict: "E",
         replace: true,
         template,
-        scope:{},
-        bindToController:{
+        scope: {},
+        bindToController: {
             ngModel: "=",
             sgChoices: "=",
             sgDefaultOption: "@",

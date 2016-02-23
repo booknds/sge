@@ -40,10 +40,13 @@
       </md-dialog-content>
       <md-dialog-actions layout="row">
         <span flex></span>
+        <md-button ng-click="rmControl.deleteResponse()">
+          delete
+        </md-button>
         <md-button ng-click="rmControl.cancel()">
          Cancel
         </md-button>
-        <md-button ng-click=" rmControl.updateResponse(rmControl.tempResponse)" style="margin-right:20px;">
+        <md-button ng-click="rmControl.updateResponse(rmControl.tempResponse)">
           Update
         </md-button>
       </md-dialog-actions>

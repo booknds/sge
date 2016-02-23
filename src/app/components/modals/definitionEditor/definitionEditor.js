@@ -1,10 +1,7 @@
-import angular from "angular";
 import DefinitionEditorComponent from "./definitionEditor.component";
-import DefinitionEditorService from "./definitionEditor.service";
 
-let DefinitionEditorModule = angular
+export default angular
     .module("DefinitionEditorModule", [])
-    .directive("sgDefinitionEditorModal", DefinitionEditorComponent)
-    .factory("DefinitionEditorModalService", DefinitionEditorService);
+    .directive("sgDefinitionEditorModal", DefinitionEditorComponent);
 
-export default DefinitionEditorModule;
+// export default DefinitionEditorModule;

@@ -6,10 +6,10 @@ import template from "./footer.html";
 //   restrict: "E"
 // }
 
-export default footerComponent;
-
-function footerComponent(){
-    return{
+/**
+ */
+export default function footerComponent() {
+    return {
         template,
         restrict: "E"
     };

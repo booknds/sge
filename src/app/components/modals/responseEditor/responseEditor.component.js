@@ -1,9 +1,9 @@
 import template from "./responseEditor.html";
 import controller from "./responseEditor.controller";
 
-export default ResponseEditorComponent;
-
-function ResponseEditorComponent(){
+/**
+ */
+export default function ResponseEditorComponent() {
     return {
         restrict: "E",
         template,

@@ -1,15 +1,14 @@
-let utilities = [utilitiesServ];
+/**
+ */
+export default function UtilitiesServ() {
 
-export default utilities;
-
-function utilitiesServ(){
-
-    function toast(message){
+    /**
+     */
+    function toast(message) {
         Materialize.toast(message, 3000);
     }
 
     return {
         toast
     };
-
 }

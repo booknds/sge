@@ -13,7 +13,7 @@
       <div >
         <td>{{responseCode}}</td>
         <td class="shrink">{{response.description}}</td>
-        <td class="shrink">{{response.schema}}</td>
+        <td class="shrink">{{response.schema | removeEmpty}}</td>
         <td>
           <a class="disabled" ng-click="responseControl.showResponseEditor($event, responseCode)">
           <i class="material-icons">settings</i>

@@ -1,10 +1,7 @@
-import angular from "angular";
 import ResponseComponent from "./response.component";
 
-"use strict";
-
-let ResponseModule = angular
+export default angular
     .module("ResponseModule", [])
     .directive("sgResponse", ResponseComponent);
 
-export default ResponseModule;
+// export default ResponseModule;

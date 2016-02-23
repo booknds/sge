@@ -1,45 +1,47 @@
-"use strict";
-
-import angular from "angular";
-
-let path = ["$log", "ObjectFactory", PathService];
+let path = ["$log", "ObjectFactory", "UtilitiesService", PathService];
 
 export default path;
 
-function PathService($log, ObjectFactory){
+/**
+ */
+function PathService($log, ObjectFactory, UtilitiesService) {
 
     var paths = {};
 
     this.paths = paths;
 
-    /************** PATH FUNCTIONS START *******************/
-    this.setPaths= function(newPaths){
+    this.setPaths = function(newPaths) {
         debugger;
-        //paths = angular.copy(newPaths);
-        //this.paths = paths;
-        //console.log(paths);
+        // paths = angular.copy(newPaths);
+        // this.paths = paths;
+        // console.log(paths);
         for (var key in newPaths) {
-            paths[key] = ObjectFactory.newPath();
-            // paths[key] = newPaths[key];
-            paths[key].setPath(newPaths[key]);
+            if (newPaths.hasOwnProperty(key)) {
+                paths[key] = ObjectFactory.newPath();
+                // paths[key] = newPaths[key];
+                paths[key].setPath(newPaths[key]);
+            }
         }
     };
 
-    this.clearPaths = function clearPaths(){
-        for(var key in paths){
-            delete paths[key];
+    this.clearPaths = function clearPaths() {
+        for (var key in paths) {
+            if (paths.hasOwnProperty(key)) {
+                delete paths[key];
+            }
         }
     };
 
-    this.addPath = function(pathName){
+    this.addPath = function(pathName) {
         if (hasPath(pathName)) {
-            throw "Path name already exsists, could not add";
+            $log.warn("Path name already exsists, could not add");
+            UtilitiesService.toast("Path name already exsists, could not add");
         } else {
             paths[pathName] = ObjectFactory.newPath();
         }
     };
 
-    this.removePath = function(pathName){
+    this.removePath = function(pathName) {
         if (hasPath(pathName)) {
             delete paths[pathName];
         } else {
@@ -47,8 +49,10 @@ function PathService($log, ObjectFactory){
         }
     };
 
-    this.updatePathName = function(oldPathName, newPathName){
-        if (oldPathName === newPathName) return;
+    this.updatePathName = function(oldPathName, newPathName) {
+        if (oldPathName === newPathName) {
+            return;
+        }
 
         if (!hasPath(newPathName)) {
             paths[newPathName] = angular.copy(paths[oldPathName]);
@@ -59,20 +63,22 @@ function PathService($log, ObjectFactory){
 
     };
 
+    /**
+     */
     function hasPath(pathName) {
         return paths.hasOwnProperty(pathName);
     }
 
-    /************** PATH FUNCTIONS END*******************/
-
-    /************** OPERATION FUNCTIONS START *******************/
-
     /* make a separate Operations class */
     this.addOperation = function(pathName, operation) {
 
-        $log.log("PATH SERVICE: adding operation");
-
-        paths[pathName].addOperation(operation);
+        // $log.log("PATH SERVICE: adding operation");
+        if (hasPath(pathName)) {
+            paths[pathName].addOperation(operation);
+        } else {
+            $log.warn("Cannot add Operation, path does not exist");
+            UtilitiesService.toast("Cannot add Operation, path does not exist");
+        }
 
         // if(hasPath(pathName)){
         // //  debugger;
@@ -85,39 +91,45 @@ function PathService($log, ObjectFactory){
     /*
         Deletes an operation from a given service.
     */
-    this.removeOperation = function(pathName, operation){
+    this.removeOperation = function(pathName, operation) {
         debugger;
         paths[pathName].removeOperation(operation);
 
     };
 
-    /************** OPERATION FUNCTIONS END *******************/
-
-    /************** PARAMETER(S) FUNCTIONS START *******************/
-
     /*
         Tries to create and validate a new parameter object.
     */
-    this.addNewParam = function(operation, paramName, paramIn){
-        var pIn = paramIn || "query";
+    this.addNewParam = function(operation, paramName, paramIn, paramType) {
+        // var pIn = paramIn || "query";
+        var inLocationIsEmpty = (typeof paramIn !== "string" ),
+            typeIsEmpty = (typeof paramType !== "string"),
+            inBody = (paramIn === "body");
 
-        if (!operation.hasParameter(paramName, pIn)) {
-            operation.addParameter(paramName, pIn);
-        } else {
-            throw "Invalid Parameter Name-in combination, must be unique.";
+        if (inLocationIsEmpty || (typeIsEmpty && !inBody)) {
+            $log.warn("Param Location and Type are required.");
+            UtilitiesService.toast("Param Location and Type are required.", 3000);
+            return;
         }
+
+        if (!operation.hasParameter(paramName, paramIn)) {
+
+            var type = (inBody) ? null : paramType;
+            operation.addParameter(paramName, paramIn, type);
+
+        } else {
+            // throw "Invalid Parameter Name-in combination, must be unique.";
+            $log.warn("Invalid Parameter name/in combo, must be unique");
+            UtilitiesService.toast("Invalid Parameter name/in combo, must be unique", 3000);
+        }
+
     };
 
-    /************** PARAMETERS FUNCTIONS END*******************/
-
-    /************** RESPONSE FUNCTIONS START*******************/
-
-    this.removeResponse = function (pathName, operation, httpCode) {
-        debugger;
+    this.removeResponse = function(pathName, operation, httpCode) {
         delete paths[pathName][operation].responses[httpCode];
     };
 
-    this.updateResponse = function(originalData, newData){
+    this.updateResponse = function(originalData, newData) {
 
         debugger;
 
@@ -135,6 +147,5 @@ function PathService($log, ObjectFactory){
 
     };
 
-    /************** RESPONSE FUNCTIONS END*******************/
     return this;
 }

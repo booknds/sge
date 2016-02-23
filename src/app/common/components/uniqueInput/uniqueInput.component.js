@@ -1,11 +1,9 @@
-//import controller from "./uniqueInput.controller";
-
-export default uniqueInput;
-
-function uniqueInput(){
+/**
+ */
+export default function uniqueInput() {
     return {
         restrict: "A",
-        link: function(scope, element){
+        link: function(scope, element) {
             // console.log("Unique controller.");
             let children = element.children();
             let newID = scope.$id;
@@ -26,8 +24,8 @@ function uniqueInput(){
 
                     var labelAttributes = children[childNode].attributes;
 
-                    for(var labelIndex in labelAttributes){
-                        if(labelAttributes[labelIndex].nodeName === "for"){
+                    for (var labelIndex in labelAttributes) {
+                        if (labelAttributes[labelIndex].nodeName === "for") {
                             labelAttributes[labelIndex].value = newID;
                         }
                     }

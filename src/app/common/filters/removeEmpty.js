@@ -1,6 +1,6 @@
-export default callback;
-
-function callback(){
+/**
+ */
+export default function callback() {
     return function removeEmpty(obj) {
         // debugger;
 
@@ -14,7 +14,7 @@ function callback(){
 
             if (obj[key] !== null) {
 
-                switch(typeof obj[key]){
+                switch (typeof obj[key]) {
                 case "object":
                     if (Object.keys(obj[key]) > 0) {
                         removeEmpty(obj[key]);
@@ -29,11 +29,8 @@ function callback(){
                     if (obj[key] !== "" && angular.isDefined(obj[key])) {
                         cleaned[key] = obj[key];
                     }
-
                 }
             }
-            
-            
         }
 
         return cleaned;

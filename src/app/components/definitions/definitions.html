@@ -8,8 +8,8 @@
               <span>Definitions</span>
             </h2>
             <div style="margin-top: 55px;" class="right-align">
-              <a
-                  class="btn-floating btn-large waves-effect waves-light purple accent-4"
+              <a style="background-color:#70326E"
+                  class="btn-floating btn-large waves-effect waves-light"
                   ng-click="defControl.showDefinitionCreator($event)">
               <i class="material-icons">add</i>
               </a>
@@ -20,7 +20,7 @@
           <div class="row ">
             <ul class="collapsible popout col s12" data-collapsible="accordion" watch>
               <li class="" ng-repeat="(definition, defValue) in defControl.definitions" >
-                <div class="collapsible-header ">
+                <div class="collapsible-header" style="color:white; background-color:#444C35;">
                   {{definition}}
                 </div>
                   <div class="collapsible-body">

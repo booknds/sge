@@ -1,47 +1,22 @@
-<ul id="nav-mobile" style="background-color: #3F1C3E;" class="side-nav fixed">
-  <div style="background-color: #3F1C3E;padding-top:10px;padding-bottom:0px;">
-    <li class="logo center-align" style="background-color: #3F1C3E; display:flex; justify-content:center;">
-      <a id="logo-container" href="http://www.booknds.com/"  class="brand-logo">
-        <!-- <h3 class="white-text" style="background-color: #3F1C3E;">
-          Booknds
-        </h3> -->
-        <!-- <img src="./img/img-aed28e.png" style="height:44px; width:205px;"> -->
-        <img src="./img/img-60c82a.svg" style="height:39px; width:208px;">
-      </a>
-    </li>
-  </div>
-  <li class="no-padding white-text" style="border-top: solid 1px;">
-    <ul class="collapsible collapsible-accordion">
-      <li>
-        <a class="collapsible-header white-text">Save<i class="mdi-navigation-arrow-drop-down"></i></a>
-        <div class="collapsible-body">
-          <ul>
-            <!-- <li><a href="#!">To SwaggerHub</a></li> -->
-            <li><a href="" ng-click="sidenav.download();">To Local</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </li>
-  <li class="no-padding  white-text" style="border-top: solid 1px;">
-    <ul class="collapsible collapsible-accordion">
-      <li >
-        <a class="collapsible-header white-text">Open<i class="mdi-navigation-arrow-drop-down"></i></a>
-        <div class="collapsible-body">
-          <ul>
-            <!-- <li><a href="#!">From SwaggerHub</a></li> -->
-            <li>
-              <md-button style="margin: 0 1rem 0 2rem; display: block; padding: 0 15px; -webkit-tap-highlight-color: transparent; background-color: transparent; border:0; text-decoration: none; font-size: 1rem; height: 64px; line-height: 64px; color: #444;">
-                <label  style="color:#444; display:block; text-transform:none; font-weight:normal; font-size: 1rem;"for="file-input">
-                  <span>From Local</span>
-                </label>
-              </md-button>
-              <input custom-on-change="sidenav.onChange" style="display:none;" id="file-input" type="file">
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </li>
 
-</ul>
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style="background-color: #3F1C3E; width: 272px; min-width: 272px; max-width: 272px;">
+  <header style="background-color: #3F1C3E; display:flex; justify-content: center; align-items: center; min-height: 64px;">
+      <a href="http://www.booknds.com/" class="docs-logo" >
+          <img src="./img/img-60c82a.svg" alt="" style="height:39px; width:208px;">
+          <!-- <h1 class="docs-logotype md-heading">Angular Material</h1> -->
+      </a>
+  </header>
+  <!-- <div style="border-top: solid 1px; border-color: white;"></div> -->
+  <md-content layout-padding style="background-color: #3F1C3E;" >
+    <md-list ng-cloak style="background-color: #3F1C3E;">
+      <md-list-item class="secondary-button-padding" style="background-color: #3F1C3E;" ng-click="sidenav.download();">
+          <p style="color:white;">Save To Local</p>
+          <!-- <md-button class="md-secondary" >Save To Local</md-button> -->
+      </md-list-item>
+      <md-list-item class="secondary-button-padding" ng-click="sidenav.openFile();" for="file-input" style="background-color: #3F1C3E; margin" >
+          <p for="file-input" style="color:white;">Open From Local</p>
+            <input custom-on-change="sidenav.onChange" style="display:none;" id="file-input" type="file">
+      </md-list-item>
+    </md-list>
+  </md-content>
+</md-sidenav>

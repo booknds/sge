@@ -1,10 +1,7 @@
-"use strict";
-
-import angular from "angular";
 import FocusOnClickComponent from "./focusOnClick.component";
 
-let FocusModule = angular
+export default angular
     .module("FocusModule", [])
     .directive("focusMe", FocusOnClickComponent);
 
-export default FocusModule;
+// export default FocusModule;
