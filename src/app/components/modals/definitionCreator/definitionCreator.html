@@ -1,5 +1,5 @@
 <md-dialog aria-label="New Definition" ng-cloak>
-  <form>
+  <form name="createDef">
     <md-toolbar style="background-color:#3F1C3E;">
       <div class="md-toolbar-tools">
         <h2>New Definition</h2>
@@ -13,11 +13,10 @@
       <div class="md-dialog-content">
         <div class="row">
           <div class="input-field col s12 ">
-            <input id="definition-name"
+            <input name="defName"
                     type="text"
                     ng-model="definitionCreation.newDefinition.name"
-                    focus-me="focusDefinitionModal"
-                    required="" aria-required="true">
+                    required aria-required="true">
             <label for="definition-name">Definition Name</label>
           </div>
           <div class="input-field col s12 ">
@@ -35,10 +34,9 @@
       <md-button ng-click="definitionCreation.cancel();">
        Cancel
       </md-button>
-      <md-button ng-click="definitionCreation.addDefinition(definitionCreation.newDefinition.name, definitionCreation.newDefinition.description);" style="margin-right:20px;">
+      <md-button ng-disabled="createDef.defName.$invalid" ng-click="definitionCreation.addDefinition(definitionCreation.newDefinition.name, definitionCreation.newDefinition.description);" style="margin-right:20px;">
         Create
       </md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
-  

@@ -48,7 +48,7 @@
         <md-button ng-click="pathModal.cancel()">
          Cancel
         </md-button>
-        <md-button ng-click="addPathForm.$valid && pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" style="margin-right:20px;">
+        <md-button ng-disabled="addPathForm.pathName.$invalid" ng-click="pathModal.addPath(pathModal.newPath.name, pathModal.newPath.operations)" style="margin-right:20px;">
           Create
         </md-button>
       </md-dialog-actions>
