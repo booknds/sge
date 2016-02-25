@@ -9,41 +9,41 @@ export default sideNavArray;
  */
 function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
 
-    this.sideNavContent = {
+    this.content = {
         open: [
             {
                 title: "From Local",
-                function: this.openFile
-            },
-            {
-                title: "From SwaggerHub",
-                function: this.openFile
+                op: openFile
             }
+            // {
+            //     title: "From SwaggerHub",
+            //     op: null
+            // }
         ],
         save: [
             {
                 title: "To Local",
-                function: this.download
-            },
-            {
-                title: "To SwaggerHub",
-                function: this.download
+                op: download
             }
+            // {
+            //     title: "To SwaggerHub",
+            //     op: null
+            // }
         ]
     };
 
-    this.compiledDocument = cs.compiled;
+    this.show = {
+        open: false,
+        save: false
+    };
 
-    // this.pickedFile = "";
-
-    this.openFile = function openFile() {
+    this.toggleDropdown = function toggleDropdown(key) {
         // debugger;
-        let opener = $element.find("#file-input");
+        this.show[key] = !this.show[key];
+    };
 
-        $timeout(function() {
-            opener.click();
-        });
-
+    this.isOpenLocal = function isOpenLocal(key, title) {
+        return (key === "open" && title === "From Local");
     };
 
     this.onChange = function onChangeHandler(event) {
@@ -76,11 +76,6 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
         reader.readAsText(file);
 
     }.bind(this);
-
-
-    this.recompile = function recompile() {
-        cs.recompile();
-    };
 
     // this.download = function download(text) {
     //     this.compiledDocument = cs.compiled;
@@ -119,4 +114,17 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
         //     $scope.customFullscreen = (wantsFullScreen === true);
         // });
     };
+
+    /**
+     */
+    function openFile() {
+        // debugger;
+        let opener = $element.find("#file-input");
+
+        $timeout(function() {
+            opener.click();
+        });
+
+    }
+
 }

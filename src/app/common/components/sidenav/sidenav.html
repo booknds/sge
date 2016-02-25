@@ -8,15 +8,22 @@
   </header>
   <!-- <div style="border-top: solid 1px; border-color: white;"></div> -->
   <md-content layout-padding style="background-color: #3F1C3E;" >
-    <md-list ng-cloak style="background-color: #3F1C3E;">
-      <md-list-item class="secondary-button-padding" style="background-color: #3F1C3E;" ng-click="sidenav.download();">
-          <p style="color:white;">Save To Local</p>
-          <!-- <md-button class="md-secondary" >Save To Local</md-button> -->
-      </md-list-item>
-      <md-list-item class="secondary-button-padding" ng-click="sidenav.openFile();" for="file-input" style="background-color: #3F1C3E; margin" >
-          <p for="file-input" style="color:white;">Open From Local</p>
-            <input custom-on-change="sidenav.onChange" style="display:none;" id="file-input" type="file">
-      </md-list-item>
+    <md-list ng-cloak style="background-color: #3F1C3E; padding: 0;">
+        <ul ng-repeat="(key, value) in sidenav.content" style="margin:0">
+            <md-button style="display: flex; flex-grow: 1; color: #3F1C3E; margin: 0;" ng-click="sidenav.toggleDropdown(key);" href="">
+                <p style="text-transform:none; display: flex; flex-grow: 1; color: white;">{{key | capitalize}}</p>
+            </md-button>
+            <li ng-show="sidenav.show[key]" ng-repeat="item in value">
+                <md-list-item ng-hide="sidenav.isOpenLocal(key, item.title)" class="secondary-button-padding" style="background-color: #70326E;" ng-click="item.op();">
+                    <p style="color:white;">{{item.title}}</p>
+                    <!-- <md-button class="md-secondary" >Save To Local</md-button> -->
+                </md-list-item>
+                <md-list-item ng-show="sidenav.isOpenLocal(key, item.title)" class="secondary-button-padding" ng-click="item.op();" for="file-input" style="background-color: #70326E; margin" >
+                  <p for="file-input" style="color:white;">{{item.title}}</p>
+                  <input custom-on-change="sidenav.onChange" style="display:none;" id="file-input" type="file">
+                </md-list-item>
+            </li>
+        </ul>
     </md-list>
   </md-content>
 </md-sidenav>
