@@ -1,7 +1,6 @@
 import SchemaEditorCtrl from "./schemaEditor.controller";
 import ObjectFactory from "./../../services/objectFactory.service.js";
 import {expect} from "chai";
-// var expect = require("chai").expect;
 
 describe("SchemaEditorController", function() {
 
@@ -9,7 +8,9 @@ describe("SchemaEditorController", function() {
         factory;
 
     before(function() {
-        factory = new ObjectFactory();
+        factory = new ObjectFactory({confirm: function() {
+            return true;
+        }});
     });
 
     beforeEach(function() {
@@ -17,22 +18,63 @@ describe("SchemaEditorController", function() {
         ctrl.sgSchemaObject = factory.newSchema();
     });
 
-    it("should add a new enum to the list", function addEnumTest() {
-        let enumList = ctrl.sgSchemaObject.enum;
+    describe("configure properties", function() {
+        var properties,
+            property;
 
-        ctrl.addEnum("1");
+        beforeEach(function() {
+            properties = ctrl.sgSchemaObject.properties;
+            property = "name";
+        });
 
-        expect(enumList).to.include("1");
+        it("should add new properties", function() {
+
+            expect(properties.hasOwnProperty(property)).to.be.false;
+
+            ctrl.addProperty(property);
+
+            expect(properties.hasOwnProperty(property)).to.be.true;
+        });
+
+        it("should remove a specific property", function() {
+
+            ctrl.addProperty(property);
+            expect(properties.hasOwnProperty(property)).to.be.true;
+
+            ctrl.deleteProperty(property);
+            expect(properties.hasOwnProperty(property)).to.be.false;
+        });
+
+
     });
 
-    it("should remove an existing enum from the list", function removeEnumTest() {
-        let enumList = ctrl.sgSchemaObject.enum;
+    describe("modify a property's enum list", function() {
 
-        ctrl.addEnum("1");
-        ctrl.removeEnum("1");
+        var enumList;
 
-        expect(enumList).to.have.length(0);
-        expect(enumList).to.not.include("1");
+        beforeEach(function() {
+            ctrl.addProperty("name");
+            enumList = ctrl.sgSchemaObject.properties.name.enum;
+        });
+
+        afterEach(function() {
+            ctrl.deleteProperty("name");
+        });
+
+        it("should add a new enum to the list", function addEnumTest() {
+
+            ctrl.addEnumToProperty("name", "1");
+            expect(enumList).to.include("1");
+        });
+
+        it("should remove an existing enum from the list", function removeEnumTest() {
+
+            ctrl.addEnumToProperty("name", "1");
+            ctrl.removeEnumFromProperty("name", "1");
+
+            expect(enumList).to.have.length(0);
+            expect(enumList).to.not.include("1");
+        });
     });
 
 });

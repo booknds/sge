@@ -60,7 +60,6 @@ function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
     function updateParamFromModal(originalParameter) {
 
         return function updateFromReturn(response) {
-            debugger;
             if (response !== "deleteParameter") {
                 this.sgContext.updateParameter(originalParameter, response);
             } else {
@@ -73,7 +72,7 @@ function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
      */
     function cancelled() {
         // $log.log("You cancelled the dialog. RETURNING DIALOGE -- CANCELLED");
-        console.log("closed Parameditor");
+        // console.log("closed Parameditor");
     }
 
 

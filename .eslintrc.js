@@ -4,7 +4,6 @@ module.exports = {
             2,
             4
         ],
-        // "no-console":[2, {"allow": ["log"] }],
         "quotes": [
             2,
             "double"
@@ -25,7 +24,8 @@ module.exports = {
         "no-extra-bind": 1,
         "no-invalid-this": 1,
         "consistent-return": 1,
-        
+        "no-console": [2, { allow: ["warn"] }],
+        "no-unused-expressions": 1
     },
     "env": {
         "es6": true,
@@ -40,6 +40,7 @@ module.exports = {
         },
     },
     "globals": {
+        "Materialize": true,
         "describe": true,
         "it": true,
         "expect": true,

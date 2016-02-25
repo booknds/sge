@@ -1,7 +1,4 @@
-import angular from "angular";
 import PathCreatorComponent from "./pathCreator.component";
 
-let PathCreatorModule = angular.module("PathCreatorModule", [])
+export default angular.module("PathCreatorModule", [])
                                 .directive("sgPathCreatorModal", PathCreatorComponent);
-
-export default PathCreatorModule;

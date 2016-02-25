@@ -1,11 +1,13 @@
+import template from "../../../components/modals/saveFile/saveFile.html";
+import controller from "../../../components/modals/saveFile/saveFile.controller.js";
 
-let sideNavArray = ["$scope", "$log", "$element", "$timeout", "CompilerService", "FileSaver", "Blob", SidenavCtrl];
+let sideNavArray = ["$scope", "$element", "$timeout", "CompilerService", "$mdDialog", "$document", SidenavCtrl];
 
 export default sideNavArray;
 
 /**
  */
-function SidenavCtrl($scope, $log, $element, $timeout, cs, FileSaver, Blob) {
+function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
 
     this.sideNavContent = {
         open: [
@@ -80,20 +82,43 @@ function SidenavCtrl($scope, $log, $element, $timeout, cs, FileSaver, Blob) {
         cs.recompile();
     };
 
-    this.download = function download(text) {
-        this.compiledDocument = cs.compiled;
-        this.recompile();
-        text = cs.compiled;
+    // this.download = function download(text) {
+    //     this.compiledDocument = cs.compiled;
+    //     this.recompile();
+    //     text = cs.compiled;
+    //
+    //     if (Object.keys(text).length === 0) {
+    //         // UtilitiesService.toast("Definition Cannot be empty", 3000);
+    //         return;
+    //     }
+    //
+    //     var data = new Blob([angular.toJson(text, true)], { type: "application/json" });
+    //     FileSaver.saveAs(data, "swagger.json");
+    // };
+    this.download = function(ev) {
 
-        $log.log(text);
+        var dialogeContext = {
+            controller,
+            controllerAs: "$ctrl",
+            locals: {},
+            bindToController: true,
+            template,
+            parent: angular.element($document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: true // useFullScreen
+        };
 
-        if (Object.keys(text).length === 0) {
-            // UtilitiesService.toast("Definition Cannot be empty", 3000);
-            return;
-        }
+        $mdDialog
+            .show(dialogeContext)
+            .then(function() {
+            }, function() {
+            });
 
-        var data = new Blob([angular.toJson(text, true)], { type: "application/json" });
-        FileSaver.saveAs(data, "swagger.json");
+        // $scope.$watch(function() {
+        //     return $mdMedia("xs") || $mdMedia("sm");
+        // }, function(wantsFullScreen) {
+        //     $scope.customFullscreen = (wantsFullScreen === true);
+        // });
     };
-
 }

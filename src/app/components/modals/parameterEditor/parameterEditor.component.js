@@ -8,9 +8,6 @@ export default function ParameterEditorComponent() {
         restrict: "E",
         template,
         controller,
-        controllerAs: "paramModalControl",
-        link: function(scope) {
-            console.log(scope);
-        }
+        controllerAs: "paramModalControl"
     };
 }

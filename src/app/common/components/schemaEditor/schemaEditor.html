@@ -1,28 +1,3 @@
-<!-- <form name="editSchema" ng-submit="" novalidate> -->
-<!-- <div ng-init="scope."> -->
-<!--   <div class="row"> -->
-    <!-- <div class="input-field col s12">
-      <textarea id="sgSchemaObject-description" ng-model="schema.sgSchemaObject.description" class="materialize-textarea"></textarea>
-      <label for="sgSchemaObject-description">Description</label>
-    </div> -->
-    <!--   <sg-text-input class="input-field col col s4" sg-unique-input sg-label="$ref" ng-model="schema.sgSchemaObject.$ref"></sg-text-input> -->
-    <!-- <div class="input-field col s4">
-      <input id="sgSchemaObject-ref" type="text" ng-model="schema.sgSchemaObject.$ref" >
-      <label for="sgSchemaObject-ref">$ref</label>
-    </div> -->
-    <!-- <sg-text-input class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgSchemaObject.type"></sg-text-input> -->
-    <!-- <div ng-show="schema.sgRestrictTypeToObject === 'true'" class="input-field col s4">
-      <input id="sgSchemaObject-type" type="text"
-              ng-model="schema.sgSchemaObject.type"
-              disabled>
-      <label for="sgSchemaObject-type">Type</label>
-    </div>
-    <sg-text-input ng-hide="schema.sgRestrictTypeToObject === 'true'" class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgSchemaObject.type"></sg-text-input>
-    <div class="input-field col s4">
-      <input id="sgSchemaObject-enum" type="text" disabled value="" ng-model="schema.sgSchemaObject.required">
-      <label class="active" for="sgSchemaObject-enum">Required</label>
-    </div> -->
-<!--   </div> -->
 <div style="display:flex; flex-flow: column nowrap;">
   <div style="display:flex; flex-flow: row nowrap;">
     <md-input-container style="flex-grow:1;">
@@ -40,7 +15,7 @@
       </md-input-container>
       <md-input-container style="flex-grow:1;">
           <label>Type</label>
-          <input name="type" ng-disabled="schema.sgRestrictTypeToObject" 
+          <input name="type" ng-disabled="schema.sgRestrictTypeToObject"
                   ng-model="schema.sgSchemaObject.type" type="text">
       </md-input-container>
       <md-input-container style="flex-grow:1;">
@@ -48,7 +23,7 @@
           <input name="required" disabled ng-model="schema.sgSchemaObject.required" type="text">
       </md-input-container>
   </div>
-  
+
   <div >
     <h5>Properties</h5>
   </div>
@@ -103,7 +78,7 @@
         <div style="display:flex; flex-flow: row nowrap;  align-items: center;">
           <md-input-container style="">
             <label>Description</label>
-            <textarea ng-model="pValue.description" 
+            <textarea ng-model="pValue.description"
             md-maxlength="150"
             rows="1"
             md-select-on-focus></textarea>
@@ -113,14 +88,14 @@
             <input  type="text" name="$ref" ng-model="pValue.$ref">
           </md-input-container>
           <div style="display:flex; flex-flow: row nowrap; justify-content:center;  align-items: center; flex-grow:1;">
-            <md-checkbox 
+            <md-checkbox
               ng-model="schema.required[property]"
               ng-click="schema.toggleRequired(property, schema.required[property])"
               aria-label="Property required">
             Required
           </md-checkbox>
           </div>
-          
+
         </div>
         <div style="display:flex; flex-flow:row nowrap;">
           <sg-dropdown
