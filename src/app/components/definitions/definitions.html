@@ -10,7 +10,7 @@
             <div style="margin-top: 55px;" class="right-align">
               <a style="background-color:#70326E"
                   class="btn-floating btn-large waves-effect waves-light"
-                  ng-click="defControl.showDefinitionCreator($event)">
+                  ng-click="$ctrl.showDefinitionCreator($event)">
               <i class="material-icons">add</i>
               </a>
             </div>
@@ -19,7 +19,7 @@
         <div class="card-content">
           <div class="row ">
             <ul class="collapsible popout col s12" data-collapsible="accordion" watch>
-              <li class="" ng-repeat="(definition, defValue) in defControl.definitions" >
+              <li class="" ng-repeat="(definition, defValue) in $ctrl.definitions" >
                 <div class="collapsible-header" style="color:white; background-color:#444C35;">
                   {{definition}}
                 </div>
@@ -48,7 +48,7 @@
                       <table class="section bordered responsive-table">
                         <thead>
                           <tr>
-                            <th ng-repeat="header in defControl.headers"
+                            <th ng-repeat="header in $ctrl.headers"
                               ng-attr-data-field="{{header}}">{{header}}</th>
                           </tr>
                         </thead>
@@ -73,18 +73,18 @@
                           data-position="top"
                           data-delay="50"
                           data-tooltip="Delete Definition"
-                          ng-click="defControl.deleteDefinition(definition);">
+                          ng-click="$ctrl.deleteDefinition(definition);">
                         <i class="material-icons">delete</i>
                         </button>
                       </div>
                       <div class="col s6 ">
                         <!-- <button class="btn-flat"
                           href="#definition-editor-modal"
-                          ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
+                          ng-click="$ctrl.initDefinitionEditorModal(definition, defValue)"
                           modal>
                         <i class="material-icons">settings</i>
                         </button> -->
-                        <md-button ng-click="defControl.showDefinitionEditor($event, definition, defValue)">
+                        <md-button ng-click="$ctrl.showDefinitionEditor($event, definition, defValue)">
                           <i class="material-icons">settings</i>
                         </md-button>
                       </div>

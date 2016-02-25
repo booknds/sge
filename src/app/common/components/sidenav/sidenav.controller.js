@@ -100,8 +100,6 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
         var dialogeContext = {
             controller,
             controllerAs: "$ctrl",
-            locals: {},
-            bindToController: true,
             template,
             parent: angular.element($document.body),
             targetEvent: ev,

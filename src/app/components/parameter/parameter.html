@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="param in paramControl.sgContext.parameters | orderBy:'name'">
+    <tr ng-repeat="param in $ctrl.operationObj.parameters | orderBy:'name'">
       <div >
         <td class=" shrink">{{param.name}}</td>
         <td class="">{{param.inLocation}}</td>
@@ -19,7 +19,7 @@
         <td class="">{{param.required}}</td>
         <td class="shrink">{{param.schema | removeEmpty}}</td>
         <td class="">
-          <md-button ng-click="paramControl.showParamEditor($event, param.name, param.inLocation)">
+          <md-button ng-click="$ctrl.showParamEditor($event, param.name, param.inLocation)">
             <i class="material-icons">settings</i>
           </md-button>
         </td>
@@ -33,7 +33,7 @@
             <label>Parameter Name</label>
             <input
                 name="name"
-                ng-model="paramControl.newParamData[paramControl.sgThisOperation].name" type="text" required>
+                ng-model="$ctrl.newParamData[$ctrl.operationType].name" type="text" required>
             <div ng-if="addParameter.name.$dirty">
                 <div  ng-messages="addParameter.name.$error" role="alert" >
                     <div ng-message="required">
@@ -45,13 +45,13 @@
         </md-input-container>
         <sg-dropdown
             sg-label="In Location"
-            ng-model="paramControl.newParamData[paramControl.sgThisOperation].inLocation" sg-default-option="Choose Parameter Location" sg-choices="paramControl.formData.inLocationList">
+            ng-model="$ctrl.newParamData[$ctrl.operationType].inLocation" sg-default-option="Choose Parameter Location" sg-choices="$ctrl.formData.inLocationList">
         </sg-dropdown>
-        <sg-dropdown ng-hide="paramControl.newParamData[paramControl.sgThisOperation].inLocation === 'body'" sg-label="Type" ng-model="paramControl.newParamData[paramControl.sgThisOperation].type" sg-choices="paramControl.formData.types"></sg-dropdown>
+        <sg-dropdown ng-hide="$ctrl.newParamData[$ctrl.operationType].inLocation === 'body'" sg-label="Type" ng-model="$ctrl.newParamData[$ctrl.operationType].type" sg-choices="$ctrl.formData.types"></sg-dropdown>
         <div style="display:flex; align-items: flex-start; margin-top: 20px;">
             <md-button
               style="display: flex; align-items: center; justify-content: center;"
-              ng-click="addParameter.name.$valid && paramControl.addParam(paramControl.newParamData[paramControl.sgThisOperation].name, paramControl.newParamData[paramControl.sgThisOperation].inLocation, paramControl.newParamData[paramControl.sgThisOperation].type)">
+              ng-click="addParameter.name.$valid && $ctrl.addParam($ctrl.newParamData[$ctrl.operationType].name, $ctrl.newParamData[$ctrl.operationType].inLocation, $ctrl.newParamData[$ctrl.operationType].type)">
               <i class="material-icons">add</i>
               <md-tooltip>
                   Add Parameter

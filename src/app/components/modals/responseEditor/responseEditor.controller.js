@@ -1,3 +1,6 @@
+let ResponseEditorController = ["$mdDialog", ResponseModalCtrl];
+
+export default ResponseEditorController;
 
 /**
  */
@@ -18,7 +21,3 @@ function ResponseModalCtrl($mdDialog) {
 
 
 }
-
-let ResponseEditorController = ["$mdDialog", ResponseModalCtrl];
-
-export default ResponseEditorController;

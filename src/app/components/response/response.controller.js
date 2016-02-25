@@ -10,26 +10,18 @@ export default ResponseController;
  */
 function ResponseCtrl($log, $mdDialog, $document, UtilitiesService, PathService) {
 
-    /**
-      * @name rKeys
-      * @desc Holds how many "keys" are on sgContext which is a passed value and
-      *        is a reference to the "responses" object
-      * @type {Object}
-    **/
-    this.rKeys = null;
-
     this.showResponseEditor = function(ev, httpCode) {
 
         // var useFullScreen = ($mdMedia("sm") || $mdMedia("xs")) && $scope.customFullscreen,
 
         var originalResponseContext = {
                 httpCode,
-                responses: this.sgContext
+                responses: this.operationObj
             },
 
             tempResponse = {
                 httpCode,
-                response: angular.copy(this.sgContext.getResponse(httpCode))
+                response: angular.copy(this.operationObj.getResponse(httpCode))
             },
 
             dialogeContext = {
@@ -63,18 +55,14 @@ function ResponseCtrl($log, $mdDialog, $document, UtilitiesService, PathService)
    **/
     this.addResponse = function(httpCode, description) {
         try {
-            this.sgContext.addResponse(httpCode, description);
+            this.operationObj.addResponse(httpCode, description);
         } catch (e) {
             $log.log(e);
             UtilitiesService.toast(e, 3000);
         }
 
         // reset input fields
-        // $scope.addResponse.$setPristine();
-        // debugger;
-        resetNewResponseData.call(this, this.sgThisOperation);
-
-        this.rKeys = Object.keys(this.sgContext).length;
+        this.newResponseData[this.operationType] = resetNewResponseData();
 
     };
 
@@ -86,11 +74,9 @@ function ResponseCtrl($log, $mdDialog, $document, UtilitiesService, PathService)
             debugger;
             if (response !== "delete") {
                 try {
-                    // swaggerPaths.updateParameter(originalParamData, paramModal.tempParam);
                     PathService.updateResponse(originalResponse, response);
                 } catch (e) {
                     $log.log(e);
-                    // Materialize.toast("Parameter name/query combo' already exists", 3000);
                     UtilitiesService.toast(e);
                 }
             } else {
@@ -112,8 +98,8 @@ function ResponseCtrl($log, $mdDialog, $document, UtilitiesService, PathService)
     * @desc a helper function to reset the data of the intputs
     * @type {Function}
    **/
-    function resetNewResponseData(operation) {
-        this.newResponseData[operation] = {
+    function resetNewResponseData() {
+        return {
             httpCode: null,
             description: null
         };

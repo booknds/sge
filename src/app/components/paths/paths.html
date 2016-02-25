@@ -8,7 +8,7 @@
               <span>Paths</span>
             </h2>
             <div style="margin-top: 55px;" class="right-align">
-              <a ng-click="pathCtl.showPathCreator($event)"
+              <a ng-click="$ctrl.showPathCreator($event)"
                 class="btn-floating btn-large waves-effect waves-light"
                 style="background-color:#70326E"
                 >
@@ -18,19 +18,19 @@
           </div>
         </md-toolbar>
         <div class="card-content">
-          <div ng-repeat="(pathName, pathValue) in pathCtl.paths">
+          <div ng-repeat="(pathName, pathValue) in $ctrl.paths">
             <div  style="display: flex; flex-flow:row nowrap; justify-content:flex-start;">
-                <md-button style="display: flex; flex-grow: 1; color: #3F1C3E;" ng-click="pathCtl.toggleShowPath(pathName);" href="">
+                <md-button style="display: flex; flex-grow: 1; color: #3F1C3E;" ng-click="$ctrl.toggleShowPath(pathName);" href="">
                     <h4  style="text-transform:none; display: flex; flex-grow: 1;">{{pathName}}</h4>
                 </md-button>
             </div>
-            <div style="display: flex; flex-flow:column nowrap; justify-content:flex-start;" ng-hide="pathCtl.dontShowPaths[pathName]" class="fade">
+            <div style="display: flex; flex-flow:column nowrap; justify-content:flex-start;" ng-hide="$ctrl.dontShowPaths[pathName]" class="fade">
                 <form name="updateName" style="display: flex; flex-flow:row nowrap;  margin-left: 16px; align-items: center;">
                     <md-input-container style="display:flex; flex-flow:column nowrap; flex-grow:2;">
                       <label>Change Path Name</label>
                       <input  type="text"
                             name="pathName"
-                            ng-model="pathCtl[pathName].newName"
+                            ng-model="$ctrl[pathName].newName"
                             ng-pattern="/^\/[0-9a-zA-Z\/\.\_\-\{\}]*$/"
                             minlength="3"
                             maxlength="45" />
@@ -42,7 +42,7 @@
                     </md-input-container>
                     <div style="display: flex; flex-flow:row nowrap; justify-content:space-between;">
                         <md-button type="submit"
-                            ng-click="pathCtl.updatePathName(pathName, pathCtl[pathName].newName)"
+                            ng-click="$ctrl.updatePathName(pathName, $ctrl[pathName].newName)"
                             style="display:flex; justify-content:center; align-items:center;">
                             <i class="material-icons">loop</i>
                             <md-tooltip>
@@ -51,7 +51,7 @@
                         </md-button>
 
                         <md-button style="display:flex; justify-content:center; align-items:center;"
-                            ng-click="pathCtl.deletePath(pathName)">
+                            ng-click="$ctrl.deletePath(pathName)">
                             <i class="material-icons">delete</i>
                             <md-tooltip>
                                 Delete Path
@@ -66,82 +66,40 @@
                         sg-operation-colorer-component
                         sg-operation-colorer="{{operation}}"
                         sg-selector="background-color"
-                      ng-repeat="operation in pathCtl.operations"
-                      ng-click="pathCtl.addOperation(pathName, operation)"
-                      ng-hide="pathCtl.paths[pathName].hasOwnProperty(operation)"
+                      ng-repeat="operation in $ctrl.operations"
+                      ng-click="$ctrl.addOperation(pathName, operation)"
+                      ng-hide="$ctrl.paths[pathName].hasOwnProperty(operation)"
                       style="margin-right:20px; color:white;">
                       {{operation | uppercase}}
                     </md-button>
                   </div>
 
-                <div class="" layout="column">
-                    <!-- <div style="display:flex; flex-flow:column nowrap; " > -->
-
-                        <!-- <div class="content-header" style="display:flex; flex-flow:row nowrap;" >
-                            <md-button class=""
-                                    style="display: flex; flex-grow: 1; margin-bottom: 0;"
-                                    ng-click="pathCtl.toggleShowPathInfo(pathName, operation);"
-                                    sg-operation-colorer-component
-                                    sg-operation-colorer="{{operation}}"
-                                    sg-selector="background-color"
-                                    href="">
-                                <p  style="text-transform:none; color:white; display: flex; flex-grow: 1;">{{operation}}</p>
-                            </md-button>
-                            <md-button style="display:flex; justify-content:center; align-items:center;"
-                                ng-click="pathCtl.deleteOperation(pathName, operation)">
-                                <i class="material-icons">delete</i>
-                                <md-tooltip>
-                                    Delete Path
-                                </md-tooltip>
-                            </md-button>
-                        </div>
-                        <div class="content-container"
-                        sg-operation-colorer-component
-                        sg-operation-colorer="{{operation}}"
-                        sg-selector="border-color"
-                        ng-hide="pathCtl.prevent[pathName][operation]"
-                        style="">
-                              <div  style="margin-left:1%; margin-right:1%;">
-                                <div class="" style="display:flex; flex-direction:column;">
-                                  <div sg-unique-input class="input-field">
-                                    <input id="input"
-                                      ng-attr-placeholder="operationCtl.sgOperationObject.summary"
-                                      ng-model="operationCtl.sgOperationObject.summary"
-                                      maxlength="150" type="text"/>
-                                    <label id="label"  for="label">Summary</label>
-                                  </div>
-                                  <div sg-unique-input class="input-field">
-                                    <textarea id="input"
-                                      ng-attr-placeholder="operationCtl.sgOperationObject.description"
-                                      ng-model="operationCtl.sgOperationObject.description"
-                                      class="materialize-textarea"></textarea>
-                                    <label id="label" for="label">Description</label>
-                                  </div>
-                                </div>
-                                <sg-parameter sg-this-operation="{{operationCtl.sgOperationName}}" sg-context="operationCtl.sgOperationObject"></sg-parameter>
-                                <sg-response sg-this-operation="{{operationCtl.sgOperationName}}" sg-context="operationCtl.sgOperationObject.responses"></sg-response>
-
-                              </div>
-
-
-
-                        </div> -->
-
+                    <div class="" layout="column">
                         <ul class="collapsible popout" data-collapsible="accordion" watch >
+                            <li ng-repeat="(operation, value) in $ctrl.paths[pathName]">
+                              <div sg-operation-colorer-component sg-selector="background-color" sg-operation-colorer="{{operation}}" style="display:flex; justify-content:space-between; align-items: center;" class="collapsible-header white-text">
+                                <div>
+                                    <i class="material-icons">filter_drama</i>{{ operation | uppercase }}
+                                </div>
+                                <div >
+                                    <md-button style="display:flex; justify-content:center; align-items:center;"
+                                        ng-click="$ctrl.deleteOperation(pathName, operation)">
+                                        <i class="material-icons">delete</i>
+                                        <md-tooltip>
+                                            Delete Operation
+                                        </md-tooltip>
+                                    </md-button>
+                                </div>
+                              </div>
+                              <div class="collapsible-body" style="margin-left:2%; margin-right:2%;">
+                                  <sg-operation operation-type="{{operation}}" operation-obj="value">
 
+                                </sg-operation>
+                            </div>
 
-                            <sg-operation sg-operation-name="{{operation}}"
-                                          sg-operation-object="value"
-                                          ng-repeat="(operation, value) in pathCtl.paths[pathName]">
-                              <md-button style="display:flex; justify-content:center; align-items:center;"
-                                  ng-click="pathCtl.deleteOperation(pathName, operation)">
-                                  <i class="material-icons">delete</i>
-                                  <md-tooltip>
-                                      Delete Operation
-                                  </md-tooltip>
-                              </md-button>
-                            </sg-operation>
-                        </ul>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
           </div>
