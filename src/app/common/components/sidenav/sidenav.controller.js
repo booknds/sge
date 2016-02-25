@@ -1,5 +1,7 @@
-import template from "../../../components/modals/saveFile/saveFile.html";
-import controller from "../../../components/modals/saveFile/saveFile.controller.js";
+import saveLocalTemplate from "../../../components/modals/saveFile/saveFile.html";
+import saveLocalcontroller from "../../../components/modals/saveFile/saveFile.controller.js";
+import swaggerHubOpenTemplate from "../../../components/modals/openFromSwaggerHub/openFromSwaggerHub.html";
+import swaggerHubOpenController from "../../../components/modals/openFromSwaggerHub/openFromSwaggerHub.controller.js";
 
 let sideNavArray = ["$scope", "$element", "$timeout", "CompilerService", "$mdDialog", "$document", SidenavCtrl];
 
@@ -14,16 +16,16 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
             {
                 title: "From Local",
                 op: openFile
+            },
+            {
+                title: "From SwaggerHub",
+                op: swaggerHubOpen
             }
-            // {
-            //     title: "From SwaggerHub",
-            //     op: null
-            // }
         ],
         save: [
             {
                 title: "To Local",
-                op: download
+                op: downloadLocal
             }
             // {
             //     title: "To SwaggerHub",
@@ -92,12 +94,12 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
     // };
     /**
      */
-    function download(ev) {
+    function downloadLocal(ev) {
 
         var dialogeContext = {
-            controller,
+            controller: saveLocalcontroller,
             controllerAs: "$ctrl",
-            template,
+            template: saveLocalTemplate,
             parent: angular.element($document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
@@ -115,6 +117,28 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
         // }, function(wantsFullScreen) {
         //     $scope.customFullscreen = (wantsFullScreen === true);
         // });
+    }
+
+    /**
+     */
+    function swaggerHubOpen(ev) {
+
+        var dialogeContext = {
+            template: swaggerHubOpenTemplate,
+            controllerAs: "$ctrl",
+            controller: swaggerHubOpenController,
+            parent: angular.element($document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: true // useFullScreen
+        };
+
+        $mdDialog
+            .show(dialogeContext)
+            .then(function() {
+            }, function() {
+            });
+
     }
 
     /**
