@@ -2,6 +2,7 @@
  */
 export default function SchemaEditorCtrl() {
 
+    this.newProperty = {};
     this.formats = ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
     this.types = ["string", "number", "integer", "boolean", "array", "file", "object"];
 
@@ -18,6 +19,8 @@ export default function SchemaEditorCtrl() {
 
     this.addEnumToProperty = function addEnumToProperty(propertyName, enumItem) {
         this.sgSchemaObject.properties[propertyName].addEnum(enumItem);
+
+        this[propertyName] = {};
         this[propertyName].enum = "";
     };
 

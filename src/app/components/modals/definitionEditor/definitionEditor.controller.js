@@ -1,14 +1,13 @@
 
-let DefinitionEditorController = ["$scope", "$log", "$window", "UtilitiesService", "DefinitionsService", "$mdDialog", DefinitionEditorCtrl];
+let DefinitionEditorController = ["$mdDialog", DefinitionEditorCtrl];
 
 export default DefinitionEditorController;
 
 /**
  */
-function DefinitionEditorCtrl($scope, $log, $window, UtilitiesService, ds, $mdDialog) {
+function DefinitionEditorCtrl($mdDialog) {
 
     this.updateDefinition = function(newDefinition) {
-        debugger;
         $mdDialog.hide(newDefinition);
 
     };
