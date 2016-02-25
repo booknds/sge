@@ -109,10 +109,11 @@ export function DefinitionsService(ObjectFactory, UtilitiesService) {
      * @param {object} newDefinitions - a list of definitions
      */
     function setDefinitions(newDefinitions) {
+        debugger;
         for (var definition in newDefinitions) {
             if (newDefinitions.hasOwnProperty(definition)) {
                 definitions[definition] = ObjectFactory.newSchema();
-                definitions[definition].setSchema(definitions[definition]);
+                definitions[definition].setSchema(newDefinitions[definition]);
             }
         }
     }
