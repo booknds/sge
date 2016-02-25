@@ -90,7 +90,9 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
     //     var data = new Blob([angular.toJson(text, true)], { type: "application/json" });
     //     FileSaver.saveAs(data, "swagger.json");
     // };
-    this.download = function(ev) {
+    /**
+     */
+    function download(ev) {
 
         var dialogeContext = {
             controller,
@@ -113,7 +115,7 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
         // }, function(wantsFullScreen) {
         //     $scope.customFullscreen = (wantsFullScreen === true);
         // });
-    };
+    }
 
     /**
      */
