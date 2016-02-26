@@ -1,24 +1,36 @@
-let saveFileController = ["CompilerService", "FileSaver", "Blob", "$mdDialog", SaveFileController];
+let saveToSwaggerHub = ["$cookies", "$mdDialog", "SwaggerHub", "CompilerService", SaveFileToSwaggerHubController];
 
-export default saveFileController;
+export default saveToSwaggerHub;
 
 /**
  */
-function SaveFileController(CompilerService, FileSaver, Blob, $mdDialog) {
+function SaveFileToSwaggerHubController($cookies, $mdDialog, SwaggerHub, CompilerService) {
 
-    this.fileData = resetData();
+    this.apiKey = initApiKey();
+    this.postData = resetData();
 
-    this.save = function download(text) {
+    var apiKey = "eyJUb2tlblR5cGUiOiJBUEkiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIyZGY5MmVkMy1kM2U2LTRkNTYtYmI1Zi1hNTI1NTNjOTczY2YiLCJpYXQiOjE0NDQwOTM5MTB9.t2mKwVWDzw30dkDARjJUu2HOsaZtFXnpG29NZZjmA1fyjR4CgKmqvNCihQr6WKJGGuD1RmzD05bbHw-8F9cPTQ";
+
+    this.save = function saveToSH() {
         CompilerService.recompile();
         var compiled = CompilerService.compiled;
         if (Object.keys(compiled).length === 0) {
             return;
         }
 
-        var data = new Blob([angular.toJson(compiled, true)], { type: "application/json" });
-        FileSaver.saveAs(data, ((text || "swagger") + ".json"));
+        this.postData.definition = angular.toJson(compiled, true);
 
-        $mdDialog.hide("saved!");
+        SwaggerHub.postApi(this.postData, apiKey)
+                    .then(function(data) {
+                        debugger;
+                        console.warn(data);
+                        saveApiKey(apiKey);
+                        $mdDialog.hide("saved!");
+                    }.bind(this), function() {
+                        debugger;
+                    });
+
+        // $mdDialog.hide("saved!");
     };
 
     this.cancel = function() {
@@ -27,9 +39,29 @@ function SaveFileController(CompilerService, FileSaver, Blob, $mdDialog) {
 
     /**
      */
+    function initApiKey() {
+        debugger;
+        return $cookies.get("apiKey");
+    }
+
+    /**
+     */
+    function saveApiKey(value) {
+        debugger;
+        var todaysDate = Date.now();
+        var expirationDate = new Date(todaysDate);
+        expirationDate.setHours(todaysDate.getHours() + 1);
+
+        $cookies.put("apiKey", value, { expires: expirationDate });
+    }
+
+    /**
+     */
     function resetData() {
         return {
-            owner: null
+            owner: null,
+            api: null,
+            definition: null
         };
     }
 

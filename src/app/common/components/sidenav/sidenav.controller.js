@@ -2,6 +2,8 @@ import saveLocalTemplate from "../../../components/modals/saveFile/saveFile.html
 import saveLocalcontroller from "../../../components/modals/saveFile/saveFile.controller.js";
 import swaggerHubOpenTemplate from "../../../components/modals/openFromSwaggerHub/openFromSwaggerHub.html";
 import swaggerHubOpenController from "../../../components/modals/openFromSwaggerHub/openFromSwaggerHub.controller.js";
+import swaggerHubSaveTemplate from "../../../components/modals/saveToSwaggerHub/saveToSwaggerHub.html";
+import swaggerHubSaveController from "../../../components/modals/saveToSwaggerHub/saveToSwaggerHub.controller.js";
 
 let sideNavArray = ["$scope", "$element", "$timeout", "CompilerService", "$mdDialog", "$document", SidenavCtrl];
 
@@ -26,11 +28,11 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
             {
                 title: "To Local",
                 op: downloadLocal
+            },
+            {
+                title: "To SwaggerHub",
+                op: swaggerHubSave
             }
-            // {
-            //     title: "To SwaggerHub",
-            //     op: null
-            // }
         ]
     };
 
@@ -127,6 +129,28 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
             template: swaggerHubOpenTemplate,
             controllerAs: "$ctrl",
             controller: swaggerHubOpenController,
+            parent: angular.element($document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: true // useFullScreen
+        };
+
+        $mdDialog
+            .show(dialogeContext)
+            .then(function() {
+            }, function() {
+            });
+
+    }
+
+    /**
+     */
+    function swaggerHubSave(ev) {
+
+        var dialogeContext = {
+            template: swaggerHubSaveTemplate,
+            controllerAs: "$ctrl",
+            controller: swaggerHubSaveController,
             parent: angular.element($document.body),
             targetEvent: ev,
             clickOutsideToClose: true,

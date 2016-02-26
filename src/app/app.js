@@ -7,6 +7,7 @@ import AngularMaterial from "angular-material";
 import AngularAnimate from "angular-animate";
 import AngularAria from "angular-aria";
 import AngularMessages from "angular-messages";
+import AngularCookies from "angular-cookies";
 // import AngularMocks from "angular-mocks/ngMock";
 import "angular-material/angular-material.css";
 import "../css/main.css";
@@ -23,8 +24,9 @@ angular
         AngularMaterial,
         AngularAnimate,
         AngularAria,
-        AngularMessages
-        // AngularMocks
+        AngularMessages,
+        // AngularMocks,
+        AngularCookies
         // 'ngMaterial',
         // 'ngAnimate',
         // 'ngAria'
@@ -32,4 +34,4 @@ angular
 
   .directive("app", appComponent);
 
-$log(FileSaver);
+console.warn(FileSaver);

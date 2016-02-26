@@ -1,9 +1,9 @@
 <div class="md-dialog-container" style="top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;">
   <md-dialog aria-label="New Path" style="width:30%;" ng-cloak>
-    <form name="openSwaggerHub">
+    <form name="saveSwaggerHub">
       <md-toolbar style="background-color:#3F1C3E;">
         <div class="md-toolbar-tools">
-          <h2>Open From SwaggerHub</h2>
+          <h2>Save to SwaggerHub</h2>
           <span flex></span>
         </div>
       </md-toolbar>
@@ -38,8 +38,8 @@
             <md-input-container style="display:flex; flex-grow:1;">
               <label>Version</label>
               <input  type="text"
-                      name="version"
-                      ng-model="$ctrl.swaggerData.version"
+                      name="key"
+                      ng-model="$ctrl.apiKey"
                       required>
               <!-- <div ng-messages="addPathForm.pathName.$error" role="alert" >
                 <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
@@ -55,8 +55,8 @@
         <md-button ng-click="$ctrl.cancel()">
          Cancel
         </md-button>
-        <md-button ng-disabled="openSwaggerHub.$invalid" ng-click="$ctrl.open($ctrl.swaggerData.owner, $ctrl.swaggerData.api, $ctrl.swaggerData.version)" style="margin-right:20px;">
-          Open
+        <md-button ng-disabled="saveSwaggerHub.$invalid" ng-click="$ctrl.save()" style="margin-right:20px;">
+          Save
         </md-button>
       </md-dialog-actions>
     </form>

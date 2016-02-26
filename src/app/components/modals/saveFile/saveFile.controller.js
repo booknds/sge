@@ -8,15 +8,16 @@ function SaveFileController(CompilerService, FileSaver, Blob, $mdDialog) {
 
     this.fileData = resetData();
 
-    this.save = function download(text) {
+    this.save = function download(saveAs) {
         CompilerService.recompile();
         var compiled = CompilerService.compiled;
+
         if (Object.keys(compiled).length === 0) {
             return;
         }
 
         var data = new Blob([angular.toJson(compiled, true)], { type: "application/json" });
-        FileSaver.saveAs(data, ((text || "swagger") + ".json"));
+        FileSaver.saveAs(data, ((saveAs || "swagger") + ".json"));
 
         $mdDialog.hide("saved!");
     };
