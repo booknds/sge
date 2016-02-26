@@ -7,6 +7,7 @@ export default swaggerhubService;
 function SwaggerHubService($http) {
 
     var shUri = "https://api.swaggerhub.com/apis",
+    // var shUri = "https://localhost:8088/apis/hkmconsultingllc/Person/v1/swagger.json",
         apiData = null,
         publicApi;
 
