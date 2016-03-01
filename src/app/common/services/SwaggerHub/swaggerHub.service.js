@@ -9,14 +9,14 @@ function SwaggerHubService($http) {
     var shUri = "https://api.swaggerhub.com/apis",
     // var shUri = "https://localhost:8088/apis/hkmconsultingllc/Person/v1/swagger.json",
         apiData = null,
-        publicApi,
-        postConfig;
+        publicApi;
+        // postConfig;
 
-    postConfig = {
-        headers: {
-            "Authorization": "eyJUb2tlblR5cGUiOiJBUEkiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIyZGY5MmVkMy1kM2U2LTRkNTYtYmI1Zi1hNTI1NTNjOTczY2YiLCJpYXQiOjE0NDQwOTM5MTB9.t2mKwVWDzw30dkDARjJUu2HOsaZtFXnpG29NZZjmA1fyjR4CgKmqvNCihQr6WKJGGuD1RmzD05bbHw-8F9cPTQ"
-        }
-    };
+    // postConfig = {
+    //    headers: {
+    //        "Authorization": "eyJUb2tlblR5cGUiOiJBUEkiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIyZGY5MmVkMy1kM2U2LTRkNTYtYmI1Zi1hNTI1NTNjOTczY2YiLCJpYXQiOjE0NDQwOTM5MTB9.t2mKwVWDzw30dkDARjJUu2HOsaZtFXnpG29NZZjmA1fyjR4CgKmqvNCihQr6WKJGGuD1RmzD05bbHw-8F9cPTQ"
+    //    }
+    // };
 
     publicApi = {
         getApi,
@@ -46,7 +46,7 @@ function SwaggerHubService($http) {
     function postApi(postData, apiKey) {
 
         var uri = [shUri, postData.owner, postData.api].join("/");
-
+        console.warn(apiKey);
         // postConfig.headers.Authorization = apiKey;
         debugger;
 
