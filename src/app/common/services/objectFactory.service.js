@@ -67,7 +67,7 @@ export default function ObjectFactory($window, UtilitiesService) {
             this.enum = [];
             this.type = type || null;
             this.properties = {};
-            // this._isRequired
+            this.items = {};
         },
 
         setSchema: function setSchema(schema) {

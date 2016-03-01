@@ -73,7 +73,7 @@
           </md-button>
         </div>
       </div>
-      <div class="collapsible-body" style="display:flex; flex-flow: column nowrap;">
+      <div class="collapsible-body" style="display:flex; flex-flow: column nowrap; padding-left:15px; padding-right:15px;">
         <!-- <div class=" valign-wrapper section"> -->
         <div style="display:flex; flex-flow: row nowrap;  align-items: center;">
           <md-input-container style="">
@@ -83,7 +83,7 @@
             rows="1"
             md-select-on-focus></textarea>
           </md-input-container>
-          <md-input-container style="">
+          <md-input-container style="" ng-hide="pValue.type === 'array'">
             <label>$ref</label>
             <input  type="text" name="$ref" ng-model="pValue.$ref">
           </md-input-container>
@@ -106,12 +106,12 @@
               sg-label="Format"
               ng-model="pValue.format" sg-default-option="Property Format" sg-choices="schema.formats">
           </sg-dropdown>
-          <md-input-container style="">
+          <md-input-container style="" ng-hide="pValue.type === 'array'">
             <label>enum</label>
             <input  type="text" disabled name="enum" ng-attr-placeholder="{{pValue.enum}}">
           </md-input-container>
         </div>
-        <div style="display:flex; flex-flow:row nowrap; align-items: center;">
+        <div style="display:flex; flex-flow:row nowrap; align-items: center;" ng-hide="pValue.type === 'array'">
           <md-input-container style="flex-grow: 1;">
             <label>enum</label>
             <input  type="text" name="enum" ng-model="schema[property].enum" placeholder="one item at a time">
@@ -122,6 +122,12 @@
           <md-button ng-click="schema.removeEnumFromProperty(property, schema[property].enum)">
             <i class="material-icons">delete</i>
           </md-button>
+        </div>
+        <div ng-show="pValue.type === 'array'">
+            <sg-dropdown
+                    sg-label="Type"
+                    ng-model="pValue.item.type" sg-default-option="Array Items Type" sg-choices="schema.itemsType">
+            </sg-dropdown>
         </div>
       </div>
     </li>

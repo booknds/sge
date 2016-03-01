@@ -5,6 +5,7 @@ export default function SchemaEditorCtrl() {
     this.newProperty = {};
     this.formats = ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
     this.types = ["string", "number", "integer", "boolean", "array", "file", "object"];
+    this.itemsType = [ "string", "number", "integer", "boolean", "array"];
 
     this.toggleRequired = function(propertyName, previousState) {
 
