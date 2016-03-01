@@ -10,14 +10,14 @@ function CompilerService(PathsService, infoService, DefinitionsService) {
 
     // var info = infoService.getBaseInfo();
     var paths = PathsService.paths;
-    var definitions = DefinitionsService.definitions;
+    // var definitions = DefinitionsService.definitions;
 
     this.compiled = {};
 
     this.recompile = function() {
         this.compiled = angular.copy(infoService.getBaseInfo());
         this.compiled.paths = angular.copy(paths);
-        this.compiled.definitions = angular.copy(definitions);
+        this.compiled.definitions = angular.copy(DefinitionsService.getDefinitions());
 
         // remove any null or empty properties
         cleanDocument(this.compiled);

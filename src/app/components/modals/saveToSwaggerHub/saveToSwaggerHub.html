@@ -15,7 +15,7 @@
               <label>Owner</label>
               <input  type="text"
                       name="owner"
-                      ng-model="$ctrl.swaggerData.owner"
+                      ng-model="$ctrl.postData.owner"
                       required>
               <!-- <div ng-messages="addPathForm.pathName.$error" role="alert" >
                 <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
@@ -27,7 +27,7 @@
               <label>Api</label>
               <input  type="text"
                       name="api"
-                      ng-model="$ctrl.swaggerData.api"
+                      ng-model="$ctrl.postData.api"
                       required>
               <!-- <div ng-messages="addPathForm.pathName.$error" role="alert" >
                 <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
@@ -36,7 +36,7 @@
               </div> -->
             </md-input-container>
             <md-input-container style="display:flex; flex-grow:1;">
-              <label>Version</label>
+              <label>Api Key</label>
               <input  type="text"
                       name="key"
                       ng-model="$ctrl.apiKey"

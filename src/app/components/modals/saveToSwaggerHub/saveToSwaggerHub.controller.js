@@ -11,6 +11,8 @@ function SaveFileToSwaggerHubController($cookies, $mdDialog, SwaggerHub, Compile
 
     var apiKey = "eyJUb2tlblR5cGUiOiJBUEkiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIyZGY5MmVkMy1kM2U2LTRkNTYtYmI1Zi1hNTI1NTNjOTczY2YiLCJpYXQiOjE0NDQwOTM5MTB9.t2mKwVWDzw30dkDARjJUu2HOsaZtFXnpG29NZZjmA1fyjR4CgKmqvNCihQr6WKJGGuD1RmzD05bbHw-8F9cPTQ";
 
+    //
+
     this.save = function saveToSH() {
         CompilerService.recompile();
         var compiled = CompilerService.compiled;
@@ -18,7 +20,13 @@ function SaveFileToSwaggerHubController($cookies, $mdDialog, SwaggerHub, Compile
             return;
         }
 
-        this.postData.definition = angular.toJson(compiled, true);
+        debugger;
+
+        // this.postData.definition = compiled;
+
+        this.postData.definition = angular.toJson(compiled);
+        // this.postData.definition.splice(0, 1);
+        // this.postData.definition.splice(this.postData.definition.length - 1, 1);
 
         SwaggerHub.postApi(this.postData, apiKey)
                     .then(function(data) {
@@ -26,7 +34,7 @@ function SaveFileToSwaggerHubController($cookies, $mdDialog, SwaggerHub, Compile
                         console.warn(data);
                         saveApiKey(apiKey);
                         $mdDialog.hide("saved!");
-                    }.bind(this), function() {
+                    }, function() {
                         debugger;
                     });
 
@@ -48,7 +56,7 @@ function SaveFileToSwaggerHubController($cookies, $mdDialog, SwaggerHub, Compile
      */
     function saveApiKey(value) {
         debugger;
-        var todaysDate = Date.now();
+        var todaysDate = Date();
         var expirationDate = new Date(todaysDate);
         expirationDate.setHours(todaysDate.getHours() + 1);
 
@@ -59,9 +67,9 @@ function SaveFileToSwaggerHubController($cookies, $mdDialog, SwaggerHub, Compile
      */
     function resetData() {
         return {
-            owner: null,
-            api: null,
-            definition: null
+            owner: "hkmconsultingllc",
+            api: "Person",
+            definition: "key"
         };
     }
 
