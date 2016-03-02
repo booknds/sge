@@ -46,7 +46,7 @@
             </div>
 
           </md-input-container>
-          <md-button style="display:flex; justify-content:center; align-items:center;"
+          <md-button ng-disabled="propertyCreator.propertyName.$invalid" style="display:flex; justify-content:center; align-items:center;"
                     ng-click="schema.addProperty(schema.newProperty.name);">
               <i class="material-icons">add</i>
           </md-button>

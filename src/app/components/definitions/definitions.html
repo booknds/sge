@@ -24,13 +24,13 @@
                     <div style="display: flex; flex-flow: row nowrap; align-items: center; justify-content: space-between;">
                         <span class="md-headline"> Definition Information</span>
                         <div style="display:flex; flex-flow: row nowrap; align-items: center; justify-content: flex-end;">
-                            <md-button style="display:flex; align-items: center; justify-content: center;" ng-click="defControl.showDefinitionEditor($event, definition, defValue)">
+                            <md-button style="display:flex; align-items: center; justify-content: center;" ng-click="$ctrl.showDefinitionEditor($event, definition, defValue)">
                                 <i class="material-icons">settings</i>
                                 <md-tooltip md-direction="bottom">
                                   Edit Definition
                                 </md-tooltip>
                             </md-button>
-                            <md-button style="display:flex; align-items: center; justify-content: center;" ng-click="defControl.deleteDefinition(definition);">
+                            <md-button style="display:flex; align-items: center; justify-content: center;" ng-click="$ctrl.deleteDefinition(definition);">
                                 <i class="material-icons">delete</i>
                                 <md-tooltip md-direction="bottom">
                                   Delete Definition
