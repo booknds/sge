@@ -112,9 +112,6 @@ export default function InfoService($log, UtilitiesService) {
      * @type {Function}
      */
     function setBaseInfo(newSwaggerInfo) {
-        debugger;
-        // swaggerInfo = angular.copy(newSwaggerInfo);
-        // console.log(swaggerInfo);
         for (var key in newSwaggerInfo) {
             if (swaggerInfo.hasOwnProperty(key)) {
                 swaggerInfo[key] = newSwaggerInfo[key];

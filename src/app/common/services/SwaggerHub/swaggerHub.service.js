@@ -54,7 +54,7 @@ function SwaggerHubService($http) {
             url: uri,
             method: "POST",
             headers: {
-                "Authorization": "Bearer eyJUb2tlblR5cGUiOiJBUEkiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIyZGY5MmVkMy1kM2U2LTRkNTYtYmI1Zi1hNTI1NTNjOTczY2YiLCJpYXQiOjE0NDQwOTM5MTB9.t2mKwVWDzw30dkDARjJUu2HOsaZtFXnpG29NZZjmA1fyjR4CgKmqvNCihQr6WKJGGuD1RmzD05bbHw-8F9cPTQ",
+                "Authorization": `Bearer ${apiKey}`,
                 "Content-Type": "application/json",
                 "Accept": "text/html"
             },

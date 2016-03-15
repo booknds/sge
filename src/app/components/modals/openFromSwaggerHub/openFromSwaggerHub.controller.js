@@ -33,9 +33,9 @@ function OpenFromSwaggerHub(SwaggerHub, CompilerService, $mdDialog) {
      */
     function resetData() {
         return {
-            owner: "hkmconsultingllc",
-            api: "Person",
-            version: "v1"
+            owner: "",
+            api: "",
+            version: ""
         };
     }
 

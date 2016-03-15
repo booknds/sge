@@ -25,7 +25,7 @@ export default function ObjectFactory($window, UtilitiesService) {
         },
 
         setPath: function setPath(path) {
-            for (var key in path) {
+            for (let key in path) {
                 if (path.hasOwnProperty(key)) {
                     this[key] = newOperation();
                     this[key].setOperation(path[key]);
@@ -43,7 +43,7 @@ export default function ObjectFactory($window, UtilitiesService) {
         },
 
         setResponse: function setReposne(newResponse) {
-            for (var key in newResponse) {
+            for (let key in newResponse) {
                 if (this.hasOwnProperty(key) && newResponse.hasOwnProperty(key)) {
                     if (key === "schema") {
                         this[key].setSchema(newResponse[key]);
@@ -95,7 +95,7 @@ export default function ObjectFactory($window, UtilitiesService) {
                 delete this.properties[propertyName];
 
                 // delete from required if exists
-                var index = this.required.indexOf(propertyName);
+                let index = this.required.indexOf(propertyName);
                 if (index >= 0) {
                     this.required.splice(index, 1);
                 }
@@ -146,7 +146,7 @@ export default function ObjectFactory($window, UtilitiesService) {
         },
 
         clearDefinitions: function() {
-            for (var key in this) {
+            for (let key in this) {
                 if (this.hasOwnProperty(key)) {
                     delete this[key];
                 }
@@ -155,7 +155,7 @@ export default function ObjectFactory($window, UtilitiesService) {
 
         updateDefinition: function(originalDefinition, updatedDefinition) {
 
-            var oName = originalDefinition.name,
+            let oName = originalDefinition.name,
                 // oValue = originalDefinition.value,
                 uName = updatedDefinition.name,
                 uValue = updatedDefinition.value;
@@ -179,7 +179,7 @@ export default function ObjectFactory($window, UtilitiesService) {
 
                     this.addDefinition(uName);
 
-                    var currentDefinition = this[uName];
+                    let currentDefinition = this[uName];
 
                     for (var key in currentDefinition) {
                         if (currentDefinition.hasOwnProperty(key)) {
@@ -195,7 +195,7 @@ export default function ObjectFactory($window, UtilitiesService) {
         },
 
         setDefinitions: function(definitions) {
-            for (var definition in definitions) {
+            for (let definition in definitions) {
                 if (definitions.hasOwnProperty(definition)) {
                     this[definition] = Object.create(Schema);
                     this[definition].init(definition);
@@ -234,7 +234,7 @@ export default function ObjectFactory($window, UtilitiesService) {
         },
 
         setOperation: function setOperation(operation) {
-            for (var key in operation) {
+            for (let key in operation) {
                 if (this.hasOwnProperty(key) && operation.hasOwnProperty(key)) {
 
                     if (key === "responses") {
@@ -383,7 +383,7 @@ export default function ObjectFactory($window, UtilitiesService) {
         },
 
         setParameter: function setParameter(newParam) {
-            for (var key in newParam) {
+            for (let key in newParam) {
                 if (this.hasOwnProperty(key) && newParam.hasOwnProperty(key)) {
                     if (key === "schema") {
                         this[key].setSchema(newParam[key]);
@@ -421,7 +421,7 @@ export default function ObjectFactory($window, UtilitiesService) {
     let Responses = {
 
         setResponses: function setResponses(responses) {
-            for (var httpCode in responses) {
+            for (let httpCode in responses) {
                 if (responses.hasOwnProperty(httpCode)) {
                     this[httpCode] = Object.create(Response);
                     this[httpCode].init();

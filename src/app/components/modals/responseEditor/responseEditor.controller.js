@@ -7,7 +7,7 @@ export default ResponseEditorController;
 function ResponseModalCtrl($mdDialog) {
 
     this.updateResponse = function(newResponse) {
-        debugger;
+        // debugger;
         $mdDialog.hide(newResponse);
     };
 
