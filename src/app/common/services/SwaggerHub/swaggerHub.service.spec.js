@@ -1,9 +1,9 @@
-import {expect} from "chai";
+import { expect } from "chai";
 import SwaggerHub from "./swaggerHub.service";
 
 describe("SwaggerHubService", function() {
 
-    describe("getApi", function() {
+    xdescribe("getApi", function() {
 
         var swaggerHub,
             apiMetaData;

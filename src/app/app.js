@@ -1,7 +1,7 @@
 import Common from "./common/common";
 import Components from "./components/components";
 import appComponent from "./app.component";
-import angularMaterialize from "angular-materialize";
+// import angularMaterialize from "angular-materialize";
 import FileSaver from "angular-file-saver";
 import AngularMaterial from "angular-material";
 import AngularAnimate from "angular-animate";
@@ -17,7 +17,7 @@ import "../css/main.css";
 angular
     .module("SwaggerGraphicalEditor", [
         // 'ui.materialize',
-        angularMaterialize,
+        // angularMaterialize,
         "ngFileSaver",
         Common.name,
         Components.name,

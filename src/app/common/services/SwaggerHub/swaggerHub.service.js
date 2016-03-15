@@ -77,6 +77,7 @@ function SwaggerHubService($http) {
     }
 
     /**
+     *
      */
     function getApiData() {
         return apiData;
