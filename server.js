@@ -10,9 +10,9 @@ console.log(__dirname);
 
 app.use("/dist", express.static(__dirname + "/dist"));
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
     res.sendFile("./index.html", { root: __dirname });
-})
+});
 
-console.log("listening on port 3030");
 app.listen(port);
+console.log("listening on port 3030");
