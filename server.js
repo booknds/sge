@@ -6,9 +6,11 @@ const express = require("express");
 const app = express();
 const port = 3030;
 
-app.use("/dist", express.static("./dist"));
+console.log(__dirname);
 
-app.get("*", (req, res) => {
+app.use("/dist", express.static(__dirname + "/dist"));
+
+app.get("/", (req, res) => {
     res.sendFile("./index.html", { root: __dirname });
 })
 

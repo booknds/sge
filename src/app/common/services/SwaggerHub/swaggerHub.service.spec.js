@@ -22,7 +22,6 @@ describe("SwaggerHubService", function() {
             expect(swaggerHub, apiMetaData);
         });
 
-
     });
 
     describe("postApi", function() {

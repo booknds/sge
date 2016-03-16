@@ -6,8 +6,9 @@
   "scripts": {
     "test": "find ./src -name '*spec.js' | xargs mocha -R spec --compilers js:babel-core/register",
     "lint": "eslint",
+    "compile": "weback",
     "build": "npm test && npm run watch",
-    "watch": "webpack --watch"
+    "watch": "webpack-dev-server"
   },
   "author": "Eric Henry Correia",
   "license": "MIT",
@@ -31,6 +32,7 @@
     "style-loader": "0.13.0",
     "stylus-loader": "1.4.3",
     "webpack": "1.12.10",
+    "webpack-dev-server": "^1.14.1",
     "webpack-livereload-plugin": "^0.7.0"
   },
   "dependencies": {
