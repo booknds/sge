@@ -149,7 +149,7 @@
                   <div ng-show="$ctrl.state.produce === 'create custom'">
                         <md-input-container style="display:flex; flex-direction:row-reverse;">
                             <input ng-model="$ctrl.state.customProduce" placeholder="Custom Produce Type">
-                            <md-button class="md-primary" ng-click="$ctrl.state.consume = null">
+                            <md-button class="md-primary" ng-click="$ctrl.reset('produces')">
                                 <i class="material-icons">replay</i>
                                 <md-tooltip md-direction="bottom">
                                     Go Back
@@ -158,7 +158,7 @@
                             <md-button class="md-primary" ng-click="$ctrl.addType('produces', $ctrl.state.customProduce, true);">
                                 <i class="material-icons">add</i>
                                 <md-tooltip md-direction="bottom">
-                                    Add Custom Consume
+                                    Add Custom Produce
                                 </md-tooltip>
                             </md-button>
                         </md-input-container>
@@ -169,7 +169,7 @@
                           <md-button style="display:flex; justify-content: center;" class="md-primary" ng-click="$ctrl.removeType('produces', produce);">
                               <i class="material-icons">delete</i>
                           </md-button>
-                          <p style="display:flex; flex-grow:1;"> {{ produce }} </p>
+                          <span style="display:flex; flex-grow:1;"> {{ produce }} </span>
                       </div>
                     </div>
                   </div>
@@ -182,7 +182,7 @@
                   <div ng-show="$ctrl.state.consume === 'create custom'">
                       <md-input-container style="display:flex; flex-direction:row-reverse;">
                           <input ng-model="$ctrl.state.customConsume" placeholder="Custom Consume Type">
-                          <md-button class="md-primary" ng-click="$ctrl.state.consume = null">
+                          <md-button class="md-primary" ng-click="$ctrl.reset('consumes')">
                               <i class="material-icons">replay</i>
                               <md-tooltip md-direction="bottom">
                                   Go Back
@@ -202,11 +202,11 @@
                               <md-button style="display:flex; justify-content: center;" class="md-primary" ng-click="$ctrl.removeType('consumes', consume);">
                                   <i class="material-icons">delete</i>
                               </md-button>
-                              <p style="display:flex; flex-grow:1;"> {{ consume }} </p>
+                              <span style="display:flex; flex-grow:1;"> {{ consume }} </span>
                           </div>
                       </div>
                   </div>
-                  <div ng-hide="$ctrl.state.scheme === 'custom'" style="display:flex; flex-direction:row;">
+                  <div style="display:flex; flex-direction:row;">
                     <sg-dropdown sg-label="Schemes" ng-model="$ctrl.state.scheme" sg-choices="$ctrl.types.scheme"></sg-dropdown>
                     <button class="btn-flat waves-effect waves-white white" type="submit" name="action" ng-click="$ctrl.addType('schemes', $ctrl.state.scheme);">
                       <i class="material-icons" >add</i>
@@ -219,7 +219,7 @@
                               <md-button style="display:flex; justify-content: center;" class="md-primary" ng-click="$ctrl.removeType('schemes', scheme);">
                                   <i class="material-icons">delete</i>
                               </md-button>
-                              <p style="display:flex; flex-grow:1;"> {{ scheme }} </p>
+                              <span style="display:flex; flex-grow:1;"> {{ scheme }} </span>
                           </div>
                       </div>
                   </div>

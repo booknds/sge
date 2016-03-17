@@ -15,6 +15,8 @@ function InfoCtrl(InfoService) {
         customSchema: null
     };
 
+    this.reset = reset;
+
     /**
       * @name InfoService
       * @desc A singleton module to hold Base definition state and manipulate it"s info.
@@ -79,7 +81,14 @@ function InfoCtrl(InfoService) {
             this.state.customScheme = "";
             break;
         default:
-            return;
+            this.state = {
+                consume: null,
+                customConsume: null,
+                produce: null,
+                customProduce: null,
+                schema: null,
+                customSchema: null
+            };
 
         }
     }
