@@ -1,0 +1,6 @@
+test.html
+node_modules/
+.idea/
+angular-materialize.iml
+.project
+test-app/*

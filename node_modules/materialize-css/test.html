@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>Parallax Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="bin/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="extras/noUiSlider/nouislider.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="templates/parallax-template/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="bin/materialize.js"></script>
+<style>
+
+
+</style>
+</head>
+<body>
+
+ <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+    </li>
+  </ul>
+  <!--  Scripts-->
+
+  <script src="js/init.js"></script>
+<script src="http://materializecss.com/extras/noUiSlider/nouislider.js"></script>
+  <script>
+var tmp = setTimeout(function() {
+  var x = '<div class="range-field"><input type="range" value="5" min="0" max="10"></div>';
+  $(".container").append($(x));
+  clearTimeout(tmp);
+}, 1000);
+  </script>
+
+
+  </body>
+</html>
