@@ -5,7 +5,18 @@ export default function SchemaEditorCtrl() {
     this.newProperty = {};
     this.formats = ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
     this.types = ["string", "number", "integer", "boolean", "array", "file", "object"];
-    this.itemsType = [ "string", "number", "integer", "boolean", "array"];
+    this.itemTypes = [ "string", "number", "integer", "boolean"];
+
+    this.itemsConfig = {
+        types: [ "string", "number", "integer", "boolean"],
+        advancedProps: ["maximum", "minimum", "exclusiveMaximum", "exclusiveMinimum", "maxLength", "minLength", "pattern", "maxItems", "minItems", "uniqueItems", "enum", "multipleOf"]
+    };
+
+    this.state = {
+        advanced: {
+            items: false
+        }
+    };
 
     this.toggleRequired = function(propertyName, previousState) {
 
@@ -38,6 +49,13 @@ export default function SchemaEditorCtrl() {
     this.deleteProperty = function deleteProperty(propertyName) {
         this.sgSchemaObject.deleteProperty(propertyName);
         delete this[propertyName];
+    };
+
+    /**
+     *
+     */
+    this.toggleAdvanced = (property) => {
+        this.state.advanced[property] = !this.state.advanced[property];
     };
 
 }

@@ -123,11 +123,25 @@
             <i class="material-icons">delete</i>
           </md-button>
         </div>
-        <div ng-show="pValue.type === 'array'">
-            <sg-dropdown
-                    sg-label="Type"
-                    ng-model="pValue.item.type" sg-default-option="Array Items Type" sg-choices="schema.itemsType">
-            </sg-dropdown>
+        <div ng-show="pValue.type === 'array'" flex layout="column">
+            <span class="md-title"> Items </span>
+            <div flex layout="column" class="child-container">
+                <div flex layout="row" xs-layout="column" layout-align="center center">
+                    <sg-dropdown flex="50"
+                            sg-label="Type"
+                            ng-model="pValue.items.type" sg-default-option="Array Items Type" sg-choices="schema.itemTypes">
+                    </sg-dropdown>
+                    <!--<md-input-container flex="50">-->
+                        <!--<label>$ref</label>-->
+                        <input flex="50" type="text" placeholder="$ref" name="item-$ref" ng-model="schema.items.$ref">
+                    <!--</md-input-container>-->
+                </div>
+                <md-button flex layout-align="start none"" ng-click="schema.toggleAdvanced('items');"> Show Advanced</md-button>
+                <div class="advanced" ng-show="schema.state.advanced.items">
+                    Poop!
+                </div>
+            </div>
+            
         </div>
       </div>
     </li>
