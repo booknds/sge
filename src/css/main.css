@@ -111,7 +111,8 @@
 }
 
 .advanced {
-    background-color: rgba(158,158,158,0.2);
+    /*background-color: rgba(158,158,158,0.2);*/
+    /*border-top: solid 1px black;*/
     margin-left: 0.5rem;
     margin-right:0.5rem;
 }

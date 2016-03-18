@@ -15,6 +15,10 @@ export default function SchemaEditorCtrl() {
     this.state = {
         advanced: {
             items: false
+        },
+        items: {
+            advanced: false,
+            advancedPropVal: null
         }
     };
 
@@ -51,11 +55,18 @@ export default function SchemaEditorCtrl() {
         delete this[propertyName];
     };
 
-    /**
-     *
-     */
     this.toggleAdvanced = (property) => {
         this.state.advanced[property] = !this.state.advanced[property];
+    };
+
+    this.updateItemAdvancedProp = (property, key, value) => {
+        debugger;
+        this.sgSchemaObject.properties.items[key] = value;
+    };
+
+    this.removeItemAdvancedProp = (key) => {
+        debugger;
+        delete this.sgSchemaObject.properties.items[key];
     };
 
 }

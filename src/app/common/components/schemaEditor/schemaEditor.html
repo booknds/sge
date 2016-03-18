@@ -126,19 +126,42 @@
         <div ng-show="pValue.type === 'array'" flex layout="column">
             <span class="md-title"> Items </span>
             <div flex layout="column" class="child-container">
-                <div flex layout="row" xs-layout="column" layout-align="center center">
+                <div flex layout="row" layout-xs="column" layout-align="center center">
                     <sg-dropdown flex="50"
                             sg-label="Type"
                             ng-model="pValue.items.type" sg-default-option="Array Items Type" sg-choices="schema.itemTypes">
                     </sg-dropdown>
                     <!--<md-input-container flex="50">-->
                         <!--<label>$ref</label>-->
-                        <input flex="50" type="text" placeholder="$ref" name="item-$ref" ng-model="schema.items.$ref">
+                        <input flex="50" type="text" placeholder="$ref" name="item-$ref" ng-model="pValue.items.$ref">
                     <!--</md-input-container>-->
                 </div>
                 <md-button flex layout-align="start none"" ng-click="schema.toggleAdvanced('items');"> Show Advanced</md-button>
-                <div class="advanced" ng-show="schema.state.advanced.items">
-                    Poop!
+                <div class="advanced" flex layout="column" ng-show="schema.state.advanced.items">
+                    <div flex layout="row" layout-xs="column" layout-align="center center">
+                        <sg-dropdown
+                            flex="40" 
+                            sg-label="Advanced Properties"
+                                ng-model="temp.items.advancedProp" sg-default-option="Advanced Properties" sg-choices="schema.itemsConfig.advancedProps">
+                        </sg-dropdown>
+                        <input flex="40" 
+                            placeholder="advancedproperty value"
+                            type="text"
+                            ng-model="schema.state.items.advancedPropVal">
+                        <md-button flex="20" layout-align="center center" ng-click="schema.updateItemAdvancedProp(pValue, temp.items.advancedProp, schema.state.items.advancedPropVal);">
+                            <i class="material-icons"> add</i>
+                        </md-button>
+                        <div ng-show="" flex layout="column">
+                            <div flex layout="row" layout-xs="column"
+                                ng-repeat="prop in pValue.items" 
+                                ng-if="prop !== '$ref' && prop !== 'type'">
+                                <span>{{prop}}</span>
+                                <md-button ng-click="schema.removeItemAdvancedProp(prop);">
+                                    <i class="material-icons"> delete </i>
+                                </md-button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
