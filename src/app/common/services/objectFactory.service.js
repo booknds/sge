@@ -60,14 +60,15 @@ export default function ObjectFactory($window, UtilitiesService) {
     let Schema = {
         init: function(title, description, type) {
             this.$ref = null;
-            this.format = null;
+            // this.format = null;
             this.title = title || null;
             this.description = description || null;
             this.required = [];
-            this.enum = [];
+            // this.enum = null;
             this.type = type || null;
             this.properties = {};
             this.items = {};
+            this.allOf = [];
         },
 
         setSchema: function setSchema(schema) {

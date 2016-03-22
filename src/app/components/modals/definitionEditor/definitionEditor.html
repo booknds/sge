@@ -11,24 +11,22 @@
     <md-dialog-content>
 
         <div class="md-dialog-content" style="display:flex flex-direction:column;">
-            <form name="editDefinition">
-              <md-input-container >
-                  <label>Name</label>
-                  <input
-                      ng-model="definitionEditor.tempDefinition.name"
-                      name="name"
-                      type="text"
-                      required>
-                  <div ng-if="editDefinition.name.$dirty">
-                      <div  ng-messages="editDefinition.name.$error" role="alert" >
-                          <div ng-message="required">
-                              Definition name required.
-                          </div>
-                      </div>
-                  </div>
-              </md-input-container>
-          </form>
-          <sg-schema-editor sg-schema-object="definitionEditor.tempDefinition.value" sg-restrict-type-to-object="true"></sg-schema-editor>
+            <md-input-container >
+                <label>Name</label>
+                <input
+                    ng-model="definitionEditor.tempDefinition.name"
+                    name="name"
+                    type="text"
+                    required>
+                <div ng-if="editDefinition.name.$dirty">
+                    <div  ng-messages="editDefinition.name.$error" role="alert" >
+                        <div ng-message="required">
+                            Definition name required.
+                        </div>
+                    </div>
+                </div>
+            </md-input-container>
+            <sg-schema-editor sg-schema-object="definitionEditor.tempDefinition.value" sg-restrict-type-to-object="true"></sg-schema-editor>
         </div>
 
     </md-dialog-content>

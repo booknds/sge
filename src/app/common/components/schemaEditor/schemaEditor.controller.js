@@ -1,6 +1,8 @@
+// const ObjectFactory = require("../../services/objectFactory.service.js")();
+
 /**
  */
-export default function SchemaEditorCtrl() {
+export default function SchemaEditorCtrl(ObjectFactory) {
 
     this.newProperty = {};
     this.formats = ["int32", "int64", "float", "double", "string", "byte", "binary", "boolean", "date", "date-time", "password", "email", "uuid"];
@@ -9,16 +11,19 @@ export default function SchemaEditorCtrl() {
 
     this.itemsConfig = {
         types: [ "string", "number", "integer", "boolean"],
-        advancedProps: ["maximum", "minimum", "exclusiveMaximum", "exclusiveMinimum", "maxLength", "minLength", "pattern", "maxItems", "minItems", "uniqueItems", "enum", "multipleOf"]
+        advancedProps: ["format", "maximum", "minimum", "exclusiveMaximum", "exclusiveMinimum", "maxLength", "minLength", "pattern", "maxItems", "minItems", "uniqueItems", "enum", "multipleOf"]
+    };
+
+    this.definitionConfig = {
+        advancedProp: ["allOf"]
     };
 
     this.state = {
-        advanced: {
-            items: false
+        show: {
+            advanced: false
         },
-        items: {
-            advanced: false,
-            advancedPropVal: null
+        advancedProps: {
+            allOf: false
         }
     };
 
@@ -48,6 +53,7 @@ export default function SchemaEditorCtrl() {
     this.addProperty = function addProperty(propertyName) {
         this.sgSchemaObject.addProperty(propertyName);
         this.newProperty.name = "";
+        initState.call(this, propertyName);
     };
 
     this.deleteProperty = function deleteProperty(propertyName) {
@@ -55,18 +61,63 @@ export default function SchemaEditorCtrl() {
         delete this[propertyName];
     };
 
-    this.toggleAdvanced = (property) => {
-        this.state.advanced[property] = !this.state.advanced[property];
+    this.toggleAdvancedOptions = () => {
+        this.state.show.advanced = !this.state.show.advanced;
+    };
+
+    this.addAllOf = () => {
+        this.sgSchemaObject.allOf.push(ObjectFactory.newSchema());
+    };
+
+    this.toggleAdvanced = (property, option) => {
+        this.state[property].show.advanced[option] = !this.state[property].show.advanced[option];
     };
 
     this.updateItemAdvancedProp = (property, key, value) => {
-        debugger;
-        this.sgSchemaObject.properties.items[key] = value;
+        property.items[key] = value;
     };
 
-    this.removeItemAdvancedProp = (key) => {
-        debugger;
-        delete this.sgSchemaObject.properties.items[key];
+    this.removeItemAdvancedProp = (property, key) => {
+        delete property.items[key];
     };
+
+    this.updateProperty = (property, key, value) => {
+        debugger;
+        if (key === "enum" ) {
+            property.enum = [];
+            value.split(",").forEach((item) => {
+                property.enum.push(item);
+            });
+        } else {
+            property[key] = value;
+        }
+    };
+    this.removeAdvancedProp = (property, key) => {
+        delete property[key];
+    };
+
+    /**
+     *
+     */
+    function initState(propertyName) {
+        this.state[propertyName] = {
+            show: {
+                advanced: {
+                    items: false,
+                    property: false
+                }
+            },
+            items: {
+                advancedProp: null,
+                advancedPropVal: null,
+                advancedPropOptions: ["format", "maximum", "minimum", "exclusiveMaximum", "exclusiveMinimum", "maxLength", "minLength", "pattern", "maxItems", "minItems", "uniqueItems", "enum", "multipleOf"]
+            },
+            additionalProps: {
+                advancedProp: null,
+                advancedPropVal: null,
+                advancedPropOptions: ["format", "maximum", "minimum", "exclusiveMaximum", "exclusiveMinimum", "maxLength", "minLength", "pattern", "maxItems", "minItems", "uniqueItems", "enum", "multipleOf"]
+            }
+        };
+    }
 
 }
