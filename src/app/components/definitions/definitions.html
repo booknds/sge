@@ -1,7 +1,5 @@
-<div class="section" ng-cloak>
-  <div class="row">
-    <div class="col s12 m7" style="margin-left:2.33%;">
-      <div class="card">
+<div style="margin-left:2.33%;" ng-cloak>
+    <div class="card">
         <md-toolbar style="background-color:#3F1C3E;">
           <div class="md-toolbar-tools" style="display:flex; justify-content:space-between;">
             <h2>
@@ -10,23 +8,40 @@
             <div style="margin-top: 55px;" class="right-align">
               <a style="background-color:#70326E"
                   class="btn-floating btn-large waves-effect waves-light"
-                  ng-click="defControl.showDefinitionCreator($event)">
+                  ng-click="$ctrl.showDefinitionCreator($event)">
               <i class="material-icons">add</i>
               </a>
             </div>
           </div>
         </md-toolbar>
-        <div class="card-content">
-          <div class="row ">
+        <div class="card-content" style="display:flex; flex-flow: column nowrap;">
             <ul class="collapsible popout col s12" data-collapsible="accordion" watch>
-              <li class="" ng-repeat="(definition, defValue) in defControl.definitions" >
+              <li class="" ng-repeat="(definition, defValue) in $ctrl.definitions" >
                 <div class="collapsible-header" style="color:white; background-color:#444C35;">
                   {{definition}}
                 </div>
-                  <div class="collapsible-body">
-                    <div class="section">
-                      <span class="card-title col s12">Attributes</span>
-                      <div class="input-field col s4 ">
+                <div class="collapsible-body" style="display:flex; flex-flow: column nowrap; padding-left:15px; padding-right:15px;">
+                    <div style="display: flex; flex-flow: row nowrap; align-items: center; justify-content: space-between;">
+                        <span class="md-headline"> Definition Information</span>
+                        <div style="display:flex; flex-flow: row nowrap; align-items: center; justify-content: flex-end;">
+                            <md-button style="display:flex; align-items: center; justify-content: center;" ng-click="$ctrl.showDefinitionEditor($event, definition, defValue)">
+                                <i class="material-icons">settings</i>
+                                <md-tooltip md-direction="bottom">
+                                  Edit Definition
+                                </md-tooltip>
+                            </md-button>
+                            <md-button style="display:flex; align-items: center; justify-content: center;" ng-click="$ctrl.deleteDefinition(definition);">
+                                <i class="material-icons">delete</i>
+                                <md-tooltip md-direction="bottom">
+                                  Delete Definition
+                                </md-tooltip>
+                            </md-button>
+                        </div>
+
+                    </div>
+                    <div style="display:flex; flex-flow: row nowrap; justify-content:space-between;">
+
+                      <div>
                         <input class=""
                           type="text"
                           placeholder="Some information about the Definition"
@@ -34,11 +49,11 @@
                           disabled>
                         <label class=" active">Description</label>
                       </div>
-                      <div class="input-field col s4 ">
+                      <div>
                         <input class="" type="text" ng-model="defValue.type" disabled>
                         <label class="">Type</label>
                       </div>
-                      <div class="input-field col s4 ">
+                      <div>
                         <input class="" type="text" placeholder="" ng-model="defValue.required" disabled>
                         <label class="">Required</label>
                       </div>
@@ -48,7 +63,7 @@
                       <table class="section bordered responsive-table">
                         <thead>
                           <tr>
-                            <th ng-repeat="header in defControl.headers"
+                            <th ng-repeat="header in $ctrl.headers"
                               ng-attr-data-field="{{header}}">{{header}}</th>
                           </tr>
                         </thead>
@@ -66,34 +81,9 @@
                         </tbody>
                       </table>
                     </div>
-                    <div class="row">
-                      <div class="col s6">
-                        <button tooltipped
-                          class="btn-flat"
-                          data-position="top"
-                          data-delay="50"
-                          data-tooltip="Delete Definition"
-                          ng-click="defControl.deleteDefinition(definition);">
-                        <i class="material-icons">delete</i>
-                        </button>
-                      </div>
-                      <div class="col s6 ">
-                        <!-- <button class="btn-flat"
-                          href="#definition-editor-modal"
-                          ng-click="defControl.initDefinitionEditorModal(definition, defValue)"
-                          modal>
-                        <i class="material-icons">settings</i>
-                        </button> -->
-                        <md-button ng-click="defControl.showDefinitionEditor($event, definition, defValue)">
-                          <i class="material-icons">settings</i>
-                        </md-button>
-                      </div>
-                    </div>
                 </div>
               </li>
             </ul>
-        </div>
-      </div>
+
     </div>
-  </div>
 </div>

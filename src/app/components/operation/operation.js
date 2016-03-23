@@ -2,6 +2,6 @@ import OperationComponent from "./operation.component";
 
 export default angular
     .module("OperationModule", [])
-    .directive("sgOperation", OperationComponent);
+    .component("sgOperation", OperationComponent);
 
 // export default OperationModule;

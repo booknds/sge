@@ -48,7 +48,7 @@ function DefinitionsCtrl($document, $window, ds, $mdDialog) {
     this.showDefinitionEditor = function(ev, definitionName, definitionValue) {
 
         // var useFullScreen = ($mdMedia("sm") || $mdMedia("xs")) && $scope.customFullscreen,
-
+        // debugger;
         var originalDefinition = {
                 name: definitionName,
                 value: definitionValue

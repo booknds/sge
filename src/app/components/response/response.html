@@ -9,13 +9,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="(responseCode, response) in responseControl.sgContext ">
+    <tr ng-repeat="(responseCode, response) in $ctrl.operationObj ">
       <div >
         <td>{{responseCode}}</td>
         <td class="shrink">{{response.description}}</td>
         <td class="shrink">{{response.schema | removeEmpty}}</td>
         <td>
-          <a class="disabled" ng-click="responseControl.showResponseEditor($event, responseCode)">
+          <a class="disabled" ng-click="$ctrl.showResponseEditor($event, responseCode)">
           <i class="material-icons">settings</i>
           </a>
         </td>
@@ -28,7 +28,7 @@
         <md-input-container style="flex-grow:1;">
             <label>Http Code</label>
             <input
-                ng-model="responseControl.newResponseData[responseControl.sgThisOperation].httpCode"
+                ng-model="$ctrl.newResponseData[$ctrl.operationType].httpCode"
                 ng-pattern="/^(Default|default)?([0-9]+)?$/"
                 name="code"
                 type="text"
@@ -45,7 +45,7 @@
         <md-input-container style="flex-grow:1;">
             <label>Code Description</label>
             <input
-                ng-model="responseControl.newResponseData[responseControl.sgThisOperation].description"
+                ng-model="$ctrl.newResponseData[$ctrl.operationType].description"
                 name="description"
                 type="text"
                 required>
@@ -58,9 +58,9 @@
             </div>
         </md-input-container>
         <div style="display:flex; align-items: flex-start; margin-top: 20px;">
-            <md-button
+            <md-button ng-disabled="addResponse.$invalid"
               style="display: flex; align-items: center; justify-content: center;"
-              ng-click="addResponse.$valid && responseControl.addResponse(responseControl.newResponseData[responseControl.sgThisOperation].httpCode, responseControl.newResponseData[responseControl.sgThisOperation].description)">
+              ng-click="addResponse.$valid && $ctrl.addResponse($ctrl.newResponseData[$ctrl.operationType].httpCode, $ctrl.newResponseData[$ctrl.operationType].description)">
               <i class="material-icons">add</i>
               <md-tooltip>
                   Add Response

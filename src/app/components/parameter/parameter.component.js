@@ -3,17 +3,11 @@ import controller from "./parameter.controller";
 
 /**
  */
-export default function parameterComponent() {
-    return {
-        template,
-        restrict: "E",
-        scope: {},
-        bindToController: {
-            sgContext: "=",
-            sgThisOperation: "@"
-        },
-        // replace: true,
-        controller,
-        controllerAs: "paramControl"
-    };
-}
+export default {
+    template,
+    bindings: {
+        operationObj: "=",
+        operationType: "@"
+    },
+    controller
+};

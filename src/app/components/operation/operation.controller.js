@@ -13,7 +13,7 @@ export default function OperationCtrl() {
       * @type {Function}
      **/
     this.addType = function addEvent(list, type) {
-        this.sgOperationObject.addType(list, type);
+        this.operationObj.addType(list, type);
 
     }.bind(this);
 
@@ -23,7 +23,7 @@ export default function OperationCtrl() {
       * @type {Function}
      **/
     this.removeType = function removeEvent(list, type) {
-        this.sgOperationObject.removeType(list, type);
+        this.operationObj.removeType(list, type);
 
     }.bind(this);
 

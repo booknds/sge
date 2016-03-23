@@ -1,14 +1,11 @@
-import template from "./main.html";
-import controller from "./main.controller";
-
 /**
  */
-export default function mainComponent() {
-    return {
-        template,
-        restrict: "E",
-        // replace: true,
-        controller,
-        controllerAs: "compilerController"
-    };
-}
+export default {
+    template: [
+        "<main style='display: flex; flex-flow: column nowrap; max-width: 60%;'>",
+        "<sg-info></sg-info>",
+        "<sg-path></sg-path>",
+        "<sg-definitions></sg-defintions>",
+        "</main>"
+    ].join("")
+};

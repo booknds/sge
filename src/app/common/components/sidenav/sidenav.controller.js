@@ -1,5 +1,9 @@
-import template from "../../../components/modals/saveFile/saveFile.html";
-import controller from "../../../components/modals/saveFile/saveFile.controller.js";
+import saveLocalTemplate from "../../../components/modals/saveFile/saveFile.html";
+import saveLocalcontroller from "../../../components/modals/saveFile/saveFile.controller.js";
+import swaggerHubOpenTemplate from "../../../components/modals/openFromSwaggerHub/openFromSwaggerHub.html";
+import swaggerHubOpenController from "../../../components/modals/openFromSwaggerHub/openFromSwaggerHub.controller.js";
+import swaggerHubSaveTemplate from "../../../components/modals/saveToSwaggerHub/saveToSwaggerHub.html";
+import swaggerHubSaveController from "../../../components/modals/saveToSwaggerHub/saveToSwaggerHub.controller.js";
 
 let sideNavArray = ["$scope", "$element", "$timeout", "CompilerService", "$mdDialog", "$document", SidenavCtrl];
 
@@ -9,41 +13,41 @@ export default sideNavArray;
  */
 function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
 
-    this.sideNavContent = {
+    this.content = {
         open: [
             {
                 title: "From Local",
-                function: this.openFile
+                op: openFile
             },
             {
                 title: "From SwaggerHub",
-                function: this.openFile
+                op: swaggerHubOpen
             }
         ],
         save: [
             {
                 title: "To Local",
-                function: this.download
+                op: downloadLocal
             },
             {
                 title: "To SwaggerHub",
-                function: this.download
+                op: swaggerHubSave
             }
         ]
     };
 
-    this.compiledDocument = cs.compiled;
+    this.show = {
+        open: false,
+        save: false
+    };
 
-    // this.pickedFile = "";
-
-    this.openFile = function openFile() {
+    this.toggleDropdown = function toggleDropdown(key) {
         // debugger;
-        let opener = $element.find("#file-input");
+        this.show[key] = !this.show[key];
+    };
 
-        $timeout(function() {
-            opener.click();
-        });
-
+    this.isOpenLocal = function isOpenLocal(key, title) {
+        return (key === "open" && title === "From Local");
     };
 
     this.onChange = function onChangeHandler(event) {
@@ -77,11 +81,6 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
 
     }.bind(this);
 
-
-    this.recompile = function recompile() {
-        cs.recompile();
-    };
-
     // this.download = function download(text) {
     //     this.compiledDocument = cs.compiled;
     //     this.recompile();
@@ -95,14 +94,14 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
     //     var data = new Blob([angular.toJson(text, true)], { type: "application/json" });
     //     FileSaver.saveAs(data, "swagger.json");
     // };
-    this.download = function(ev) {
+    /**
+     */
+    function downloadLocal(ev) {
 
         var dialogeContext = {
-            controller,
+            controller: saveLocalcontroller,
             controllerAs: "$ctrl",
-            locals: {},
-            bindToController: true,
-            template,
+            template: saveLocalTemplate,
             parent: angular.element($document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
@@ -120,5 +119,62 @@ function SidenavCtrl($scope, $element, $timeout, cs, $mdDialog, $document) {
         // }, function(wantsFullScreen) {
         //     $scope.customFullscreen = (wantsFullScreen === true);
         // });
-    };
+    }
+
+    /**
+     */
+    function swaggerHubOpen(ev) {
+
+        var dialogeContext = {
+            template: swaggerHubOpenTemplate,
+            controllerAs: "$ctrl",
+            controller: swaggerHubOpenController,
+            parent: angular.element($document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: true // useFullScreen
+        };
+
+        $mdDialog
+            .show(dialogeContext)
+            .then(function() {
+            }, function() {
+            });
+
+    }
+
+    /**
+     */
+    function swaggerHubSave(ev) {
+
+        var dialogeContext = {
+            template: swaggerHubSaveTemplate,
+            controllerAs: "$ctrl",
+            controller: swaggerHubSaveController,
+            parent: angular.element($document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: true // useFullScreen
+        };
+
+        $mdDialog
+            .show(dialogeContext)
+            .then(function() {
+            }, function() {
+            });
+
+    }
+
+    /**
+     */
+    function openFile() {
+        // debugger;
+        let opener = $element.find("#file-input");
+
+        $timeout(function() {
+            opener.click();
+        });
+
+    }
+
 }

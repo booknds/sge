@@ -1,6 +1,6 @@
 <div class="md-dialog-container" style="top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;">
   <md-dialog aria-label="Edit Response" style="width:50%;" ng-cloak>
-    
+
     <md-toolbar style="background-color:#3F1C3E;">
       <div class="md-toolbar-tools">
         <h2>Edit Definition</h2>
@@ -9,27 +9,26 @@
       </div>
     </md-toolbar>
     <md-dialog-content>
-      <form name="editDefinition">
-        <div class="md-dialog-content" style="display:flex flex-direction:column;">
-          <md-input-container >
-              <label>Name</label>
-              <input
-                  ng-model="definitionEditor.tempDefinition.name"
-                  name="name"
-                  type="text"
-                  required>
-              <div ng-if="editDefinition.name.$dirty">
-                  <div  ng-messages="editDefinition.name.$error" role="alert" >
-                      <div ng-message="required">
-                          Definition name required.
-                      </div>
-                  </div>
-              </div>
-          </md-input-container>
 
-          <sg-schema-editor sg-schema-object="definitionEditor.tempDefinition.value" sg-restrict-type-to-object="true"></sg-schema-editor>
+        <div class="md-dialog-content" style="display:flex flex-direction:column;">
+            <md-input-container >
+                <label>Name</label>
+                <input
+                    ng-model="definitionEditor.tempDefinition.name"
+                    name="name"
+                    type="text"
+                    required>
+                <div ng-if="editDefinition.name.$dirty">
+                    <div  ng-messages="editDefinition.name.$error" role="alert" >
+                        <div ng-message="required">
+                            Definition name required.
+                        </div>
+                    </div>
+                </div>
+            </md-input-container>
+            <sg-schema-editor sg-schema-object="definitionEditor.tempDefinition.value" sg-restrict-type-to-object="true"></sg-schema-editor>
         </div>
-      </form>
+
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
@@ -40,6 +39,6 @@
         Update
       </md-button>
     </md-dialog-actions>
-    
+
   </md-dialog>
 </div>

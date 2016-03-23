@@ -43,7 +43,7 @@ export function DefinitionsService(ObjectFactory, UtilitiesService) {
      * Removes all definition keys from the list
      */
     function clearDefinitions() {
-        for (var key in definitions) {
+        for (let key in definitions) {
             if (definitions.hasOwnProperty(key)) {
                 delete definitions[key];
             }
@@ -62,7 +62,7 @@ export function DefinitionsService(ObjectFactory, UtilitiesService) {
             uValue = updatedDefinition.value;
 
         if (oName === uName) {
-            var definitionToUpdate = definitions[oName];
+            let definitionToUpdate = definitions[oName];
 
             for (var defKey in definitionToUpdate) {
                 if (definitionToUpdate.hasOwnProperty(defKey)) {
@@ -81,7 +81,7 @@ export function DefinitionsService(ObjectFactory, UtilitiesService) {
 
                 addDefinition(uName);
 
-                var currentDefinition = definitions[uName];
+                let currentDefinition = definitions[uName];
 
                 for (var key in currentDefinition) {
                     if (currentDefinition.hasOwnProperty(key)) {
@@ -109,10 +109,10 @@ export function DefinitionsService(ObjectFactory, UtilitiesService) {
      * @param {object} newDefinitions - a list of definitions
      */
     function setDefinitions(newDefinitions) {
-        for (var definition in newDefinitions) {
+        for (let definition in newDefinitions) {
             if (newDefinitions.hasOwnProperty(definition)) {
                 definitions[definition] = ObjectFactory.newSchema();
-                definitions[definition].setSchema(definitions[definition]);
+                definitions[definition].setSchema(newDefinitions[definition]);
             }
         }
     }
