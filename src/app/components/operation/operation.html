@@ -18,58 +18,87 @@
     <sg-response operation-type="{{$ctrl.operationType}}" operation-obj="$ctrl.operationObj.responses"></sg-response>
 
     <div style="display:flex; flex-direction:column; justify-content:space-between;" >
-      <div style="display:flex; flex-direction:row; align-items: center;" >
-        <sg-dropdown sg-label="Produces" ng-model="$ctrl.produce" sg-choices="$ctrl.types.mime"></sg-dropdown>
-        <button  class="btn-flat waves-effect waves-white white valign" ng-click="$ctrl.addType('produces', $ctrl.produce);">
+      <div ng-hide="$ctrl.state.produce === 'create custom'" style="display:flex; flex-direction:row;" >
+        <sg-dropdown sg-label="Produces" ng-model="$ctrl.state.produce" sg-choices="$ctrl.types.mime"></sg-dropdown>
+        <button  class="btn-flat waves-effect waves-white white valign" ng-click="$ctrl.addType('produces', $ctrl.state.produce);">
           <i class="material-icons">add</i>
         </button>
-        <button class="btn-flat waves-effect waves-white white " ng-click="$ctrl.removeType('produces', $ctrl.produce);">
-          <i class="material-icons">delete</i>
-        </button>
+      </div>
+      <div ng-show="$ctrl.state.produce === 'create custom'">
+        <md-input-container style="display:flex; flex-direction:row-reverse;">
+          <input ng-model="$ctrl.state.customProduce" placeholder="Custom Produce Type">
+          <md-button class="md-primary" ng-click="$ctrl.reset(produces)">
+            <i class="material-icons">replay</i>
+            <md-tooltip md-direction="bottom">
+              Go Back
+            </md-tooltip>
+          </md-button>
+          <md-button class="md-primary" ng-click="$ctrl.addType('produces', $ctrl.state.customProduce, true);">
+            <i class="material-icons">add</i>
+            <md-tooltip md-direction="bottom">
+              Add Custom Produce
+            </md-tooltip>
+          </md-button>
+        </md-input-container>
       </div>
       <div ng-if="$ctrl.operationObj.produces.length > 0;" style="display:flex; flex-direction:row;">
-        <div style="display:flex; flex-direction:column; justify-content:flex-start" >
-          <ol>
-            <li ng-repeat="produce in $ctrl.operationObj.produces">
-              <span> {{ ' - ' + produce}} </span>
-            </li>
-          </ol>
+        <div style="display:flex; flex-direction:column; justify-content:flex-start; flex-grow:1;" >
+          <div ng-repeat="produce in $ctrl.operationObj.produces" style="display:flex; flex-direction:row; align-items: center;">
+            <md-button style="display:flex; justify-content: center;" class="md-primary" ng-click="$ctrl.removeType('produces', produce);">
+              <i class="material-icons">delete</i>
+            </md-button>
+            <span style="display:flex; flex-grow:1;"> {{ produce }} </span>
+          </div>
         </div>
       </div>
-      <div style="display:flex; flex-direction:row; align-items: center;">
-        <sg-dropdown sg-label="Consumes" ng-model="$ctrl.consume" sg-choices="$ctrl.types.mime"></sg-dropdown>
-        <button class="btn-flat waves-effect waves-white white" ng-click="$ctrl.addType('consumes', $ctrl.consume);">
+      <div ng-hide="$ctrl.state.consume === 'create custom'" style="display:flex; flex-direction:row;" >
+        <sg-dropdown sg-label="Consumes" ng-model="$ctrl.state.consume" sg-choices="$ctrl.types.mime"></sg-dropdown>
+        <button  class="btn-flat waves-effect waves-white white valign" ng-click="$ctrl.addType('consumes', $ctrl.state.consume);">
           <i class="material-icons">add</i>
         </button>
-        <button class="btn-flat waves-effect waves-white white " ng-click="$ctrl.removeType('consumes', $ctrl.consume);">
-          <i class="material-icons">delete</i>
-        </button>
+      </div>
+      <div ng-show="$ctrl.state.consume === 'create custom'">
+        <md-input-container style="display:flex; flex-direction:row-reverse;">
+          <input ng-model="$ctrl.state.customConsume" placeholder="Custom Consume Type">
+          <md-button class="md-primary" ng-click="$ctrl.reset('consumes')">
+            <i class="material-icons">replay</i>
+            <md-tooltip md-direction="bottom">
+              Go Back
+            </md-tooltip>
+          </md-button>
+          <md-button class="md-primary" ng-click="$ctrl.addType('consumes', $ctrl.state.customConsume, true);">
+            <i class="material-icons">add</i>
+            <md-tooltip md-direction="bottom">
+              Add Custom Consume
+            </md-tooltip>
+          </md-button>
+        </md-input-container>
       </div>
       <div ng-if="$ctrl.operationObj.consumes.length > 0;" style="display:flex; flex-direction:row;">
-        <div style="display:flex; flex-direction:column; justify-content:flex-start" >
-          <ol>
-            <li ng-repeat="consume in $ctrl.operationObj.consumes">
-              <span> {{ ' - ' + consume}} </span>
-            </li>
-          </ol>
+        <div style="display:flex; flex-direction:column; justify-content:flex-start; flex-grow:1;" >
+          <div ng-repeat="consume in $ctrl.operationObj.consumes" style="display:flex; flex-direction:row; align-items: center;">
+            <md-button style="display:flex; justify-content: center;" class="md-primary" ng-click="$ctrl.removeType('consumes', consume);">
+              <i class="material-icons">delete</i>
+            </md-button>
+            <span style="display:flex; flex-grow:1;"> {{ consume }} </span>
+          </div>
         </div>
       </div>
-      <div style="display:flex; flex-direction:row; align-items: center;">
-        <sg-dropdown sg-label="Schemes" ng-model="$ctrl.scheme" sg-choices="$ctrl.types.scheme"></sg-dropdown>
-        <button class="btn-flat waves-effect waves-white white" type="submit" name="action" ng-click="$ctrl.addType('schemes', $ctrl.scheme);">
+      <div style="display:flex; flex-direction:row;">
+        <sg-dropdown sg-label="Schemes" ng-model="$ctrl.state.scheme" sg-choices="$ctrl.types.scheme"></sg-dropdown>
+        <button class="btn-flat waves-effect waves-white white" type="submit" name="action" ng-click="$ctrl.addType('schemes', $ctrl.state.scheme);">
           <i class="material-icons" >add</i>
         </button>
-        <button class="btn-flat waves-effect waves-white white " ng-click="$ctrl.removeType('schemes', $ctrl.scheme);">
-          <i class="material-icons">delete</i>
-        </button>
       </div>
+
       <div ng-if="$ctrl.operationObj.schemes.length > 0;" style="display:flex; flex-direction:row;">
-        <div style="display:flex; flex-direction:column; justify-content:flex-start" >
-          <ol>
-            <li ng-repeat="scheme in $ctrl.operationObj.schemes">
-              <span> {{ ' - ' + scheme}} </span>
-            </li>
-          </ol>
+        <div style="display:flex; flex-direction:column; justify-content:flex-start; flex-grow:1;" >
+          <div ng-repeat="scheme in $ctrl.operationObj.schemes" style="display:flex; flex-direction:row; align-items: center;">
+            <md-button style="display:flex; justify-content: center;" class="md-primary" ng-click="$ctrl.removeType('schemes', scheme);">
+              <i class="material-icons">delete</i>
+            </md-button>
+            <span style="display:flex; flex-grow:1;"> {{ scheme }} </span>
+          </div>
         </div>
       </div>
     </div>
