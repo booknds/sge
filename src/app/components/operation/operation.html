@@ -1,88 +1,76 @@
-<li>
-  <div sg-operation-colorer-component sg-selector="background-color" sg-operation-colorer="{{operationCtl.sgOperationName}}" style="display:flex; justify-content:space-between; align-items: center;" class="collapsible-header white-text">
-    <div>
-        <i class="material-icons">filter_drama</i>{{ operationCtl.sgOperationName | uppercase }}
-    </div>
-    <div >
-      <ng-transclude ></ng-transclude>
-    </div>
-  </div>
-  <div class="collapsible-body" style="margin-left:2%; margin-right:2%;">
-      <div class="" style="display:flex; flex-direction:column;">
-        <md-input-container style="flex-grow:1;">
-            <label>Summary</label>
-            <input
-                ng-model="operationCtl.sgOperationObject.summary"
-                type="text">
-        </md-input-container>
-        <md-input-container style="flex-grow:1;">
-            <label>Description</label>
-            <textarea ng-model="operationCtl.sgOperationObject.description"
-            md-maxlength="150"
-            rows="3"
-            md-select-on-focus></textarea>
-        </md-input-container>
 
-        <sg-parameter sg-this-operation="{{operationCtl.sgOperationName}}" sg-context="operationCtl.sgOperationObject"></sg-parameter>
-        <sg-response sg-this-operation="{{operationCtl.sgOperationName}}" sg-context="operationCtl.sgOperationObject.responses"></sg-response>
+<div class="" style="display:flex; flex-direction:column;">
+    <md-input-container style="flex-grow:1;">
+        <label>Summary</label>
+        <input
+            ng-model="$ctrl.operationObj.summary"
+            type="text">
+    </md-input-container>
+    <md-input-container style="flex-grow:1;">
+        <label>Description</label>
+        <textarea ng-model="$ctrl.operationObj.description"
+        md-maxlength="150"
+        rows="3"
+        md-select-on-focus></textarea>
+    </md-input-container>
 
-        <div style="display:flex; flex-direction:column; justify-content:space-between;" >
-          <div style="display:flex; flex-direction:row; align-items: center;" >
-            <sg-dropdown sg-label="Produces" ng-model="operationCtl.produce" sg-choices="operationCtl.types.mime"></sg-dropdown>
-            <button  class="btn-flat waves-effect waves-white white valign" ng-click="operationCtl.addType('produces', operationCtl.produce);">
-              <i class="material-icons">add</i>
-            </button>
-            <button class="btn-flat waves-effect waves-white white " ng-click="operationCtl.removeType('produces', operationCtl.produce);">
-              <i class="material-icons">delete</i>
-            </button>
-          </div>
-          <div ng-if="operationCtl.sgOperationObject.produces.length > 0;" style="display:flex; flex-direction:row;">
-            <div style="display:flex; flex-direction:column; justify-content:flex-start" >
-              <ol>
-                <li ng-repeat="produce in operationCtl.sgOperationObject.produces"> 
-                  <span> {{ ' - ' + produce}} </span>
-                </li>
-              </ol>
-            </div>
-          </div>
-          <div style="display:flex; flex-direction:row; align-items: center;">
-            <sg-dropdown sg-label="Consumes" ng-model="operationCtl.consume" sg-choices="operationCtl.types.mime"></sg-dropdown>
-            <button class="btn-flat waves-effect waves-white white" ng-click="operationCtl.addType('consumes', operationCtl.consume);">
-              <i class="material-icons">add</i>
-            </button>
-            <button class="btn-flat waves-effect waves-white white " ng-click="operationCtl.removeType('consumes', operationCtl.consume);">
-              <i class="material-icons">delete</i>
-            </button>
-          </div>
-          <div ng-if="operationCtl.sgOperationObject.consumes.length > 0;" style="display:flex; flex-direction:row;">
-            <div style="display:flex; flex-direction:column; justify-content:flex-start" >
-              <ol>
-                <li ng-repeat="consume in operationCtl.sgOperationObject.consumes"> 
-                  <span> {{ ' - ' + consume}} </span>
-                </li>
-              </ol>
-            </div>
-          </div>
-          <div style="display:flex; flex-direction:row; align-items: center;">
-            <sg-dropdown sg-label="Schemes" ng-model="operationCtl.scheme" sg-choices="operationCtl.types.scheme"></sg-dropdown>
-            <button class="btn-flat waves-effect waves-white white" type="submit" name="action" ng-click="operationCtl.addType('schemes', operationCtl.scheme);">
-              <i class="material-icons" >add</i>
-            </button>
-            <button class="btn-flat waves-effect waves-white white " ng-click="operationCtl.removeType('schemes', operationCtl.scheme);">
-              <i class="material-icons">delete</i>
-            </button>
-          </div>
-          <div ng-if="operationCtl.sgOperationObject.schemes.length > 0;" style="display:flex; flex-direction:row;">
-            <div style="display:flex; flex-direction:column; justify-content:flex-start" >
-              <ol>
-                <li ng-repeat="scheme in operationCtl.sgOperationObject.schemes"> 
-                  <span> {{ ' - ' + scheme}} </span>
-                </li>
-              </ol>
-            </div>
-          </div>
+    <sg-parameter operation-type="{{$ctrl.operationType}}" operation-obj="$ctrl.operationObj"></sg-parameter>
+    <sg-response operation-type="{{$ctrl.operationType}}" operation-obj="$ctrl.operationObj.responses"></sg-response>
+
+    <div style="display:flex; flex-direction:column; justify-content:space-between;" >
+      <div style="display:flex; flex-direction:row; align-items: center;" >
+        <sg-dropdown sg-label="Produces" ng-model="$ctrl.produce" sg-choices="$ctrl.types.mime"></sg-dropdown>
+        <button  class="btn-flat waves-effect waves-white white valign" ng-click="$ctrl.addType('produces', $ctrl.produce);">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn-flat waves-effect waves-white white " ng-click="$ctrl.removeType('produces', $ctrl.produce);">
+          <i class="material-icons">delete</i>
+        </button>
+      </div>
+      <div ng-if="$ctrl.operationObj.produces.length > 0;" style="display:flex; flex-direction:row;">
+        <div style="display:flex; flex-direction:column; justify-content:flex-start" >
+          <ol>
+            <li ng-repeat="produce in $ctrl.operationObj.produces">
+              <span> {{ ' - ' + produce}} </span>
+            </li>
+          </ol>
         </div>
+      </div>
+      <div style="display:flex; flex-direction:row; align-items: center;">
+        <sg-dropdown sg-label="Consumes" ng-model="$ctrl.consume" sg-choices="$ctrl.types.mime"></sg-dropdown>
+        <button class="btn-flat waves-effect waves-white white" ng-click="$ctrl.addType('consumes', $ctrl.consume);">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn-flat waves-effect waves-white white " ng-click="$ctrl.removeType('consumes', $ctrl.consume);">
+          <i class="material-icons">delete</i>
+        </button>
+      </div>
+      <div ng-if="$ctrl.operationObj.consumes.length > 0;" style="display:flex; flex-direction:row;">
+        <div style="display:flex; flex-direction:column; justify-content:flex-start" >
+          <ol>
+            <li ng-repeat="consume in $ctrl.operationObj.consumes">
+              <span> {{ ' - ' + consume}} </span>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:row; align-items: center;">
+        <sg-dropdown sg-label="Schemes" ng-model="$ctrl.scheme" sg-choices="$ctrl.types.scheme"></sg-dropdown>
+        <button class="btn-flat waves-effect waves-white white" type="submit" name="action" ng-click="$ctrl.addType('schemes', $ctrl.scheme);">
+          <i class="material-icons" >add</i>
+        </button>
+        <button class="btn-flat waves-effect waves-white white " ng-click="$ctrl.removeType('schemes', $ctrl.scheme);">
+          <i class="material-icons">delete</i>
+        </button>
+      </div>
+      <div ng-if="$ctrl.operationObj.schemes.length > 0;" style="display:flex; flex-direction:row;">
+        <div style="display:flex; flex-direction:column; justify-content:flex-start" >
+          <ol>
+            <li ng-repeat="scheme in $ctrl.operationObj.schemes">
+              <span> {{ ' - ' + scheme}} </span>
+            </li>
+          </ol>
+        </div>
+      </div>
     </div>
-  </div>
-
-</li>
+</div>

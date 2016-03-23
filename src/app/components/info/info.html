@@ -1,12 +1,10 @@
-<div class="section" ng-cloak>
-  <div class="row">
+<div style="margin-left:2.33%;" ng-cloak>
     <form name="infoForm" >
-      <div class="col s12 m7" style="margin-left:2.33%;">
         <div class="card ">
           <md-toolbar style="background-color:#3F1C3E;">
             <div class="md-toolbar-tools">
               <h2>
-                <span>{{ basicInfo.sgBase.info.title + ' API'}}</span>
+                <span>{{ $ctrl.sgBase.info.title + ' API'}}</span>
               </h2>
 
             </div>
@@ -25,7 +23,7 @@
                                   <label>Title</label>
                                   <input
                                       type="text"
-                                      ng-model="basicInfo.sgBase.info.title"
+                                      ng-model="$ctrl.sgBase.info.title"
                                       name="apiName"
                                       required>
                                   <div ng-if="infoForm.apiName.$dirty">
@@ -40,7 +38,7 @@
                                   <label>Version</label>
                                   <input
                                       type="text"
-                                      ng-model="basicInfo.sgBase.info.version"
+                                      ng-model="$ctrl.sgBase.info.version"
                                       ng-pattern="/^([v]?)([0-9]+)((\.([0-9]+))*)?$/"
                                       name="version"
                                       required>
@@ -55,7 +53,7 @@
                           </div>
                           <md-input-container style="flex-grow:1;">
                               <label>Description</label>
-                              <textarea ng-model="basicInfo.sgBase.info.description"
+                              <textarea ng-model="$ctrl.sgBase.info.description"
                               md-maxlength="150"
                               rows="5"
                               md-select-on-focus></textarea>
@@ -65,13 +63,13 @@
                                   <label>Host</label>
                                   <input
                                       type="text"
-                                      ng-model="basicInfo.sgBase.host">
+                                      ng-model="$ctrl.sgBase.host">
                               </md-input-container>
                               <md-input-container style="flex-grow:1;">
                                   <label>Base Path</label>
                                   <input
                                       type="text"
-                                      ng-model="basicInfo.sgBase.basePath">
+                                      ng-model="$ctrl.sgBase.basePath">
                               </md-input-container>
                           </div>
                       </div>
@@ -84,19 +82,19 @@
                                     <label>Name</label>
                                     <input
                                         type="text"
-                                        ng-model="basicInfo.sgBase.info.contact.name">
+                                        ng-model="$ctrl.sgBase.info.contact.name">
                                 </md-input-container>
                                 <md-input-container style="flex-grow:1;">
                                     <label>Url</label>
                                     <input
                                         type="text"
-                                        ng-model="basicInfo.sgBase.info.contact.url">
+                                        ng-model="$ctrl.sgBase.info.contact.url">
                                 </md-input-container>
                                 <md-input-container style="flex-grow:1;">
                                     <label>eMail</label>
                                     <input
                                         type="text"
-                                        ng-model="basicInfo.sgBase.info.contact.email">
+                                        ng-model="$ctrl.sgBase.info.contact.email">
                                 </md-input-container>
                             </div>
                         </div>
@@ -104,14 +102,14 @@
                             <span class="card-title">License</span>
                             <div style="display:flex; flex-flow:row nowrap">
                                 <md-input-container
-                                    ng-if="basicInfo.sgBase.info.license.url"
+                                    ng-if="$ctrl.sgBase.info.license.url"
                                     style="flex-grow:1;"
                                     require>
                                     <label>Name</label>
                                     <input
                                         type="text"
                                         name="licenseUrl"
-                                        ng-model="basicInfo.sgBase.info.license.name">
+                                        ng-model="$ctrl.sgBase.info.license.name">
                                     <div ng-if="infoForm.licenseUrl.$dirty">
                                         <div ng-messages="infoForm.licenseUrl.$error" role="alert" >
                                             <div ng-message="required">
@@ -121,18 +119,18 @@
                                     </div>
                                 </md-input-container>
                                 <md-input-container
-                                    ng-if="!basicInfo.sgBase.info.license.url"
+                                    ng-if="!$ctrl.sgBase.info.license.url"
                                     style="flex-grow:1;">
                                     <label>Name</label>
                                     <input
                                         type="text"
-                                        ng-model="basicInfo.sgBase.info.license.name">
+                                        ng-model="$ctrl.sgBase.info.license.name">
                                 </md-input-container>
                                 <md-input-container style="flex-grow:1;">
                                     <label>Url</label>
                                     <input
                                         type="text"
-                                        ng-model="basicInfo.sgBase.info.license.url">
+                                        ng-model="$ctrl.sgBase.info.license.url">
                                 </md-input-container>
                             </div>
                         </div>
@@ -143,49 +141,49 @@
                 <span class="card-title">Types</span>
                 <div style="display:flex; flex-direction:column; justify-content:space-between;" >
                   <div style="display:flex; flex-direction:row;" >
-                    <sg-dropdown sg-label="Produces" ng-model="basicInfo.produce" sg-choices="basicInfo.types.mime"></sg-dropdown>
-                    <button  class="btn-flat waves-effect waves-white white valign" ng-click="basicInfo.addType('produces', basicInfo.produce);">
+                    <sg-dropdown sg-label="Produces" ng-model="$ctrl.produce" sg-choices="$ctrl.types.mime"></sg-dropdown>
+                    <button  class="btn-flat waves-effect waves-white white valign" ng-click="$ctrl.addType('produces', $ctrl.produce);">
                       <i class="material-icons">add</i>
                     </button>
-                    <button class="btn-flat waves-effect waves-white white " ng-click="basicInfo.removeType('produces', basicInfo.produce);">
+                    <button class="btn-flat waves-effect waves-white white " ng-click="$ctrl.removeType('produces', $ctrl.produce);">
                       <i class="material-icons">delete</i>
                     </button>
                   </div>
-                  <div ng-if="basicInfo.sgBase.produces.length > 0;" style="display:flex; flex-direction:row;">
+                  <div ng-if="$ctrl.sgBase.produces.length > 0;" style="display:flex; flex-direction:row;">
                     <div style="display:flex; flex-direction:column; justify-content:flex-start" >
-                      <div ng-repeat="produce in basicInfo.sgBase.produces">
+                      <div ng-repeat="produce in $ctrl.sgBase.produces">
                         <span> {{ '\t\t - ' + produce}} </span>
                       </div>
                     </div>
                   </div>
                   <div style="display:flex; flex-direction:row;">
-                    <sg-dropdown sg-label="Consumes" ng-model="basicInfo.consume" sg-choices="basicInfo.types.mime"></sg-dropdown>
-                    <button class="btn-flat waves-effect waves-white white" ng-click="basicInfo.addType('consumes', basicInfo.consume);">
+                    <sg-dropdown sg-label="Consumes" ng-model="$ctrl.consume" sg-choices="$ctrl.types.mime"></sg-dropdown>
+                    <button class="btn-flat waves-effect waves-white white" ng-click="$ctrl.addType('consumes', $ctrl.consume);">
                       <i class="material-icons">add</i>
                     </button>
-                    <button class="btn-flat waves-effect waves-white white " ng-click="basicInfo.removeType('consumes', basicInfo.consume);">
+                    <button class="btn-flat waves-effect waves-white white " ng-click="$ctrl.removeType('consumes', $ctrl.consume);">
                       <i class="material-icons">delete</i>
                     </button>
                   </div>
-                  <div ng-if="basicInfo.sgBase.consumes.length > 0;" style="display:flex; flex-direction:row;">
+                  <div ng-if="$ctrl.sgBase.consumes.length > 0;" style="display:flex; flex-direction:row;">
                     <div style="display:flex; flex-direction:column; justify-content:flex-start" >
-                      <div ng-repeat="consume in basicInfo.sgBase.consumes">
+                      <div ng-repeat="consume in $ctrl.sgBase.consumes">
                         <span> {{ '\t\t - ' + consume}} </span>
                       </div>
                     </div>
                   </div>
                   <div style="display:flex; flex-direction:row;">
-                    <sg-dropdown sg-label="Schemes" ng-model="basicInfo.scheme" sg-choices="basicInfo.types.scheme"></sg-dropdown>
-                    <button class="btn-flat waves-effect waves-white white" type="submit" name="action" ng-click="basicInfo.addType('schemes', basicInfo.scheme);">
+                    <sg-dropdown sg-label="Schemes" ng-model="$ctrl.scheme" sg-choices="$ctrl.types.scheme"></sg-dropdown>
+                    <button class="btn-flat waves-effect waves-white white" type="submit" name="action" ng-click="$ctrl.addType('schemes', $ctrl.scheme);">
                       <i class="material-icons" >add</i>
                     </button>
-                    <button class="btn-flat waves-effect waves-white white " ng-click="basicInfo.removeType('schemes', basicInfo.scheme);">
+                    <button class="btn-flat waves-effect waves-white white " ng-click="$ctrl.removeType('schemes', $ctrl.scheme);">
                       <i class="material-icons">delete</i>
                     </button>
                   </div>
-                  <div ng-if="basicInfo.sgBase.schemes.length > 0;" style="display:flex; flex-direction:row;">
+                  <div ng-if="$ctrl.sgBase.schemes.length > 0;" style="display:flex; flex-direction:row;">
                     <div style="display:flex; flex-direction:column; justify-content:flex-start" >
-                      <div ng-repeat="scheme in basicInfo.sgBase.schemes">
+                      <div ng-repeat="scheme in $ctrl.sgBase.schemes">
                         <span> {{ '\t\t - ' + scheme}} </span>
                       </div>
                     </div>
@@ -193,7 +191,7 @@
                 </div>
             </div>
           </div>
-        </div>
+
     </form>
-  </div>
+
 </div>

@@ -1,6 +1,6 @@
 /**
  */
-export default function ObjectFactory($log, $window, UtilitiesService) {
+export default function ObjectFactory($window, UtilitiesService) {
 
     let Path = {
         init: function() {
@@ -25,8 +25,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
         },
 
         setPath: function setPath(path) {
-            debugger;
-            for (var key in path) {
+            for (let key in path) {
                 if (path.hasOwnProperty(key)) {
                     this[key] = newOperation();
                     this[key].setOperation(path[key]);
@@ -44,7 +43,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
         },
 
         setResponse: function setReposne(newResponse) {
-            for (var key in newResponse) {
+            for (let key in newResponse) {
                 if (this.hasOwnProperty(key) && newResponse.hasOwnProperty(key)) {
                     if (key === "schema") {
                         this[key].setSchema(newResponse[key]);
@@ -61,14 +60,15 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
     let Schema = {
         init: function(title, description, type) {
             this.$ref = null;
-            this.format = null;
-            this.title = title || "";
-            this.description = description || "";
+            // this.format = null;
+            this.title = title || null;
+            this.description = description || null;
             this.required = [];
-            this.enum = [];
-            this.type = type || "";
+            // this.enum = null;
+            this.type = type || null;
             this.properties = {};
-            // this._isRequired
+            this.items = {};
+            this.allOf = [];
         },
 
         setSchema: function setSchema(schema) {
@@ -96,13 +96,11 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
                 delete this.properties[propertyName];
 
                 // delete from required if exists
-                var index = this.required.indexOf(propertyName);
+                let index = this.required.indexOf(propertyName);
                 if (index >= 0) {
                     this.required.splice(index, 1);
                 }
 
-            } else {
-                $log.log("Don't delete property");
             }
 
         },
@@ -112,7 +110,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
                 this.enum.push(enumItem);
 
             } else {
-                $log.warn("item already added");
+                console.warn("item already added");
                 UtilitiesService.toast("item already added", 3000);
 
             }
@@ -125,7 +123,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
             if (indexOfEnumItem >= 0) {
                 this.enum.splice(indexOfEnumItem, 1);
             } else {
-                $log.warn("item already added");
+                console.warn("item already added");
                 UtilitiesService.toast("item already added", 3000);
             }
         }
@@ -134,30 +132,71 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
     let Definitions = {
 
         addDefinition: function(definitionName, description, type) {
-            let temp = Object.create(Schema);
-            temp.init(definitionName, description, type);
-            this[definitionName] = temp;
+            if (this.hasOwnProperty(definitionName)) {
+                // throw "Cannot Add, Definition Already Exists";
+                console.warn("Cannot Add, Definition Already Exists");
+                UtilitiesService.toast("Cannot Add, Definition Already Exists", 3000);
+            } else {
+
+                this[definitionName] = newSchema(definitionName, description, type);
+            }
         },
 
         hasDefinition: function(definitionName) {
-            // if (this.hasOwnProperty(definitionName)){
-            //     return true;
-            // } else {
-            //     return false;
-            // }
             return this.hasOwnProperty(definitionName);
         },
 
         clearDefinitions: function() {
-            for (var key in this) {
+            for (let key in this) {
                 if (this.hasOwnProperty(key)) {
                     delete this[key];
                 }
             }
         },
 
+        updateDefinition: function(originalDefinition, updatedDefinition) {
+
+            let oName = originalDefinition.name,
+                // oValue = originalDefinition.value,
+                uName = updatedDefinition.name,
+                uValue = updatedDefinition.value;
+
+            if (oName === uName) {
+                var definitionToUpdate = this[oName];
+
+                for (var defKey in definitionToUpdate) {
+                    if (definitionToUpdate.hasOwnProperty(defKey)) {
+                        definitionToUpdate[defKey] = uValue[defKey];
+                    }
+                }
+
+            } else {
+
+                if (this.hasOwnProperty(uName)) {
+
+                    throw "Definition already exists, cannot change definition name.";
+
+                } else {
+
+                    this.addDefinition(uName);
+
+                    let currentDefinition = this[uName];
+
+                    for (var key in currentDefinition) {
+                        if (currentDefinition.hasOwnProperty(key)) {
+                            currentDefinition[key] = uValue[key];
+                        }
+                    }
+
+                    delete this[oName];
+
+                }
+            }
+
+        },
+
         setDefinitions: function(definitions) {
-            for (var definition in definitions) {
+            for (let definition in definitions) {
                 if (definitions.hasOwnProperty(definition)) {
                     this[definition] = Object.create(Schema);
                     this[definition].init(definition);
@@ -168,6 +207,10 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
 
         getDefinition: function(definitionName) {
             return this[definitionName];
+        },
+
+        deleteDefinition: function(definitionName) {
+            delete this[definitionName];
         }
     };
 
@@ -192,7 +235,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
         },
 
         setOperation: function setOperation(operation) {
-            for (var key in operation) {
+            for (let key in operation) {
                 if (this.hasOwnProperty(key) && operation.hasOwnProperty(key)) {
 
                     if (key === "responses") {
@@ -268,7 +311,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
         addType: function addType(listType, type) {
             // check if list exists
             if (listType !== "consumes" && listType !== "produces" && listType !== "schemes") {
-                $log.warn("List does not exist");
+                console.warn("List does not exist");
                 UtilitiesService.toast("List does not exist", 3000);
 
             }
@@ -280,12 +323,12 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
                     this[listType].push(type);
 
                 } else {
-                    $log.warn("Type already exists in this list");
+                    console.warn("Type already exists in this list");
                     UtilitiesService.toast("Type already exists in this list", 3000);
                 }
 
             } else {
-                $log.warn("Type not chosen!");
+                console.warn("Type not chosen!");
                 UtilitiesService.toast("Type not chosen!", 3000);
 
             }
@@ -294,7 +337,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
         removeType: function removeType(listType, type) {
             // check if list exists
             if (listType !== "consumes" && listType !== "produces" && listType !== "schemes") {
-                $log.warn("List does not exist");
+                console.warn("List does not exist");
                 UtilitiesService.toast("List does not exist", 3000);
             }
 
@@ -304,7 +347,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
                 this[listType].splice(index, 1);
 
             } else {
-                $log.warn("Type already deleted");
+                console.warn("Type already deleted");
                 UtilitiesService.toast("Type already deleted", 3000);
             }
         },
@@ -341,7 +384,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
         },
 
         setParameter: function setParameter(newParam) {
-            for (var key in newParam) {
+            for (let key in newParam) {
                 if (this.hasOwnProperty(key) && newParam.hasOwnProperty(key)) {
                     if (key === "schema") {
                         this[key].setSchema(newParam[key]);
@@ -379,7 +422,7 @@ export default function ObjectFactory($log, $window, UtilitiesService) {
     let Responses = {
 
         setResponses: function setResponses(responses) {
-            for (var httpCode in responses) {
+            for (let httpCode in responses) {
                 if (responses.hasOwnProperty(httpCode)) {
                     this[httpCode] = Object.create(Response);
                     this[httpCode].init();

@@ -3,12 +3,7 @@ import controller from "./paths.controller";
 
 /**
  */
-export default function pathComponent() {
-    return {
-        template,
-        restrict: "E",
-        // replace: true,
-        controller,
-        controllerAs: "pathCtl"
-    };
-}
+export default {
+    template,
+    controller
+};

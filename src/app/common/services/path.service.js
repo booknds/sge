@@ -11,11 +11,11 @@ function PathService($log, ObjectFactory, UtilitiesService) {
     this.paths = paths;
 
     this.setPaths = function(newPaths) {
-        debugger;
+        // debugger;
         // paths = angular.copy(newPaths);
         // this.paths = paths;
         // console.log(paths);
-        for (var key in newPaths) {
+        for (let key in newPaths) {
             if (newPaths.hasOwnProperty(key)) {
                 paths[key] = ObjectFactory.newPath();
                 // paths[key] = newPaths[key];
@@ -25,7 +25,7 @@ function PathService($log, ObjectFactory, UtilitiesService) {
     };
 
     this.clearPaths = function clearPaths() {
-        for (var key in paths) {
+        for (let key in paths) {
             if (paths.hasOwnProperty(key)) {
                 delete paths[key];
             }
@@ -92,7 +92,7 @@ function PathService($log, ObjectFactory, UtilitiesService) {
         Deletes an operation from a given service.
     */
     this.removeOperation = function(pathName, operation) {
-        debugger;
+        // debugger;
         paths[pathName].removeOperation(operation);
 
     };
@@ -114,7 +114,7 @@ function PathService($log, ObjectFactory, UtilitiesService) {
 
         if (!operation.hasParameter(paramName, paramIn)) {
 
-            var type = (inBody) ? null : paramType;
+            let type = (inBody) ? null : paramType;
             operation.addParameter(paramName, paramIn, type);
 
         } else {

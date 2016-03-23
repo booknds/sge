@@ -23,6 +23,21 @@ export default function schemaEditorComponent() {
 
             schema.required = {};
 
+            schema.state = {
+                show: {
+                    advanced: false
+                },
+                advancedProps: {
+                    allOf: false
+                }
+            };
+
+
+            let allOfNotEmpty = (schemaObj.allOf.length > 0);
+
+            schema.state.showadvanced = allOfNotEmpty;
+            schema.state.advancedProps.allOf = allOfNotEmpty;
+
             for (var property in properties) {
                 if (properties.hasOwnProperty(property)) {
                     schema.required[property] = (schemaObj.required.indexOf(property) >= 0);

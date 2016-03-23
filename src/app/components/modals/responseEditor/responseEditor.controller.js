@@ -1,10 +1,13 @@
+let ResponseEditorController = ["$mdDialog", ResponseModalCtrl];
+
+export default ResponseEditorController;
 
 /**
  */
 function ResponseModalCtrl($mdDialog) {
 
     this.updateResponse = function(newResponse) {
-        debugger;
+        // debugger;
         $mdDialog.hide(newResponse);
     };
 
@@ -18,7 +21,3 @@ function ResponseModalCtrl($mdDialog) {
 
 
 }
-
-let ResponseEditorController = ["$mdDialog", ResponseModalCtrl];
-
-export default ResponseEditorController;

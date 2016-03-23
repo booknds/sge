@@ -1,29 +1,21 @@
 
-let DefintionCreationController = ["$log", "UtilitiesService", "DefinitionsService", "$mdDialog", DefinitionCreationCtrl];
+let DefintionCreationController = ["DefinitionsService", "$mdDialog", DefinitionCreationCtrl];
 
 export default DefintionCreationController;
 
 /**
+ * The controller for the definition creator dialog
+ * @constructor
+ * @param {object} DefinitionService - Holds States and functions of Definitions
+ * @param {object} $mdDialog - Handles dialog interaction
  */
-function DefinitionCreationCtrl($log, UtilitiesService, ds, $mdDialog) {
-
-    // this.closeModal=false;
+export function DefinitionCreationCtrl(DefinitionService, $mdDialog) {
 
     this.newDefinition = setNewDefinition();
 
     this.addDefinition = function(definitionName, description) {
 
-        debugger;
-        // try {
-        //     // debugger;
-        //     ds.addDefinition.call(ds, definitionName, description, "object");
-        // } catch (e) {
-        //     $log.log(e);
-        //     UtilitiesService.toast(e, 3000);
-        // }
-        // this.closeModal = true;
-
-        ds.addDefinition.call(ds, definitionName, description, "object");
+        DefinitionService.addDefinition(definitionName, description, "object");
         this.newDefinition = setNewDefinition();
         $mdDialog.hide("added definition");
 
@@ -34,6 +26,8 @@ function DefinitionCreationCtrl($log, UtilitiesService, ds, $mdDialog) {
     };
 
     /**
+     * Returns a new state for the controller inputs
+     * @returns {object} - a fresh state
      */
     function setNewDefinition() {
         return {

@@ -1,0 +1,43 @@
+<div class="md-dialog-container" style="top: 0px; height: 726px; min-width: 240px; max-width: 80%; max-height: 80%;">
+  <md-dialog aria-label="New Path" style="width:30%;" ng-cloak>
+    <form name="saveFile">
+      <md-toolbar style="background-color:#3F1C3E;">
+        <div class="md-toolbar-tools">
+          <h2>Save File</h2>
+          <span flex></span>
+        </div>
+      </md-toolbar>
+      <md-dialog-content>
+        <div class="md-dialog-content">
+          <div style="display: flex; flex-direction:row; align-items:center; " >
+            <!-- <div class="input-field col s12 "> -->
+            <md-input-container style="display:flex; flex-grow:1;">
+              <label>Title</label>
+              <input  type="text"
+                      name="fileName"
+                      ng-model="$ctrl.fileData.name"
+                      required>
+              <!-- <div ng-messages="addPathForm.pathName.$error" role="alert" >
+                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                  Your Path must be between 3 and 45 characters long and must start with a '/' (forward slash).
+                </div>
+              </div> -->
+            </md-input-container>
+            <span>
+                .json
+            </span>
+          </div>
+        </div>
+      </md-dialog-content>
+      <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="$ctrl.cancel()">
+         Cancel
+        </md-button>
+        <md-button ng-disabled="saveFile.fileName.$invalid" ng-click="$ctrl.save($ctrl.fileData.name)" style="margin-right:20px;">
+          Save
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </md-dialog>
+</div>

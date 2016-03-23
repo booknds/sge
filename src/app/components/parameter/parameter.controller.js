@@ -14,22 +14,20 @@ function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
         types: ["string", "number", "integer", "boolean", "array", "file"]
     };
 
-    this.pLength = null;
-
     this.addParam = function(paramName, paramInLocation, paramType) {
 
-        PathService.addNewParam(this.sgContext, paramName, paramInLocation, paramType);
+        PathService.addNewParam(this.operationObj, paramName, paramInLocation, paramType);
 
         // reset input data
         // $scope.addParameter.$setPristine();
-        resetNewParamData.call(this, this.sgThisOperation);
-        this.pLength = this.sgContext.parameters.length;
+        this.newParamData[this.operationType] = resetNewParamData();
+
     };
 
     this.showParamEditor = function(ev, paramName, paramInLocation) {
 
         // var useFullScreen = ($mdMedia("sm") || $mdMedia("xs")) && $scope.customFullscreen;
-        var originalParam = this.sgContext.getParameter(paramName, paramInLocation),
+        var originalParam = this.operationObj.getParameter(paramName, paramInLocation),
             tempParam = angular.copy(originalParam),
 
             dialogeContext = {
@@ -60,11 +58,10 @@ function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
     function updateParamFromModal(originalParameter) {
 
         return function updateFromReturn(response) {
-            debugger;
             if (response !== "deleteParameter") {
-                this.sgContext.updateParameter(originalParameter, response);
+                this.operationObj.updateParameter(originalParameter, response);
             } else {
-                this.sgContext.removeParameter(originalParameter.name, originalParameter.inLocation);
+                this.operationObj.removeParameter(originalParameter.name, originalParameter.inLocation);
             }
         }.bind(this);
     }
@@ -73,7 +70,7 @@ function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
      */
     function cancelled() {
         // $log.log("You cancelled the dialog. RETURNING DIALOGE -- CANCELLED");
-        console.log("closed Parameditor");
+        // console.log("closed Parameditor");
     }
 
 
@@ -82,9 +79,9 @@ function ParameterCtrl($mdDialog, $document, $mdMedia, PathService) {
       * @desc a helper function to reset the data of the intputs
       * @type {Function}
      **/
-    function resetNewParamData(operation) {
+    function resetNewParamData() {
         // debugger;
-        this.newParamData[operation] = {
+        return {
             name: null,
             inLocation: null,
             type: null

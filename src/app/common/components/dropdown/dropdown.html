@@ -2,6 +2,7 @@
 <md-input-container class="md-block" flex-gt-sm>
   <label>{{dropdown.sgLabel}}</label>
   <md-select ng-model="dropdown.ngModel">
+      <md-option value="">None</md-option>
     <md-option ng-repeat="choice in dropdown.sgChoices" value="{{ choice }}">{{ choice }}</md-option>
   </md-select>
   <!-- <select class=""  material-select watch>

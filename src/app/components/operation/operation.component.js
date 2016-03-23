@@ -3,18 +3,11 @@ import controller from "./operation.controller";
 
 /**
  */
-export default function operationComponent() {
-    return {
-        template,
-        restrict: "E",
-        replace: true,
-        scope: {},
-        bindToController: {
-            sgOperationObject: "=",
-            sgOperationName: "@"
-        },
-        controller,
-        controllerAs: "operationCtl",
-        transclude: true
-    };
-}
+export default {
+    template,
+    bindings: {
+        operationObj: "=",
+        operationType: "@"
+    },
+    controller
+};

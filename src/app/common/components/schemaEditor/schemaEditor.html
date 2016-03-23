@@ -1,55 +1,96 @@
-<!-- <form name="editSchema" ng-submit="" novalidate> -->
-<!-- <div ng-init="scope."> -->
-<!--   <div class="row"> -->
-    <!-- <div class="input-field col s12">
-      <textarea id="sgSchemaObject-description" ng-model="schema.sgSchemaObject.description" class="materialize-textarea"></textarea>
-      <label for="sgSchemaObject-description">Description</label>
-    </div> -->
-    <!--   <sg-text-input class="input-field col col s4" sg-unique-input sg-label="$ref" ng-model="schema.sgSchemaObject.$ref"></sg-text-input> -->
-    <!-- <div class="input-field col s4">
-      <input id="sgSchemaObject-ref" type="text" ng-model="schema.sgSchemaObject.$ref" >
-      <label for="sgSchemaObject-ref">$ref</label>
-    </div> -->
-    <!-- <sg-text-input class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgSchemaObject.type"></sg-text-input> -->
-    <!-- <div ng-show="schema.sgRestrictTypeToObject === 'true'" class="input-field col s4">
-      <input id="sgSchemaObject-type" type="text"
-              ng-model="schema.sgSchemaObject.type"
-              disabled>
-      <label for="sgSchemaObject-type">Type</label>
-    </div>
-    <sg-text-input ng-hide="schema.sgRestrictTypeToObject === 'true'" class="input-field col col s4" sg-unique-input sg-label="Type" ng-model="schema.sgSchemaObject.type"></sg-text-input>
-    <div class="input-field col s4">
-      <input id="sgSchemaObject-enum" type="text" disabled value="" ng-model="schema.sgSchemaObject.required">
-      <label class="active" for="sgSchemaObject-enum">Required</label>
-    </div> -->
-<!--   </div> -->
-<div style="display:flex; flex-flow: column nowrap;">
-  <div style="display:flex; flex-flow: row nowrap;">
-    <md-input-container style="flex-grow:1;">
+<div flex layout="column">
+  <div flex layout="row" layout-sm="column">
+    <md-input-container flex="50">
         <label>Description</label>
         <textarea ng-model="schema.sgSchemaObject.description"
         md-maxlength="150"
         rows="5"
         md-select-on-focus></textarea>
     </md-input-container>
-  </div>
-  <div style="display:flex; flex-flow: row nowrap;">
-    <md-input-container style="flex-grow:1;">
+    <md-input-container flex="50">
           <label>$ref</label>
           <input name="$ref" type="text" ng-model="schema.sgSchemaObject.$ref">
       </md-input-container>
-      <md-input-container style="flex-grow:1;">
+  </div>
+  <div flex layout="column">
+    <!--<md-input-container style="flex-grow:1;">
+          <label>$ref</label>
+          <input name="$ref" type="text" ng-model="schema.sgSchemaObject.$ref">
+      </md-input-container>-->
+      <!--<md-input-container style="flex-grow:1;">
           <label>Type</label>
-          <input name="type" ng-disabled="schema.sgRestrictTypeToObject" 
+          <input name="type" ng-disabled="schema.sgRestrictTypeToObject"
                   ng-model="schema.sgSchemaObject.type" type="text">
       </md-input-container>
       <md-input-container style="flex-grow:1;">
           <label>Required</label>
           <input name="required" disabled ng-model="schema.sgSchemaObject.required" type="text">
-      </md-input-container>
+      </md-input-container>-->
+        <md-button flex layout-align="start none" ng-click="schema.toggleAdvancedOptions();">
+            Show Advanced
+        </md-button>
+        <div class="advanced" flex layout="column" ng-show="schema.state.show.advanced">
+            <div layout="row" layout-align="start center">
+                <md-checkbox layout-align="center center" style="margin-bottom:0;"
+                    ng-model="schema.state.advancedProps.allOf"
+                    aria-label="Property required">
+                    allOf
+                </md-checkbox>
+                <!-- <md-button flex layout-align="center center"
+                        ng-click="schema.addAllOf()"
+                         ng-show="schema.state.advancedProps.allOf">
+                    Add Object
+                </md-button> -->
+                <div flex layout-align="center center"
+                         ng-show="schema.state.advancedProps.allOf">
+                    Not Currently Supported
+                </div>
+            </div>
+            <!-- <div ng-show="schema.state.advancedProps.allOf" flex layout="column">
+
+                <div column class="advanced" ng-repeat="(key, obj) in schema.sgSchemaObject.allOf">
+
+                    <div flex layout="column" ng-show="schema.state.advancedProps.allOf">
+                        <div ng-show="schema.state.advancedProps.allOf">
+                            <input type="text" ng-model="obj.$ref" placeholder="$ref">
+                        </div>
+                        <form name="propertyCreator" style="display:flex; ">
+                            <div flex layout="row" layout-align="none center">
+                                <md-input-container flex layout="column" layout-align="none center">
+                                    <label>Property Name</label>
+                                    <input  type="text"
+                                            name="propertyName"
+                                            ng-model="schema.newProperty.name"
+                                            required>
+
+                                    <div ng-if="propertyCreator.propertyName.$dirty"
+                                        ng-messages="propertyCreator.propertyName.$error"
+                                        role="alert" >
+                                    <div ng-message="required">
+                                        Property name is required.
+                                    </div>
+                                    </div>
+
+                                </md-input-container>
+                                <md-button ng-disabled="propertyCreator.propertyName.$invalid" flex layout-align="center center"
+                                            ng-click="schema.addProperty(schema.newProperty.name);">
+                                    <i class="material-icons">add</i>
+                                </md-button>
+                            </div>
+
+                        </form>
+                        {{obj}}
+                        <div ng-repeat="props in obj.properties">
+                          {{props}}
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+        </div>
   </div>
-  
-  <div >
+
+  <div>
     <h5>Properties</h5>
   </div>
 
@@ -71,13 +112,35 @@
             </div>
 
           </md-input-container>
-          <md-button style="display:flex; justify-content:center; align-items:center;"
+          <md-button ng-disabled="propertyCreator.propertyName.$invalid" style="display:flex; justify-content:center; align-items:center;"
                     ng-click="schema.addProperty(schema.newProperty.name);">
               <i class="material-icons">add</i>
           </md-button>
       </div>
 
   </form>
+
+  <!--<md-list ng-repeat="(property, pValue) in schema.sgSchemaObject.properties">
+    <md-list-item ng-click="toggleProperty();" class="noright">
+        <md-button  layout-align="center center"
+            ng-click="schema.deleteProperty(property)">
+            <i class="material-icons">delete</i>
+            <md-tooltip>
+                Delete Property
+            </md-tooltip>
+        </md-button>
+        <p>{{property}}</p>
+        <md-checkbox class="md-secondary"
+            ng-model="schema.required[property]"
+            ng-click="schema.toggleRequired(property, schema.required[property])"
+            aria-label="Property required">
+            required
+            <md-tooltip>
+                Required
+            </md-tooltip>
+        </md-checkbox>
+  </md-list-item>
+</md-list>-->
 
   <ul  ng-repeat="(property, pValue) in schema.sgSchemaObject.properties"
     class="collapsible "
@@ -98,45 +161,47 @@
           </md-button>
         </div>
       </div>
-      <div class="collapsible-body" style="display:flex; flex-flow: column nowrap;">
+      <div class="collapsible-body" flex layout="column" style="padding-left:15px; padding-right:15px;">
         <!-- <div class=" valign-wrapper section"> -->
-        <div style="display:flex; flex-flow: row nowrap;  align-items: center;">
-          <md-input-container style="">
-            <label>Description</label>
-            <textarea ng-model="pValue.description" 
-            md-maxlength="150"
-            rows="1"
-            md-select-on-focus></textarea>
-          </md-input-container>
-          <md-input-container style="">
+        <div flex layout="row" layout-align="none none">
+          <sg-dropdown
+              sg-label="Type"
+              ng-model="pValue.type" sg-default-option="Choose a Type" sg-choices="schema.types">
+          </sg-dropdown>
+
+          <md-input-container style="" ng-hide="pValue.type === 'array'">
             <label>$ref</label>
             <input  type="text" name="$ref" ng-model="pValue.$ref">
           </md-input-container>
           <div style="display:flex; flex-flow: row nowrap; justify-content:center;  align-items: center; flex-grow:1;">
-            <md-checkbox 
+            <md-checkbox
               ng-model="schema.required[property]"
               ng-click="schema.toggleRequired(property, schema.required[property])"
               aria-label="Property required">
             Required
           </md-checkbox>
           </div>
-          
+
         </div>
-        <div style="display:flex; flex-flow:row nowrap;">
-          <sg-dropdown
-              sg-label="Type"
-              ng-model="pValue.type" sg-default-option="Choose a Type" sg-choices="schema.types">
-          </sg-dropdown>
-          <sg-dropdown
+        <div flex layout="row">
+          <md-input-container flex >
+            <label>Description</label>
+            <textarea ng-model="pValue.description"
+            md-maxlength="150"
+            rows="1"
+            md-select-on-focus></textarea>
+          </md-input-container>
+          <!--<sg-dropdown
               sg-label="Format"
               ng-model="pValue.format" sg-default-option="Property Format" sg-choices="schema.formats">
           </sg-dropdown>
-          <md-input-container style="">
+          <md-input-container style="" ng-hide="pValue.type === 'array'">
             <label>enum</label>
             <input  type="text" disabled name="enum" ng-attr-placeholder="{{pValue.enum}}">
-          </md-input-container>
+          </md-input-container>-->
         </div>
-        <div style="display:flex; flex-flow:row nowrap; align-items: center;">
+
+        <!--<div style="display:flex; flex-flow:row nowrap; align-items: center;" ng-hide="pValue.type === 'array'">
           <md-input-container style="flex-grow: 1;">
             <label>enum</label>
             <input  type="text" name="enum" ng-model="schema[property].enum" placeholder="one item at a time">
@@ -147,6 +212,81 @@
           <md-button ng-click="schema.removeEnumFromProperty(property, schema[property].enum)">
             <i class="material-icons">delete</i>
           </md-button>
+        </div>-->
+        <md-button flex layout-align="start none"" ng-click="schema.toggleAdvanced(property, 'property');">
+            Show Advanced
+        </md-button>
+        <div class="advanced"
+            ng-show="pValue.type !== 'array' && schema.state[property].show.advanced.property">
+            <div flex layout="row" layout-xs="column" layout-align="center center">
+                <sg-dropdown
+                    flex="40"
+                    sg-label="Advanced Properties"
+                        ng-model="schema.state[property].additionalProps.advancedProp" sg-default-option="Advanced Properties" sg-choices="schema.state[property].items.advancedPropOptions">
+                </sg-dropdown>
+                <input flex="40"
+                    placeholder="advanced property value"
+                    type="text"
+                    ng-model="schema.state[property].additionalProps.advancedPropVal">
+                <md-button layout-align="center center" ng-click="schema.updateProperty(pValue, schema.state[property].additionalProps.advancedProp, schema.state[property].additionalProps.advancedPropVal);">
+                    <i class="material-icons"> add</i>
+                </md-button>
+            </div>
+            <div flex layout="row" layout-xs="column"
+                layout-align="start center";
+                ng-repeat="(prop, propValue) in pValue"
+                ng-if="schema.itemsConfig.advancedProps.indexOf(prop) > -1">
+                <md-button style="display:flex" layout-align="center center"; ng-click="schema.removeAdvancedProp(pValue, prop);">
+                    <i class="material-icons"> delete </i>
+                </md-button>
+                <span flex>{{prop}}: {{propValue}}</span>
+            </div>
+        </div>
+        <div ng-show="pValue.type === 'array'" flex layout="column">
+            <span class="md-title"> Items </span>
+            <div flex layout="column" class="child-container">
+                <div flex layout="row" layout-xs="column" layout-align="center center">
+                    <sg-dropdown flex="50"
+                            sg-label="Type"
+                            ng-model="pValue.items.type" sg-default-option="Array Items Type" sg-choices="schema.itemTypes">
+                    </sg-dropdown>
+                    <!--<md-input-container flex="50">-->
+                        <!--<label>$ref</label>-->
+                        <input flex="50" type="text" placeholder="$ref" name="item-$ref" ng-model="pValue.items.$ref">
+                    <!--</md-input-container>-->
+                </div>
+                <md-button flex layout-align="start none"" ng-click="schema.toggleAdvanced(property, 'items');"> Show Advanced</md-button>
+                <div class="advanced" flex layout="column" ng-show="schema.state[property].show.advanced.items">
+                    <div flex layout="row" layout-xs="column" layout-align="center center">
+                        <sg-dropdown
+                            flex="40"
+                            sg-label="Advanced Properties"
+                                ng-model="schema.state[property].items.advancedProp" sg-default-option="Advanced Properties" sg-choices="schema.state[property].items.advancedPropOptions">
+                        </sg-dropdown>
+                        <input flex="40"
+                            placeholder="advanced property value"
+                            type="text"
+                            ng-model="schema.state[property].items.advancedPropVal">
+                        <md-button layout-align="center center" ng-click="schema.updateItemAdvancedProp(pValue, schema.state[property].items.advancedProp, schema.state[property].items.advancedPropVal);">
+                            <i class="material-icons"> add</i>
+                        </md-button>
+
+                    </div>
+                    <!--<div flex layout="column">
+
+                        </div>-->
+                    <div flex layout="row" layout-xs="column"
+                        layout-align="start center";
+                        ng-repeat="(prop, propValue) in pValue.items"
+                        ng-if="prop !== '$ref' && prop !== 'type'">
+                        <md-button style="display:flex" layout-align="center center"; ng-click="schema.removeItemAdvancedProp(pValue, prop);">
+                            <i class="material-icons"> delete </i>
+                        </md-button>
+                        <span flex>{{prop}}: {{propValue}}</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
       </div>
     </li>
