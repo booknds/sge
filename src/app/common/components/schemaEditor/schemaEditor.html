@@ -26,7 +26,7 @@
           <label>Required</label>
           <input name="required" disabled ng-model="schema.sgSchemaObject.required" type="text">
       </md-input-container>-->
-        <md-button flex layout-align="start none"" ng-click="schema.toggleAdvancedOptions();"> 
+        <md-button flex layout-align="start none" ng-click="schema.toggleAdvancedOptions();">
             Show Advanced
         </md-button>
         <div class="advanced" flex layout="column" ng-show="schema.state.show.advanced">
@@ -36,14 +36,14 @@
                     aria-label="Property required">
                     allOf
                 </md-checkbox>
-                <md-button flex layout-align="center center" 
+                <md-button flex layout-align="center center"
                         ng-click="schema.addAllOf()"
                          ng-show="schema.state.advancedProps.allOf">
                     Add Object
                 </md-button>
             </div>
             <div ng-show="schema.state.advancedProps.allOf" flex layout="column">
-                
+
                 <div column class="advanced" ng-repeat="(key, obj) in schema.sgSchemaObject.allOf">
                     <md-checkbox ng-hide="schema.state.advancedProps.allOfProp"
                         ng-model="schema.state.advancedProps.allOfRef"
@@ -55,13 +55,11 @@
                         aria-label="Property required">
                         properties
                     </md-checkbox>
-                    
+
                     <div ng-show="schema.state.advancedProps.allOfRef">
-                        brit
                         <input type="text" ng-model="obj.$ref" placeholder="$ref">
                     </div>
                     <div ng-show="schema.state.advancedProps.allOfProp">
-                        medeiros
                         <form name="propertyCreator" style="display:flex; ">
                             <div flex layout="row" layout-align="none center">
                                 <md-input-container flex layout="column" layout-align="none center">
@@ -90,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
   </div>
 
@@ -123,7 +121,7 @@
       </div>
 
   </form>
-  
+
   <!--<md-list ng-repeat="(property, pValue) in schema.sgSchemaObject.properties">
     <md-list-item ng-click="toggleProperty();" class="noright">
         <md-button  layout-align="center center"
@@ -142,7 +140,7 @@
             <md-tooltip>
                 Required
             </md-tooltip>
-        </md-checkbox>  
+        </md-checkbox>
   </md-list-item>
 </md-list>-->
 
@@ -172,7 +170,7 @@
               sg-label="Type"
               ng-model="pValue.type" sg-default-option="Choose a Type" sg-choices="schema.types">
           </sg-dropdown>
-          
+
           <md-input-container style="" ng-hide="pValue.type === 'array'">
             <label>$ref</label>
             <input  type="text" name="$ref" ng-model="pValue.$ref">
@@ -204,7 +202,7 @@
             <input  type="text" disabled name="enum" ng-attr-placeholder="{{pValue.enum}}">
           </md-input-container>-->
         </div>
-        
+
         <!--<div style="display:flex; flex-flow:row nowrap; align-items: center;" ng-hide="pValue.type === 'array'">
           <md-input-container style="flex-grow: 1;">
             <label>enum</label>
@@ -217,18 +215,18 @@
             <i class="material-icons">delete</i>
           </md-button>
         </div>-->
-        <md-button flex layout-align="start none"" ng-click="schema.toggleAdvanced(property, 'property');"> 
+        <md-button flex layout-align="start none"" ng-click="schema.toggleAdvanced(property, 'property');">
             Show Advanced
         </md-button>
-        <div class="advanced" 
+        <div class="advanced"
             ng-show="pValue.type !== 'array' && schema.state[property].show.advanced.property">
             <div flex layout="row" layout-xs="column" layout-align="center center">
                 <sg-dropdown
-                    flex="40" 
+                    flex="40"
                     sg-label="Advanced Properties"
                         ng-model="schema.state[property].additionalProps.advancedProp" sg-default-option="Advanced Properties" sg-choices="schema.state[property].items.advancedPropOptions">
                 </sg-dropdown>
-                <input flex="40" 
+                <input flex="40"
                     placeholder="advanced property value"
                     type="text"
                     ng-model="schema.state[property].additionalProps.advancedPropVal">
@@ -238,7 +236,7 @@
             </div>
             <div flex layout="row" layout-xs="column"
                 layout-align="start center";
-                ng-repeat="(prop, propValue) in pValue" 
+                ng-repeat="(prop, propValue) in pValue"
                 ng-if="schema.itemsConfig.advancedProps.indexOf(prop) > -1">
                 <md-button style="display:flex" layout-align="center center"; ng-click="schema.removeAdvancedProp(pValue, prop);">
                     <i class="material-icons"> delete </i>
@@ -263,25 +261,25 @@
                 <div class="advanced" flex layout="column" ng-show="schema.state[property].show.advanced.items">
                     <div flex layout="row" layout-xs="column" layout-align="center center">
                         <sg-dropdown
-                            flex="40" 
+                            flex="40"
                             sg-label="Advanced Properties"
                                 ng-model="schema.state[property].items.advancedProp" sg-default-option="Advanced Properties" sg-choices="schema.state[property].items.advancedPropOptions">
                         </sg-dropdown>
-                        <input flex="40" 
+                        <input flex="40"
                             placeholder="advanced property value"
                             type="text"
                             ng-model="schema.state[property].items.advancedPropVal">
                         <md-button layout-align="center center" ng-click="schema.updateItemAdvancedProp(pValue, schema.state[property].items.advancedProp, schema.state[property].items.advancedPropVal);">
                             <i class="material-icons"> add</i>
                         </md-button>
-                        
+
                     </div>
                     <!--<div flex layout="column">
-                            
+
                         </div>-->
                     <div flex layout="row" layout-xs="column"
                         layout-align="start center";
-                        ng-repeat="(prop, propValue) in pValue.items" 
+                        ng-repeat="(prop, propValue) in pValue.items"
                         ng-if="prop !== '$ref' && prop !== 'type'">
                         <md-button style="display:flex" layout-align="center center"; ng-click="schema.removeItemAdvancedProp(pValue, prop);">
                             <i class="material-icons"> delete </i>
@@ -290,7 +288,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
       </div>
     </li>

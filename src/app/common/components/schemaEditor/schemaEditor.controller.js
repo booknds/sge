@@ -82,7 +82,6 @@ export default function SchemaEditorCtrl(ObjectFactory) {
     };
 
     this.updateProperty = (property, key, value) => {
-        debugger;
         if (key === "enum" ) {
             property.enum = [];
             value.split(",").forEach((item) => {
