@@ -36,30 +36,24 @@
                     aria-label="Property required">
                     allOf
                 </md-checkbox>
-                <md-button flex layout-align="center center"
+                <!-- <md-button flex layout-align="center center"
                         ng-click="schema.addAllOf()"
                          ng-show="schema.state.advancedProps.allOf">
                     Add Object
-                </md-button>
+                </md-button> -->
+                <div flex layout-align="center center"
+                         ng-show="schema.state.advancedProps.allOf">
+                    Not Currently Supported
+                </div>
             </div>
-            <div ng-show="schema.state.advancedProps.allOf" flex layout="column">
+            <!-- <div ng-show="schema.state.advancedProps.allOf" flex layout="column">
 
                 <div column class="advanced" ng-repeat="(key, obj) in schema.sgSchemaObject.allOf">
-                    <md-checkbox ng-hide="schema.state.advancedProps.allOfProp"
-                        ng-model="schema.state.advancedProps.allOfRef"
-                        aria-label="Property required">
-                        $ref
-                    </md-checkbox>
-                    <md-checkbox ng-hide="schema.state.advancedProps.allOfRef"
-                        ng-model="schema.state.advancedProps.allOfProp"
-                        aria-label="Property required">
-                        properties
-                    </md-checkbox>
 
-                    <div ng-show="schema.state.advancedProps.allOfRef">
-                        <input type="text" ng-model="obj.$ref" placeholder="$ref">
-                    </div>
-                    <div ng-show="schema.state.advancedProps.allOfProp">
+                    <div flex layout="column" ng-show="schema.state.advancedProps.allOf">
+                        <div ng-show="schema.state.advancedProps.allOf">
+                            <input type="text" ng-model="obj.$ref" placeholder="$ref">
+                        </div>
                         <form name="propertyCreator" style="display:flex; ">
                             <div flex layout="row" layout-align="none center">
                                 <md-input-container flex layout="column" layout-align="none center">
@@ -85,9 +79,13 @@
                             </div>
 
                         </form>
+                        {{obj}}
+                        <div ng-repeat="props in obj.properties">
+                          {{props}}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
   </div>

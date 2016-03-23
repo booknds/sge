@@ -18,15 +18,6 @@ export default function SchemaEditorCtrl(ObjectFactory) {
         advancedProp: ["allOf"]
     };
 
-    this.state = {
-        show: {
-            advanced: false
-        },
-        advancedProps: {
-            allOf: false
-        }
-    };
-
     this.toggleRequired = function(propertyName, previousState) {
 
         if (previousState === false || typeof previousState === "undefined") {
