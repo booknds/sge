@@ -38,6 +38,7 @@ module.exports = {
             //        presets: ['es2015']
             //    }
             //},
+            {test: /src.*\.js$/, loaders: ['ng-annotate']},
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader'

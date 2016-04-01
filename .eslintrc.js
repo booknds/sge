@@ -25,7 +25,8 @@ module.exports = {
         "no-invalid-this": 1,
         "consistent-return": 1,
         "no-console": [2, { allow: ["warn"] }],
-        "no-unused-expressions": 1
+        "no-unused-expressions": 1,
+        "no-trailing-spaces": 0
     },
     "env": {
         "es6": true,
