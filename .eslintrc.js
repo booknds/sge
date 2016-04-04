@@ -4,10 +4,7 @@ module.exports = {
             2,
             4
         ],
-        "quotes": [
-            2,
-            "double"
-        ],
+        
         "linebreak-style": [
             2,
             "unix"
@@ -32,7 +29,7 @@ module.exports = {
         "es6": true,
         "browser": true
     },
-    "extends": "eslint",
+    "extends": "airbnb",
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module",

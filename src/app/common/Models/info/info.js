@@ -1,142 +1,80 @@
-import { requiredProps } from "../utils/helpers";
-import License from "../license/license";
-import Contact from "../contact/contact";
+// import { requiredProps } from '../utils/helpers';
+import createLicense from '../license/license';
+// import createContact from '../contact/contact';
 
-const validate = () => {
-    if (this.value === null) {
+const validate = (value) => {
+    if (value === null) {
         return false;
     }
-    
-    switch (typeof this.value) {
-        case "object":
-            return this.value.isValid();
-        case "array":
-            return (this.value.length) ? true : false;
-        default:
-            return this.value ? true: false;
+
+    switch (typeof value) {
+    case 'object':
+        return value.isValid();
+    case 'array':
+        return value.length ? true : false;
+    default:
+        return value ? true : false;
     }
 };
 
-export default class Info {
-    
-    constructor(title = "", version = "") {
-        let state = {
-            title, 
-            version,
-            description: null,
-            termsOfService: null,
-            contact: null,
-            license: null
-        };
-        
-        this.props = [
-            {
-                key: "title",
-                value: title,
-                required: true,
-                get isValid() {
-                    return validate.call(this);
-                }  
-            },
-            {
-                key: "version",
-                value: version,
-                required: true,
-                get isValid() {
-                    return validate.call(this);
-                }  
-            },
-            {
-                key: "description",
-                value: null,
-                required: false,
-                get isValid() {
-                    return validate.call(this);
-                }  
-            },
-            {
-                key: "termsOfService",
-                value: termsOfService,
-                required: false,
-                get isValid() {
-                    return validate.call(this);
-                }  
-            },
-            {
-                key: "contact",
-                value: contact,
-                required: false,
-                get isValid() {
-                    return validate.call(this);
-                }  
-            },
-            {
-                key: "license",
-                value: license,
-                required: false,
-                get isValid() {
-                    return validate.call(this);
-                }  
-            }
-        ]
-        
-        return Object.assign(
-            this, 
-            state,
-            requiredProps({ 
-                key: "title", 
-                type: "primative", 
-                required: true 
-            }, 
-            {   
-                key: "version", 
-                type: "primative",
-                required: true
-             })
-        );
+const property = (key, value, required = false) => (
+    {
+        key,
+        value,
+        required,
+        get isValid() {
+            return validate(value);
+        },
     }
+);
+
+export default (title = '', version = '') => {
+    const props = [
+        property('title', title, true),
+        property('version', version, true),
+        property('description', null),
+        property('termsOfService', null),
+        property('contact', null),
+        property('license', null),
+    ];
     
-    addLicense() {
-        this.license = new License();
-    }
+    /**
+     * Helper functions
+     * could be converted to helper methods
+     */
+    const validInfoObject = prop => prop.isValid;
+    const getProp = 
+        name => 
+            prop => prop.key === name;
+
+    /**
+     * info API methods
+     */
+    const isValid = () => {
+        props.every(validInfoObject); 
+    };
+    const addLicense = () => {
+        const license = props.find(getProp('license'));
+        license.value = license.value || createLicense();
+    };
+    const removeLicense = () => {
+        const license = props.find(getProp('license'));
+        license.value = null;
+    };
+    const toSwagger = () => ( 
+        props.filter(validInfoObject)
+            .reduce((minimalInfo, prop) => {
+                const minimal = minimalInfo;
+                minimal[prop.key] = prop.value;
+                return minimal;    
+            }, {})
+    );
     
-    removeLicense() {
-        this.license = null;
-    }
-    
-    isValid() {
-        return (this.title && this.version);
-    }
-    
-    toSwagger() {
-        
-        /**
-         * add required props
-         */
-        let requiredProps = this._required;
-        let primativeProps = [ "description", "contract", "termsOfService" ];
-        let advancedProps = [ "contact", "license" ];
-        
-        primativeProps.forEach( prop => {
-            if (this[prop])
-        })
-        
-        let has = {
-            contact: this.contact.isValid(),
-            license: this.license.isValid()
-        };
-                
-            
-        const validProps = [""];
-        
-        return {
-            title: this.title,
-            version: this.version,
-            description: this.description,
-            termsOfService: this.termsOfService,
-            contact: this.contact.toSwagger(),
-            license: this.license.toSwagger()
-        };
-    }
-       
-}
+    return {
+        props,
+        isValid,
+        addLicense,
+        removeLicense,
+        toSwagger,
+    };
+};
