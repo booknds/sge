@@ -11,22 +11,24 @@ const validate = (value) => {
     case 'object':
         return value.isValid();
     case 'array':
-        return value.length ? true : false;
+        return !!value.length;
     default:
-        return value ? true : false;
+        return !!value;
     }
 };
 
-const property = (key, value, required = false) => (
-    {
+const property = (key, value, required = false) => {
+    const state = {
         key,
         value,
         required,
         get isValid() {
-            return validate(value);
+            return validate(state.value);
         },
-    }
-);
+    };
+    
+    return state;
+};
 
 export default (title = '', version = '') => {
     const props = [
