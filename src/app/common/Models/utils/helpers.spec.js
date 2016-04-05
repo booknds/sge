@@ -34,7 +34,7 @@ test('validate should reject a falsy value', t => {
  */
 test('getProp should return a helper function to be passed to an arrays filter function', t => {
   const getName = getProp('title');
-  t.true(getName({ name: 'title' }));
+  t.true(getName({ key: 'title' }));
 });
 
 test.todo('toSwagger()');

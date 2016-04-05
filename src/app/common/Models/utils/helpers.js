@@ -17,7 +17,7 @@ export const validate = value => {
 
 export const getProp =
   name =>
-    prop => prop.name === name;
+    prop => prop.key === name;
 
 export const toSwagger = props => (
   {
@@ -25,7 +25,7 @@ export const toSwagger = props => (
       props.filter(prop => prop.isValid)
         .reduce((minimalInfo, prop) => {
           const minimal = minimalInfo;
-          minimal[prop.name] = prop.value;
+          minimal[prop.key] = prop.value;
           return minimal;
         }, {})
     ),

@@ -3,80 +3,80 @@ import createLicense from '../license/license';
 // import createContact from '../contact/contact';
 
 const validate = (value) => {
-    if (value === null) {
-        return false;
-    }
+  if (value === null) {
+    return false;
+  }
 
-    switch (typeof value) {
+  switch (typeof value) {
     case 'object':
-        return value.isValid();
+      return value.isValid();
     case 'array':
-        return !!value.length;
+      return !!value.length;
     default:
-        return !!value;
-    }
+      return !!value;
+  }
 };
 
 const property = (key, value, required = false) => {
-    const state = {
-        key,
-        value,
-        required,
-        get isValid() {
-            return validate(state.value);
-        },
-    };
-    
-    return state;
+  const state = {
+    key,
+    value,
+    required,
+    get isValid() {
+      return validate(state.value);
+    },
+  };
+
+  return state;
 };
 
 export default (title = '', version = '') => {
-    const props = [
-        property('title', title, true),
-        property('version', version, true),
-        property('description', null),
-        property('termsOfService', null),
-        property('contact', null),
-        property('license', null),
-    ];
-    
-    /**
-     * Helper functions
-     * could be converted to helper methods
-     */
-    const validInfoObject = prop => prop.isValid;
-    const getProp = 
-        name => 
-            prop => prop.key === name;
+  const props = [
+    property('title', title, true),
+    property('version', version, true),
+    property('description', null),
+    property('termsOfService', null),
+    property('contact', null),
+    property('license', null),
+  ];
 
-    /**
-     * info API methods
-     */
-    const isValid = () => {
-        props.every(validInfoObject); 
-    };
-    const addLicense = () => {
-        const license = props.find(getProp('license'));
-        license.value = license.value || createLicense();
-    };
-    const removeLicense = () => {
-        const license = props.find(getProp('license'));
-        license.value = null;
-    };
-    const toSwagger = () => ( 
-        props.filter(validInfoObject)
-            .reduce((minimalInfo, prop) => {
-                const minimal = minimalInfo;
-                minimal[prop.key] = prop.value;
-                return minimal;    
-            }, {})
-    );
-    
-    return {
-        props,
-        isValid,
-        addLicense,
-        removeLicense,
-        toSwagger,
-    };
+  /**
+   * Helper functions
+   * could be converted to helper methods
+   */
+  const validInfoObject = prop => prop.isValid;
+  const getProp =
+    name =>
+      prop => prop.key === name;
+
+  /**
+   * info API methods
+   */
+  const isValid = () => {
+    props.every(validInfoObject);
+  };
+  const addLicense = () => {
+    const license = props.find(getProp('license'));
+    license.value = license.value || createLicense();
+  };
+  const removeLicense = () => {
+    const license = props.find(getProp('license'));
+    license.value = null;
+  };
+  const toSwagger = () => (
+    props.filter(validInfoObject)
+      .reduce((minimalInfo, prop) => {
+        const minimal = minimalInfo;
+        minimal[prop.key] = prop.value;
+        return minimal;
+      }, {})
+  );
+
+  return {
+    props,
+    isValid,
+    addLicense,
+    removeLicense,
+    toSwagger,
+  };
 };
