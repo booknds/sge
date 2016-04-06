@@ -13,15 +13,15 @@ export default () => {
     ],
 
     set name(value) {
-      state.props.find(getProp('name')).value = value;
+      state.props.find(getProp('name')).value = value || null;
     },
 
     set url(value) {
-      state.props.find(getProp('url')).value = value;
+      state.props.find(getProp('url')).value = value || null;
     },
 
     set email(value) {
-      state.props.find(getProp('email')).value = value;
+      state.props.find(getProp('email')).value = value || null;
     },
 
     isValid() {
@@ -34,5 +34,7 @@ export default () => {
     },
   };
 
-  return Object.assign(state, toSwagger(state.props));
+  return Object.assign(
+    state,
+    toSwagger(state.props));
 };
