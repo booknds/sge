@@ -24,10 +24,10 @@ export default () => {
       state.props.find(getProp('email')).value = value || null;
     },
 
-    isValid() {
+    get isValid() {
       const propsAreValid =
         state.props
-          .filter(props => !props.required && !!props.value)
+          .filter(props => props.value !== null)
           .every(prop => prop.isValid);
 
       return propsAreValid;

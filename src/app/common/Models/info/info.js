@@ -1,82 +1,71 @@
-// import { requiredProps } from '../utils/helpers';
-import createLicense from '../license/license';
-// import createContact from '../contact/contact';
+import license from '../license/license';
+import contact from '../contact/contact';
+import property from '../property/property';
+import { getProp, toSwagger } from '../utils/helpers';
 
-const validate = (value) => {
-  if (value === null) {
-    return false;
-  }
+/**
+ * Info Object Factory
+ *
+ * @param  {string} title='' - title of the swagger document
+ * @param  {string} version='' - version of the swagger document
+ */
+export default (title = 'My Api', version = 'v1') => {
+  const factories = {
+    license,
+    contact,
+  };
 
-  switch (typeof value) {
-    case 'object':
-      return value.isValid();
-    case 'array':
-      return !!value.length;
-    default:
-      return !!value;
-  }
-};
-
-const property = (key, value, required = false) => {
   const state = {
-    key,
-    value,
-    required,
+    props: [
+      property('title', title, true),
+      property('version', version, true),
+      property('description', null),
+      property('termsOfService', null),
+      property('contact', null),
+      property('license', null),
+    ],
+
+    set title(value) {
+      state.props.find(getProp('title')).value = value;
+    },
+
+    set version(value) {
+      state.props.find(getProp('version')).value = value;
+    },
+
+    set description(value) {
+      state.props.find(getProp('description')).value = value || null;
+    },
+
+    set termsOfService(value) {
+      state.props.find(getProp('termsOfService')).value = value || null;
+    },
+
+    addObjectProp(propName) {
+      const objectProp = state.props.find(getProp(propName));
+      objectProp.value = objectProp.value || factories[propName]();
+    },
+
+    removeObjectProp(propName) {
+      const objectProp = state.props.find(getProp(propName));
+      objectProp.value = null;
+    },
+
     get isValid() {
-      return validate(state.value);
+      const requiredPropsAreValid = state.props
+        .filter(prop => prop.required)
+        .every(prop => prop.isValid);
+
+      const restAreValid = state.props
+        .filter(prop => !prop.required)
+        .every(prop => prop.isValid);
+
+      return (requiredPropsAreValid && restAreValid);
     },
   };
 
-  return state;
-};
-
-export default (title = '', version = '') => {
-  const props = [
-    property('title', title, true),
-    property('version', version, true),
-    property('description', null),
-    property('termsOfService', null),
-    property('contact', null),
-    property('license', null),
-  ];
-
-  /**
-   * Helper functions
-   * could be converted to helper methods
-   */
-  const validInfoObject = prop => prop.isValid;
-  const getProp =
-    name =>
-      prop => prop.key === name;
-
-  /**
-   * info API methods
-   */
-  const isValid = () => {
-    props.every(validInfoObject);
-  };
-  const addLicense = () => {
-    const license = props.find(getProp('license'));
-    license.value = license.value || createLicense();
-  };
-  const removeLicense = () => {
-    const license = props.find(getProp('license'));
-    license.value = null;
-  };
-  const toSwagger = () => (
-    props.filter(validInfoObject)
-      .reduce((minimalInfo, prop) => {
-        const minimal = minimalInfo;
-        minimal[prop.key] = prop.value;
-        return minimal;
-      }, {})
+  return Object.assign(
+    state,
+    toSwagger(state.props)
   );
-
-  return {
-    props,
-    isValid,
-    addLicense,
-    removeLicense,
-    toSwagger,
-  };
 };

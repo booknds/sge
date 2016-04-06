@@ -43,4 +43,10 @@ test('contact property values should be set to null if passed in a faley value',
   t.true(contact.props.every(prop => prop.value === null));
 });
 
-test.todo('contact should validate if its properties are valid');
+test('contact should validate if its properties are valid', t => {
+  contact.name = 'Wade Wilson';
+  t.true(contact.isValid);
+
+  contact.name = '';
+  t.true(contact.isValid);
+});

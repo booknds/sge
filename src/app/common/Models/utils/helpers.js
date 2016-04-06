@@ -9,7 +9,7 @@ export const validate = value => {
 
   switch (typeof value) {
     case 'object':
-      return value.isValid();
+      return value.isValid;
     default:
       return !!value;
   }
