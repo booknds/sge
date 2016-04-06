@@ -9,10 +9,10 @@ test.beforeEach(() => {
 });
 
 test('contact should be able to set but not get a name', t => {
-  contact.name = 'Trogdor';
+  contact.name = 'Wade Wilson';
   const prop = contact.props.find(getProp('name'));
 
-  t.true(prop.value === 'Trogdor');
+  t.true(prop.value === 'Wade Wilson');
   t.throws(contact.name);
 });
 
