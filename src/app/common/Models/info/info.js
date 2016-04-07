@@ -57,7 +57,7 @@ export default (title = 'My Api', version = 'v1') => {
         .every(prop => prop.isValid);
 
       const restAreValid = state.props
-        .filter(prop => !prop.required)
+        .filter(prop => !prop.required && prop.value !== null)
         .every(prop => prop.isValid);
 
       return (requiredPropsAreValid && restAreValid);

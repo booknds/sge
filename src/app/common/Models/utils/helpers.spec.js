@@ -9,8 +9,8 @@ test('validate() should reject a null value', t => {
 });
 
 test('validate() should reject an object that is not valid itself', t => {
-  t.false(validate({ isValid: () => false }));
-  t.true(validate({ isValid: () => true }));
+  t.false(validate({ get isValid() { return false; } }));
+  t.true(validate({ get isValid() { return true; } }));
 });
 
 test('validate() should reject an empty array', t => {
@@ -42,5 +42,4 @@ test.todo('toSwagger()');
 //   const props = [];
 //   const swaggerify = toSwagger();
 // });
-
 
