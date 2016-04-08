@@ -5,12 +5,13 @@ import { validate } from '../utils/helpers';
  *
  * @param  {string} key - name of the property
  * @param  {any} value - value of the property
- * @param  {boolean} required=false - if this is a required property
+ * @param  {Function} required=anonymous function -
+ *              A function to determine if the property is required;
  * @param  {Function} fn=validate - a function to validate the property.
  *
  * @return {Object} - a property object
  */
-export default (key, value = null, required = false, fn = validate) => {
+export default (key, value = null, required = () => false, fn = validate) => {
   const _key = key;
   const _required = required;
 
@@ -23,7 +24,7 @@ export default (key, value = null, required = false, fn = validate) => {
       return _key;
     },
     get required() {
-      return _required;
+      return _required();
     },
   };
 

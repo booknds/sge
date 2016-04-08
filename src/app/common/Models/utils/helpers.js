@@ -19,6 +19,9 @@ export const getProp =
   name =>
     prop => prop.key === name;
 
+export const getProperty = (props, propName) =>
+  props.find(prop => prop.key === propName);
+
 export const toSwagger = props => (
   {
     swaggerify: () => (
@@ -31,4 +34,3 @@ export const toSwagger = props => (
     ),
   }
 );
-

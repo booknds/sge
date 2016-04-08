@@ -17,8 +17,8 @@ export default (title = 'My Api', version = 'v1') => {
 
   const state = {
     props: [
-      property('title', title, true),
-      property('version', version, true),
+      property('title', title, () => true),
+      property('version', version, () => true),
       property('description', null),
       property('termsOfService', null),
       property('contact', null),

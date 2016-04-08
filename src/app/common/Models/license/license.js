@@ -5,7 +5,7 @@ export default (name = '') => {
   const state = {
 
     props: [
-      property('name', name, true),
+      property('name', name, () => true),
       property('url', null),
     ],
 
