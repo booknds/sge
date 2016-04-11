@@ -1,5 +1,5 @@
 import test from 'ava';
-import { validate, getProp } from './helpers';
+import { validate, getProp, getProperty } from './helpers';
 
 /**
  *  Test validate()
@@ -43,3 +43,20 @@ test.todo('toSwagger()');
 //   const swaggerify = toSwagger();
 // });
 
+test('getProperty', t => {
+  const state = [
+    {
+      key: 'title',
+      value: 'Spidey',
+      get required() { return true; },
+    },
+    {
+      key: 'name',
+      value: 'Pete',
+      get required() { return false;},
+    },
+  ];
+
+  t.true(getProperty(state, 'title') === state[0]);
+  t.true(getProperty(state, 'name') === state[1]);
+});

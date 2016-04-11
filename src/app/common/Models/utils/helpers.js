@@ -34,3 +34,19 @@ export const toSwagger = props => (
     ),
   }
 );
+
+export const createIsValid = state => (
+  {
+    isValid() {
+      const requiredPropsAreValid = state.props
+        .filter(prop => prop.required)
+        .every(prop => prop.isValid);
+
+      const restAreValid = state.props
+        .filter(prop => !prop.required && prop.value !== null)
+        .every(prop => prop.isValid);
+
+      return (requiredPropsAreValid && restAreValid);
+    },
+  }
+);
