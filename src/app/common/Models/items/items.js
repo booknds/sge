@@ -1,11 +1,18 @@
 import createProperty from '../property/property';
-import { getProperty } from '../utils/helpers';
+import { getProperty, toSwagger, createIsValid } from '../utils/helpers';
 
+/**
+ * createItems - A factory function to create Items Objects in accordance
+ *                to the Swagger / OpenAPI specification
+ *
+ * @param  {String} type = '' the value for the Items Object's type property
+ * @return {Object}           an Items Object
+ */
 export default function createItems(type = '') {
   const state = {
     props: [
-      createProperty('type', type, true),
-      createProperty('items', null, () => (getProperty(state.props, 'type').value === 'array')),
+      createProperty('type', type, () => true),
+      createProperty('items', null, itemsRequiredCondionally, validItemsProperty),
       createProperty('format'),
       createProperty('collectionFormat'),
       createProperty('default'),
@@ -23,94 +30,112 @@ export default function createItems(type = '') {
       createProperty('mulitpleOf'),
     ],
 
-    // experimental set for any
-//     setPropValue(propType, newValue) {
-//       if(propType === 'items') {
-//         let itemProp = getProper
-//       }
-//       getProperty(state.props, propType).value = newValue;
-//     },
-//
-    set type(value) {
+    setType(value) {
       getProperty(state.props, 'type').value = value;
     },
 
-    set format(value) {
+    setFormat(value) {
       getProperty(state.props, 'format').value = value;
     },
 
-    set collectionFormat(value) {
+    setCollectionFormat(value) {
       getProperty(state.props, 'collectionFormat').value = value;
     },
 
-    set default(value) {
+    setDefault(value) {
       getProperty(state.props, 'default').value = value;
     },
 
-    set maximum(value) {
+    setMaximum(value) {
       getProperty(state.props, 'maximum').value = value;
     },
 
-    set exclusiveMaximum(value) {
+    setExclusiveMaximum(value) {
       getProperty(state.props, 'exclusiveMaximum').value = value;
     },
 
-    set minimum(value) {
+    setMinimum(value) {
       getProperty(state.props, 'minimum').value = value;
     },
 
-    set exclusiveMinimum(value) {
+    setExclusiveMinimum(value) {
       getProperty(state.props, 'exclusiveMinimum').value = value;
     },
 
-    set maxLength(value) {
+    setMaxLength(value) {
       getProperty(state.props, 'maxLength').value = value;
     },
 
-    set minLength(value) {
+    setMinLength(value) {
       getProperty(state.props, 'minLength').value = value;
     },
 
-    set pattern(value) {
+    setPattern(value) {
       getProperty(state.props, 'pattern').value = value;
     },
 
-    set maxItems(value) {
+    setMaxItems(value) {
       getProperty(state.props, 'maxItems').value = value;
     },
 
-    set minItems(value) {
+    setMinItems(value) {
       getProperty(state.props, 'minItems').value = value;
     },
 
-    set uniqueItems(value) {
+    setUniqueItems(value) {
       getProperty(state.props, 'uniqueItems').value = value;
     },
 
-    set enum(value) {
+    setEnum(value) {
       getProperty(state.props, 'enum').value = value;
     },
 
-    set multipleOf(value) {
+    setMultipleOf(value) {
       getProperty(state.props, 'multipleOf').value = value;
     },
 
-    set items(value) {
+    createItemsProp(newType) {
+      const itemsProp = getProperty(state.props, 'items');
+
+      if (!!newType) {
+        itemsProp.value = createItems(newType);
+      } else {
+        itemsProp.value = createItems();
+      }
     },
-
-    get isValid() {
-      const requiredPropsAreValid = state.props
-        .filter(prop => prop.required)
-        .every(prop => prop.isValid);
-
-      const restAreValid = state.props
-        .filter(prop => !prop.required && prop.value !== null)
-        .every(prop => prop.isValid);
-
-      return (requiredPropsAreValid && restAreValid);
-    },
-
   };
 
-  return state;
+  return Object.assign(
+    state,
+    toSwagger(state.props),
+    createIsValid(state)
+  );
+
+  /* ///////////////////////////////////////////////////////
+   * Helper Functions /////////////////////////////////////
+   ///////////////////////////////////////////////////// */
+
+  /**
+   * validItemsProperty - custom validator for Items Object's items property
+   *
+   * @return {boolean} - returns true if items property is not null and is itself valid
+   */
+  function validItemsProperty() {
+    const itemsProp = getProperty(state.props, 'items');
+    if (itemsProp.value) {
+      return itemsProp.value.isValid();
+    }
+
+    return false;
+  }
+
+  /**
+   * itemsRequiredCondionally - the items property is required by the
+   *    Items object conditioned upon the type property's value
+   *
+   * @return {boolean} - returns true if the type proerty is 'array'
+   */
+  function itemsRequiredCondionally() {
+    return getProperty(state.props, 'type').value === 'array';
+  }
 }

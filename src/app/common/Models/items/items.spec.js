@@ -9,15 +9,26 @@ test.beforeEach(() => {
 });
 
 test('type property is required for an Items Object', t => {
-  items.type = 'string';
+  items.setType('string');
   const typeProp = getProperty(items.props, 'type');
   t.true(typeProp.value === 'string');
 });
 
 test('items property is required if the type is set to "array"', t => {
-  items.type = 'array';
+  items.setType('array');
   const itemsProp = getProperty(items.props, 'items');
   t.true(itemsProp.required);
 });
 
-test.todo('Items object can validate');
+test('Items object can validate', t => {
+  t.false(items.isValid());
+  items.setType('array');
+  t.false(items.isValid());
+
+  items.createItemsProp();
+  t.false(items.isValid());
+
+  const itemsProp = getProperty(items.props, 'items').value;
+  itemsProp.setType('awesome');
+  t.true(items.isValid());
+});
