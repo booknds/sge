@@ -3,6 +3,7 @@ module.exports = {
         "no-debugger":1,
         "no-console": [2, { allow: ["warn"] }],
         "no-extra-parens": 1,
+        "new-cap": 0
     },
     "env": {
         "es6": true,
