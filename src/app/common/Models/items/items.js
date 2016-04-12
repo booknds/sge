@@ -1,5 +1,6 @@
 import createProperty from '../property/property';
-import { getProperty, toSwagger, createIsValid } from '../utils/helpers';
+import SchemaBase from '../jsonSchema/jsonSchemaBase';
+import { getProperty, toSwagger, createIsValid, getAllProps, combineProps } from '../utils/helpers';
 
 /**
  * createItems - A factory function to create Items Objects in accordance
@@ -9,93 +10,21 @@ import { getProperty, toSwagger, createIsValid } from '../utils/helpers';
  * @return {Object}           an Items Object
  */
 export default function createItems(type = '') {
-  const state = {
-    props: [
+  const schemaBase = SchemaBase();
+  const props = combineProps(
+    schemaBase.getAllProps(),
+    [
       createProperty('type', type, () => true),
-      createProperty('items', null, itemsRequiredCondionally, validItemsProperty),
-      createProperty('format'),
-      createProperty('collectionFormat'),
-      createProperty('default'),
-      createProperty('maximum'),
-      createProperty('exclusiveMaximum'),
-      createProperty('minimum'),
-      createProperty('exclusiveMinimum'),
-      createProperty('maxLength'),
-      createProperty('minLength'),
-      createProperty('pattern'),
-      createProperty('maxItems'),
-      createProperty('minItems'),
-      createProperty('uniqueItems'),
-      createProperty('enum'),
-      createProperty('mulitpleOf'),
-    ],
+      createProperty('items', null, itemsRequiredCondionally, checkItemsObjectValidity),
+    ]);
 
+  const stateMethods = {
     setType(value) {
-      getProperty(state.props, 'type').value = value;
-    },
-
-    setFormat(value) {
-      getProperty(state.props, 'format').value = value;
-    },
-
-    setCollectionFormat(value) {
-      getProperty(state.props, 'collectionFormat').value = value;
-    },
-
-    setDefault(value) {
-      getProperty(state.props, 'default').value = value;
-    },
-
-    setMaximum(value) {
-      getProperty(state.props, 'maximum').value = value;
-    },
-
-    setExclusiveMaximum(value) {
-      getProperty(state.props, 'exclusiveMaximum').value = value;
-    },
-
-    setMinimum(value) {
-      getProperty(state.props, 'minimum').value = value;
-    },
-
-    setExclusiveMinimum(value) {
-      getProperty(state.props, 'exclusiveMinimum').value = value;
-    },
-
-    setMaxLength(value) {
-      getProperty(state.props, 'maxLength').value = value;
-    },
-
-    setMinLength(value) {
-      getProperty(state.props, 'minLength').value = value;
-    },
-
-    setPattern(value) {
-      getProperty(state.props, 'pattern').value = value;
-    },
-
-    setMaxItems(value) {
-      getProperty(state.props, 'maxItems').value = value;
-    },
-
-    setMinItems(value) {
-      getProperty(state.props, 'minItems').value = value;
-    },
-
-    setUniqueItems(value) {
-      getProperty(state.props, 'uniqueItems').value = value;
-    },
-
-    setEnum(value) {
-      getProperty(state.props, 'enum').value = value;
-    },
-
-    setMultipleOf(value) {
-      getProperty(state.props, 'multipleOf').value = value;
+      getProperty(props, 'type').value = value;
     },
 
     createItemsProp(newType) {
-      const itemsProp = getProperty(state.props, 'items');
+      const itemsProp = getProperty(props, 'items');
 
       if (!!newType) {
         itemsProp.value = createItems(newType);
@@ -106,10 +35,14 @@ export default function createItems(type = '') {
   };
 
   return Object.assign(
-    state,
-    toSwagger(state.props),
-    createIsValid(state)
+    {},
+    schemaBase,
+    toSwagger(props),
+    createIsValid(props),
+    getAllProps(props),
+    stateMethods
   );
+
 
   /* ///////////////////////////////////////////////////////
    * Helper Functions /////////////////////////////////////
@@ -120,8 +53,8 @@ export default function createItems(type = '') {
    *
    * @return {boolean} - returns true if items property is not null and is itself valid
    */
-  function validItemsProperty() {
-    const itemsProp = getProperty(state.props, 'items');
+  function checkItemsObjectValidity() {
+    const itemsProp = getProperty(props, 'items');
     if (itemsProp.value) {
       return itemsProp.value.isValid();
     }
@@ -136,6 +69,6 @@ export default function createItems(type = '') {
    * @return {boolean} - returns true if the type proerty is 'array'
    */
   function itemsRequiredCondionally() {
-    return getProperty(state.props, 'type').value === 'array';
+    return getProperty(props, 'type').value === 'array';
   }
 }

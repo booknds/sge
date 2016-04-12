@@ -10,13 +10,13 @@ test.beforeEach(() => {
 
 test('type property is required for an Items Object', t => {
   items.setType('string');
-  const typeProp = getProperty(items.props, 'type');
+  const typeProp = getProperty(items.getAllProps(), 'type');
   t.true(typeProp.value === 'string');
 });
 
 test('items property is required if the type is set to "array"', t => {
   items.setType('array');
-  const itemsProp = getProperty(items.props, 'items');
+  const itemsProp = getProperty(items.getAllProps(), 'items');
   t.true(itemsProp.required);
 });
 
@@ -28,7 +28,7 @@ test('Items object can validate', t => {
   items.createItemsProp();
   t.false(items.isValid());
 
-  const itemsProp = getProperty(items.props, 'items').value;
+  const itemsProp = getProperty(items.getAllProps(), 'items').value;
   itemsProp.setType('awesome');
   t.true(items.isValid());
 });

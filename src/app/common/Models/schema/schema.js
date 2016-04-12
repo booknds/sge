@@ -1,5 +1,8 @@
 import createProperty from '../property/property';
-import { getProperty, toSwagger, createIsValid } from '../utils/helpers';
+import Items from '../items/items';
+import SchemaBase from 'jsonSchema/jsonSchemaBase';
+import { getProperty, toSwagger, createIsValid, getAllProps } from '../utils/helpers';
+import { flatten } from 'lodash';
 
 /**
  * createItems - A factory function to create Items Objects in accordance
@@ -8,134 +11,76 @@ import { getProperty, toSwagger, createIsValid } from '../utils/helpers';
  * @param  {String} type = '' the value for the Items Object's type property
  * @return {Object}           an Items Object
  */
-export default function createItems(type = '') {
-  const state = {
-    props: [
-      createProperty('type', type, () => true),
-      createProperty('items', null, itemsRequiredCondionally, validItemsProperty),
-      createProperty('format'),
-      createProperty('collectionFormat'),
-      createProperty('default'),
-      createProperty('maximum'),
-      createProperty('exclusiveMaximum'),
-      createProperty('minimum'),
-      createProperty('exclusiveMinimum'),
-      createProperty('maxLength'),
-      createProperty('minLength'),
-      createProperty('pattern'),
-      createProperty('maxItems'),
-      createProperty('minItems'),
-      createProperty('uniqueItems'),
-      createProperty('enum'),
-      createProperty('mulitpleOf'),
-    ],
+export default function Schema() {
+  const schemaBase = SchemaBase();
+  const props = flatten(SchemaBase.getAllProps(), [
+    createProperty('type'),
+    createProperty('items', null, itemsRequiredCondionally, checkItemsObjectValidity),
+    createProperty('$ref'),
+    createProperty('title'),
+    createProperty('allOf'),
+    createProperty('properties'),
+    createProperty('additionalProperties'),
+    createProperty('discriminator'),
+    createProperty('readOnly'),
+    createProperty('xml'),
+    createProperty('externalDocs'),
+    createProperty('example')
+  ]);
 
+  const stateMethods = {
     setType(value) {
-      getProperty(state.props, 'type').value = value;
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setFormat(value) {
-      getProperty(state.props, 'format').value = value;
+    setRef(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setCollectionFormat(value) {
-      getProperty(state.props, 'collectionFormat').value = value;
+    setTitle(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setDefault(value) {
-      getProperty(state.props, 'default').value = value;
+    setAllOf(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setMaximum(value) {
-      getProperty(state.props, 'maximum').value = value;
+    setProperties(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setExclusiveMaximum(value) {
-      getProperty(state.props, 'exclusiveMaximum').value = value;
+    setAdditionalProperties(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setMinimum(value) {
-      getProperty(state.props, 'minimum').value = value;
+    setDiscriminator(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setExclusiveMinimum(value) {
-      getProperty(state.props, 'exclusiveMinimum').value = value;
+    setReadOnly(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setMaxLength(value) {
-      getProperty(state.props, 'maxLength').value = value;
+    setXml(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setMinLength(value) {
-      getProperty(state.props, 'minLength').value = value;
+    setExternalDocs(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setPattern(value) {
-      getProperty(state.props, 'pattern').value = value;
+    setExample(value) {
+      getProperty(props, 'multipleOf').value = value;
     },
-
-    setMaxItems(value) {
-      getProperty(state.props, 'maxItems').value = value;
-    },
-
-    setMinItems(value) {
-      getProperty(state.props, 'minItems').value = value;
-    },
-
-    setUniqueItems(value) {
-      getProperty(state.props, 'uniqueItems').value = value;
-    },
-
-    setEnum(value) {
-      getProperty(state.props, 'enum').value = value;
-    },
-
-    setMultipleOf(value) {
-      getProperty(state.props, 'multipleOf').value = value;
-    },
-
     createItemsProp(newType) {
-      const itemsProp = getProperty(state.props, 'items');
+      const itemsProp = getProperty(props, 'items');
 
       if (!!newType) {
-        itemsProp.value = createItems(newType);
+        itemsProp.value = Items(newType);
       } else {
-        itemsProp.value = createItems();
+        itemsProp.value = Items();
       }
     },
   };
 
-  return Object.assign(
-    state,
-    toSwagger(state.props),
-    createIsValid(state)
+  const completeState = Object.assign(
+    {},
+    schemaBase,
+    toSwagger(props),
+    createIsValid(props),
+    getAllProps(props),
+    stateMethods
   );
 
-  /* ///////////////////////////////////////////////////////
-   * Helper Functions /////////////////////////////////////
-   ///////////////////////////////////////////////////// */
-
-  /**
-   * validItemsProperty - custom validator for Items Object's items property
-   *
-   * @return {boolean} - returns true if items property is not null and is itself valid
-   */
-  function validItemsProperty() {
-    const itemsProp = getProperty(state.props, 'items');
-    if (itemsProp.value) {
-      return itemsProp.value.isValid();
-    }
-
-    return false;
-  }
-
-  /**
-   * itemsRequiredCondionally - the items property is required by the
-   *    Items object conditioned upon the type property's value
-   *
-   * @return {boolean} - returns true if the type proerty is 'array'
-   */
-  function itemsRequiredCondionally() {
-    return getProperty(state.props, 'type').value === 'array';
-  }
+  return Object.freeze(completeState);
 }

@@ -1,3 +1,5 @@
+import { flatten } from 'lodash';
+
 export const validate = value => {
   if (value === null) {
     return false;
@@ -35,14 +37,14 @@ export const toSwagger = props => (
   }
 );
 
-export const createIsValid = state => (
+export const createIsValid = props => (
   {
     isValid() {
-      const requiredPropsAreValid = state.props
+      const requiredPropsAreValid = props
         .filter(prop => prop.required)
         .every(prop => prop.isValid);
 
-      const restAreValid = state.props
+      const restAreValid = props
         .filter(prop => !prop.required && prop.value !== null)
         .every(prop => prop.isValid);
 
@@ -50,3 +52,13 @@ export const createIsValid = state => (
     },
   }
 );
+
+export const getAllProps = (...props) => (
+  {
+    getAllProps() {
+      return flatten(props);
+    },
+  }
+);
+
+export const combineProps = (...props) => flatten(props);
