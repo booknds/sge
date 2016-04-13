@@ -1,5 +1,5 @@
 import createProperty from '../property/property';
-import SchemaBase from '../jsonSchema/jsonSchemaBase';
+import SchemaBase from '../schemaBase/schemaBase';
 import { getProperty, toSwagger, createIsValid, getAllProps, combineProps } from '../utils/helpers';
 
 /**
@@ -34,7 +34,7 @@ export default function createItems(type = '') {
     },
   };
 
-  return Object.assign(
+  const completeState = Object.assign(
     {},
     schemaBase,
     toSwagger(props),
@@ -42,6 +42,8 @@ export default function createItems(type = '') {
     getAllProps(props),
     stateMethods
   );
+
+  return Object.freeze(completeState);
 
 
   /* ///////////////////////////////////////////////////////
