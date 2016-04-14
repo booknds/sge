@@ -1,42 +1,48 @@
-import { getProp, toSwagger } from '../utils/helpers';
-import property from '../property/property.js';
+import Property from '../property/property.js';
+import { getAllProps, toSwagger, createIsValid, makeSetProperty } from '../utils/helpers';
 
 export default (name = '') => {
-  const state = {
+  const props =
+    [
+      Property('name', name, () => true),
+      Property('url'),
+    ];
 
-    props: [
-      property('name', name, () => true),
-      property('url', null),
-    ],
+  // const state = {
+  //   setName(value) {
+  //     state.props.find(getProp('name')).value = value;
+  //   },
 
-    set name(value) {
-      state.props.find(getProp('name')).value = value;
-    },
+  //   setUrl(value) {
+  //     state.props.find(getProp('url')).value = value;
+  //   },
 
-    set url(value) {
-      state.props.find(getProp('url')).value = value;
-    },
+  //   isValid() {
+  //     const requiredPropsAreValid =
+  //       state.props
+  //         .filter(prop => prop.isRequired())
+  //         .every(prop => prop.isValid());
 
-    get isValid() {
-      const requiredPropsAreValid =
-        state.props
-          .filter(prop => prop.required)
-          .every(prop => prop.isValid);
+  //     if (!requiredPropsAreValid) {
+  //       return requiredPropsAreValid;
+  //     }
 
-      if (!requiredPropsAreValid) {
-        return requiredPropsAreValid;
-      }
+  //     const remainingPropsAreValid =
+  //       state.props
+  //         .filter(props => !props.isRequired() && !!props.value)
+  //         .every(prop => prop.isValid());
 
-      const remainingPropsAreValid =
-        state.props
-          .filter(props => !props.required && !!props.value)
-          .every(prop => prop.isValid);
+  //     return remainingPropsAreValid;
+  //   },
+  // };
 
-      return remainingPropsAreValid;
-    },
-  };
+  const completeState = Object.assign(
+    toSwagger(props),
+    createIsValid(props),
+    getAllProps(props),
+    makeSetProperty(props));
 
-  return Object.assign(state, toSwagger(state.props));
+  return Object.freeze(completeState);
 };
 
 /**
@@ -58,8 +64,8 @@ const License = {
   get isValid() {
     const requiredPropsAreValid =
       this.props
-        .filter(prop => prop.required)
-        .every(prop => prop.isValid);
+        .filter(prop => prop.isRequired())
+        .every(prop => prop.isValid());
 
     if (!requiredPropsAreValid) {
       return requiredPropsAreValid;
@@ -67,8 +73,8 @@ const License = {
 
     const remainingPropsAreValid =
       this.props
-        .filter(props => !props.required && !!props.value)
-        .every(prop => prop.isValid);
+        .filter(props => !props.isRequired() && !!props.value)
+        .every(prop => prop.isValid());
 
     return remainingPropsAreValid;
   },

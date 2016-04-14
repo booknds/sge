@@ -1,16 +1,17 @@
 import test from 'ava';
-import { validate, getProp, getProperty } from './helpers';
+import { validate, getProperty } from './helpers';
+import Property from '../property/property';
 
 /**
  *  Test validate()
  */
-test('validate() should reject a null value', t => {
-  t.false(validate(null));
+test('validate() should reject a undefined value', t => {
+  t.false(validate(undefined));
 });
 
 test('validate() should reject an object that is not valid itself', t => {
-  t.false(validate({ get isValid() { return false; } }));
-  t.true(validate({ get isValid() { return true; } }));
+  t.false(validate({ isValid() { return false; } }));
+  t.true(validate({ isValid() { return true; } }));
 });
 
 test('validate() should reject an empty array', t => {
@@ -29,14 +30,6 @@ test('validate should reject a falsy value', t => {
   t.true(validate(true));
 });
 
-/**
- * Test getProp()
- */
-test('getProp should return a helper function to be passed to an arrays filter function', t => {
-  const getName = getProp('title');
-  t.true(getName({ key: 'title' }));
-});
-
 test.todo('toSwagger()');
 // , t => {
 //   const props = [];
@@ -45,16 +38,8 @@ test.todo('toSwagger()');
 
 test('getProperty', t => {
   const state = [
-    {
-      key: 'title',
-      value: 'Spidey',
-      get required() { return true; },
-    },
-    {
-      key: 'name',
-      value: 'Pete',
-      get required() { return false;},
-    },
+    Property('title', 'Spidey'),
+    Property('name', 'Petey'),
   ];
 
   t.true(getProperty(state, 'title') === state[0]);

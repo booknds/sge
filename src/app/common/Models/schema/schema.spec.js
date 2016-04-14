@@ -21,7 +21,7 @@ test('schema object should get properties inherited from schema base objects', t
   const schemaProps = schema.getAllProps();
 
   t.true(schemaProps.every(prop => (
-    propsThatShouldBeOnSchemaObject.indexOf(prop.key) > -1
+    propsThatShouldBeOnSchemaObject.indexOf(prop.getKey()) > -1
   )));
 });
 

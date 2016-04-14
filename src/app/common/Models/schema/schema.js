@@ -1,7 +1,14 @@
-import createProperty from '../property/property';
+import Property from '../property/property';
 import Items from '../items/items';
-import SchemaBase from '../schemaBase/schemaBase';
-import { getProperty, toSwagger, createIsValid, getAllProps, combineProps } from '../utils/helpers';
+import
+  {
+    makeSetProperty,
+    getProperty,
+    toSwagger,
+    createIsValid,
+    getAllProps,
+    combineProps,
+  } from '../utils/helpers';
 
 /**
  * createItems - A factory function to create Items Objects in accordance
@@ -11,26 +18,22 @@ import { getProperty, toSwagger, createIsValid, getAllProps, combineProps } from
  * @return {Object}           an Items Object
  */
 export default function Schema() {
-  const schemaBase = SchemaBase();
-  const props = combineProps(schemaBase.getAllProps(), [
-    createProperty('type'),
-    createProperty('items', null, itemsRequiredCondionally, checkItemsObjectValidity),
-    createProperty('$ref'),
-    createProperty('title'),
-    createProperty('allOf'),
-    createProperty('properties'),
-    createProperty('additionalProperties'),
-    createProperty('discriminator'),
-    createProperty('readOnly'),
-    createProperty('xml'),
-    createProperty('externalDocs'),
-    createProperty('example'),
-  ]);
+  const items = Items();
+  const props = combineProps(items.getAllProps(),
+    [
+      Property('$ref'),
+      Property('title'),
+      Property('allOf'),
+      Property('properties'),
+      Property('additionalProperties'),
+      Property('discriminator'),
+      Property('readOnly'),
+      Property('xml'),
+      Property('externalDocs'),
+      Property('example'),
+    ]);
 
   const stateMethods = {
-    setType(value) {
-      getProperty(props, 'type').value = value;
-    },
     setRef(value) {
       getProperty(props, '$ref').value = value;
     },
@@ -61,54 +64,19 @@ export default function Schema() {
     setExample(value) {
       getProperty(props, 'example').value = value;
     },
-    createItemsProp(newType) {
-      const itemsProp = getProperty(props, 'items');
-
-      if (!!newType) {
-        itemsProp.value = Items(newType);
-      } else {
-        itemsProp.value = Items();
-      }
-    },
   };
 
   const completeState = Object.assign(
     {},
-    schemaBase,
+    items,
     toSwagger(props),
     createIsValid(props),
     getAllProps(props),
+    makeSetProperty(props),
     stateMethods
   );
 
+  console.log(completeState);
+
   return Object.freeze(completeState);
-  // return completeState;
-
-/* ///////////////////////////////////////////////////////
-   * Helper Functions /////////////////////////////////////
-   ///////////////////////////////////////////////////// */
-
-  /**
-   * validItemsProperty - custom validator for Items Object's items property
-   *
-   * @return {boolean} - returns true if items property is not null and is itself valid
-   */
-  function checkItemsObjectValidity() {
-    const itemsProp = getProperty(props, 'items');
-    if (itemsProp.value) {
-      return itemsProp.value.isValid();
-    }
-
-    return false;
-  }
-
-  /**
-   * itemsRequiredCondionally - the items property is required by the
-   *    Items object conditioned upon the type property's value
-   *
-   * @return {boolean} - returns true if the type proerty is 'array'
-   */
-  function itemsRequiredCondionally() {
-    return getProperty(props, 'type').value === 'array';
-  }
 }

@@ -1,7 +1,7 @@
 import { flatten } from 'lodash';
 
 export const validate = value => {
-  if (value === null) {
+  if (typeof value === 'undefined') {
     return false;
   }
 
@@ -11,26 +11,23 @@ export const validate = value => {
 
   switch (typeof value) {
     case 'object':
-      return value.isValid;
+      return value.isValid();
     default:
       return !!value;
   }
 };
 
-export const getProp =
-  name =>
-    prop => prop.key === name;
-
 export const getProperty = (props, propName) =>
-  props.find(prop => prop.key === propName);
+  props.find(prop => prop.getKey() === propName);
 
 export const toSwagger = props => (
   {
     swaggerify: () => (
-      props.filter(prop => prop.isValid)
+      props
+        .filter(prop => prop.isValid())
         .reduce((minimalInfo, prop) => {
           const minimal = minimalInfo;
-          minimal[prop.key] = prop.value;
+          minimal[prop.getKey()] = prop.value;
           return minimal;
         }, {})
     ),
@@ -41,14 +38,21 @@ export const createIsValid = props => (
   {
     isValid() {
       const requiredPropsAreValid = props
-        .filter(prop => prop.required)
-        .every(prop => prop.isValid);
-
+        .filter(prop => prop.isRequired())
+        .every(prop => prop.isValid());
       const restAreValid = props
-        .filter(prop => !prop.required && prop.value !== null)
-        .every(prop => prop.isValid);
+        .filter(prop => !prop.isRequired() && typeof prop.value !== 'undefined')
+        .every(prop => prop.isValid());
 
       return (requiredPropsAreValid && restAreValid);
+    },
+  }
+);
+
+export const makeSetProperty = props => (
+  {
+    setProperty(key, value = undefined) {
+      getProperty(props, key).value = value || undefined;
     },
   }
 );

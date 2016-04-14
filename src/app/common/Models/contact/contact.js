@@ -1,40 +1,34 @@
-import { getProp, toSwagger } from '../utils/helpers';
-import property from '../property/property.js';
+import Property from '../property/property.js';
+import { toSwagger, makeSetProperty, getAllProps } from '../utils/helpers';
 
 /**
  * @return {Object} - a contact object as per the OpenAPI specification
  */
 export default () => {
-  const state = {
-    props: [
-      property('name'),
-      property('url'),
-      property('email'),
-    ],
+  const props =
+    [
+      Property('name'),
+      Property('url'),
+      Property('email'),
+    ];
 
-    set name(value) {
-      state.props.find(getProp('name')).value = value || null;
-    },
-
-    set url(value) {
-      state.props.find(getProp('url')).value = value || null;
-    },
-
-    set email(value) {
-      state.props.find(getProp('email')).value = value || null;
-    },
-
-    get isValid() {
+  const stateMethods = {
+    isValid() {
       const propsAreValid =
-        state.props
-          .filter(props => props.value !== null)
-          .every(prop => prop.isValid);
+        props
+          .filter(prop => prop.value)
+          .every(prop => prop.isValid());
 
       return propsAreValid;
     },
   };
 
-  return Object.assign(
-    state,
-    toSwagger(state.props));
+  const completeState = Object.assign(
+    toSwagger(props),
+    makeSetProperty(props),
+    getAllProps(props),
+    stateMethods
+  );
+
+  return Object.freeze(completeState);
 };

@@ -17,7 +17,7 @@ test('type property is required for an Items Object', t => {
 test('items property is required if the type is set to "array"', t => {
   items.setType('array');
   const itemsProp = getProperty(items.getAllProps(), 'items');
-  t.true(itemsProp.required);
+  t.true(itemsProp.isRequired());
 });
 
 test('Items object can validate', t => {

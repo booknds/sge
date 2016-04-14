@@ -1,6 +1,6 @@
 import test from 'ava';
 import createContact from './contact';
-import { getProp } from '../utils/helpers';
+import { getProperty } from '../utils/helpers';
 
 let contact;
 
@@ -9,44 +9,44 @@ test.beforeEach(() => {
 });
 
 test('contact should be able to set but not get a name', t => {
-  contact.name = 'Wade Wilson';
-  const prop = contact.props.find(getProp('name'));
+  contact.setProperty('name', 'Wade Wilson');
+  const prop = getProperty(contact.getAllProps(), 'name');
 
   t.true(prop.value === 'Wade Wilson');
   t.throws(contact.name);
 });
 
 test('contact should be able to set, but not get a url ', t => {
-  contact.url = 'deadpool.com';
-  const prop = contact.props.find(getProp('url'));
+  contact.setProperty('url', 'deadpool.com');
+  const prop = getProperty(contact.getAllProps(), 'url');
 
   t.true(prop.value === 'deadpool.com');
   t.throws(contact.url);
 
-  contact.url = '';
-  t.true(prop.value === null);
+  contact.setProperty('url', '');
+  t.true(typeof prop.value === 'undefined');
 });
 
 test('contact should be able to set but not get a email', t => {
-  contact.email = 'deadpool@chimichangas.com';
-  const prop = contact.props.find(getProp('email'));
+  contact.setProperty('email', 'deadpool@chimichangas.com');
+  const prop = getProperty(contact.getAllProps(), 'email');
 
   t.true(prop.value === 'deadpool@chimichangas.com');
   t.throws(contact.email);
 });
 
 test('contact property values should be set to null if passed in a faley value', t => {
-  contact.name = '';
-  contact.url = '';
-  contact.email = '';
+  contact.setProperty('name', '');
+  contact.setProperty('url', '');
+  contact.setProperty('email', '');
 
-  t.true(contact.props.every(prop => prop.value === null));
+  t.true(contact.getAllProps().every(prop => typeof prop.value === 'undefined'));
 });
 
 test('contact should validate if its properties are valid', t => {
-  contact.name = 'Wade Wilson';
-  t.true(contact.isValid);
+  contact.setProperty('name', 'Wade Wilson');
+  t.true(contact.isValid());
 
-  contact.name = '';
-  t.true(contact.isValid);
+  contact.setProperty('name', '');
+  t.true(contact.isValid());
 });

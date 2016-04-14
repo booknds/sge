@@ -27,7 +27,7 @@ test('grab all the properties of the schemaBase', t => {
   const schemaBaseProps = schemaBase.getAllProps();
 
   t.true(schemaBaseProps.every(prop => (
-    propsThatShouldBeOnSchemaBaseObject.indexOf(prop.key) > -1
+    propsThatShouldBeOnSchemaBaseObject.indexOf(prop.getKey()) > -1
   )));
 });
 
@@ -35,12 +35,12 @@ test('set any value of the schemaBase properties', t => {
   t.true(
     schemaBase
       .getAllProps()
-      .map(prop => (Property(prop.key, 'Keep your head up')))
+      .map(prop => (Property(prop.getKey(), 'Keep your head up')))
       .every(prop => (prop.value === 'Keep your head up')));
 
   t.true(schemaBase
     .getAllProps()
-    .map(prop => (Property(prop.key, 'Keep your head up'))).length === 15);
+    .map(prop => (Property(prop.getKey(), 'Keep your head up'))).length === 15);
 });
 
 test('should not be able to modify any properties on the schemaBase object', t => {
@@ -49,7 +49,6 @@ test('should not be able to modify any properties on the schemaBase object', t =
   );
 
   t.throws(
-    () =>
-    (schemaBase.getAllProps = () => ('I should not be able to modify this method'))()
+    () => (schemaBase.getAllProps = () => ('I should not be able to modify this method'))()
   );
 });

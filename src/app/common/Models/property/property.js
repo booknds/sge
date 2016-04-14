@@ -11,19 +11,19 @@ import { validate } from '../utils/helpers';
  *
  * @return {Object} - a property object
  */
-export default (key, value = null, required = () => false, fn = validate) => {
+export default (key, value = undefined, required = () => false, fn = validate) => {
   const _key = key;
   const _required = required;
 
   const state = {
     value,
-    get isValid() {
+    isValid() {
       return fn(state.value);
     },
-    get key() {
+    getKey() {
       return _key;
     },
-    get required() {
+    isRequired() {
       return _required();
     },
   };
