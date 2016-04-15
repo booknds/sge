@@ -7,6 +7,8 @@ import {
   makeSetProperty,
   createIsValid,
   toSwagger,
+  makeAddObjectProp,
+  makeRemoveObjectProp,
 } from '../utils/helpers';
 
 /**
@@ -32,30 +34,20 @@ export default (title = 'My Api', version = 'v1') => {
 
   const stateMethods = {
 
-    // set title(value) {
-    //   state.props.find(getProp('title')).value = value;
-    // },
-
-    // set version(value) {
-    //   state.props.find(getProp('version')).value = value;
-    // },
-
-    // set description(value) {
-    //   state.props.find(getProp('description')).value = value || null;
-    // },
-
-    // set termsOfService(value) {
-    //   state.props.find(getProp('termsOfService')).value = value || null;
-    // },
-
-    addObjectProp(propName) {
-      const objectProp = getProperty(props, propName);
-      objectProp.value = objectProp.value || factories[propName]();
+    set title(value) {
+      getProperty(props, 'title').value = value;
     },
 
-    removeObjectProp(propName) {
-      const objectProp = getProperty(props, propName);
-      objectProp.value = undefined;
+    set version(value) {
+      getProperty(props, 'version').value = value;
+    },
+
+    set description(value) {
+      getProperty(props, 'description').value = value || undefined;
+    },
+
+    set termsOfService(value) {
+      getProperty(props, 'termsOfService').value = value || undefined;
     },
 
     // isValid() {
@@ -74,6 +66,8 @@ export default (title = 'My Api', version = 'v1') => {
   const completeState = Object.assign(
     toSwagger(props),
     makeSetProperty(props),
+    makeAddObjectProp(props, factories),
+    makeRemoveObjectProp(props),
     getAllProps(props),
     createIsValid(props),
     stateMethods

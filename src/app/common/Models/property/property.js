@@ -26,6 +26,9 @@ export default (key, value = undefined, required = () => false, fn = validate) =
     isRequired() {
       return _required();
     },
+    setRequired(cb) {
+      _required = cb;
+    },
   };
 
   return state;

@@ -63,11 +63,11 @@ test('can create a contact object', t => {
 test('can remove licnese or contact objects', t => {
   info.addObjectProp('license');
   info.removeObjectProp('license');
-  t.ok(getProperty(info.getAllProps(), 'license'));
+  t.truthy(getProperty(info.getAllProps(), 'license'));
 
   info.addObjectProp('contact');
   info.removeObjectProp('contact');
-  t.ok(getProperty(info.getAllProps(), 'contact'));
+  t.truthy(getProperty(info.getAllProps(), 'contact'));
 });
 
 test('info should validate', t => {

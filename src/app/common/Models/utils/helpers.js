@@ -65,4 +65,27 @@ export const getAllProps = (...props) => (
   }
 );
 
+/**
+ * @param  {any} props
+ * @param  {any} factories
+ */
+export const makeAddObjectProp = (props, factories) => (
+  {
+    addObjectProp(propName) {
+      const objectProp = getProperty(props, propName);
+      objectProp.value = objectProp.value || factories[propName]();
+    },
+  });
+
+/**
+ * @param  {any} props
+ */
+export const makeRemoveObjectProp = (props) => (
+  {
+    removeObjectProp(propName) {
+      const objectProp = getProperty(props, propName);
+      objectProp.value = undefined;
+    },
+  });
+
 export const combineProps = (...props) => flatten(props);
