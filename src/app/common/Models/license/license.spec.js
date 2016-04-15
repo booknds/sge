@@ -1,12 +1,18 @@
 import test from 'ava';
 import License from './license';
 
+// ----------------------------------------------
+// Set up Tests
+// ----------------------------------------------
 let license;
 
 test.beforeEach(() => {
   license = License();
 });
 
+// ----------------------------------------------
+// Tests
+// ----------------------------------------------
 test('license is valid if it has a name', t => {
   t.false(license.isValid());
 

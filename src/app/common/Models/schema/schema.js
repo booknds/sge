@@ -76,7 +76,5 @@ export default function Schema() {
     stateMethods
   );
 
-  console.log(completeState);
-
   return Object.freeze(completeState);
 }

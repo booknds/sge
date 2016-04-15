@@ -1,7 +1,13 @@
 import license from '../license/license';
 import contact from '../contact/contact';
 import property from '../property/property';
-import { getProperty, getAllProps, makeSetProperty, createIsValid, toSwagger } from '../utils/helpers';
+import {
+  getProperty,
+  getAllProps,
+  makeSetProperty,
+  createIsValid,
+  toSwagger,
+} from '../utils/helpers';
 
 /**
  * Info Object Factory

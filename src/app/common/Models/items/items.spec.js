@@ -2,12 +2,18 @@ import test from 'ava';
 import createItems from './items';
 import { getProperty } from '../utils/helpers';
 
+// ----------------------------------------------
+// Set up Tests
+// ----------------------------------------------
 let items;
 
 test.beforeEach(() => {
   items = createItems();
 });
 
+// ----------------------------------------------
+// Tests
+// ----------------------------------------------
 test('type property is required for an Items Object', t => {
   items.setType('string');
   const typeProp = getProperty(items.getAllProps(), 'type');
@@ -15,8 +21,9 @@ test('type property is required for an Items Object', t => {
 });
 
 test('items property is required if the type is set to "array"', t => {
-  items.setType('array');
   const itemsProp = getProperty(items.getAllProps(), 'items');
+  t.false(itemsProp.isRequired());
+  items.setType('array');
   t.true(itemsProp.isRequired());
 });
 

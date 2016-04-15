@@ -2,9 +2,9 @@ import test from 'ava';
 import { validate, getProperty } from './helpers';
 import Property from '../property/property';
 
-/**
- *  Test validate()
- */
+// ----------------------------------------------
+// Tests
+// ----------------------------------------------
 test('validate() should reject a undefined value', t => {
   t.false(validate(undefined));
 });

@@ -2,12 +2,18 @@ import test from 'ava';
 import createInfo from './info';
 import { getProperty } from '../utils/helpers';
 
+// ----------------------------------------------
+// Set up Tests
+// ----------------------------------------------
 let info;
 
 test.beforeEach(() => {
   info = createInfo();
 });
 
+// ----------------------------------------------
+// Tests
+// ----------------------------------------------
 test('info should only be able to set a title', t => {
   info.setProperty('title', 'Captain Planet');
   const titleProp = getProperty(info.getAllProps(), 'title');

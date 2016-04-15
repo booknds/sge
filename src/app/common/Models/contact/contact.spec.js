@@ -2,12 +2,18 @@ import test from 'ava';
 import createContact from './contact';
 import { getProperty } from '../utils/helpers';
 
+// ----------------------------------------------
+// Set up Tests
+// ----------------------------------------------
 let contact;
 
 test.beforeEach(() => {
   contact = createContact();
 });
 
+// ----------------------------------------------
+// Tests
+// ----------------------------------------------
 test('contact should be able to set but not get a name', t => {
   contact.setProperty('name', 'Wade Wilson');
   const prop = getProperty(contact.getAllProps(), 'name');
