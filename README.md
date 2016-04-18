@@ -1,11 +1,11 @@
 <p align="center">
   <a href="http://booknds.com">
-    <img height="257" width="372" src="https://s3-us-west-2.amazonaws.com/booknds.com/imgs/booknds_logo.png">
+    <img src="https://s3-us-west-2.amazonaws.com/booknds.com/imgs/booknds_logo.png">
   </a>
   <p align="center">A Swagger Graphical Editor</p>
 </p>
 
-[![version](]https://img.shields.io/npm/v/configuration-validator.svg?style=flat-square)(http://booknds.com)
+[![version](]https://img.shields.io/npm/v/configuration-validator.svg?style=flat-square)](http://booknds.com)
 
 ## What is Booknds?
   - **Spec Compliant** - Keeping up to date on the Swagger / OpenAPI spec
