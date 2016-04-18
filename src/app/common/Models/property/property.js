@@ -13,7 +13,7 @@ import { validate } from '../utils/helpers';
  */
 export default (key, value = undefined, required = () => false, fn = validate) => {
   const _key = key;
-  const _required = required;
+  let _required = required;
 
   const state = {
     value,

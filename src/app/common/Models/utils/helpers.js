@@ -27,7 +27,12 @@ export const toSwagger = props => (
         .filter(prop => prop.isValid())
         .reduce((minimalInfo, prop) => {
           const minimal = minimalInfo;
-          minimal[prop.getKey()] = prop.value;
+          if (typeof prop.value === 'object') {
+            minimal[prop.getKey()] = prop.value.swaggerify();
+          } else {
+            minimal[prop.getKey()] = prop.value;
+          }
+
           return minimal;
         }, {})
     ),

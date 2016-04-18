@@ -1,23 +1,41 @@
 import Property from '../property/property';
 import Schema from '../schema/schema';
-import SchemaBase from '../schemaBase/schemaBase';
-import { combineProps, toSwagger, createIsValid, getProperty } from '../utils/helpers';
+import Items from '../items/items';
+import {
+  combineProps,
+  getAllProps,
+  toSwagger,
+  createIsValid,
+  getProperty,
+  makeAddObjectProp,
+  makeRemoveObjectProp,
+  } from '../utils/helpers';
 
 /**
- *
+ * Parameter - Factory Function to create parameter objects;
  */
 export default function Parameter() {
-  const schemaProps = Schema().getAllProps();
+  const factories = {
+    items: Items,
+    schema: Schema,
+  };
+
+  const items = Items();
+  const itemProps = items.getAllProps();
   const inProp = Property('in', undefined, () => true);
-  const
-  const props =
+
+  getProperty(itemProps, 'type')
+    .setRequired(() => inProp.value !== 'body');
+
+  const props = combineProps(itemProps,
     [
-      Property('name', undefined, () => true),
       inProp,
+      Property('name', undefined, () => true),
       Property('description'),
-      Property('required'),
+      Property('required', undefined, () => inProp.value === 'path'),
       Property('schema', undefined, () => inProp.value === 'body'),
-    ];
+    ]
+  );
 
   const stateMethods = {
     setName(value) {
@@ -26,17 +44,22 @@ export default function Parameter() {
 
     setIn(value) {
       getProperty(props, 'in').value = value;
-
-      if (value === 'body') {
-        getProps
-      }
     },
+
+    setRequired(value) {
+      getProperty(props, 'required').value = value;
+    },
+
   };
 
   const completeState = Object.assign(
     {},
+    items,
     toSwagger(props),
     createIsValid(props),
+    getAllProps(props),
+    makeAddObjectProp(props, factories),
+    makeRemoveObjectProp(props, factories),
     stateMethods
   );
 
