@@ -5,7 +5,7 @@
   <p align="center">A Swagger Graphical Editor</p>
 </p>
 
-[![version](https://img.shields.io/npm/v/configuration-validator.svg?style=flat-square)](http://booknds.com)
+[![version](https://img.shields.io/badge/version-beta--0.6-yellowgreen.svg)](http://booknds.com)
 
 ## What is Booknds?
   - **Spec Compliant** - Keeping up to date on the Swagger / OpenAPI spec
