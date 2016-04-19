@@ -7,9 +7,9 @@ import { toSwagger, makeSetProperty, getAllProps } from '../utils/helpers';
 export default () => {
   const props =
     [
-      Property('name'),
-      Property('url'),
-      Property('email'),
+      Property({ key: 'name' }),
+      Property({ key: 'url' }),
+      Property({ key: 'email' }),
     ];
 
   const stateMethods = {

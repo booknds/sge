@@ -1,11 +1,11 @@
 import Property from '../property/property.js';
 import { getAllProps, toSwagger, createIsValid, makeSetProperty } from '../utils/helpers';
 
-export default (name = '') => {
+export default function License({ name = '' } = {}) {
   const props =
     [
-      Property('name', name, () => true),
-      Property('url'),
+      Property({ key: 'name', value: name, required: () => true }),
+      Property({ key: 'url' }),
     ];
 
   // const state = {
@@ -43,7 +43,7 @@ export default (name = '') => {
     makeSetProperty(props));
 
   return Object.freeze(completeState);
-};
+}
 
 /**
  * OLOO Pattern

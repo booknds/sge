@@ -43,7 +43,7 @@ p2.setName('id');
 p2.setIn('query');
 p2.setType('array');
 p2.createItemsProp('string');
-console.log(p2.swaggerify());
+// console.log(p2.swaggerify());
 
 test.skip('paramter objects correctly map to swagger objects', t => {
   parameter.setName('pet');

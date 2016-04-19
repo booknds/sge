@@ -22,10 +22,10 @@ export default function Response() {
   };
 
   const props = [
-    Property('description', undefined, () => true),
-    Property('schema'),
-    Property('headers'),
-    Property('examples'),
+    Property({ key: 'description', required: () => true }),
+    Property({ key: 'schema' }),
+    Property({ key: 'headers' }),
+    Property({ key: 'examples' }),
   ];
 
   const methods = {

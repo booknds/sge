@@ -1,6 +1,6 @@
 import license from '../license/license';
 import contact from '../contact/contact';
-import property from '../property/property';
+import Property from '../property/property';
 import {
   getProperty,
   getAllProps,
@@ -17,19 +17,19 @@ import {
  * @param  {string} title='' - title of the swagger document
  * @param  {string} version='' - version of the swagger document
  */
-export default (title = 'My Api', version = 'v1') => {
+export default ({ title = 'My Api', version = 'v1' } = {}) => {
   const factories = {
     license,
     contact,
   };
 
   const props = [
-    property('title', title, () => true),
-    property('version', version, () => true),
-    property('description'),
-    property('termsOfService'),
-    property('contact'),
-    property('license'),
+    Property({ key: 'title', value: title, required: () => true }),
+    Property({ key: 'version', value: version, required: () => true }),
+    Property({ key: 'description' }),
+    Property({ key: 'termsOfService' }),
+    Property({ key: 'contact' }),
+    Property({ key: 'license' }),
   ];
 
   const stateMethods = {

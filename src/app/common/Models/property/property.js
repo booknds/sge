@@ -11,8 +11,7 @@ import { validate } from '../utils/helpers';
  *
  * @return {Object} - a property object
  */
-export default (key, value = undefined, required = () => false, fn = validate) => {
-  const _key = key;
+export default function Property({ key, value = undefined, required = () => false, fn = validate } = {}) {
   let _required = required;
 
   const state = {
@@ -21,7 +20,7 @@ export default (key, value = undefined, required = () => false, fn = validate) =
       return fn(state.value);
     },
     getKey() {
-      return _key;
+      return key;
     },
     isRequired() {
       return _required();
@@ -32,4 +31,4 @@ export default (key, value = undefined, required = () => false, fn = validate) =
   };
 
   return state;
-};
+}

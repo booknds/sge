@@ -38,8 +38,8 @@ test.todo('toSwagger()');
 
 test('getProperty', t => {
   const state = [
-    Property('title', 'Spidey'),
-    Property('name', 'Petey'),
+    Property({ key: 'title', value: 'Spidey' }),
+    Property({ key: 'name', value: 'Petey' }),
   ];
 
   t.true(getProperty(state, 'title') === state[0]);

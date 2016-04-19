@@ -21,16 +21,16 @@ export default function Schema() {
   const items = Items();
   const props = combineProps(items.getAllProps(),
     [
-      Property('$ref'),
-      Property('title'),
-      Property('allOf'),
-      Property('properties'),
-      Property('additionalProperties'),
-      Property('discriminator'),
-      Property('readOnly'),
-      Property('xml'),
-      Property('externalDocs'),
-      Property('example'),
+      Property({ key: '$ref' }),
+      Property({ key: 'title' }),
+      Property({ key: 'allOf' }),
+      Property({ key: 'properties' }),
+      Property({ key: 'additionalProperties' }),
+      Property({ key: 'discriminator' }),
+      Property({ key: 'readOnly' }),
+      Property({ key: 'xml' }),
+      Property({ key: 'externalDocs' }),
+      Property({ key: 'example' }),
     ]);
 
   const stateMethods = {

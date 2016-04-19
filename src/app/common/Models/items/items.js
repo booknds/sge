@@ -1,4 +1,4 @@
-import createProperty from '../property/property';
+import Property from '../property/property';
 import SchemaBase from '../schemaBase/schemaBase';
 import { getProperty, toSwagger, createIsValid, getAllProps, combineProps } from '../utils/helpers';
 
@@ -9,10 +9,14 @@ import { getProperty, toSwagger, createIsValid, getAllProps, combineProps } from
  * @param  {String} type = '' the value for the Items Object's type property
  * @return {Object}           an Items Object
  */
-export default function Items(type = '') {
+export default function Items({ type = '' } = {}) {
   const schemaBase = SchemaBase();
-  const typeProp = createProperty('type', type, () => true);
-  const itemsProp = createProperty('items', undefined, () => (typeProp.value === 'array'));
+  const typeProp = Property(
+    { key: 'type',
+    value: type,
+    required: () => true });
+
+  const itemsProp = Property({ key: 'items', required: () => (typeProp.value === 'array') });
   const props = combineProps(
     schemaBase.getAllProps(),
     [
@@ -31,7 +35,7 @@ export default function Items(type = '') {
 
     createItemsProp(newType) {
       if (!!newType) {
-        itemsProp.value = Items(newType);
+        itemsProp.value = Items({ type: newType });
       } else {
         itemsProp.value = Items();
       }

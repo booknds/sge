@@ -35,12 +35,12 @@ test('set any value of the schemaBase properties', t => {
   t.true(
     schemaBase
       .getAllProps()
-      .map(prop => (Property(prop.getKey(), 'Keep your head up')))
+      .map(prop => (Property({ key: prop.getKey(), value: 'Keep your head up' })))
       .every(prop => (prop.value === 'Keep your head up')));
 
   t.true(schemaBase
     .getAllProps()
-    .map(prop => (Property(prop.getKey(), 'Keep your head up'))).length === 15);
+    .map(prop => (Property({ key: prop.getKey(), value: 'Keep your head up' }))).length === 15);
 });
 
 test('should not be able to modify any properties on the schemaBase object', t => {

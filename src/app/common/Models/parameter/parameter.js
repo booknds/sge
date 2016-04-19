@@ -22,7 +22,7 @@ export default function Parameter() {
 
   const items = Items();
   const itemProps = items.getAllProps();
-  const inProp = Property('in', undefined, () => true);
+  const inProp = Property({ key: 'in', required: () => true });
 
   getProperty(itemProps, 'type')
     .setRequired(() => inProp.value !== 'body');
@@ -30,10 +30,10 @@ export default function Parameter() {
   const props = combineProps(itemProps,
     [
       inProp,
-      Property('name', undefined, () => true),
-      Property('description'),
-      Property('required', undefined, () => inProp.value === 'path'),
-      Property('schema', undefined, () => inProp.value === 'body'),
+      Property({ key: 'name', required: () => true }),
+      Property({ key: 'description' }),
+      Property({ key: 'required', required: () => inProp.value === 'path' }),
+      Property({ key: 'schema', required: () => inProp.value === 'body' }),
     ]
   );
 

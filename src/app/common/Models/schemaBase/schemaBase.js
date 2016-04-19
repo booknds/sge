@@ -10,21 +10,21 @@ import { getAllProps } from '../utils/helpers';
  */
 export default function SchemaBase() {
   const props = [
-    Property('format'),
-    Property('collectionFormat'),
-    Property('default'),
-    Property('maximum'),
-    Property('exclusiveMaximum'),
-    Property('minimum'),
-    Property('exclusiveMinimum'),
-    Property('maxLength'),
-    Property('minLength'),
-    Property('pattern'),
-    Property('maxItems'),
-    Property('minItems'),
-    Property('uniqueItems'),
-    Property('enum'),
-    Property('multipleOf'),
+    Property({ key: 'format' }),
+    Property({ key: 'collectionFormat' }),
+    Property({ key: 'default' }),
+    Property({ key: 'maximum' }),
+    Property({ key: 'exclusiveMaximum' }),
+    Property({ key: 'minimum' }),
+    Property({ key: 'exclusiveMinimum' }),
+    Property({ key: 'maxLength' }),
+    Property({ key: 'minLength' }),
+    Property({ key: 'pattern' }),
+    Property({ key: 'maxItems' }),
+    Property({ key: 'minItems' }),
+    Property({ key: 'uniqueItems' }),
+    Property({ key: 'enum' }),
+    Property({ key: 'multipleOf' }),
   ];
 
   const completeState = Object.assign(

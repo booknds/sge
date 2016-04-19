@@ -1,5 +1,5 @@
 import test from 'ava';
-import createProperty from './property';
+import Property from './property';
 
 // ----------------------------------------------
 // Set up Tests
@@ -7,7 +7,7 @@ import createProperty from './property';
 let property;
 
 test.beforeEach(() => {
-  property = createProperty('name');
+  property = Property({ key: 'name' });
 });
 
 // ----------------------------------------------
