@@ -11,13 +11,13 @@ import { validate } from '../utils/helpers';
  *
  * @return {Object} - a property object
  */
-export default function Property({ key, value = undefined, required = () => false, fn = validate } = {}) {
+export default function Property({ key, value = undefined, required = () => false, validIf = validate } = {}) {
   let _required = required;
 
   const state = {
     value,
     isValid() {
-      return fn(state.value);
+      return validIf(state.value);
     },
     getKey() {
       return key;
