@@ -45,8 +45,10 @@ export const createIsValid = props => (
       const requiredPropsAreValid = props
         .filter(prop => prop.isRequired())
         .every(prop => prop.isValid());
+
       const restAreValid = props
         .filter(prop => !prop.isRequired() && typeof prop.value !== 'undefined')
+        .filter(prop => Array.isArray(prop.value) && !!prop.value.length)
         .every(prop => prop.isValid());
 
       return (requiredPropsAreValid && restAreValid);
