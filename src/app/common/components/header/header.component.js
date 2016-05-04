@@ -1,11 +1,18 @@
-import template from "./header.html";
+import template from './header.html';
+import controller from './header.controller.js';
+
 
 /**
  */
-export default function headerComponent() {
-    return {
-        template,
-        replace: true,
-        restrict: "E"
-    };
-}
+const headerComponent = () => {
+  console.log(controller);
+  return {
+    template,
+    controller,
+    controllerAs: 'header',
+    restrict: 'E',
+  }
+};
+
+export default headerComponent;
+
