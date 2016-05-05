@@ -1,4 +1,10 @@
 
+body {
+  display: flex;
+  flex: 1;
+}
+
+
 @keyframes appear {
   from {
     opacity: 0;
