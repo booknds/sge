@@ -23,11 +23,11 @@ module.exports = {
   },
   module: {
     preLoaders: [
-      {
-        test: /\.jsx?$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/,
-      },
+//      {
+//        test: /\.jsx?$/,
+//        loader: 'eslint-loader',
+//        exclude: /node_modules/,
+//      },
     ],
     loaders: [
           // {

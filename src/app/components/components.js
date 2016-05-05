@@ -1,23 +1,7 @@
-import angular from "angular";
-import Main from "./main/main";
-import Modals from "./modals/modals";
-import Info from "./info/info";
-import Paths from "./paths/paths";
-import Operation from "./operation/operation";
-import Parameter from "./parameter/parameter";
-import Response from "./response/response";
-import Definitions from "./definitions/definitions";
+import HeaderNav from './HeaderNav/HeaderNav';
 
 export default angular
-    .module("app.components", [
-        Main.name,
-        Modals.name,
-        Info.name,
-        Paths.name,
-        Operation.name,
-        Parameter.name,
-        Response.name,
-        Definitions.name
-    ]);
+  .module('app.components', [
+    HeaderNav.name,
+  ]);
 
-// export default componentModule;

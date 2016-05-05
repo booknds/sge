@@ -4,6 +4,11 @@ body {
   flex: 1;
 }
 
+.app {
+  display: flex;
+  flex:1;
+}
+
 
 @keyframes appear {
   from {

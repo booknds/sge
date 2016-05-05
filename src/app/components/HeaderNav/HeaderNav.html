@@ -1,0 +1,29 @@
+<header style="background-color: #3F1C3E; display:flex; justify-content: space-between; align-items: center; min-height: 64px;">
+  <div class="logo-container ">
+    <svg class="hamburger" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve"><g><path d="M25.695,9.43c0,0.771-0.631,1.401-1.402,1.401H8.875c-0.771,0-1.402-0.63-1.402-1.401V7.152   c0-0.771,0.631-1.402,1.402-1.402h15.418c0.771,0,1.402,0.631,1.402,1.402V9.43z" fill="#515151"/><path d="M25.695,24.848c0,0.771-0.631,1.402-1.402,1.402H8.875c-0.771,0-1.402-0.631-1.402-1.402V22.57   c0-0.771,0.631-1.401,1.402-1.401h15.418c0.771,0,1.402,0.63,1.402,1.401V24.848z" fill="#515151"/><path d="M25.695,17.139c0,0.771-0.631,1.402-1.402,1.402H8.875c-0.771,0-1.402-0.631-1.402-1.402v-2.277   c0-0.771,0.631-1.402,1.402-1.402h15.418c0.771,0,1.402,0.631,1.402,1.402V17.139z" fill="#515151"/></g></svg>
+    <a href="http://www.booknds.com/" class="docs-logo" >
+      <img src="./dist/img/img-60c82a.svg" alt="" style="height:39px; width:208px;">
+      <!-- <h1 class="docs-logotype md-heading">Angular Material</h1> -->
+    </a>
+    <sub style="color:white"> A Swagger Graphical Editor</sub>
+  </div>
+  <nav>
+    <div class="dropdown" >
+
+      <button class="nav-btn nav-btn-main"> Import </button>
+      <div class="dropdown-content">
+        <button class="nav-btn nav-btn-dropdown" ng-repeat="import in header.import"> {{ import.option }} </button>
+      </div>
+    </div>
+
+    <div class="dropdown" >
+      <button class="nav-btn nav-btn-main"> Export </button>
+      <div class="dropdown-content">
+        <button class="nav-btn nav-btn-dropdown" ng-repeat="export in header.export"> {{ export.option }} </button>
+      </div>
+    </div>
+    <!---      <a href="https://github.com/booknds/sge/issues" style="display:flex; margin-left:10px;">
+      <img src="dist/img/img-df8a65.svg" style="height:40px;"/>
+    </a>-->
+  </nav>
+</header>
