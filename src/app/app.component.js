@@ -8,7 +8,7 @@ export default function appComponent() {
     template: (
       `<div style="display: flex; flex: 1; flex-direction: column">
           <header-nav></header-nav>
-          <sg-main></sg-main>
+          <main></main>
         </div>`),
     restrict: 'E',
   };

@@ -1,13 +1,24 @@
 
-.nav-btn {
+nav {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.logo-container > sub {
+  color: white;
+}
+
+nav .nav-btn {
   color: white;
   background-color: #3F1C3E;
   min-width: 150px;
   border: medium none;
 }
 
-.nav-btn-main {
+nav .nav-btn-main {
   min-height:64px;
+  text-transform: none;
 }
 
 .dropdown {
@@ -45,11 +56,6 @@
   min-height: 40px;
 }
 
-nav {
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
-}
 
 .logo-container {
   flex: 1;
