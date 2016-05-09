@@ -1,39 +1,53 @@
-<md-card>
+<md-card style="border-radius:3%;">
   <md-card-header style="padding: 0;">
-    <md-card-header-text style="color:white; background-color:#3F1C3E; justify-content: center; padding: 15px;">
-      <span class="md-title">Info API, 1.0.0</span>
+    <md-card-header-text style="display: block; position: relative; color:white; background-color:#3F1C3E; padding: 15px;">
+      <span class="md-title">{{info.info.title }} - {{ info.info.version}}</span>
+      <md-button class="md-fab" style="background-color: #70326E; position: absolute; right: 0;" aria-label="Eat cake">
+        <md-icon>
+          <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+          </svg>
+        </md-icon>
+      </md-button>
     </md-card-header-text>
   </md-card-header>
-  <!--<md-card-title>
-    <md-card-title-text>
-      <span class="md-headline">Card with image</span>
-      <span class="md-subhead">Large</span>
-    </md-card-title-text>
-  </md-card-title>-->
   <md-card-content style="flex-direction:column;">
-    <div>
-      <span> A whole bunch of text, blah blah blah, some data. How are you? I am well thank you.</span>
+    <div style="padding-left: 5px;"> {{ info.info.description }} </div>
+    <div ng-if="info.info.termsOfService" style="margin-top: 5px;">
+      <div class="md-subhead"><strong>Terms Of Service: </strong></div>
+      <div ng-if="!info.tosIsLink();"> {{ info.info.termsOfService }} </div>
+      <div ng-if="info.tosIsLink();"> <a ng-href="info.info.termsOfService"> {{ info.info.termsOfService }}</a> </div>
+    </div>
+    <div ng-if="info.info.license" style="margin-top: 5px;">
+      <div class="md-subhead"><strong>License: </strong></div>
+      <div><a ng-href="{{info.info.license.url}}"> {{ info.info.license.name }} </a> </div>
+    </div>
+  </md-card-content>
+  <md-card-footer ng-if="info.info.contact">
+    <div class="md-subhead">
+      <strong>Contact: </strong>
     </div>
     <div style="display: flex; flex-flow:row wrap;">
       <div style="display: flex; align-content:center;">
-        <span style="padding:2px;"> eric correia: </span>
-        <div>
-          <a href="mailto:google@google.com">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+        <span style="padding:2px;" ng-if="info.info.contact.name"> {{ info.info.contact.name }} </span>
+        <div ng-if="info.info.contact.email" style="padding-left: 3px;">
+          <a ng-href="mailto:{{ info.info.contact.email }}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#3F1C3E" height="24" viewBox="0 0 24 24" width="24">
               <path d="M0 0h24v24H0z" fill="none"/>
               <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
             </svg>
           </a>
         </div>
-        <div><a href="google.com">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
-          </svg></a>
+        <div ng-if="info.info.contact.url" style="padding-left: 3px;">
+          <a ng-href="{{ info.info.contact.url }}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#3F1C3E" height="24" viewBox="0 0 24 24" width="24">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
-  </md-card-content>
-  <md-card-actions layout="row" layout-align="end center">
-  </md-card-actions>
+  </md-card-footer>
 </md-card>
