@@ -1,8 +1,8 @@
-<md-card style="border-radius:3%;">
+<md-card style="min-width: 350px; border-radius:3%;">
   <md-card-header style="padding: 0;">
     <md-card-header-text style="display: block; position: relative; color:white; background-color:#3F1C3E; padding: 15px;">
       <span class="md-title">{{info.info.title }} - {{ info.info.version}}</span>
-      <md-button class="md-fab" style="background-color: #70326E; position: absolute; right: 0;" aria-label="Eat cake">
+      <md-button class="md-fab" style="background-color: #70326E; position: absolute; right: 0;" aria-label="Edit Swagger Info">
         <md-icon>
           <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 0h24v24H0z" fill="none"/>
@@ -23,31 +23,31 @@
       <div class="md-subhead"><strong>License: </strong></div>
       <div><a ng-href="{{info.info.license.url}}"> {{ info.info.license.name }} </a> </div>
     </div>
-  </md-card-content>
-  <md-card-footer ng-if="info.info.contact">
-    <div class="md-subhead">
-      <strong>Contact: </strong>
-    </div>
-    <div style="display: flex; flex-flow:row wrap;">
-      <div style="display: flex; align-content:center;">
-        <span style="padding:2px;" ng-if="info.info.contact.name"> {{ info.info.contact.name }} </span>
-        <div ng-if="info.info.contact.email" style="padding-left: 3px;">
-          <a ng-href="mailto:{{ info.info.contact.email }}">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="#3F1C3E" height="24" viewBox="0 0 24 24" width="24">
-              <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
-            </svg>
-          </a>
-        </div>
-        <div ng-if="info.info.contact.url" style="padding-left: 3px;">
-          <a ng-href="{{ info.info.contact.url }}">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="#3F1C3E" height="24" viewBox="0 0 24 24" width="24">
-              <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
-            </svg>
-          </a>
+    <div ng-if="info.info.contact" style="margin-top:5px;">
+      <div class="md-subhead">
+        <strong>Contact: </strong>
+      </div>
+      <div style="display: flex; flex-flow:row wrap;">
+        <div style="display: flex; align-content:center;">
+          <span style="padding:2px;" ng-if="info.info.contact.name"> {{ info.info.contact.name }} </span>
+          <div ng-if="info.info.contact.email" style="padding-left: 3px;">
+            <a ng-href="mailto:{{ info.info.contact.email }}">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="#3F1C3E" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
+              </svg>
+            </a>
+          </div>
+          <div ng-if="info.info.contact.url" style="padding-left: 3px;">
+            <a ng-href="{{ info.info.contact.url }}">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="#3F1C3E" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </md-card-footer>
+  </md-card-content>
 </md-card>

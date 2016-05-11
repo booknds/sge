@@ -5,12 +5,14 @@ export default function InfoViewCtrl() {
     version: '0.1',
     contact: {
       email: 'info@hkmconsultingllc.com',
+      name: 'Eric',
+      url: 'https://www.github.com/EricHenry',
     },
     termsOfService: 'http://helloreverb.com/terms/',
-   // license: {
-   //   name: 'Apache 2.0',
-   //   url: 'http://www.apache.org/licenses/LICENSE-2.0.html',
-   //  },
+    license: {
+      name: 'Apache 2.0',
+      url: 'http://www.apache.org/licenses/LICENSE-2.0.html',
+    },
   };
 
   this.tosIsLink = function tosIsLink() {
