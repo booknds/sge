@@ -1,0 +1,24 @@
+.booknds-card-view {
+  flex-direction: column;
+  position: relative;
+  padding: 0;
+}
+
+.path-content {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 50px 16px 16px;
+}
+
+.path-content:hover {
+  background-color: #E0E0E0;
+}
+
+
+md-card-content > .edit-button {
+  background-color: #70326E !important;
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+}
