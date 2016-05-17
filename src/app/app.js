@@ -1,13 +1,14 @@
-import Common from './common/common';
+// import Common from './common/common';
 import Components from './components/components';
 import appComponent from './app.component';
-import angularMaterialize from 'angular-materialize';
-import FileSaver from 'angular-file-saver';
+// import angularMaterialize from 'angular-materialize';
+// import FileSaver from 'angular-file-saver';
+import angular from 'angular';
 import AngularMaterial from 'angular-material';
 import AngularAnimate from 'angular-animate';
 import AngularAria from 'angular-aria';
 import AngularMessages from 'angular-messages';
-import AngularCookies from 'angular-cookies';
+// import AngularCookies from 'angular-cookies';
 // import AngularMocks from 'angular-mocks/ngMock';
 import 'angular-material/angular-material.css';
 import '../css/main.css';
@@ -17,19 +18,16 @@ import '../css/main.css';
 angular
   .module('SwaggerGraphicalEditor', [
     // 'ui.materialize',
-    angularMaterialize,
-    'ngFileSaver',
-    Common.name,
+    // angularMaterialize,
+    // 'ngFileSaver',
+   // Common.name,
     Components.name,
     AngularMaterial,
     AngularAnimate,
     AngularAria,
     AngularMessages,
     // AngularMocks,
-    AngularCookies,
-    // 'ngMaterial',
-    // 'ngAnimate',
-    // 'ngAria'
+    // AngularCookies,
   ])
 
   .directive('app', appComponent);

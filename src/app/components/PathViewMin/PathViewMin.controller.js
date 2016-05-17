@@ -14,12 +14,7 @@ function PathViewMinCtrl($scope) {
   };
 
   this.maximize = function maximize() {
-    testClick();
     $scope.$emit('maximize', true);
-  };
-
-  function testClick() {
-    console.log('check check');
   };
 }
 
