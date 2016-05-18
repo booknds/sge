@@ -1,31 +1,58 @@
-function InfoEditCtrl($scope) {
-  this.info = {
-    title: 'Access',
-    description: 'Booknds Access API is used to provide CRUD facilities to a Resource definition.',
-    version: '0.1',
-    contact: {
-      email: 'info@hkmconsultingllc.com',
-      name: 'Eric',
-      url: 'https://www.github.com/EricHenry',
-    },
-    termsOfService: 'http://helloreverb.com/terms/',
-    license: {
-      name: 'Apache 2.0',
-      url: 'http://www.apache.org/licenses/LICENSE-2.0.html',
-    },
+function InfoEditCtrl($ngRedux) {
+  this.editableInfo = {};
+
+  this.$onInit = () => {
+    this.editableInfo = Object.assign({}, this.info);
   };
 
-  this.submitInfo = function submitInfo() {
-    console.log('info submitted!');
-    $scope.$emit('toggleEdit', false);
+  const syncEditableInfo = () => {
+    this.editableInfo = Object.assign(angular.copy(this.info), this.editableInfo);
   };
 
-  this.tosIsLink = function tosIsLink() {
-    return /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(this.info.termsOfService);
+  this.addContact = function addContact() {
+    $ngRedux.dispatch({
+      type: 'ADD_CONTACT',
+      payload: true,
+    });
+//    syncEditableInfo();
+  };
+
+  this.addLicense = function addLicense() {
+    $ngRedux.dispatch({
+      type: 'ADD_LICENSE',
+      payload: true,
+    });
+//    syncEditableInfo();
+  };
+
+  this.deleteContact = function deleteContact() {
+    $ngRedux.dispatch({
+      type: 'DELETE_CONTACT',
+      payload: false,
+    });
+  };
+
+  this.deleteLicense = function deleteLicense() {
+    $ngRedux.dispatch({
+      type: 'DELETE_LICENSE',
+      payload: false,
+    });
+  };
+
+  this.submitInfo = function submitInfo(updatedInfo) {
+    $ngRedux.dispatch({
+      type: 'UPDATE_INFO',
+      payload: updatedInfo,
+    });
+
+    $ngRedux.dispatch({
+      type: 'TOGGLE_INFO_EDIT',
+      payload: false,
+    });
   };
 }
 
-InfoEditCtrl.$inject = ['$scope'];
+InfoEditCtrl.$inject = ['$ngRedux'];
 
 export default InfoEditCtrl;
 

@@ -22,22 +22,7 @@ module.exports = {
     chunks: true,
   },
   module: {
-    preLoaders: [
-//      {
-//        test: /\.jsx?$/,
-//        loader: 'eslint-loader',
-//        exclude: /node_modules/,
-//      },
-    ],
     loaders: [
-          // {
-            //    test: /\.js$/,
-            //    exclude: [/app\/lib/, /node_modules/],
-            //    loader: 'babel',
-            //    query:{
-            //        presets: ['es2015']
-            //    }
-            // },
       { test: /src.*\.js$/, loaders: ['ng-annotate'] },
       {
         test: /\.jsx?$/,

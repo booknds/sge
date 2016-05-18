@@ -1,3 +1,4 @@
+<pre><code>{{$ctrl | json}}</code></pre>
 <md-card style="min-width: 350px; border-radius:3%;">
   <md-card-header style="padding: 0;">
     <md-card-header-text style="display: block; position: relative; color:white; background-color:#3F1C3E; padding: 15px;">
@@ -5,20 +6,20 @@
 
     </md-card-header-text>
   </md-card-header>
-  <form name="infoForm" ng-submit="infoEdit.submitInfo();">
+  <form name="infoForm" ng-submit="$ctrl.submitInfo();">
   <md-card-content class="booknds-card-view">
     <div style="display: flex; flex-direction: column; padding: 16px 75px 16px 16px;">
       <div style="display: flex;">
         <md-input-container >
           <label> Title </label>
-          <input name="title" required ng-model="test.title"/>
+          <input name="title" required ng-model="$ctrl.info.title"/>
           <div ng-messages="infoForm.title.$error">
             <div ng-message="required">title is required.</div>
           </div>
         </md-input-container>
         <md-input-container>
           <label> Version </label>
-          <input name="version" required ng-model="test.version" />
+          <input name="version" required ng-model="$ctrl.info.version" />
           <div ng-messages="infoForm.version.$error">
             <div ng-message="required">version is required.</div>
           </div>
@@ -26,23 +27,85 @@
       </div>
       <md-input-container>
         <label>Description</label>
-        <textarea ng-model="test.description" rows=3></textarea>
+        <textarea ng-model="$ctrl.editableInfo.description" rows=3></textarea>
       </md-input-container>
       <md-input-container>
         <label>Terms Of Service</label>
-        <textarea ng-model="test.terms" rows=3></textarea>
+        <textarea ng-model="$ctrl.editableInfo.terms" rows=3></textarea>
       </md-input-container>
-      <div style="display: flex; flex-direction:column;">
-        <div style="display: flex; align-items: center;">
-          <div class="subhead">Contact</div>
-          <md-button ng-click="" class="md-flat" style="text-transform: none;">
+      <div ng-if="$ctrl.infoState.contact" style="display: flex; flex-direction: column;">
+        <div style="display: flex;">
+          <h4> Contact </h4>
+          <md-button ng-click="$ctrl.deleteContact();">
             <md-icon>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="36" viewBox="0 0 24 24" width="36">
-              <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+             <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
               </svg>
             </md-icon>
+            <md-tooltip>
+              Delete Contact
+            </md-tooltip>
+          </md-button>
+        </div>
+        <md-input-container>
+          <label> Name </label>
+          <input name="contactName" ng-model="$ctrl.editableInfo.contact.name" />
+        </md-input-container>
+        <md-input-container>
+          <label> Email </label>
+          <input name="contactEmail" type="email" ng-model="$ctrl.editableInfo.contact.email" />
+        </md-input-container>
+        <md-input-container>
+          <label> Url </label>
+          <input name="contactUrl" ng-model="$ctrl.editableInfo.contact.url" />
+        </md-input-container>
+      </div>
+       <div ng-if="$ctrl.infoState.license" style="display: flex; flex-direction: column;">
+         <div style="display:flex">
+           <h4> Licnese </h4>
+           <md-button ng-click="$ctrl.deleteLicense();">
+             <md-icon>
+               <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                 <path d="M0 0h24v24H0z" fill="none"/>
+               </svg>
+             </md-icon>
+             <md-tooltip>
+               Delete License
+             </md-tooltip>
+          </md-button>
+        </div>
+        <md-input-container>
+          <label> Name </label>
+          <input name="licenseName" required ng-model="$ctrl.editableInfo.license.name" />
+        </md-input-container>
+        <md-input-container>
+          <label> Url </label>
+          <input name="licenseUrl" type="email" ng-model="$ctrl.editableInfo.license.url" />
+        </md-input-container>
+      </div>
+      <div style="display: flex; flex-direction:column;">
+        <div style="display: flex; align-items: center;">
+          <md-button ng-click="$ctrl.addContact();" ng-hide="$ctrl.infoState.contact">
+            <md-icon>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+                  <path d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </md-icon>
             <md-tooltip>Add Contact</md-tooltip>
+          </md-button>
+          <md-button ng-click="$ctrl.addLicense();" ng-hide="$ctrl.infoState.license">
+            <md-icon>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+              </svg>
+            </md-icon>
+            <md-tooltip>
+              Add License
+            </md-tooltip>
           </md-button>
         </div>
       </div>

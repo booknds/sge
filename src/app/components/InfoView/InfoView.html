@@ -1,38 +1,38 @@
 <md-card style="min-width: 350px; border-radius:3%;">
   <md-card-header style="padding: 0;">
     <md-card-header-text style="display: block; position: relative; color:white; background-color:#3F1C3E; padding: 15px;">
-      <span class="md-title">{{info.info.title }} - {{ info.info.version}}</span>
+      <span class="md-title">{{$ctrl.info.title }} - {{$ctrl.info.version}}</span>
 
     </md-card-header-text>
   </md-card-header>
   <md-card-content style="flex-direction: column; position: relative;">
-    <div style="padding-left: 5px;"> {{ info.info.description }} </div>
-    <div ng-if="info.info.termsOfService" style="margin-top: 5px;">
+    <div style="padding-left: 5px;"> {{ $ctrl.info.description }} </div>
+    <div ng-if="$ctrl.info.termsOfService" style="margin-top: 5px;">
       <div class="md-subhead"><strong>Terms Of Service: </strong></div>
-      <div ng-if="!info.tosIsLink();"> {{ info.info.termsOfService }} </div>
-      <div ng-if="info.tosIsLink();"> <a ng-href="info.info.termsOfService"> {{ info.info.termsOfService }}</a> </div>
+      <div ng-if="!$ctrl.tosIsLink();"> {{ $ctrl.info.termsOfService }} </div>
+      <div ng-if="$ctrl.tosIsLink();"> <a ng-href="$ctrl.info.termsOfService"> {{ $ctrl.info.termsOfService }}</a> </div>
     </div>
-    <div ng-if="info.info.license" style="margin-top: 5px;">
+    <div ng-if="$ctrl.info.license" style="margin-top: 5px;">
       <div class="md-subhead"><strong>License: </strong></div>
-      <div><a ng-href="{{info.info.license.url}}"> {{ info.info.license.name }} </a> </div>
+      <div><a ng-href="{{$ctrl.info.license.url}}"> {{ $ctrl.info.license.name }} </a> </div>
     </div>
-    <div ng-if="info.info.contact" style="margin-top:5px;">
+    <div ng-if="$ctrl.info.contact" style="margin-top:5px;">
       <div class="md-subhead">
         <strong>Contact: </strong>
       </div>
       <div style="display: flex; flex-flow:row wrap;">
         <div style="display: flex; align-content:center;">
-          <span style="padding:2px;" ng-if="info.info.contact.name"> {{ info.info.contact.name }} </span>
-          <div ng-if="info.info.contact.email" style="padding-left: 3px;">
-            <a ng-href="mailto:{{ info.info.contact.email }}">
+          <span style="padding:2px;" ng-if="$ctrl.info.contact.name"> {{ $ctrl.info.contact.name }} </span>
+          <div ng-if="$ctrl.info.contact.email" style="padding-left: 3px;">
+            <a ng-href="mailto:{{ $ctrl.info.contact.email }}">
               <svg xmlns="http://www.w3.org/2000/svg" fill="#3F1C3E" height="24" viewBox="0 0 24 24" width="24">
                 <path d="M0 0h24v24H0z" fill="none"/>
                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
               </svg>
             </a>
           </div>
-          <div ng-if="info.info.contact.url" style="padding-left: 3px;">
-            <a ng-href="{{ info.info.contact.url }}">
+          <div ng-if="$ctrl.info.contact.url" style="padding-left: 3px;">
+            <a ng-href="{{ $ctrl.info.contact.url }}">
               <svg xmlns="http://www.w3.org/2000/svg" fill="#3F1C3E" height="24" viewBox="0 0 24 24" width="24">
                 <path d="M0 0h24v24H0z" fill="none"/>
                 <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <md-button ng-click="info.edit();"  class="md-fab" style="background-color: #70326E; position: absolute; right: 0; bottom: 5px;">
+    <md-button ng-click="$ctrl.infoEdit();"  class="md-fab" style="background-color: #70326E; position: absolute; right: 0; bottom: 5px;">
      <md-icon>
         <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0h24v24H0z" fill="none"/>
