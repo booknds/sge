@@ -5,17 +5,20 @@ function InfoContainerCtrl($ngRedux) {
 
   this.editInfo = editInfo;
 
-  function mapStateToCtrl(state) {
+  function mapStateToCtrl({ rootReducer }) {
+    const state = rootReducer;
+    console.log(state);
     return {
-      info: state[0].swaggerDefinition.info,
-      infoState: state[0].uiState.info,
+      info: state.readableDefinition.info,
+      editableInfo: state.editableDefinition.info,
+      infoState: state.uiState.info,
     };
   }
 
   function editInfo() {
     $ngRedux.dispatch({
       type: 'TOGGLE_INFO_EDIT',
-      payload: true,
+      edit: true,
     });
   }
 }

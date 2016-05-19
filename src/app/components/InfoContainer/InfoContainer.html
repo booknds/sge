@@ -1,11 +1,10 @@
-<pre><code>{{infoContainer | json}}</code></pre>
 <info-view
   ng-hide="infoContainer.infoState.edit"
   info="infoContainer.info"
   info-state="infoContainer.infoState"
   info-edit="infoContainer.editInfo"></info-view>
 <info-edit
-  ng-show="infoContainer.infoState.edit"
-  info="infoContainer.info"
+  ng-if="infoContainer.infoState.edit"
+  editable-info="infoContainer.editableInfo"
   info-state="infoContainer.infoState"></info-edit>
 

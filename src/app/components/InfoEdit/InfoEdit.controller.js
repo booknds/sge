@@ -1,12 +1,8 @@
 function InfoEditCtrl($ngRedux) {
-  this.editableInfo = {};
+ // this.editableInfo = {};
 
   this.$onInit = () => {
-    this.editableInfo = Object.assign({}, this.info);
-  };
-
-  const syncEditableInfo = () => {
-    this.editableInfo = Object.assign(angular.copy(this.info), this.editableInfo);
+   // this.editableInfo = Object.assign({}, this.info);
   };
 
   this.addContact = function addContact() {
@@ -14,6 +10,7 @@ function InfoEditCtrl($ngRedux) {
       type: 'ADD_CONTACT',
       payload: true,
     });
+
 //    syncEditableInfo();
   };
 
@@ -22,6 +19,7 @@ function InfoEditCtrl($ngRedux) {
       type: 'ADD_LICENSE',
       payload: true,
     });
+
 //    syncEditableInfo();
   };
 
@@ -30,6 +28,8 @@ function InfoEditCtrl($ngRedux) {
       type: 'DELETE_CONTACT',
       payload: false,
     });
+
+    // delete this.editableInfo.contact;
   };
 
   this.deleteLicense = function deleteLicense() {
@@ -37,6 +37,8 @@ function InfoEditCtrl($ngRedux) {
       type: 'DELETE_LICENSE',
       payload: false,
     });
+
+    // delete this.editableInfo.license;
   };
 
   this.submitInfo = function submitInfo(updatedInfo) {

@@ -1,8 +1,8 @@
 <md-card style="min-width: 350px; max-width: 350px; border-radius: 3%;">
   <md-card-header style="padding: 0;">
     <md-card-header-text style="flex-direction: row; justify-content: space-between; color:white; background-color:#3F1C3E; padding: 15px;">
-      <span class="md-title"> {{ pathMin.state.pathName }} </span>
-      <a style="cursor: pointer;">
+      <span class="md-title"><ng-transclude></ng-transclude></span>
+      <a style="cursor: pointer;" ng-click="$ctrl.deletePath($ctrl.pathName);">
         <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24">
           <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
@@ -11,7 +11,7 @@
     </md-card-header-text>
   </md-card-header>
   <md-card-content class="booknds-card-view">
-    <a class="path-content" ng-click="pathMin.maximize();">
+    <a class="path-content" ng-click="$ctrl.maximize($ctrl.pathName);">
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
           <path d="M0 0h24v24H0z" fill="none"/>
@@ -24,7 +24,7 @@
           <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
           <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
-        <div style="padding-top: 12px; padding-left: 7px;"> {{ pathMin.state.value.get.summary }} </div>
+        <div style="padding-top: 12px; padding-left: 7px;"> {{ $ctrl.path.get.summary }} </div>
       </div>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
@@ -41,7 +41,7 @@
         <span> Summary of a post method </span>
       </div>
     </a>
-    <md-button class="md-fab edit-button">
+    <md-button ng-click="$ctrl.editPath($ctrl.pathName);" class="md-fab edit-button">
      <md-icon>
         <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0h24v24H0z" fill="none"/>

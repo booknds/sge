@@ -1,0 +1,79 @@
+<pre><code>{{$ctrl | json}}</code></pre>
+<md-card style="min-width: 350px; border-radius:3%;">
+  <md-card-header style="padding: 0;">
+    <md-card-header-text style="display: block; position: relative; color:white; background-color:#3F1C3E; padding: 15px;">
+      <span class="md-title">Edit Path</span>
+
+    </md-card-header-text>
+  </md-card-header>
+  <form name="infoForm" ng-submit="$ctrl.submitInfo($ctrl.editableInfo);">
+  <md-card-content class="booknds-card-view">
+    <div style="display: flex; flex-flow: row wrap; padding-top:10px; padding-left: 10px; padding-right:70px; padding-bottom: 15px;">
+      <md-button style="background-color:#70326E;"
+        ng-click="$ctrl.addPostOperation($ctrl.pathName);"
+        ng-hide="$ctrl.pathState.operations.post">
+        <md-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+          </svg>
+        </md-icon>
+        <md-tooltip>
+          add post operation
+        </md-tooltip>
+      </md-button>
+      <md-button style="background-color:#70326E;"
+        ng-click="addGetOperation($ctrl.pathName);"
+        ng-hide="$ctrl.pathState.operations.get" >
+        <md-icon>
+          <svg style="align-self: center;" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+          </svg>
+        </md-icon>
+        <md-tooltip>
+          add get operation
+        </md-tooltip>
+      </md-button>
+      <md-button style="background-color:#70326E;"
+        ng-click="$ctrl.addPutOperation($ctrl.pathName);"
+        ng-hide="$ctrl.pathState.operations.put" >
+        <md-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+          </svg>
+        </md-icon>
+        <md-tooltip>
+          add update operation
+        </md-tooltip>
+      </md-button>
+      <md-button style="background-color:#70326E;"
+        ng-click="$ctrl.addDeleteOperation($ctrl.pathName);"
+        ng-hide="$ctrl.pathState.operations.delete" >
+        <md-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+          </svg>
+        </md-icon>
+        <md-tooltip>
+          add delete operation
+        </md-tooltip>
+      </md-button>
+    </div>
+    <Operation ng-repeat="(operation, operationData) in $ctrl.paths" operation-data="operationData">
+     {{operation}}
+    </Operation>
+
+    <md-button type="submit" class="md-fab edit-button">
+      <md-icon>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+        </svg>
+     </md-icon>
+    </md-button>
+  </md-card-content>
+  </form>
+</md-card>

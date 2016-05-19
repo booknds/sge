@@ -5,6 +5,7 @@ import InfoEdit from './InfoEdit/InfoEdit';
 import InfoContainer from './InfoContainer/InfoContainer';
 import PathViewMin from './PathViewMin/PathViewMin';
 import PathViewMax from './PathViewMax/PathViewMax';
+import PathEdit from './PathEdit/PathEdit';
 import PathContainer from './PathContainer/PathContainer';
 
 export default angular
@@ -17,5 +18,6 @@ export default angular
     PathViewMin.name,
     PathViewMax.name,
     PathContainer.name,
+    PathEdit.name,
   ]);
 

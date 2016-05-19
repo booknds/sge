@@ -4,7 +4,7 @@ import controller from './InfoEdit.controller';
 export default {
   bindings: {
     infoState: '<',
-    info: '<',
+    editableInfo: '<',
   },
   template,
   controller,

@@ -1,2 +1,25 @@
-<path-view-min ng-hide="pathContainer.max"></path-view-min>
-<path-view-max ng-show="pathContainer.max"></path-view-max>
+<pre><code>{{$ctrl | json}}</code></pre>
+<div style="display: flex; flex-flow: row wrap;"
+  ng-repeat="(pathName, pathValue) in $ctrl.paths">
+  <path-view-min
+    ng-hide="$ctrl.pathsState[pathName].maximize || $ctrl.pathsState[pathName].edit"
+    path="pathValue"
+    path-name="pathName"
+    maximize="$ctrl.maximize"
+    edit-path="$ctrl.editPath"
+    delete-path="$ctrl.deletePath">
+    {{pathName}}
+  </path-view-min>
+  <path-view-max
+    ng-show="$ctrl.pathsState[pathName].maximize && !$ctrl.pathsState[pathName].edit"
+    path="pathValue"
+    path-name="pathName"
+    minimize="$ctrl.minimize"
+    edit-path="$ctrl.editPath"
+    delete-path="$ctrl.deletePath" ></path-view-max>
+  <path-edit ng-if="$ctrl.pathsState[pathName].edit"></path-edit>
+  <path-edit
+    path="$ctrl.editablePaths[pathName]"
+    path-name="pathName"
+    path-state="$ctrl.pathsState[pathName]"></path-edit>
+</div>
