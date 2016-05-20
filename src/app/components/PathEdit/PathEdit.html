@@ -45,7 +45,7 @@
           </svg>
         </md-icon>
         <md-tooltip>
-          add update operation
+          add post operation
         </md-tooltip>
       </md-button>
       <md-button style="background-color:#70326E;"
@@ -62,9 +62,9 @@
         </md-tooltip>
       </md-button>
     </div>
-    <Operation ng-repeat="(operation, operationData) in $ctrl.paths" operation-data="operationData">
-     {{operation}}
-    </Operation>
+
+    <operation ng-repeat="(operation, operationData) in $ctrl.path" operation="operationData" operation-type="{{operation}}">
+    </operation>
 
     <md-button type="submit" class="md-fab edit-button">
       <md-icon>

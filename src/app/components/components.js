@@ -7,6 +7,7 @@ import PathViewMin from './PathViewMin/PathViewMin';
 import PathViewMax from './PathViewMax/PathViewMax';
 import PathEdit from './PathEdit/PathEdit';
 import PathContainer from './PathContainer/PathContainer';
+import Operation from './Operation/Operation';
 
 export default angular
   .module('app.components', [
@@ -19,5 +20,6 @@ export default angular
     PathViewMax.name,
     PathContainer.name,
     PathEdit.name,
+    Operation.name,
   ]);
 

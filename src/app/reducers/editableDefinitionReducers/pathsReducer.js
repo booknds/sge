@@ -2,8 +2,14 @@ const INITIAL_STATE = {
   '/defaultPath': {
     get: {
       summary: 'Click on the edit button to change this path!',
+      parameters: [],
     },
   },
+};
+
+const NEW_OPERATION = {
+  parameters: [],
+  responses: {},
 };
 
 function editablePathsReducer(state = INITIAL_STATE, action) {
@@ -17,28 +23,37 @@ function editablePathsReducer(state = INITIAL_STATE, action) {
       return newPaths;
     case 'ADD_GET_OPERATION':
       newPath = angular.copy(state[action.pathName], {});
-      newPath.get = {};
+      newPath.get = Object.assign({}, NEW_OPERATION);
 
       return Object.assign({}, state, { [action.pathName]: newPath });
 
     case 'ADD_POST_OPERATION':
       newPath = angular.copy(state[action.pathName], {});
-      newPath.post = {};
+      newPath.post = Object.assign({}, NEW_OPERATION);
 
       return Object.assign({}, state, { [action.pathName]: newPath });
 
     case 'ADD_PUT_OPERATION':
       newPath = angular.copy(state[action.pathName], {});
-      newPath.put = {};
+      newPath.put = Object.assign({}, NEW_OPERATION);
 
       return Object.assign({}, state, { [action.pathName]: newPath });
 
     case 'ADD_DELETE_OPERATION':
       newPath = angular.copy(state[action.pathName], {});
-      newPath.delete = {};
+      newPath.delete = Object.assign({}, NEW_OPERATION);
 
       return Object.assign({}, state, { [action.pathName]: newPath });
 
+    case 'ADD_RESPONSE':
+    case 'ADD_PARAMETER':
+      newPath = angular.copy(state[action.pathName], {});
+      console.log(state);
+      console.log(newPath);
+      console.log(action);
+      newPath[action.operation].parameters.push({ name: 'update me!' });
+
+      return Object.assign({}, state, { [action.pathName]: newPath });
 
     default:
       return state;
