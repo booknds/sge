@@ -1,4 +1,13 @@
 function OperationCtrl($ngRedux) {
+  const unsubscribe = $ngRedux.connect(mapStateToCtrl)(this);
+
+  function mapStateToCtrl({ rootReducer }) {
+    const state = rootReducer;
+    return {
+      definitions: Object.keys(state.readableDefinitions.definitions),
+    };
+  }
+
   this.$onInit = () => {
     this.pathName = this.path.pathName;
   };
