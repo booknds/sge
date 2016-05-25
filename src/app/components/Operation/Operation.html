@@ -1,24 +1,23 @@
-<pre><code>{{$ctrl | json}}</code></pre>
 <div style="display: flex; flex-flow: column nowrap; padding: 16px 50px 16px 16px;">
   <div style="display: flex; position: relative;">
     <a style="flex:1; cursor: pointer;"><h3> {{ $ctrl.operationType }} </h3></a>
-    <md-button style="position: absolute; right: 0; z-index: 20;"> 
+    <md-button style="position: absolute; right: 0; z-index: 20;">
       <md-icon>
         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
           <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path>
           <path d="M0 0h24v24H0z" fill="none"></path>
-        </svg>        
+        </svg>
       </md-icon>
       <md-tooltip>
         delete operation
       </md-tooltip>
     </md-button>
   </div>
-  <div style="display:flex; flex-flow: column nowrap; padding: 0px 10px 0px 10px;"> 
+  <div style="display:flex; flex-flow: column nowrap; padding: 0px 10px 0px 10px;">
     <md-input-container>
       <label> Summary </label>
       <input type="text" ng-model="$ctrl.operation.summary" />
-    </md-input-container> 
+    </md-input-container>
     <md-input-container>
       <label>Description</label>
       <textarea ng-model="$ctrl.operation.description" rows=3></textarea>
@@ -26,29 +25,59 @@
     <div style="display: flex flex-flow: column nowrap; position:relative;" >
       <h4> Parameters </h4>
       <div ng-repeat="parameter in $ctrl.operation.parameters track by $index" style="display: flex; flex-flow: column nowrap;">
-        {{$index}} 
-        <span style="display: flex; flex-flow: row nowrap;">
-          <md-input-container style="flex-basis: 50%">
+        <span style="display: flex; position: relative; flex-flow: row nowrap;">
+          <md-input-container style="">
             <label> name </label>
             <input type="text" ng-model="parameter.name" />
           </md-input-container>
-          <md-input-container style="flex-basis: 50%">
-            <label>in</label>
-            <md-select ng-model="parameter.in">
-              <md-option ng-repeat="type in $ctrl.in" value="{{type}}">
+          <md-checkbox style="display:flex; align-items: center;" ng-model="parameter.required" aria-label="{{parameter.name}} required checkbox">
+            required
+          </md-checkbox>
+          <md-button ng-click="$ctrl.deleteParameter();" style="position:absolute; right:0; z-index: 20;">
+            <md-icon>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path>
+                <path d="M0 0h24v24H0z" fill="none"></path>
+              </svg>
+            </md-icon>
+            <md-tooltip>
+              delete {{parameter.name}}
+            </md-tooltip>
+          </md-button>
+        </span>
+        <md-input-container>
+          <label>in</label>
+          <md-select ng-model="parameter.in">
+            <md-option ng-repeat="type in $ctrl.in" value="{{type}}">
+              {{type}}
+            </md-option>
+          </md-select>
+        </md-input-container >
+        <md-input-container>
+          <label>Description</label>
+          <textarea ng-model="parameter.description" rows=3></textarea>
+        </md-input-container>
+        <span ng-if="parameter.in === 'body'">
+          <md-input-container>
+            <label>Schema (defined in definitions)</label>
+            <md-select ng-model="parameter.schema.$ref">
+              <md-option ng-repeat="type in $ctrl.in" value="{{'#/definitions/' + type}}">
                 {{type}}
               </md-option>
             </md-select>
-          </md-input-container >  
+          </md-input-container >
+        </span>
+        <span ng-if="parameter.in !== 'body' && parameter.in !== ''">
+
         </span>
       </div>
-      <div style="display: flex; "> 
-        <md-button ng-click="$ctrl.addParameter($ctrl.pathName, $ctrl.operationType);" style="flex-grow: 1;  z-index: 20; background-color: #70326E"> 
+      <div style="display: flex; ">
+        <md-button ng-click="$ctrl.addParameter($ctrl.pathName, $ctrl.operationType);" style="flex-grow: 1;  z-index: 20; background-color: #70326E">
           <md-icon>
             <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                 <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>       
+            </svg>
           </md-icon>
           <md-tooltip>
             add parameter
@@ -58,7 +87,7 @@
     </div>
     <div style="display: flex flex-flow: column nowrap; position:relative;" >
       <h4> Responses </h4>
-      <div ng-repeat="(responseCode, response) in $ctrl.operation.responses" style="display: flex; flex-flow: column nowrap;">    
+      <div ng-repeat="(responseCode, response) in $ctrl.operation.responses" style="display: flex; flex-flow: column nowrap;">
         <span style="display: flex; flex-flow: row nowrap;">
           <md-input-container style="flex-basis: 50%">
             <label> http code </label>
@@ -67,16 +96,16 @@
           <md-input-container style="flex-basis: 50%">
             <label>description</label>
             <textarea ng-model="response.description"></textarea>h
-          </md-input-container >  
+          </md-input-container >
         </span>
       </div>
-      <div style="display: flex; "> 
-        <md-button ng-click="$ctrl.addResponse();" style="flex-grow: 1;  z-index: 20; background-color: #70326E"> 
+      <div style="display: flex; ">
+        <md-button ng-click="$ctrl.addResponse();" style="flex-grow: 1;  z-index: 20; background-color: #70326E">
           <md-icon>
             <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                 <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>       
+            </svg>
           </md-icon>
           <md-tooltip>
             add response

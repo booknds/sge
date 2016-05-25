@@ -51,7 +51,7 @@ function editablePathsReducer(state = INITIAL_STATE, action) {
       console.log(state);
       console.log(newPath);
       console.log(action);
-      newPath[action.operation].parameters.push({ name: 'update me!' });
+      newPath[action.operation].parameters.push({ name: 'update me!', required: false });
 
       return Object.assign({}, state, { [action.pathName]: newPath });
 
